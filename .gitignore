@@ -287,7 +287,6 @@ __pycache__/
 ########################################
 # Node.js                              #
 ########################################
-
 # Logs
 logs
 *.log
@@ -325,3 +324,9 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+########################################
+# Other                                #
+########################################
+*.ts
+typings/globals/node/typings.json
