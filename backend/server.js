@@ -23,8 +23,8 @@ http.createServer(function (req, res) {
 
     let filename = path.basename(req.url),
         ext = path.extname(filename),
-        localPath = path.normalize(process.cwd() + "/public/" + req.url),
-        fnfPage = path.normalize(process.cwd() + "/public/404.html");
+        localPath = path.normalize(process.cwd() + "/docs/" + req.url),
+        fnfPage = path.normalize(process.cwd() + "/docs/404.html");
 
     var readFile = function(err, content) {
 
