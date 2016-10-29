@@ -1,9 +1,0 @@
-{
-  "name": "watch-friends.backend",
-  "version": "0.0.0",
-  "description": "WatchFriends.Backend",
-  "main": "server.js",
-  "author": {
-    "name": "hein_"
-  }
-}
