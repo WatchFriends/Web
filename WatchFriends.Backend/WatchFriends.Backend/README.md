@@ -1,3 +1,0 @@
-﻿# WatchFriends.Backend
-
-
