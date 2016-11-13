@@ -11,7 +11,7 @@ let port = process.env.port || 8080,
         ".gif": "text/gif",
         ".png": "text/png",
         ".svg": "application/xml",
-        ".json": "text/json"
+        ".json": "application/json"
     };
 
 
@@ -23,8 +23,15 @@ http.createServer(function (req, res) {
 
     let filename = path.basename(req.url),
         ext = path.extname(filename),
-        localPath = path.normalize(process.cwd() + "/docs/" + req.url),
+        localPath = "",
         fnfPage = path.normalize(process.cwd() + "/docs/404.html");
+
+    if (req.url.startsWith("/data")) {
+        localPath = path.normalize(process.cwd() + req.url)
+    }
+    else {
+        localPath = path.normalize(process.cwd() + "/docs/" + req.url)
+    }
 
     var readFile = function(err, content) {
 
