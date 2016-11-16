@@ -16,6 +16,10 @@ const PATHS = {
         SRC: './bower_components/',
         DEST: './wwwroot/lib'
     },
+    FONTS: {
+        SRC: './app/fonts/',
+        DEST: './wwwroot/fonts'
+    },
     CSS: {
         SRC: './app/css/**/*.css',
         DEST: './wwwroot/css'
@@ -81,4 +85,9 @@ gulp.task("copy-externals", function () {
     // dist folder van bower_components nr lib in wwwroot kopieren
     gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
         .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+});
+
+gulp.task("copy-fonts", function () {
+    gulp.src(PATHS.FONTS.SRC + "*")
+        .pipe(gulp.dest(PATHS.FONTS.DEST));
 });
