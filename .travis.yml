@@ -7,6 +7,11 @@ install:
   - bower install bootstrap
   - bower install socket.io
 language: node_js
+script:
+  - gulp css
+  - gulp html-validate
+  - gulp js
+  - npm test
 node_js:
   - "6.9"
 before_script: 
