@@ -1,9 +1,9 @@
-﻿const http = require('http'),
+﻿/*const http = require('http'),
       fs = require('fs'),
       path = require('path'),
       app = require('express')(),
       server = http.Server(app),
-      io = require('socket.io')(http);
+      io = require('socket.io')(http);*/
 
 let port = process.env.port || 8080,
     extentions = {
