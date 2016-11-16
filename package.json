@@ -4,7 +4,7 @@
   "description": "Front-end and back-end project watchfriends",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "./backend/server.js"
+    "test": "node ./backend/server.js"
   },
   "repository": {
     "type": "git",
