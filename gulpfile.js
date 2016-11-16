@@ -8,7 +8,8 @@ var gulp = require("gulp"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
-    concat = require("gulp-concat");
+    concat = require("gulp-concat"),
+    sass = require("gulp-sass");
 
 
 const PATHS = {
@@ -16,9 +17,17 @@ const PATHS = {
         SRC: './bower_components/',
         DEST: './wwwroot/lib'
     },
+    FONTS: {
+        SRC: './app/fonts/',
+        DEST: './wwwroot/fonts'
+    },
     CSS: {
         SRC: './app/css/**/*.css',
         DEST: './wwwroot/css'
+    },
+    SASS: {
+        SRC: './app/sass/**/*.scss',
+        DEST: './app/css'
     },
     HTML: {
         SRC: './wwwroot/**/*.html'
@@ -31,9 +40,11 @@ const PATHS = {
 
 gulp.task("default", function () {
     var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']);
+    var sassWatcher = gulp.watch(PATHS.SASS.SRC, ['sass']);
     var cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']);
+    var jsWachter = gulp.watch(PATHS.JS.SRC, ['js']);
     cssWatcher.on('change', function (event) {
-        console.log("File: " + event.path + " was " + event.type);
+       console.log("File: " + event.path + " was " + event.type);
     });
 });
 
@@ -42,7 +53,6 @@ const AUTOPREFIXOPTIONS = {
 };
 
 gulp.task("css", function () {
-
     gulp.src(PATHS.CSS.SRC)
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
@@ -56,6 +66,12 @@ gulp.task("css", function () {
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(PATHS.CSS.DEST));
+});
+
+gulp.task("sass", function () {
+    gulp.src(PATHS.SASS.SRC)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(PATHS.SASS.DEST));
 });
 
 gulp.task("js", function () {
@@ -81,4 +97,9 @@ gulp.task("copy-externals", function () {
     // dist folder van bower_components nr lib in wwwroot kopieren
     gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
         .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+});
+
+gulp.task("copy-fonts", function () {
+    gulp.src(PATHS.FONTS.SRC + "*")
+        .pipe(gulp.dest(PATHS.FONTS.DEST));
 });
