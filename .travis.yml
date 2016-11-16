@@ -8,8 +8,9 @@ language: node_js
 node_js:
   - "6"
 before_script: 
-  - chmod 0777 ./node_modules/.bin/gulp
-  - chmod 0777 ./node_modules/.bin/bower
+  - chmod 0777 ./backend/server.js
+#  - chmod 0777 ./node_modules/.bin/gulp
+#  - chmod 0777 ./node_modules/.bin/bower
 cache:
   directories:
     - node_modules
