@@ -1,5 +1,5 @@
 sudo: true
-before_install:
+install:
   - npm install
   - npm install -g bower
   - bower install bootstrap
