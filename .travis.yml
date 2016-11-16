@@ -1,0 +1,10 @@
+sudo: false
+before_install:
+  - npm install -g bower
+  - bower install bootstrap
+  - bower install socket.io
+language: node_js
+node_js:
+  - "6"
+notifications:
+  irc: "irc.freenode.org#socket.io"

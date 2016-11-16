@@ -1,12 +1,12 @@
-﻿const http = require('http'),
+﻿const port = 8080,
+      http = require('http'),
       fs = require('fs'),
       path = require('path'),
-      app = require('express')(),
-      server = http.Server(app),
+      //app = require('express')(),
+      //server = http.listen(port),
       io = require('socket.io')(http);
 
-let port = process.env.port || 8080,
-    extentions = {
+let extentions = {
         ".html": "text/html",
         ".css": "text/css",
         ".js": "text/javascript",
@@ -74,7 +74,9 @@ http.createServer(function (req, res) {
         fs.stat(localPath, checkFile);
     }
 
-    io.on('connection', function(socket){
-        console.log('a user connected');
+    io.on('connection', function(socket){   
+        socket.on('vote', function(msg){
+            console.log('message: ' + msg);
+        });
     });
 }).listen(port);
