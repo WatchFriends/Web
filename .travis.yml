@@ -6,7 +6,7 @@ install:
   - bower install socket.io
 language: node_js
 node_js:
-  - "6"
+  - "6.9"
 before_script: 
   - chmod 0777 ./backend/server.js
 #  - chmod 0777 ./node_modules/.bin/gulp
