@@ -1,6 +1,9 @@
 ﻿const http = require('http'),
       fs = require('fs'),
-      path = require('path');
+      path = require('path'),
+      app = require('express')(),
+      server = http.Server(app),
+      io = require('socket.io')(http);
 
 let port = process.env.port || 8080,
     extentions = {
@@ -11,9 +14,14 @@ let port = process.env.port || 8080,
         ".gif": "text/gif",
         ".png": "text/png",
         ".svg": "application/xml",
-        ".json": "application/json"
+        ".json": "application/json",
+        ".woff": "application/x-font-woff",
+        ".eot": "application/vnd.ms-fontobject",
+        ".woff2": "application/font-woff2",
+        ".otf": "application/x-font-opentype",
+        ".ttf": "application/x-font-ttf",
+        ".ico": "image/x-icon"
     };
-
 
 http.createServer(function (req, res) {
 
@@ -65,4 +73,8 @@ http.createServer(function (req, res) {
     if (extentions[ext]) {
         fs.stat(localPath, checkFile);
     }
+
+    io.on('connection', function(socket){
+        console.log('a user connected');
+    });
 }).listen(port);
