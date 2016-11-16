@@ -1,0 +1,9 @@
+sudo: true
+install:
+  - npm install
+  - npm install -g bower
+  - bower install bootstrap
+  - bower install socket.io
+language: node_js
+node_js:
+  - "6"
