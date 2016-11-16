@@ -24,13 +24,13 @@ http.createServer(function (req, res) {
     let filename = path.basename(req.url),
         ext = path.extname(filename),
         localPath = "",
-        fnfPage = path.normalize(process.cwd() + "/wwwroot/404.html");
+        fnfPage = path.normalize(process.cwd() + "/docs/404.html");
 
     if (req.url.startsWith("/data")) {
         localPath = path.normalize(process.cwd() + req.url)
     }
     else {
-        localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url)
+        localPath = path.normalize(process.cwd() + "/docs/" + req.url)
     }
 
     var readFile = function(err, content) {
