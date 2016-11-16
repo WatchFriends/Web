@@ -8,7 +8,8 @@ var gulp = require("gulp"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
-    concat = require("gulp-concat");
+    concat = require("gulp-concat"),
+    sass = require("gulp-sass");
 
 
 const PATHS = {
@@ -24,6 +25,10 @@ const PATHS = {
         SRC: './app/css/**/*.css',
         DEST: './wwwroot/css'
     },
+    SASS: {
+        SRC: './app/sass/**/*.scss',
+        DEST: './app/css'
+    },
     HTML: {
         SRC: './wwwroot/**/*.html'
     },
@@ -35,10 +40,11 @@ const PATHS = {
 
 gulp.task("default", function () {
     var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']);
+    var sassWatcher = gulp.watch(PATHS.SASS.SRC, ['sass']);
     var cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']);
     var jsWachter = gulp.watch(PATHS.JS.SRC, ['js']);
     cssWatcher.on('change', function (event) {
-        console.log("File: " + event.path + " was " + event.type);
+       console.log("File: " + event.path + " was " + event.type);
     });
 });
 
@@ -47,7 +53,6 @@ const AUTOPREFIXOPTIONS = {
 };
 
 gulp.task("css", function () {
-
     gulp.src(PATHS.CSS.SRC)
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
@@ -61,6 +66,12 @@ gulp.task("css", function () {
         }))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(PATHS.CSS.DEST));
+});
+
+gulp.task("sass", function () {
+    gulp.src(PATHS.SASS.SRC)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(PATHS.SASS.DEST));
 });
 
 gulp.task("js", function () {
