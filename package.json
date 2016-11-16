@@ -1,0 +1,32 @@
+{
+  "name": "watchfriends",
+  "version": "0.0.0",
+  "description": "Front-end and back-end project watchfriends",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WatchFriends/Backend.git"
+  },
+  "author": "Hein P., Jasper D., Michiel V., Michiel Z.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WatchFriends/Backend/issues"
+  },
+  "homepage": "https://github.com/WatchFriends/Backend#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.1",
+    "gulp-csslint": "^1.0.0",
+    "gulp-htmlhint": "^0.3.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.0",
+    "jshint-stylish": "^2.2.1"
+  }
+}
