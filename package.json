@@ -28,5 +28,8 @@
     "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
     "jshint-stylish": "^2.2.1"
+  },
+  "dependencies": {
+    "socket.io": "^1.5.1"
   }
 }

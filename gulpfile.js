@@ -32,6 +32,7 @@ const PATHS = {
 gulp.task("default", function () {
     var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']);
     var cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']);
+    var jsWachter = gulp.watch(PATHS.JS.SRC, ['js']);
     cssWatcher.on('change', function (event) {
         console.log("File: " + event.path + " was " + event.type);
     });
