@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 #sudo: true
 install:
   - npm install
