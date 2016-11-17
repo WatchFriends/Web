@@ -1,6 +1,6 @@
 # :movie_camera: WatchFriends :movie_camera:
 
-<img src="https://travis-ci.org/WatchFriends/Backend.svg?branch=master" width="150" align="right" />
+<img src="https://travis-ci.org/WatchFriends/Web.svg?branch=master" width="150" align="right" />
 
 We are developing a platform on which people can track their series. This project is made as an assignment for the modules **Android Development**, Backend Webdevelopment en Frontend Webdevelopment (3<sup>rd</sup> year [NMCT][2]).
 
