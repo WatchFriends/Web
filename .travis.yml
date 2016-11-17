@@ -11,7 +11,8 @@ script:
   - gulp css
   - gulp html-validate
   - gulp js
-  - npm test
+  - gulp sass
+  #- npm test
 node_js:
   - "6.9"
 before_script: 
