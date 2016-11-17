@@ -89,8 +89,8 @@ gulp.task("js", function () {
 gulp.task("html-validate", function () {
     gulp.src(PATHS.HTML.SRC)
         .pipe(htmlhint('.htmlhintrc'))
-        .pipe(htmlhint.reporter("htmlhint-stylish"));
-    //.pipe(htmlhint.failReporter());
+        //.pipe(htmlhint.reporter("htmlhint-stylish"))
+        .pipe(htmlhint.failReporter());
 });
 
 gulp.task("copy-externals", function () {

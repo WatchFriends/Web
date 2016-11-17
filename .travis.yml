@@ -1,9 +1,18 @@
-sudo: true
 install:
   - npm install
-  - npm install -g bower
-  - bower install bootstrap
-  - bower install socket.io
 language: node_js
 node_js:
   - "6"
+  - npm install
+language: node_js
+script:
+  - gulp css
+  - gulp html-validate
+  - gulp js
+  - gulp sass
+node_js:
+  - "6.9"
+cache:
+  directories:
+    - node_modules
+    - bower_components

@@ -2,8 +2,6 @@
       http = require('http'),
       fs = require('fs'),
       path = require('path'),
-      //app = require('express')(),
-      //server = http.listen(port),
       io = require('socket.io')(http);
 
 let extentions = {
