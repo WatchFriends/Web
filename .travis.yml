@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+#sudo: true
+install:
+  - npm install
+  - npm install -g bower
+  #- npm install -g express
+  - bower install bootstrap
+  - bower install socket.io
+language: node_js
+script:
+  - gulp css
+  - gulp html-validate
+  - gulp js
+  - gulp sass
+  #- npm test
+node_js:
+  - "6.9"
+before_script: 
+  - chmod 0777 ./backend/server.js
+#  - chmod 0777 ./node_modules/.bin/gulp
+#  - chmod 0777 ./node_modules/.bin/bower
+cache:
+  directories:
+    - node_modules
+    - bower_components
