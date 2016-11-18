@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-#sudo: true
 install:
   - npm install
   - npm install -g bower
@@ -13,13 +11,8 @@ script:
   - gulp js
   - gulp sass
   - gulp node
-  #- npm test
 node_js:
   - "6.9"
-before_script: 
-  - chmod 0777 ./backend/server.js
-#  - chmod 0777 ./node_modules/.bin/gulp
-#  - chmod 0777 ./node_modules/.bin/bower
 cache:
   directories:
     - node_modules
