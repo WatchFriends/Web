@@ -12,6 +12,7 @@ script:
   - gulp html-validate
   - gulp js
   - gulp sass
+  - gulp node
   #- npm test
 node_js:
   - "6.9"
