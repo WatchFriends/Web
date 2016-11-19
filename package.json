@@ -4,7 +4,7 @@
   "description": "Front-end and back-end project watchfriends",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,12 @@
     "gulp-htmlhint": "^0.3.1",
     "gulp-jshint": "^2.0.4",
     "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
     "gulp-uglify": "^2.0.0",
     "jshint-stylish": "^2.2.1"
+  },
+  "dependencies": {
+    "socket.io": "^1.5.1"
   }
 }
