@@ -35,14 +35,19 @@ const PATHS = {
     JS: {
         SRC: "./app/js/**/*.js",
         DEST: "./wwwroot/js"
+    },
+    NODE: {
+        SRC: "./backend/**/*.js"
     }
 };
 
 gulp.task("default", function () {
-    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']);
-    var sassWatcher = gulp.watch(PATHS.SASS.SRC, ['sass']);
-    var cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']);
-    var jsWachter = gulp.watch(PATHS.JS.SRC, ['js']);
+    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']),
+        sassWatcher = gulp.watch(PATHS.SASS.SRC, ['sass']),
+        cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
+        jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
+        nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
+        
     cssWatcher.on('change', function (event) {
        console.log("File: " + event.path + " was " + event.type);
     });
@@ -84,6 +89,12 @@ gulp.task("js", function () {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(PATHS.JS.DEST))
         .pipe(notify({message: 'js built'}));
+});
+
+gulp.task("node", function () {
+    gulp.src(PATHS.NODE.SRC)
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish', { verbose: true }));
 });
 
 gulp.task("html-validate", function () {

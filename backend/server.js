@@ -35,10 +35,10 @@ http.createServer(function (req, res) {
         fnfPage = path.normalize(process.cwd() + "/wwwroot/404.html");
 
     if (req.url.startsWith("/data")) {
-        localPath = path.normalize(process.cwd() + req.url)
+        localPath = path.normalize(process.cwd() + req.url);
     }
     else {
-        localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url)
+        localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url);
     }
 
     var readFile = function(err, content) {
