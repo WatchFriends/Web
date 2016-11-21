@@ -61,4 +61,4 @@ bower_components
 # wwwroot
 wwwroot
 !wwwroot/*.html
-!wwwroot/fonts
+!wwwroot/fonts/*
