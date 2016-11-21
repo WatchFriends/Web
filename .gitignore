@@ -11,6 +11,10 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 
+#Visual Studio
+.vs
+typings
+
 ########################################
 # Node.js                              #
 ########################################
@@ -59,5 +63,6 @@ bower_components
 .bower-tmp
 
 # wwwroot
-wwwroot/**/*.js
-wwwroot/**/*.css
+wwwroot/js
+wwwroot/css
+wwwroot/lib
