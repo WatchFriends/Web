@@ -59,5 +59,6 @@ bower_components
 .bower-tmp
 
 # wwwroot
-wwwroot/*.js
-wwwroot/*.css
+wwwroot
+!wwwroot/*.html
+!wwwroot/fonts
