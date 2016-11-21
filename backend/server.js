@@ -1,8 +1,8 @@
 ﻿const http = require('http'),
       fs = require('fs'),
       path = require('path'),
-      app = require('express')(),
-      server = http.Server(app),
+      //app = require('express')(),
+      //server = http.Server(app),
       io = require('socket.io')(http);
 
 let port = process.env.port || 8080,
@@ -35,10 +35,10 @@ http.createServer(function (req, res) {
         fnfPage = path.normalize(process.cwd() + "/wwwroot/404.html");
 
     if (req.url.startsWith("/data")) {
-        localPath = path.normalize(process.cwd() + req.url)
+        localPath = path.normalize(process.cwd() + req.url);
     }
     else {
-        localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url)
+        localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url);
     }
 
     var readFile = function(err, content) {

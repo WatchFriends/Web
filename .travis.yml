@@ -1,0 +1,19 @@
+install:
+  - npm install
+  - npm install -g bower
+  #- npm install -g express
+  - bower install bootstrap
+  - bower install socket.io
+language: node_js
+script:
+  - gulp css
+  - gulp html-validate
+  - gulp js
+  - gulp sass
+  - gulp node
+node_js:
+  - "6.9"
+cache:
+  directories:
+    - node_modules
+    - bower_components
