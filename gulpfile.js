@@ -17,10 +17,6 @@ const paths = {
         SRC: "./bower_components/",
         DEST: "./wwwroot/lib"
     },
-    FONTS: {
-        SRC: "./app/fonts/",
-        DEST: "./wwwroot/fonts"
-    },
     CSS: {
         SRC: "./app/css/**/*.css",
         DEST: "./wwwroot/css"
@@ -110,7 +106,3 @@ gulp.task("copy-externals", function () {
         .pipe(gulp.dest(paths.EXTERNALS.DEST + "/bootstrap"));
 });
 
-gulp.task("copy-fonts", function () {
-    gulp.src(paths.FONTS.SRC + "*")
-        .pipe(gulp.dest(paths.FONTS.DEST));
-});
