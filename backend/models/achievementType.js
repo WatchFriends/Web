@@ -8,17 +8,8 @@ let actievementType = (function() {
 
     let name,
         color,
-        condition;
-
-    return {    
-        name: name,
-        color: color,
-        condition: condition
-    };
-})();
-
-actievementType.prototype = {
-    init: function (name, condition) {
+        condition,
+        init = function (name, condition) {
 
             if (COLORS[name]) {
                 this.name = name;
@@ -28,8 +19,17 @@ actievementType.prototype = {
             else {
                 console.log(name + " is not valid");
             }
-        }
-};
+
+            return this;
+        };
+
+    return {    
+        name: name,
+        color: color,
+        condition: condition,
+        init: init
+    };
+})();
 
 module.exports = actievementType;
 //module.exports = COLORS;

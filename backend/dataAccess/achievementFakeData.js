@@ -3,21 +3,22 @@ const achievement = require("./../models/achievement.js"),
 
 let achievementFakeData = (function() {
 
-    var achievements = new Array();
+    let getAchievements = function(cb){
+        var achievements = new Array();
 
-    for (var i = 5; i--;) {
+        for (var i = 5; i--;) {
 
-        let typeBrass = achievementType.prototype.init("brass", 10);
+            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("brass", 10)));
+            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("silver", 100)));
+            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("gold", 500)));
+        }
 
-        achievements.push(achievement.prototype.init("Watcher", "", "Watch %d series", typeBrass));
-        achievements.push(achievement.prototype.init("Watcher", "", "Watch %d series", achievementType.prototype.init("silver", 100)));
-        achievements.push(achievement.prototype.init("Watcher", "", "Watch %d series", achievementType.prototype.init("gold", 500)));
+        cb(null, achievements);
     }
 
     return {
-        achievements: achievements
+        getAchievements: getAchievements
     };
-
 })();
 
 module.exports = achievementFakeData;

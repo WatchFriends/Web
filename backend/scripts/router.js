@@ -3,7 +3,7 @@ const fs = require("fs"),
     url = require("url"),
     getAPIData = require("./getAPIData"),
     requestCounter = require("./requestCounter"),
-    achievementControl = require("./achievementControl.js");
+    achievementControl = require("./../controllers/achievementControl.js");
 
 let router = (function () {
     let extensions = {
