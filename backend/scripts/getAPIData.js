@@ -15,7 +15,10 @@ let getAPIData = (function () {
     let optionsAPI = {
         method: "GET",
         port: "80",
-        hostname: "api.flickr.com"
+        hostname: "api.themoviedb.org/3",
+        apiKeys: [
+            "1447c9e70c5784fbe8a492a4d5f37c8b"
+        ]
     };
 
     let clean = function (json) {
@@ -27,7 +30,7 @@ let getAPIData = (function () {
     let callAPI = function (search, options, cb) {
         if (search !== "") {
             optionsAPI = options ? options : optionsAPI;
-            optionsAPI.path = "/services/feeds/photos_public.gne?format=json&tags=" + search + "&jsoncallback=?";
+            optionsAPI.path = "";
         }
 
         http.request(optionsAPI, function (response) {
