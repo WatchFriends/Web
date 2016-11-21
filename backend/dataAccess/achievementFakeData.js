@@ -8,9 +8,9 @@ let achievementFakeData = (function() {
 
         for (var i = 5; i--;) {
 
-            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("brass", 10)));
-            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("silver", 100)));
-            achievements.push(achievement.init("Watcher", "", "Watch %d series", achievementType.init("gold", 500)));
+            achievements.push(achievement.prototype.init("Watcher", "", "Watch %d series", achievementType.prototype.init("brass", 10)));
+            achievements.push(achievement.prototype.init("Follower", "", "Follow %d series", achievementType.prototype.init("silver", 100)));
+            achievements.push(achievement.prototype.init("Voter", "", "Vote on %d series", achievementType.prototype.init("gold", 500)));
         }
 
         cb(null, achievements);
