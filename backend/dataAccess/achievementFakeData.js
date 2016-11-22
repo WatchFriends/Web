@@ -4,7 +4,7 @@ const Achievement = require("./../models/Achievement.js"),
 let achievementFakeData = (function() {
 
     let getAchievements = function(cb){
-        var achievements = new Array();
+        var achievements = [];
 
         for (var i = 5; i--;) {
 
@@ -14,7 +14,7 @@ let achievementFakeData = (function() {
         }
 
         cb(null, achievements);
-    }
+    };
 
     return {
         getAchievements: getAchievements
