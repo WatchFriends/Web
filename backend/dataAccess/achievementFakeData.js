@@ -1,5 +1,5 @@
-const achievement = require("./../models/achievement.js"),
-      achievementType = require("./../models/achievementType.js");
+const Achievement = require("./../models/Achievement.js"),
+      AchievementType = require("./../models/AchievementType.js");
 
 let achievementFakeData = (function() {
 
@@ -8,9 +8,9 @@ let achievementFakeData = (function() {
 
         for (var i = 5; i--;) {
 
-            achievements.push(achievement.prototype.init("Watcher", "", "Watch %d series", achievementType.prototype.init("brass", 10)));
-            achievements.push(achievement.prototype.init("Follower", "", "Follow %d series", achievementType.prototype.init("silver", 100)));
-            achievements.push(achievement.prototype.init("Voter", "", "Vote on %d series", achievementType.prototype.init("gold", 500)));
+            achievements.push(new Achievement("Watcher", "", "Watch %d series", new AchievementType("brass", 10)));            
+            achievements.push(new Achievement("Follower", "", "Watch %d series", new AchievementType("silver", 100)));
+            achievements.push(new Achievement("Voter", "", "Watch %d series", new AchievementType("gold", 500)));
         }
 
         cb(null, achievements);

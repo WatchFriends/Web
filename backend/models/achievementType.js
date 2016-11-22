@@ -4,32 +4,11 @@ const COLORS = {
     "gold": "#FFCC01"
 };
 
-let actievementType = (function() {
+let ActievementType = function(name, condition) {
 
-    let name,
-        color,
-        condition;
-
-    return {    
-        name: name,
-        color: color,
-        condition: condition
-    };
-})();
-
-actievementType.prototype = {
-    init: function (name, condition) {
-        if (COLORS[name]) {
-            this.name = name;
-            this.color = COLORS[name];
-            this.condition = condition;
-        }
-        else {
-            console.log(name + " is not valid");
-        }
-
-        return this;
-    }
+    this.name = name;
+    this.color = COLORS[name];
+    this.condition = condition;
 };
 
-module.exports = actievementType;
+module.exports = ActievementType;

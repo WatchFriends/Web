@@ -1,6 +1,7 @@
 install:
   - npm install
   - npm install -g bower
+  #- npm install mongodb --save
   #- npm install -g express
   - bower install bootstrap
   - bower install socket.io

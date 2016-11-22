@@ -98,8 +98,12 @@ let router = (function () {
                     switch (split[2]) {
                         case "achievements":
 
-                            let json = JSON.stringify(achievementControl.achievements);
-                            cb(null, 200, json, null);
+                            achievementControl.getAchievements(function(err, data) {
+                                
+                                let json = JSON.stringify(data);
+
+                                cb(null, 200, json, null);
+                            });
                             break;
 
                         default:

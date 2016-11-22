@@ -2,15 +2,24 @@ const achievementData = require("./../dataAccess/achievementFakeData.js");
 
 let achievementControl = (function() {
 
-    let achievements;
+    let getAchievements = function(cb) {
 
-    achievementData.getAchievements(function(err, data){
+        let achievements;
 
-        achievements = data;
-    });
+        achievementData.getAchievements(function(err, data){
+
+            if (err) {
+                throw err;
+            }
+
+            achievements = data;
+        });
+
+        cb(null, achievements);
+    };
 
     return {
-        achievements: achievements
+        getAchievements: getAchievements
     };
 })();
 

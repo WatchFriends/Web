@@ -1,32 +1,17 @@
 const achievementType = ("./actievementType.js");
 
-let achievement = (function() {
+let Achievement = function(name, image, description, type) {
 
-    let name,
-        image,
-        description, //hint: gebruik "%d" in de beschrijving voor de voorwaarde van de achievement weer te geven.
-        type;
+    this.name = name;
+    this.image = image;
+    this.description = description; //hint: gebruik "%d" in de beschrijving voor de voorwaarde van de achievement weer te geven
+    this.type = type;
+};
 
-    return {
-        name: name,
-        image: image,
-        description: description,
-        type: type
-    };
-})();
-
-achievement.prototype = {
-    init: function (name, image, description, type) {
-        this.name = name;
-        this.image = image;
-        this.description = description;
-        this.type = type;
-
-        return this;
-    },
+Achievement.prototype = {
     toString: function () {
-        return util.format(description, type.condition);
+        return this.description.replace("%d", this.type.condition);
     }
 };
 
-module.exports = achievement;
+module.exports = Achievement;
