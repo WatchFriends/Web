@@ -17,7 +17,7 @@ let errorControl = (function () {
             throw err;
         }
 
-        let writeBuffer = new Buffer("\n" + new Date().toLocaleString() + " > " + occurredError),
+        let writeBuffer = new Buffer(new Date().toLocaleString() + " > " + occurredError.message + "\n" + occurredError.stack + "\n\n"),
             bufferLength = writeBuffer.length,
             filePosition = 0;
 
@@ -39,7 +39,7 @@ let errorControl = (function () {
             throw err;
         }
 
-        finalCb(occurredError.message);
+        finalCb(occurredError);
     };
 
     return {
