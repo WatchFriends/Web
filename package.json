@@ -4,7 +4,7 @@
   "description": "Front-end and back-end project watchfriends",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "node ./backend/server.js"
+    "test": "node ./backend/app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "jshint-stylish": "^2.2.1"
   },
   "dependencies": {
+    "mongodb": "^2.2.11",
     "socket.io": "^1.5.1"
   }
 }
