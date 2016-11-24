@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome WatchFriends</title>
+    
+    <link rel="stylesheet" href="css/main.min.css"/>
 </head>
 <body>
-    <h1>WatchFriends</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde impedit odit, ipsam earum nam esse ad quo, distinctio porro, officiis qui ab obcaecati dolore vitae asperiores, accusamus? Placeat odit, officia.</p>
-</body>
+    <wfhome>Loading...</wfhome>
+
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="systemjs.config.js"></script>
+    <script>
+      System.import('app').catch(function(err){ console.error(err); });
+    </script>
 </html>
