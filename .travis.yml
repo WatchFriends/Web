@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-#sudo: true
 install:
   - npm install
   - npm install -g bower
+  #- npm install mongodb --save
   #- npm install -g express
   - bower install bootstrap
   - bower install socket.io
@@ -12,13 +11,9 @@ script:
   - gulp html-validate
   - gulp js
   - gulp sass
-  #- npm test
+  - gulp node
 node_js:
   - "6.9"
-before_script: 
-  - chmod 0777 ./backend/server.js
-#  - chmod 0777 ./node_modules/.bin/gulp
-#  - chmod 0777 ./node_modules/.bin/bower
 cache:
   directories:
     - node_modules
