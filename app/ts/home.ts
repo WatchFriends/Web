@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component ({
-    selector: "wfhome",
+    selector: "Wfhome",
     template:  `<div>
                     <h1>WatchFriends</h1>
                     <p>Welkom...</p>
