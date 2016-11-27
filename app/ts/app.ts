@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component ({
-    selector: "WfApp",
+    selector: "wfapp",
     template:  `<div>
                     <h1>WatchFriends</h1>
                     <p>Welkom...</p>
