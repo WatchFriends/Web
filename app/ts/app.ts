@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component ({
     selector: "wfapp",
-    template:  `<div>
-                    <h1>WatchFriends</h1>
-                    <p>Welkom...</p>
-                </div>`
+    templateUrl: "../html/home/index.html"  
 })
 
 export class WfApp {
