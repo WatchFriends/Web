@@ -60,3 +60,4 @@ bower_components
 .bower-tmp
 
 # wwwroot
+wwwroot/lib/
