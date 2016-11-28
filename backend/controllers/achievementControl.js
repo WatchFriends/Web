@@ -1,4 +1,4 @@
-const achievementData = require("./../dataAccess/achievementFakeData.js");
+const achievementData = require("./../dataAccess/achievementData.js");
 
 let achievementControl = (function() {
 
