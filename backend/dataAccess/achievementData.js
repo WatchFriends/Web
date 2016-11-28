@@ -17,7 +17,7 @@ let achievementFakeData = (function() {
                     cb(err, null);
                 }
                 else {
-                    cb(null, db.message);
+                    cb(null, db);
                 }
             };
         
