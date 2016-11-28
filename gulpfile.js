@@ -65,7 +65,7 @@ gulp.task("css", function () {
             console.log(details.name + ": " + (details.stats.minifiedSize - details.stats.originalSize));
         }))
         .pipe(sourcemaps.write())
-    var scss = gulp.src(PATHS.CSS.SASS)
+    var sass = gulp.src(PATHS.CSS.SASS)
       .pipe(sourcemaps.init())
       .pipe(sass.on('error',sass.logError))
       .pipe(sourcemaps.write());
