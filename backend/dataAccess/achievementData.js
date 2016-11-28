@@ -6,8 +6,10 @@ const Achievement = require("./../models/Achievement.js"),
 let achievementFakeData = (function() {
 
     let getAchievements = function(cb){
+
+        const connectionString = config.db;
+
         let achievements = [],
-            connectionString = config.db.development,
             db = null,
             connected = function (err, db) {
 
@@ -15,12 +17,12 @@ let achievementFakeData = (function() {
                     cb(err, null);
                 }
                 else {
-                    console.log(db.message);
+                    cb(null, db.message);
                 }
             };
         
-        mongoose.connect(connectionString, connected);
         db = mongoose.connection;
+        mongoose.connect(connectionString.development, connected);
 
         cb(null, achievements);
     };
