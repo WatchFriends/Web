@@ -65,9 +65,9 @@ gulp.task("css", function () {
             console.log(details.name + ": " + (details.stats.minifiedSize - details.stats.originalSize));
         }))
         .pipe(sourcemaps.write())
-    var sass = gulp.src(PATHS.CSS.SASS)
+    var scss = gulp.src(PATHS.CSS.SASS)
       .pipe(sourcemaps.init())
-      .pipe(sass.on('error',sass.logError))
+      .pipe(sass.on("error",sass.logError))
       .pipe(sourcemaps.write());
     return merge(css,sass)
         .pipe(concat("main.min.css"))
