@@ -11,13 +11,26 @@ let achievementFakeData = (function() {
 
         let achievements = [],
             db = null,
+            collection = function(err, data) {
+                var query = db.find({}).select({});
+
+                query.exec(function (err, someValue) {
+                    if (err) {
+                        return cb(err);
+                    }
+                    achievements = someValue;
+                    cb(null, achievements)
+                });
+            },
             connected = function (err, db) {
 
                 if (err) {
                     cb(err, null);
                 }
                 else {
-                    cb(null, db);
+
+                    db.collection("Achievements", {}, collection);
+                    cb(null, achievements);
                 }
             };
         
