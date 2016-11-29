@@ -1,5 +1,6 @@
 error.log
 dbConfig.js
+wwwroot/**/*.min.*
 
 ########################################
 # Jetbrains                            #

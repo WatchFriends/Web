@@ -10,7 +10,6 @@ script:
   - gulp css
   - gulp html-validate
   - gulp js
-  - gulp sass
   - gulp node
 node_js:
   - "6.9"

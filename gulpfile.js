@@ -10,8 +10,8 @@ var gulp = require("gulp"),
     notify = require("gulp-notify"),
     concat = require("gulp-concat"),
     sass = require("gulp-sass"),
-    merge = require("merge-stream");
-
+    merge = require("merge-stream"),
+    stripCssComments = require('gulp-strip-css-comments');
 
 const PATHS = {
     EXTERNALS: {
@@ -39,7 +39,7 @@ const PATHS = {
 gulp.task("default", function () {
     var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
-        cssWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
+        sassWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
         jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
         tsWachter = gulp.watch(PATHS.JS.TS, ['js']),
         nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
@@ -55,22 +55,30 @@ const AUTOPREFIXOPTIONS = {
 
 gulp.task("css", function () {
     var css = gulp.src(PATHS.CSS.SRC)
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer(AUTOPREFIXOPTIONS))
-        .pipe(csslint())
-        .pipe(csslint.formatter())
-        .pipe(concat("main.min.css"))
-        .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
-            console.log(details.name + ": " + (details.stats.minifiedSize - details.stats.originalSize));
-        }))
-        .pipe(sourcemaps.write())
+                  .pipe(sourcemaps.init())
+                  .pipe(autoprefixer(AUTOPREFIXOPTIONS))
+                  .pipe(csslint())
+                  //.pipe(csslint.formatter())
+                  .pipe(concat("main.min.css"))
+                  .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
+                      console.log(details.name + ": " + details.stats.originalSize);		
+ -                    console.log(details.name + ": " + details.stats.minifiedSize);
+                  }))
+                  .pipe(sourcemaps.write());
+
     var scss = gulp.src(PATHS.CSS.SASS)
-      .pipe(sourcemaps.init())
-      .pipe(sass.on('error',sass.logError))
-      .pipe(sourcemaps.write());
-    return merge(css,sass)
-        .pipe(concat("main.min.css"))
-        .pipe(gulp.dest(PATHS.CSS.DEST));
+                   .pipe(sourcemaps.init())
+                   .pipe(sass().on('error', sass.logError))
+                   .pipe(concat("site.min.css"))
+                   .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
+                      console.log(details.name + ": " + details.stats.originalSize);		
+ -                    console.log(details.name + ": " + details.stats.minifiedSize);
+                   }))
+                   .pipe(sourcemaps.write());
+
+    return merge(css, scss).pipe(concat("main.min.css"))
+                           .pipe(stripCssComments())
+                           .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
 gulp.task("js", function () {
@@ -81,9 +89,10 @@ gulp.task("js", function () {
         .pipe(uglify())
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
+        //.pipe(tslint())
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
         .pipe(gulp.dest(PATHS.JS.DEST))
