@@ -5,6 +5,7 @@ var gulp = require("gulp"),
     cleanCSS = require("gulp-clean-css"),
     csslint = require('gulp-csslint'),
     jshint = require("gulp-jshint"),
+    tslint = require("gulp-tslint"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
@@ -89,7 +90,7 @@ gulp.task("js", function () {
         .pipe(uglify())
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
-        //.pipe(tslint())
+        .pipe(tslint())
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write());
