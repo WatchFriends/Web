@@ -6,14 +6,14 @@ const gulp = require("gulp"),
     csslint = require("gulp-csslint"),
     jshint = require("gulp-jshint"),
     tslint = require("gulp-tslint"),
-    ts = require("gulp-typescript"),
+    typescript = require("gulp-typescript"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
     concat = require("gulp-concat"),
     sass = require("gulp-sass"),
-    merge = require("merge-stream");
-
+    merge = require("merge-stream"),
+    stripCssComments = require('gulp-strip-css-comments');
 
 const PATHS = {
     EXTERNALS: {
@@ -41,7 +41,7 @@ const PATHS = {
 gulp.task("default", function () {
     var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
-        cssWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
+        sassWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
         jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
         tsWachter = gulp.watch(PATHS.JS.TS, ['js']),
         nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
@@ -60,17 +60,20 @@ gulp.task("css", function () {
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
         .pipe(csslint())
-        //  .pipe(csslint.formatter())
-        .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
-            console.log(details.name + ": " + (details.stats.minifiedSize - details.stats.originalSize));
-        }))
-        .pipe(sourcemaps.write())
+        .pipe(csslint.formatter())
+        .pipe(sourcemaps.write());
+
     var scss = gulp.src(PATHS.CSS.SASS)
         .pipe(sourcemaps.init())
-        .pipe(sass().on("error",sass.logError))
+        .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write());
-    return merge(css,sass)
+
+    return merge(css, scss)
+        .pipe(cleanCSS({debug: true, compatibility: '*'},  
+            details => console.log(details.name + ": " + (details.stats.originalSize-details.stats.minifiedSize))
+        ))
         .pipe(concat("main.min.css"))
+        .pipe(stripCssComments())
         .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
@@ -83,17 +86,16 @@ gulp.task("js", function () {
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
         .pipe(tslint())
-        .pipe(ts({
+        .pipe(typescript({
             noImplicitAny: true,
             out: 'output.js'
             }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
-        .pipe(gulp.dest(PATHS.JS.DEST))
-        .pipe(notify({message: 'js built'}));
+        .pipe(gulp.dest(PATHS.JS.DEST));
 });
 
 gulp.task("node", function () {
