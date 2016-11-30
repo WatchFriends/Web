@@ -87,8 +87,8 @@ gulp.task("js", function () {
     var ts = gulp.src(PATHS.JS.TS)
         .pipe(tslint())
         .pipe(typescript({
-            noImplicitAny: true,
-            out: 'output.js'
+            module:"amd",
+            experimentalDecorators:true,
             }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
