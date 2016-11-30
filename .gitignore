@@ -1,6 +1,5 @@
 error.log
 dbConfig.js
-wwwroot/**/*.min.*
 
 ########################################
 # Jetbrains                            #
@@ -12,6 +11,12 @@ wwwroot/**/*.min.*
 ########################################
 .vscode/*
 !.vscode/launch.json
+
+#Visual Studio
+.vs
+typings
+bin
+obj
 
 ########################################
 # Node.js                              #
@@ -62,3 +67,4 @@ bower_components
 
 # wwwroot
 wwwroot/lib/
+wwwroot/**/*.min.*

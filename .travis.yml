@@ -7,8 +7,8 @@ install:
   - bower install socket.io
 language: node_js
 script:
+  - gulp html
   - gulp css
-  - gulp html-validate
   - gulp js
   - gulp node
 node_js:

@@ -1,11 +1,12 @@
-var gulp = require("gulp"),
+const gulp = require("gulp"),
     htmlhint = require("gulp-htmlhint"),
     sourcemaps = require("gulp-sourcemaps"),
     autoprefixer = require("gulp-autoprefixer"),
     cleanCSS = require("gulp-clean-css"),
-    csslint = require('gulp-csslint'),
+    csslint = require("gulp-csslint"),
     jshint = require("gulp-jshint"),
     tslint = require("gulp-tslint"),
+    typescript = require("gulp-typescript"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
@@ -25,7 +26,7 @@ const PATHS = {
         DEST: './wwwroot/css'
     },
     HTML: {
-        SRC: './wwwroot/**/*.html'
+        SRC: "./wwwroot/**/*.html"
     },
     JS: {
         SRC: "./app/js/**/*.js",
@@ -38,7 +39,7 @@ const PATHS = {
 };
 
 gulp.task("default", function () {
-    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']),
+    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
         sassWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
         jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
@@ -51,35 +52,29 @@ gulp.task("default", function () {
 });
 
 const AUTOPREFIXOPTIONS = {
-    browsers: ['last 2 versions']
+    browsers: ['last 2 versions']   
 };
 
 gulp.task("css", function () {
     var css = gulp.src(PATHS.CSS.SRC)
-                  .pipe(sourcemaps.init())
-                  .pipe(autoprefixer(AUTOPREFIXOPTIONS))
-                  .pipe(csslint())
-                  //.pipe(csslint.formatter())
-                  .pipe(concat("main.min.css"))
-                  .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
-                      console.log(details.name + ": " + details.stats.originalSize);		
- -                    console.log(details.name + ": " + details.stats.minifiedSize);
-                  }))
-                  .pipe(sourcemaps.write());
+        .pipe(sourcemaps.init())
+        .pipe(autoprefixer(AUTOPREFIXOPTIONS))
+        .pipe(csslint())
+        .pipe(csslint.formatter())
+        .pipe(sourcemaps.write());
 
     var scss = gulp.src(PATHS.CSS.SASS)
-                   .pipe(sourcemaps.init())
-                   .pipe(sass().on('error', sass.logError))
-                   .pipe(concat("site.min.css"))
-                   .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
-                      console.log(details.name + ": " + details.stats.originalSize);		
- -                    console.log(details.name + ": " + details.stats.minifiedSize);
-                   }))
-                   .pipe(sourcemaps.write());
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write());
 
-    return merge(css, scss).pipe(concat("main.min.css"))
-                           .pipe(stripCssComments())
-                           .pipe(gulp.dest(PATHS.CSS.DEST));
+    return merge(css, scss)
+        .pipe(cleanCSS({debug: true, compatibility: '*'},  
+            details => console.log(details.name + ": " + (details.stats.originalSize-details.stats.minifiedSize))
+        ))
+        .pipe(concat("main.min.css"))
+        .pipe(stripCssComments())
+        .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
 gulp.task("js", function () {
@@ -91,30 +86,33 @@ gulp.task("js", function () {
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
         .pipe(tslint())
+        .pipe(typescript({
+            module:"amd",
+            experimentalDecorators:true,
+            }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
-        .pipe(gulp.dest(PATHS.JS.DEST))
-        .pipe(notify({message: 'js built'}));
+        .pipe(gulp.dest(PATHS.JS.DEST));
 });
 
 gulp.task("node", function () {
     gulp.src(PATHS.NODE.SRC)
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish', { verbose: true }));
+        .pipe(jshint.reporter("jshint-stylish", { verbose: true }));
 });
 
-gulp.task("html-validate", function () {
+gulp.task("html", function () {
     gulp.src(PATHS.HTML.SRC)
-        .pipe(htmlhint('.htmlhintrc'))
+        .pipe(htmlhint(".htmlhintrc"))
         //.pipe(htmlhint.reporter("htmlhint-stylish"))
         .pipe(htmlhint.failReporter());
 });
 
 gulp.task("copy-externals", function () {
-    // dist folder van bower_components nr lib in wwwroot kopieren
+    // dist folder van bower_components naar lib in wwwroot kopieren
     gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
-        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"));
 });
