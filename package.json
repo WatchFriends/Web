@@ -35,6 +35,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
+    "gulp-strip-css-comments": "^1.2.0",
     "gulp-tslint": "^7.0.1",
     "gulp-uglify": "^2.0.0",
     "http-server": "^0.9.0",
