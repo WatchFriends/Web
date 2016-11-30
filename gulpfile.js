@@ -13,6 +13,7 @@ const gulp = require("gulp"),
     concat = require("gulp-concat"),
     sass = require("gulp-sass"),
     merge = require("merge-stream"),
+    strip = require('gulp-strip-comments'),
     stripCssComments = require('gulp-strip-css-comments');
 
 const PATHS = {
@@ -78,23 +79,27 @@ gulp.task("css", function () {
 });
 
 gulp.task("js", function () {
+
+    //TODO: na development, alles uit commentaar halen in deze functie!
+
     var js = gulp.src(PATHS.JS.SRC)
         .pipe(jshint())
         .pipe(jshint.reporter(jsStylish))
         .pipe(sourcemaps.init())
-        .pipe(uglify())
+        //.pipe(uglify()) 
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
-        .pipe(tslint())
+        //.pipe(tslint())
         .pipe(typescript({
             module:"amd",
             experimentalDecorators:true,
-            }))
+        }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
+        //.pipe(strip())
         .pipe(gulp.dest(PATHS.JS.DEST));
 });
 
