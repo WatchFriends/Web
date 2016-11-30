@@ -39,31 +39,28 @@ const PATHS = {
 };
 
 gulp.task("default", function () {
-    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
+    const htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
         sassWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
         jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
         tsWachter = gulp.watch(PATHS.JS.TS, ['js']),
         nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
         
-    cssWatcher.on('change', function (event) {
-       console.log("File '" + event.path + "' was " + event.type);
-    });
+    cssWatcher.on( 'change', event => console.log(`File ${event.path} was ${event.type}`));
 });
 
 const AUTOPREFIXOPTIONS = {
     browsers: ['last 2 versions']   
 };
 
-gulp.task("css", function () {
-    var css = gulp.src(PATHS.CSS.SRC)
+gulp.task("css", () => {
+    const css = gulp.src(PATHS.CSS.SRC)
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
         .pipe(csslint())
         .pipe(csslint.formatter())
-        .pipe(sourcemaps.write());
-
-    var scss = gulp.src(PATHS.CSS.SASS)
+        .pipe(sourcemaps.write()),
+    scss = gulp.src(PATHS.CSS.SASS)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write());
@@ -77,14 +74,14 @@ gulp.task("css", function () {
         .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
-gulp.task("js", function () {
-    var js = gulp.src(PATHS.JS.SRC)
+gulp.task("js", () => {
+    const js = gulp.src(PATHS.JS.SRC)
         .pipe(jshint())
         .pipe(jshint.reporter(jsStylish))
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write());
-    var ts = gulp.src(PATHS.JS.TS)
+        .pipe(sourcemaps.write()),
+    ts = gulp.src(PATHS.JS.TS)
         .pipe(tslint())
         .pipe(typescript({
             module:"amd",
@@ -98,21 +95,21 @@ gulp.task("js", function () {
         .pipe(gulp.dest(PATHS.JS.DEST));
 });
 
-gulp.task("node", function () {
+gulp.task("node", () => 
     gulp.src(PATHS.NODE.SRC)
         .pipe(jshint())
-        .pipe(jshint.reporter("jshint-stylish", { verbose: true }));
-});
+        .pipe(jshint.reporter("jshint-stylish", { verbose: true }))
+);
 
-gulp.task("html", function () {
+gulp.task("html", () => 
     gulp.src(PATHS.HTML.SRC)
         .pipe(htmlhint(".htmlhintrc"))
         //.pipe(htmlhint.reporter("htmlhint-stylish"))
-        .pipe(htmlhint.failReporter());
-});
+        .pipe(htmlhint.failReporter())
+);
 
-gulp.task("copy-externals", function () {
+gulp.task("copy-externals", () => 
     // dist folder van bower_components naar lib in wwwroot kopieren
     gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
-        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"));
-});
+        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+);
