@@ -6,6 +6,7 @@ const gulp = require("gulp"),
     csslint = require("gulp-csslint"),
     jshint = require("gulp-jshint"),
     tslint = require("gulp-tslint"),
+    ts = require("gulp-typescript"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
@@ -14,7 +15,7 @@ const gulp = require("gulp"),
     merge = require("merge-stream");
 
 
-const paths = {
+const PATHS = {
     EXTERNALS: {
         SRC: './bower_components/',
         DEST: './wwwroot/lib'
@@ -38,7 +39,7 @@ const paths = {
 };
 
 gulp.task("default", function () {
-    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']),
+    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
         cssWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
         jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
@@ -50,24 +51,27 @@ gulp.task("default", function () {
     });
 });
 
-const autoprefixoptions = {
-    browsers: ["last 2 versions"]
+const AUTOPREFIXOPTIONS = {
+    browsers: ['last 2 versions']   
 };
 
 gulp.task("css", function () {
     var css = gulp.src(PATHS.CSS.SRC)
         .pipe(sourcemaps.init())
-        .pipe(autoprefixer(autoprefixoptions))
+        .pipe(autoprefixer(AUTOPREFIXOPTIONS))
         .pipe(csslint())
-        .pipe(csslint.formatter())
-        .pipe(concat("main.min.css"))
-        .pipe(cleanCSS({debug: true, compatibility: "*"}, function (details) {
-            //console.log(details);
-            console.log(details.name + ": " + details.stats.originalSize);
-            console.log(details.name + ": " + details.stats.minifiedSize);
+        //  .pipe(csslint.formatter())
+        .pipe(cleanCSS({debug: true, compatibility: '*'}, function (details) {
+            console.log(details.name + ": " + (details.stats.minifiedSize - details.stats.originalSize));
         }))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.CSS.DEST));
+    var scss = gulp.src(PATHS.CSS.SASS)
+        .pipe(sourcemaps.init())
+        .pipe(sass().on("error",sass.logError))
+        .pipe(sourcemaps.write());
+    return merge(css,sass)
+        .pipe(concat("main.min.css"))
+        .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
 gulp.task("js", function () {
@@ -79,6 +83,10 @@ gulp.task("js", function () {
         .pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
         .pipe(tslint())
+        .pipe(ts({
+            noImplicitAny: true,
+            out: 'output.js'
+            }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write())
@@ -89,13 +97,13 @@ gulp.task("js", function () {
 });
 
 gulp.task("node", function () {
-    gulp.src(paths.NODE.SRC)
+    gulp.src(PATHS.NODE.SRC)
         .pipe(jshint())
         .pipe(jshint.reporter("jshint-stylish", { verbose: true }));
 });
 
-gulp.task("html-validate", function () {
-    gulp.src(paths.HTML.SRC)
+gulp.task("html", function () {
+    gulp.src(PATHS.HTML.SRC)
         .pipe(htmlhint(".htmlhintrc"))
         //.pipe(htmlhint.reporter("htmlhint-stylish"))
         .pipe(htmlhint.failReporter());
@@ -103,6 +111,6 @@ gulp.task("html-validate", function () {
 
 gulp.task("copy-externals", function () {
     // dist folder van bower_components naar lib in wwwroot kopieren
-    gulp.src(paths.EXTERNALS.SRC + "bootstrap/dist/**")
-        .pipe(gulp.dest(paths.EXTERNALS.DEST + "/bootstrap"));
+    gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
+        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"));
 });
