@@ -5,31 +5,31 @@ const gulp = require("gulp"),
     cleanCSS = require("gulp-clean-css"),
     csslint = require("gulp-csslint"),
     jshint = require("gulp-jshint"),
+    tslint = require("gulp-tslint"),
     jsStylish = require("jshint-stylish"),
     uglify = require("gulp-uglify"),
     notify = require("gulp-notify"),
     concat = require("gulp-concat"),
-    sass = require("gulp-sass");
+    sass = require("gulp-sass"),
+    merge = require("merge-stream");
 
 
 const paths = {
     EXTERNALS: {
-        SRC: "./bower_components/",
-        DEST: "./wwwroot/lib"
+        SRC: './bower_components/',
+        DEST: './wwwroot/lib'
     },
     CSS: {
-        SRC: "./app/css/**/*.css",
-        DEST: "./wwwroot/css"
-    },
-    SASS: {
-        SRC: "./app/sass/**/*.scss",
-        DEST: "./app/css"
+        SRC: './app/css/**/*.css',
+        SASS: './app/sass/**/*.scss',
+        DEST: './wwwroot/css'
     },
     HTML: {
         SRC: "./wwwroot/**/*.html"
     },
     JS: {
         SRC: "./app/js/**/*.js",
+        TS: "./app/ts/**/*.ts",
         DEST: "./wwwroot/js"
     },
     NODE: {
@@ -38,14 +38,15 @@ const paths = {
 };
 
 gulp.task("default", function () {
-    const htmlWatcher = gulp.watch(paths.HTML.SRC, ["html-validate"]),
-        sassWatcher = gulp.watch(paths.SASS.SRC, ["sass"]),
-        cssWatcher = gulp.watch(paths.CSS.SRC, ["css"]),
-        jsWachter = gulp.watch(paths.JS.SRC, ["js"]),
-        nodeWachter = gulp.watch(paths.NODE.SRC, ["node"]);
+    var htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html-validate']),
+        cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
+        cssWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
+        jsWachter = gulp.watch(PATHS.JS.SRC, ['js']),
+        tsWachter = gulp.watch(PATHS.JS.TS, ['js']),
+        nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
         
-    cssWatcher.on("change", function (event) {
-       console.log(`File: ${event.path} was ${event.type}`);
+    cssWatcher.on('change', function (event) {
+       console.log("File '" + event.path + "' was " + event.type);
     });
 });
 
@@ -54,11 +55,11 @@ const autoprefixoptions = {
 };
 
 gulp.task("css", function () {
-    gulp.src(paths.CSS.SRC)
+    var css = gulp.src(PATHS.CSS.SRC)
         .pipe(sourcemaps.init())
         .pipe(autoprefixer(autoprefixoptions))
         .pipe(csslint())
-        //.pipe(csslint.formatter())
+        .pipe(csslint.formatter())
         .pipe(concat("main.min.css"))
         .pipe(cleanCSS({debug: true, compatibility: "*"}, function (details) {
             //console.log(details);
@@ -69,22 +70,22 @@ gulp.task("css", function () {
         .pipe(gulp.dest(paths.CSS.DEST));
 });
 
-gulp.task("sass", function () {
-    gulp.src(paths.SASS.SRC)
-        .pipe(sass().on("error", sass.logError))
-        .pipe(gulp.dest(paths.SASS.DEST));
-});
-
 gulp.task("js", function () {
-    gulp.src(paths.JS.SRC)
+    var js = gulp.src(PATHS.JS.SRC)
         .pipe(jshint())
         .pipe(jshint.reporter(jsStylish))
         .pipe(sourcemaps.init())
-        .pipe(concat("app.min.js"))
+        .pipe(uglify())
+        .pipe(sourcemaps.write());
+    var ts = gulp.src(PATHS.JS.TS)
+        .pipe(tslint())
+        .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(paths.JS.DEST))
-        .pipe(notify({message: "js built"}));
+    return merge(js, ts)
+        .pipe(concat("app.min.js"))
+        .pipe(gulp.dest(PATHS.JS.DEST))
+        .pipe(notify({message: 'js built'}));
 });
 
 gulp.task("node", function () {
@@ -101,8 +102,7 @@ gulp.task("html-validate", function () {
 });
 
 gulp.task("copy-externals", function () {
-    // dist folder van bower_components nr lib in wwwroot kopieren
+    // dist folder van bower_components naar lib in wwwroot kopieren
     gulp.src(paths.EXTERNALS.SRC + "bootstrap/dist/**")
         .pipe(gulp.dest(paths.EXTERNALS.DEST + "/bootstrap"));
 });
-

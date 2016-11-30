@@ -2,7 +2,8 @@ const fs = require("fs"),
     path = require("path"),
     url = require("url"),
     getAPIData = require("./getAPIData"),
-    requestCounter = require("./requestCounter");
+    requestCounter = require("./requestCounter"),
+    achievementControl = require("./../controllers/achievementControl.js");
 
 let router = (function () {
     let extensions = {
@@ -63,8 +64,11 @@ let router = (function () {
             });
         } 
         else {
-            switch (pathName) {
-                case "/apiData":
+
+            var split = pathName.split("/");
+
+            switch (split[1]) {
+                case "apiData":
                     var search;
                     if (queryString) {
                         search = queryString.split("&")[0].split("=")[1];
@@ -89,6 +93,26 @@ let router = (function () {
                     });
 
                     break;
+
+                case "data":
+                    switch (split[2]) {
+                        case "achievements":
+
+                            achievementControl.getAchievements(function(err, data) {
+                                
+                                let json = JSON.stringify(data);
+
+                                cb(null, 200, json, null);
+                            });
+                            break;
+
+                        default:
+                            cb(null, 404, "404 File not found", null);
+                            break;
+                    }
+
+                    break;
+
                 default:
                     cb(null, 404, "404 File not found", null);
                     break;
