@@ -1,3 +1,6 @@
+error.log
+dbConfig.js
+
 ########################################
 # Jetbrains                            #
 ########################################
@@ -7,8 +10,6 @@
 # Visual Studio Code                   #
 ########################################
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
 !.vscode/launch.json
 
 ########################################
@@ -57,3 +58,7 @@ bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
+
+# wwwroot
+wwwroot/**/*.js
+wwwroot/**/*.css
