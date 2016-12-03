@@ -12,6 +12,12 @@ dbConfig.js
 .vscode/*
 !.vscode/launch.json
 
+#Visual Studio
+.vs
+typings
+bin
+obj
+
 ########################################
 # Node.js                              #
 ########################################
@@ -60,5 +66,5 @@ bower_components
 .bower-tmp
 
 # wwwroot
-wwwroot/**/*.js
-wwwroot/**/*.css
+wwwroot/lib/
+wwwroot/**/*.min.*
