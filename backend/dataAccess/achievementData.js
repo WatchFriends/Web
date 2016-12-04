@@ -12,13 +12,8 @@ let achievementFakeData = (() => {
                 cb(err, null);
             }
             
-            let found = (err, items) => {
-
-                cb(null, items);
-            },            
-            gotCollection = (err, collection) => {
-                collection.find().toArray(found);
-            };
+            let found = (err, items) => cb(null, items),            
+                gotCollection = (err, collection) => collection.find().toArray(found);
 
             db.collection("Achievements", gotCollection);
         });
