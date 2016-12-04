@@ -1,7 +1,7 @@
 const Achievement = require("./../models/Achievement.js"),
       AchievementType = require("./../models/AchievementType.js"),
       config = require("./dbConfig.js"),
-      MongoClient = require('mongodb').MongoClient;;
+      MongoClient = require('mongodb').MongoClient;
 
 let achievementFakeData = (() => {
 
