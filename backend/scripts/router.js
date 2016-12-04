@@ -5,7 +5,7 @@ const fs = require("fs"),
     requestCounter = require("./requestCounter"),
     achievementControl = require("./../controllers/achievementControl.js");
 
-let router = (function () {
+let router = (() => {
     let extensions = {
         ".html": "text/html",
         ".css": "text/css",
@@ -24,16 +24,16 @@ let router = (function () {
         ".ico": "image/x-icon"
     };
 
-    let readFile = function (localPath, cb) {
+    let readFile = (localPath, cb) => {
 
-        fs.stat(localPath, function (err, stats) {
+        fs.stat(localPath, (err, stats) => {
             if (err) {
                 cb(null, 404, "404 File not found:\n" + err.message);
             } 
             else if (stats && stats.isFile()) {
                 console.log("Rendering page:", localPath);
 
-                fs.readFile(localPath, function (err, content) {
+                fs.readFile(localPath, (err, content) => {
                     if (err) {
                         cb(null, 500, "500 Server error:\n" + err.message);
                     } else {
@@ -47,7 +47,7 @@ let router = (function () {
         });
     };
 
-    let init = function (req, cb) {
+    let init = (req, cb) => {
         let fileName = path.basename(req.url),
             ext = path.extname(fileName),
             localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url),
@@ -55,7 +55,7 @@ let router = (function () {
             queryString = url.parse(req.url).query;
 
         if (extensions[ext]) {
-            readFile(localPath, function (err, code, data) {
+            readFile(localPath, (err, code, data) => {
                 if (err) {
                     cb(err, null, null, null);
                 }
@@ -65,35 +65,9 @@ let router = (function () {
         } 
         else {
 
-            var split = pathName.split("/");
+            let split = pathName.split("/");
 
             switch (split[1]) {
-                case "apiData":
-                    var search;
-                    if (queryString) {
-                        search = queryString.split("&")[0].split("=")[1];
-                    }
-
-                    getAPIData.callAPI(search, null, function (err, data) {
-                        if (err) {
-                            throw err;
-                        }
-
-                        cb(null, 200, JSON.stringify(data), null);
-                    });
-
-                    getAPIData.once("apiData", function () {
-                        requestCounter.getCount(function (err, count) {
-                            if (err) {
-                                throw err;
-                            }
-
-                            console.log("Requests:", count);
-                        });
-                    });
-
-                    break;
-
                 case "data":
                     switch (split[2]) {
                         case "achievements":
