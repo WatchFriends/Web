@@ -1,19 +1,12 @@
-<<<<<<< HEAD
-﻿const port = 8080,
-      http = require('http'),
-      fs = require('fs'),
-      path = require('path'),
-      io = require('socket.io')(http);
-=======
-﻿const http = require("http"),
+const http = require("http"),
       fs = require("fs"),
       path = require("path"),
       //app = require('express')(),
       //server = http.Server(app),
       io = require("socket.io")(http);
->>>>>>> refs/remotes/origin/master
 
-let extentions = {
+let port = process.env.port || 8080,
+    extentions = {
         ".html": "text/html",
         ".css": "text/css",
         ".js": "text/javascript",
