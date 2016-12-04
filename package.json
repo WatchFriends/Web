@@ -74,6 +74,11 @@
     "rxjs": "5.0.0-beta.12",
     "socket.io": "^1.5.1",
     "systemjs": "0.19.40",
-    "zone.js": "^0.6.26"
+    "zone.js": "^0.6.26",
+    "passport-http": "latest", 
+    "passport-http-bearer": "latest", 
+    "passport-oauth2-client-password": "latest", 
+    "oauth2orize": "latest", 
+    "debug": "~0.7.2"
   }
 }
