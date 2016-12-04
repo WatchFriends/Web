@@ -44,7 +44,7 @@ http.createServer(function (request, response) {
         if (err) {
 
             response.writeHead(500, { 'Content-Type': "text/html" });
-            response.write("<p><b>500: Server error:</b></p><pre>" + err.message + "</pre>");
+            response.write(`<p><b>500: Server error:</b></p><pre>${err.message}</pre>`);
             response.end();
         }
         else {
