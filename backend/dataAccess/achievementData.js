@@ -1,30 +1,21 @@
 const Achievement = require("./../models/Achievement.js"),
       AchievementType = require("./../models/AchievementType.js"),
       config = require("./dbConfig.js"),
-      mongoose = require("mongodb").MongoClient;
+      MongoClient = require('mongodb').MongoClient;
 
-let achievementFakeData = (function() {
+let achievementFakeData = (() => {
 
-    let getAchievements = function(cb){
+    let getAchievements = cb => {
 
-        const connectionString = config.db;
+        MongoClient.connect(config.db.development, (err, db) => {
+            if (err) {
+                cb(err, null);
+            }
+            
+            let getCollection = (err, collection) => collection.find().toArray(cb);
 
-        let achievements = [],
-            db = null,
-            connected = function (err, db) {
-
-                if (err) {
-                    cb(err, null);
-                }
-                else {
-                    cb(null, db.message);
-                }
-            };
-        
-        db = mongoose.connection;
-        mongoose.connect(connectionString.development, connected);
-
-        cb(null, achievements);
+            db.collection("Achievements", getCollection);
+        });
     };
 
     return {

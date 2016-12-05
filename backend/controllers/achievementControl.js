@@ -1,21 +1,17 @@
 const achievementData = require("./../dataAccess/achievementData.js");
 
-let achievementControl = (function() {
+let achievementControl = (() => {
 
-    let getAchievements = function(cb) {
+    let getAchievements = cb => {
 
-        let achievements;
-
-        achievementData.getAchievements(function(err, data){
+        achievementData.getAchievements((err, data) => {
 
             if (err) {
                 throw err;
             }
 
-            achievements = data;
+            cb(null, data);
         });
-
-        cb(null, achievements);
     };
 
     return {
