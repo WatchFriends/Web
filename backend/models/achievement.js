@@ -4,7 +4,7 @@ let Achievement = function(name, image, description, type) {
 
     this.name = name;
     this.image = image;
-    this.description = description; //hint: gebruik "%d" in de beschrijving voor de voorwaarde van de achievement weer te geven
+    this.description = description; //hint: gebruik "%d" in de beschrijving om de voorwaarde van de achievement weer te geven
     this.type = type;
 };
 

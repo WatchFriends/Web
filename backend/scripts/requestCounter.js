@@ -1,12 +1,7 @@
-let requestCounter = (function () {
+let requestCounter = (()=> {
     let counter = 0;
-
-    let getCount = function (cb) {
-        cb(null, ++counter);
-    };
-
     return {
-        getCount: getCount
+        getCount: cb => cb(null, ++counter)
     };
 })();
 

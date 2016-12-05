@@ -17,7 +17,7 @@ const gulp = require("gulp"),
 
 const PATHS = {
     EXTERNALS: {
-        SRC: './bower_components/',
+        SRC: './bower_components/*/dist/**/*',
         DEST: './wwwroot/lib'
     },
     CSS: {
@@ -82,7 +82,7 @@ gulp.task("js", () => {
         .pipe(uglify())
         .pipe(sourcemaps.write()),
     ts = gulp.src(PATHS.JS.TS)
-        .pipe(tslint())
+        //.pipe(tslint())
         .pipe(typescript({
             module:"amd",
             experimentalDecorators:true,
@@ -110,6 +110,6 @@ gulp.task("html", () =>
 
 gulp.task("copy-externals", () => 
     // dist folder van bower_components naar lib in wwwroot kopieren
-    gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
-        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+    gulp.src(PATHS.EXTERNALS.SRC)
+        .pipe(gulp.dest(PATHS.EXTERNALS.DEST))
 );
