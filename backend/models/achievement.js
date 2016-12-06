@@ -1,17 +1,21 @@
-const achievementType = ("./actievementType.js");
+/*jslint node: true */
+"use strict";
 
-let Achievement = function(name, image, description, type) {
+var mongoose = require("mongoose"),
+    Schema = mongoose.Schema;
 
-    this.name = name;
-    this.image = image;
-    this.description = description; //hint: gebruik "%d" in de beschrijving om de voorwaarde van de achievement weer te geven
-    this.type = type;
+var achievementSchema = new Schema({
+    name: String,
+    description: String,
+    types: [{
+        type: String,
+        condition: Number
+    }],
+    image: String
+});
+
+achievementSchema.statics = {
+    load: (id, cb) => this.findOne({_id: id}).exec(cb)
 };
 
-Achievement.prototype = {
-    toString: function () {
-        return this.description.replace("%d", this.type.condition);
-    }
-};
-
-module.exports = Achievement;
+module.exports = mongoose.model("Achievement", achievementSchema);
