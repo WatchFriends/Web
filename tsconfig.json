@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "typeRoots" : ["./typings"]
+    },
+        "include": [
+        "app/ts/*"
+    ]
+}
