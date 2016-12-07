@@ -6,11 +6,12 @@ var express = require("express"),
     path = require("path"),
     mongoose = require("mongoose"),
     logger = require("morgan"),
+    config = require("./data/config.json"),
     bodyParser = require("body-parser"), //om request body te gebruiken
     methodOverride = require('method-override'); //om http verbs te gebruiken
 
 //db
-mongoose.connect(require("./data/dbConfig").db.development);
+mongoose.connect(config.db.development);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", ()=> {
@@ -45,15 +46,3 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-/*
-const server = require("./scripts/server"),
-    errorControl = require("./controllers/errorControl");
-
-process.on("uncaughtException", function (err) {
-    errorControl.writeToErrorLog(err, function (info) {
-        console.log("Error written to log file:", info);
-    });
-});
-
-server.init(5000);
-*/
