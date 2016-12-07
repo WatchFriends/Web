@@ -1,4 +1,4 @@
-﻿const http = require("http"),
+const http = require("http"),
       fs = require("fs"),
       path = require("path"),
       //app = require('express')(),
