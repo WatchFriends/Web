@@ -1,5 +1,6 @@
 const http = require("http"),
-      EventEmitter = require("events").EventEmitter;
+      EventEmitter = require("events").EventEmitter,
+      apiConfig = require("./apiConfig");
 
 module.exports = (() => {
     
@@ -9,9 +10,7 @@ module.exports = (() => {
         method: "GET",
         port: "80",
         hostname: "api.themoviedb.org/3",
-        apiKeys: [
-            "1447c9e70c5784fbe8a492a4d5f37c8b"
-        ]
+        apiKeys: apiConfig.api.keys
     };
 
     let call = (search, options, cb) => {
