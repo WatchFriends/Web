@@ -14,9 +14,7 @@ var express = require("express"),
 mongoose.connect(config.db.development);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
-db.once("open", ()=> {
-
-});
+db.once("open", ()=>{});
 
 //express
 app.use(logger("dev"));
@@ -31,7 +29,11 @@ app.use("/module", require("./controllers/module"));
 app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series")]);
 
 //error handler
-app.use((req,res,next)=>{
+app.use(["/data", "/api"], (err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({});//empty object
+});
+app.use((req, res, next) => {
     var err = new Error("not found");
     err.status = 404;
     next(err);
@@ -41,7 +43,7 @@ app.use((err, req, res, next) => {
     res.locals.error = req.app.get("env") === "development" ? err : {};
 
     res.status(err.status || 500);
-    res.render("error");
+    res.sendFile(path.join(__dirname,"../wwwroot/error.html"));
 });
 
 module.exports = app;

@@ -9,8 +9,8 @@ module.exports = (() => {
     let optionsAPI = {
         method: "GET",
         port: "80",
-        hostname: "api.themoviedb.org/3",
-        apiKeys: config.api.keys
+        hostname: "api.themoviedb.org/3/",
+        keys: config.api.keys
     };
 
     let call = (search, options, cb) => {
@@ -31,7 +31,7 @@ module.exports = (() => {
             });
 
             response.on("error", err => {
-                console.log(err.message);
+                console.log("api error: " + err.message);
                 cb(err);
             });
         }).end();
@@ -40,6 +40,7 @@ module.exports = (() => {
     return {
         on: emitter.on,
         once: emitter.once,
-        call
+        call,
+        getSeries: (id, cb) => call(`tv/${id}?append_to_response=images,similar`, cb)
     };
 })();
