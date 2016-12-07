@@ -1,25 +1,22 @@
 const http = require("http"),
-      EventEmitter = require("events").EventEmitter,
       config = require("./config.json");
 
 module.exports = (() => {
     
-    let emitter = new EventEmitter();
-
-    let optionsAPI = {
+    let options = {
         method: "GET",
         port: "80",
         hostname: "api.themoviedb.org/3/",
-        keys: config.api.keys
+        path: ""
     };
 
-    let call = (search, options, cb) => {
-        if (search !== "") {
-            optionsAPI = options ? options : optionsAPI;
-            optionsAPI.path = "";
-        }
+    let call = (url, cb) => {
 
-        http.request(optionsAPI, response => {
+        options.path =  url + 
+                        (url.indexOf("?") > 0 ? "&": "?") + 
+                        `api_key=${config.api.keys[0]}`;
+
+        http.request(options, response => {
             var json = "";
 
             response.on("data", chunk => json += chunk);
@@ -27,7 +24,6 @@ module.exports = (() => {
             response.on("end", () => {
                 var jsonObject = JSON.parse(json.substring(1, json.length - 1).replace(/\\\'/g, ''));
                 cb(null, jsonObject);
-                emitter.emit("apiData", jsonObject.items);
             });
 
             response.on("error", err => {
@@ -38,8 +34,6 @@ module.exports = (() => {
     };
 
     return {
-        on: emitter.on,
-        once: emitter.once,
         call,
         getSeries: (id, cb) => call(`tv/${id}?append_to_response=images,similar`, cb)
     };
