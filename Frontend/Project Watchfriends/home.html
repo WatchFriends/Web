@@ -1,15 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="watchfriends">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
 
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/home.scss">
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <script data-require="angular.js@1.2.22" data-semver="1.2.22" src="https://code.angularjs.org/1.2.22/angular.js"></script>
+    <script src="js/script.js"></script>
+
 
 </head>
 
-<body>
+<body ng-controller="MyCtrl">
 <header>
     <nav>
 
@@ -20,9 +23,14 @@
 
     <section class="home-section">
         <h1>Welcome to Watchfriends</h1>
-        <div class="wrapper">
 
-            <h2>Watchfriends is an online platform where you can track series you have watched</h2>
+
+        <div class="wrapper">
+          <!--  <h2>Watchfriends is an online platform where you can track series you have watched</h2> -->
+            <img class="img-home"
+                 src="http://cdn1-www.comingsoon.net/assets/uploads/gallery/the-walking-dead-season-7/the-walking-dead-season-7-rick-lincoln-michonne-gurira-cci-key-art-1200x707-1.jpg"
+            >
+
             <button class="btnSignUp">Join Watchfriends</button>
             <button class="btnLogin">Already a member? Log in</button>
 
@@ -31,17 +39,23 @@
 
     <section class="home-section">
         <h1>Series</h1>
-        <div class="wrapper" target="_imgSerie">
-            <h2>Searching for a serie to track?</h2>
+        <div class="wrapper">
+          <!--  <h2>Searching for a serie to track?</h2> -->
+            <img class="img-home" src="https://i.ytimg.com/vi/pvqZ7di5O_8/maxresdefault.jpg">
+
+
             <button class="btnSignUp">Explore new series</button>
 
         </div>
     </section>
     <section class="home-section">
         <h1>Followers</h1>
-        <div class="wrapper" target="_imgFollowers">
-            <h2>Choose who you want to follow </h2>
-            <h2>Keep track of their series</h2>
+        <div class="wrapper">
+           <!-- <h2>Choose who you want to follow </h2>
+            <h2>Keep track of their series</h2> -->
+            <img class="img-home" src="http://www.ew.com/sites/default/files/i/2015/06/23/minions.jpg">
+
+
             <button class="btnSignUp">Expand your network
             </button>
 
