@@ -1,12 +1,33 @@
-div {
-  background-color: blue; 
+$primaryColor: #445878;
+$primaryColorDark: #31353D;
+$accentColor: #92CDCF;
+$white: #FFFFFF;
+$black: #000000;
 
-  p {
-    font-size: 2em;
-    font-style: bold; 
+body {
+  background-color: $primaryColorDark;
+}
+
+.navbar {
+  background-color: $primaryColor;
+
+  a {
+    color: $white;
   }
 
-  h1 {
-    color: red;
+  a:hover {
+    color: $accentColor;
+  }
+}
+
+.nav > li > a:focus, .nav > li > a:hover, .nav > li > a:active {
+  background: transparent;
+}
+
+.nav {
+  .open {
+    > a, > a:hover, > a:focus, > a:active {
+      background-color: transparent;
+    }
   }
 }

@@ -50,7 +50,7 @@ let router = (() => {
     let init = (req, cb) => {
         let fileName = path.basename(req.url),
             ext = path.extname(fileName),
-            localPath = path.normalize(process.cwd() + "/wwwroot/" + req.url),
+            localPath = path.normalize(process.cwd() + "/../wwwroot/" + req.url),
             pathName = url.parse(req.url).pathname,
             queryString = url.parse(req.url).query;
 
