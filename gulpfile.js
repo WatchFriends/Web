@@ -18,7 +18,7 @@ const gulp = require("gulp"),
 
 const PATHS = {
     EXTERNALS: {
-        SRC: './bower_components/',
+        SRC: './bower_components/*/dist/**/*',
         DEST: './wwwroot/lib'
     },
     CSS: {
@@ -39,7 +39,7 @@ const PATHS = {
     }
 };
 
-gulp.task("default", function () {
+gulp.task("default", () => {
     const htmlWatcher = gulp.watch(PATHS.HTML.SRC, ['html']),
         cssWatcher = gulp.watch(PATHS.CSS.SRC, ['css']),
         sassWatcher = gulp.watch(PATHS.CSS.SASS, ['css']),
@@ -102,7 +102,7 @@ gulp.task("js", function () {
 
 gulp.task("node", () => 
     gulp.src(PATHS.NODE.SRC)
-        .pipe(jshint())
+        .pipe(jshint({esnext:true}))
         .pipe(jshint.reporter("jshint-stylish", { verbose: true }))
 );
 
@@ -115,6 +115,6 @@ gulp.task("html", () =>
 
 gulp.task("copy-externals", () => 
     // dist folder van bower_components naar lib in wwwroot kopieren
-    gulp.src(PATHS.EXTERNALS.SRC + "bootstrap/dist/**")
-        .pipe(gulp.dest(PATHS.EXTERNALS.DEST + "/bootstrap"))
+    gulp.src(PATHS.EXTERNALS.SRC)
+        .pipe(gulp.dest(PATHS.EXTERNALS.DEST))
 );
