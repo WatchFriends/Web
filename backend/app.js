@@ -27,9 +27,8 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //router
-//app.use("/", require("./controllers/index"));
-app.use("data", require("./controllers/achievement"));
-app.use("data", require("./controllers/series"));
+app.use("/module", require("./controllers/module"));
+app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series")]);
 
 //error handler
 app.use((req,res,next)=>{
