@@ -1,5 +1,7 @@
 error.log
 dbConfig.js
+apiConfig.js
+config.json
 
 ########################################
 # Jetbrains                            #
