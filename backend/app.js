@@ -11,7 +11,7 @@ var express = require("express"),
     methodOverride = require('method-override'); //om http verbs te gebruiken
 
 //db
-mongoose.connect(config.db.development);
+mongoose.connect(config.db.local);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", ()=>{});

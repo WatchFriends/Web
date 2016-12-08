@@ -84,7 +84,7 @@ gulp.task("js", function () {
         .pipe(jshint.reporter(jsStylish))
         .pipe(sourcemaps.init())
         //.pipe(uglify()) 
-        .pipe(sourcemaps.write());
+        //.pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
         //.pipe(tslint())
         .pipe(typescript({
@@ -93,9 +93,10 @@ gulp.task("js", function () {
         }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write());
+        //.pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
+        .pipe(sourcemaps.write())
         //.pipe(strip())
         .pipe(gulp.dest(PATHS.JS.DEST));
 });
