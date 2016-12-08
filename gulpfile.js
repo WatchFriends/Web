@@ -22,16 +22,16 @@ const PATHS = {
         DEST: './wwwroot/lib'
     },
     CSS: {
-        SRC: './app/css/**/*.css',
-        SASS: './app/sass/**/*.scss',
+        SRC: './app/**/*.css',
+        SASS: './app/**/*.scss',
         DEST: './wwwroot/css'
     },
     HTML: {
         SRC: "./wwwroot/**/*.html"
     },
     JS: {
-        SRC: "./app/js/**/*.js",
-        TS: "./app/ts/**/*.ts",
+        SRC: "./app/**/*.js",
+        TS: "./app/**/*.ts",
         DEST: "./wwwroot/js"
     },
     NODE: {
