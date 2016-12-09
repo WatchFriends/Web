@@ -2,7 +2,6 @@ var express = require("express"),
     app = express(),
     path = require("path"),
     logger = require("morgan"),
-    config = require("./data/config.json"),
     bodyParser = require("body-parser"), //om request body te gebruiken
     methodOverride = require('method-override'); //om http verbs te gebruiken
 

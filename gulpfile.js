@@ -60,11 +60,9 @@ gulp.task("css", () => {
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
         .pipe(csslint())
         .pipe(csslint.formatter())
-        .pipe(sourcemaps.write()),
     scss = gulp.src(PATHS.CSS.SASS)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(sourcemaps.write());
 
     return merge(css, scss)
         .pipe(cleanCSS({debug: true, compatibility: '*'},  
@@ -72,6 +70,7 @@ gulp.task("css", () => {
         ))
         .pipe(concat("main.min.css"))
         .pipe(stripCssComments())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 

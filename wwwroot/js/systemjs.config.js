@@ -6,12 +6,12 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'module/'
+      'npm:': '/module'
     },
     // map tells the System loader where to look for things
     map: {
       // our app is within the app folder
-      app: 'app',
+      app: 'js',
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.min.js',
@@ -23,8 +23,8 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.min.js',
       '@angular/router/upgrade': 'npm:@angular/router/bundles/router-upgrade.umd.min.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.min.js',
-      '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.min.js',
-      '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.min.js',
+     // '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.min.js',
+     // '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.min.js',
 
       // other libraries
       'rxjs':                      'npm:rxjs',
