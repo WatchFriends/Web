@@ -89,6 +89,7 @@ gulp.task("js", function () {
         .pipe(typescript({
             module:"amd",
             experimentalDecorators:true,
+            outFile:"compiled.js"
         }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
