@@ -5,17 +5,17 @@ var mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
 var achievementSchema = new Schema({
+    _id: Number,
     name: String,
     description: String,
-    types: [{
-        //type: String,
-        condition: Number
-    }],
+    types: { Number }
     //image: String
 });
 
 achievementSchema.statics = {
-    load: (id, cb) => this.findOne({_id: id}).exec(cb)
+    load: (cb) => {
+        this.find().exec(cb);
+    }
 };
 
 achievementSchema.methods = {
