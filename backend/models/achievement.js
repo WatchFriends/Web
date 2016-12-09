@@ -9,7 +9,6 @@ var achievementSchema = new Schema({
     name: String,
     description: String,
     types: [ Number ]
-    //image: String
 });
 
 achievementSchema.statics = {
