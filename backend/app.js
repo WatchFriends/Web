@@ -1,30 +1,21 @@
-/*jslint node: true */
-"use strict";
-
 var express = require("express"),
     app = express(),
     path = require("path"),
-    mongoose = require("mongoose"),
     logger = require("morgan"),
-    config = require("./data/config.json"),
     bodyParser = require("body-parser"), //om request body te gebruiken
     methodOverride = require('method-override'); //om http verbs te gebruiken
 
-//db
-mongoose.connect(config.db.development);
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", ()=>{});
-
-//express
+//middleware
 app.use(logger("dev"));
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
 app.use(methodOverride('X-HTTP-Method-Override'));
+
+//wwwroot
 app.use(express.static(path.join(__dirname, "../wwwroot")));
 
-//router
+//routes
 app.use("/module", require("./controllers/module"));
 app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series")]);
 

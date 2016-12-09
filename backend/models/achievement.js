@@ -7,10 +7,10 @@ var mongoose = require("mongoose"),
 var achievementSchema = new Schema({
     name: String,
     description: String,
-    types: [{
+    types: [
         //type: String,
-        condition: Number
-    }],
+        Number
+    ],
     //image: String
 });
 
@@ -29,4 +29,4 @@ achievementSchema.methods = {
     image: (type) => `images/${this.name}${type}`
 };
 
-module.exports = mongoose.model("Achievement", achievementSchema);
+module.exports = mongoose.model("achievements", achievementSchema);
