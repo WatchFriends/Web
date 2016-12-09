@@ -1,6 +1,15 @@
 var app = require("./app"),
+    mongoose = require("mongoose"),
     http = require("http");
 
+//db
+mongoose.Promise = global.Promise;
+mongoose.connect(config.db.local);
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", ()=>{});
+
+//server
 var port = process.env.PORT || "3000";
 app.set("port", port);
 
