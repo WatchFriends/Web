@@ -3,5 +3,5 @@ const config = require("./config.json"),
       achievement = require("./../models/achievement");
       
 module.exports = {
-    getAchievements: (cb) => achievement.find({}, cb)
+    getAchievements: (cb) => achievement.find({}).exec(cb)
 };

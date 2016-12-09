@@ -11,6 +11,7 @@ var express = require("express"),
     methodOverride = require('method-override'); //om http verbs te gebruiken
 
 //db
+mongoose.Promise = global.Promise;
 mongoose.connect(config.db.development);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));

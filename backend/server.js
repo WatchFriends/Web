@@ -6,11 +6,12 @@ app.set("port", port);
 
 var server = http.createServer(app);
 server.listen(port);
-server.on("error", error=>{
+server.on("error", error => {
 
+    console.log(error);
 });
 
-server.on("listening", ()=>{
+server.on("listening", () => {
     var addr = server.address();
     console.log("Server running, listening on port " + addr.port);
 });

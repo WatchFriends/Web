@@ -8,13 +8,13 @@ var achievementSchema = new Schema({
     _id: Number,
     name: String,
     description: String,
-    types: { Number }
+    types: [ Number ]
     //image: String
 });
 
 achievementSchema.statics = {
     load: (cb) => {
-        this.find().exec(cb);
+        this.find({}).exec(cb);
     }
 };
 
@@ -29,4 +29,4 @@ achievementSchema.methods = {
     image: (type) => `images/${this.name}${type}`
 };
 
-module.exports = mongoose.model("Achievement", achievementSchema);
+module.exports = mongoose.model("achievements", achievementSchema);
