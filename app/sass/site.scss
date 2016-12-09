@@ -1,12 +1,75 @@
-div {
-  background-color: blue; 
+@import "_variables";
 
-  p {
-    font-size: 2em;
-    font-style: bold; 
-  }
+body {
+    background-color: $body-color;
+    margin: 0;
+    color: $text-color;
+    font-family: $font;
+}
 
-  h1 {
-    color: red;
-  }
+header {
+    margin-bottom: $footer-header-margin;
+}
+
+nav {
+    height: 70px;
+    background-color: $nav-color;
+}
+
+.home-section h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 36px;
+}
+
+.wrapper {
+    position: relative;
+    padding: 15px;
+    height: 550px;
+}
+
+.img-home {
+    width: 100%; /* zijn dat geen default attributen? */
+    height: 100%;
+}
+
+.btnLogin, .btnSignUp {
+    color: $text-color;
+    font-family: $font;
+    padding: 10px;
+    border: 2px solid $footer-color;
+    position: absolute;
+    font-size: 22px;
+    top: 490px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.btnLogin {
+    background-color: $button-color-default;
+    left: 210px;
+}
+
+.btnSignUp {
+    background-color: $nav-color;
+    left: 30px; /* todo: aanpassen zie ik liever anders staan */
+}
+
+h2 {
+    font-size: 28px;
+}
+
+footer {
+    margin-top: $footer-header-margin;
+    background-color: $footer-color;
+    height: 200px;
+
+    p {
+        text-align: center;
+        padding: 85px;
+        font-size: 20px;
+    }
 }
