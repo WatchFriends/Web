@@ -16,10 +16,7 @@ app.set("port", port);
 
 var server = http.createServer(app);
 server.listen(port);
-server.on("error", error => {
-
-    console.log(error);
-});
+server.on("error", console.log);
 
 server.on("listening", () => {
     var addr = server.address();

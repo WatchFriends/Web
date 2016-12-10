@@ -1,15 +1,19 @@
-const http = require("http"),
-      config = require("./config.json"),
+const config = require("./config.json"),
       request = require("request");
 
 module.exports = (() => {
 
     return {
-        url: (path, cb) => {
+        request: (path, cb) => {
 
-            let number = Math.ceil(Math.random() * config.api.keys.length - 1);
-            
-            cb(null, `http://api.themoviedb.org/3/${path}${path.indexOf("?") > 0 ? "&": "?"}api_key=${config.api.keys[number]}`);
+            request(`${config.api.hostname}${path}${path.indexOf("?") > 0 ? "&": "?"}api_key=${config.api.keys[Math.ceil(Math.random() * config.api.keys.length - 1)]}`, (error, response, body) => {
+                if (!error && response.statusCode == 200) {
+                    cb(null, JSON.parse(body));
+                }
+                else {
+                    cb(error, null);
+                }
+            });
         }
     };
 })();

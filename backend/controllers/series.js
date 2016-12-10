@@ -5,27 +5,39 @@ const service = require("./../data/apiService.js"),
 
 router.get("/series/:id", (req, res, next) => {
 
-    req.headers.accept = "application/json";
-
-    let requested = (error, response, body) => {
-        if (!error && response.statusCode == 200) {
-            res.send(JSON.parse(body));
-        }
-        else {
-            next(error);
-        }
-    },
-    gotUrl = (err, url) => {
-
+    service.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, data) => {
         if (err) {
             next(err);
         }
         else {
-            request(url, requested);
+            res.send(data);
         }
-    };
-
-    service.url(`tv/${req.params.id}?append_to_response=images,similar`, gotUrl);
+    });
 });
+
+router.get("/series/:id/seasons/:season", (req, res, next) => {
+
+    service.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
+router.get("/series/:id/seasons/:season/episode/:espisode", (req, res, next) => {
+
+    service.request(`tv/${req.params.id}/season/${req.params.season}/episode/${req.params.episode}?append_to_response=images,similar`, (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 
 module.exports = router;
