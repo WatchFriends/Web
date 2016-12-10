@@ -4,11 +4,13 @@ var service = require("./../data/databaseService.js"),
 
 router.get("/achievement", (req, res, next) => {
     service.getAchievements((err, data) => {
-        if(err) 
+        if(err) {
             next(err);
-        else 
+        }
+        else {
             res.json(data);
-    })
+        }
+    });
 });
 
 module.exports = router;
