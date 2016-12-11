@@ -1,10 +1,16 @@
+$font-family: 'Oswald', sans-serif;
+$primary-color: #31353D;
+$secundary-color: #445878;
+$third-color: #92CDCF;
+
 body {
     width: 100%;
-    background-color: #31353D;
+    background-color: $primary-color;
     margin: 0;
     color: #EEEFF7;
-    font-family: 'Oswald', sans-serif;
+    font-family: $font-family;
 }
+
 
 .container {
     margin-right: auto;
@@ -18,7 +24,7 @@ header {
 
 nav {
     height: 70px;
-    background-color: #445878;
+    background-color: $secundary-color;
 }
 
 .home-section h1 {
@@ -38,8 +44,8 @@ nav {
     height: 100%;
 }
 
-.btnLogin {
-    background-color: #92CDCF;
+.btnLogin, .btnSignUp{
+    background-color: $secundary-color;
     color: #EEEFF7;
     font-family: 'Oswald', sans-serif;
     padding: 10px;
@@ -47,25 +53,24 @@ nav {
     position: absolute;
     font-size: 22px;
     top: 490px;
+
+
+    &:hover{
+        opacity: 0.7;
+        cursor: pointer;
+    }
+}
+
+
+.btnLogin{
     left: 210px;
 }
 
 .btnSignUp {
-    background-color: #445878;
-    color: #EEEFF7;
-    font-family: 'Oswald', sans-serif;
-    padding: 10px;
-    border: 2px solid #1C1D21;
-    position: absolute;
-    top: 490px;
-    font-size: 22px;
+    background-color: $third-color;
     left: 30px;
 }
 
-.btnLogin:hover, .btnSignUp:hover {
-    opacity: 0.7;
-    cursor: pointer;
-}
 
 h2 {
     font-size: 28px;
