@@ -13,7 +13,7 @@ router.get("/list", (req, res, next) => {
             
             let seriesData = [];
 
-            for (var listIndex = data.length - 1; listIndex--;) {
+            for (var listIndex = data.length; listIndex--;) {
 
                 let temp = { 
                     name: data[listIndex].name, 
