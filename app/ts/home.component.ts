@@ -21,7 +21,7 @@ import{Component} from "@angular/core";
         <h1>Series</h1>
         <div class="wrapper">
             <!--  <h2>Searching for a serie to track?</h2> -->
-            <img class="img-home" [src]="imageSeries">
+            <img class="img-home" [src]="imageSeries"/>
 
             <button class="btnSignUp">Explore new series</button>
         </div>
@@ -32,7 +32,7 @@ import{Component} from "@angular/core";
         <div class="wrapper">
             <!-- <h2>Choose who you want to follow </h2>
             <h2>Keep track of their series</h2> -->
-            <img class="img-home" [src]="imageFollowers">
+            <img class="img-home" [src]="imageFollowers"/>
 
             <button class="btnSignUp">Expand your network</button>
         </div>

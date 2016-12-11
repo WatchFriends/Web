@@ -61,11 +61,9 @@ gulp.task("css", () => {
         .pipe(autoprefixer(AUTOPREFIXOPTIONS))
         .pipe(csslint())
         .pipe(csslint.formatter())
-        .pipe(sourcemaps.write()),
     scss = gulp.src(PATHS.CSS.SASS)
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
-        .pipe(sourcemaps.write());
 
     return merge(css, scss)
         .pipe(cleanCSS({debug: true, compatibility: '*'},  
@@ -73,6 +71,7 @@ gulp.task("css", () => {
         ))
         .pipe(concat("main.min.css"))
         .pipe(stripCssComments())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(PATHS.CSS.DEST));
 });
 
@@ -85,18 +84,20 @@ gulp.task("js", function () {
         .pipe(jshint.reporter(jsStylish))
         .pipe(sourcemaps.init())
         //.pipe(uglify()) 
-        .pipe(sourcemaps.write());
+        //.pipe(sourcemaps.write());
     var ts = gulp.src(PATHS.JS.TS)
         //.pipe(tslint())
         .pipe(typescript({
             module:"amd",
             experimentalDecorators:true,
+            outFile:"compiled.js"
         }))
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(sourcemaps.write());
+        //.pipe(sourcemaps.write());
     return merge(js, ts)
         .pipe(concat("app.min.js"))
+        .pipe(sourcemaps.write())
         //.pipe(strip())
         .pipe(gulp.dest(PATHS.JS.DEST));
 });

@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome WatchFriends</title>
+
+    
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/main.min.css"/>
 </head>
 <body>
-    <app>Loading...</app>
-    <home></home>
+    <wf-app>Loading...</wf-app>
 
-    <script src="../node_modules/core-js/client/shim.min.js"></script>
-    <script src="../node_modules/zone.js/dist/zone.js"></script>
-    <script src="../node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="../node_modules/systemjs/dist/system.src.js"></script>
-    <script src="js/app.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="module/core-js/client/shim.min.js"></script>
+    <script src="module/zone.js/dist/zone.js"></script>
+    <script src="module/reflect-metadata/Reflect.js"></script>
+    <script src="module/systemjs/dist/system.src.js"></script>    
+
+
+
     <script src="js/systemjs.config.js"></script>
     
     <script>
-        System.import('app').catch(function(err){ console.error(err); });
+
+        System.import('app').catch(function(err){if(err)console.error(err);});
+
     </script>
 
 </body>

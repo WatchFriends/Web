@@ -5,17 +5,16 @@ var mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
 var achievementSchema = new Schema({
+    _id: Number,
     name: String,
     description: String,
-    types: [{
-        //type: String,
-        condition: Number
-    }],
-    //image: String
+    types: [ Number ]
 });
 
 achievementSchema.statics = {
-    load: (id, cb) => this.findOne({_id: id}).exec(cb)
+    load: (cb) => {
+        this.find({}).exec(cb);
+    }
 };
 
 achievementSchema.methods = {
@@ -29,4 +28,4 @@ achievementSchema.methods = {
     image: (type) => `images/${this.name}${type}`
 };
 
-module.exports = mongoose.model("Achievement", achievementSchema);
+module.exports = mongoose.model("achievements", achievementSchema);
