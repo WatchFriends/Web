@@ -39,5 +39,17 @@ router.get("/series/:id/seasons/:season/episode/:espisode", (req, res, next) => 
     });
 });
 
+router.get("/series/popular", (req, res, next) => {
+
+    service.request(`tv/popular?language=en-us`, (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+});
+
 
 module.exports = router;
