@@ -48,6 +48,7 @@ gulp.task("default", () => {
         nodeWachter = gulp.watch(PATHS.NODE.SRC, ['node']);
         
     cssWatcher.on( 'change', event => console.log(`File ${event.path} was ${event.type}`));
+    sassWatcher.on( 'change', event => console.log(`File ${event.path} was ${event.type}`));
 });
 
 const AUTOPREFIXOPTIONS = {
