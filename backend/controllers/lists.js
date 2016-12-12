@@ -1,6 +1,7 @@
 const dbService = require("./../data/databaseService.js"),
       apiService = require("./../data/apiService.js"),
       express = require("express"),
+      async = require("async"),
       router = express.Router();
 
 router.get("/list", (req, res, next) => {
@@ -11,24 +12,28 @@ router.get("/list", (req, res, next) => {
         }
         else {
             
-            let seriesData = [];
+            let seriesData = [],
+                toLoad = 0,
+                loaded = 0;
 
-            for (var listIndex = data.length; listIndex--;) {
+            for (let listIndex = data.length; listIndex--;) {
 
                 let temp = { 
                     name: data[listIndex].name, 
                     series: [] 
                 };
 
-                for (var seriesIndex = data[listIndex].series.length - 1; seriesIndex--;) {
+                for (let seriesIndex = data[listIndex].series.length; seriesIndex--;) {
 
                     let id = data[listIndex].series[seriesIndex];
+                    toLoad += 1;
 
                     apiService.request(`tv/${id}?append_to_response=images,similar`, (err, data) => {
                         if (err) {
-                            next(err);
+                            // next(err);
                         }
                         else {
+                            loaded += 1;
                             temp.series.push(data);
                         }
                     });
@@ -37,7 +42,9 @@ router.get("/list", (req, res, next) => {
                 seriesData.push(temp);
             }
 
-            res.send(seriesData);
+            setTimeout(() => {
+                res.send(seriesData);
+            }, 5000);
         }
     });
 });
