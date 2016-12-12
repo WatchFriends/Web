@@ -17,6 +17,11 @@ app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //routes
 app.use("/module", require("./controllers/module"));
+app.use("/npm:a" , (req,res,next)=>{
+    var url = path.join(__dirname,"./../node_modules", req.params.a.substring(1), req.url);
+    console.log(url);
+    res.sendFile(url);
+});
 app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series")]);
 
 //error handler

@@ -2,12 +2,14 @@
     "compilerOptions": {
         "experimentalDecorators": true,
         "typeRoots" : ["./typings"],
-        "outFile": "compiled.js",
+        //"outFile": "./wwwroot/compiled.js",
+        //"module": "system",
+        "outDir": "./wwwroot/js",
+        "module": "commonjs",
         "emitDecoratorMetadata": true,
-        "module": "system",
         "target": "es5"
     },
         "include": [
-        "app/ts/*"
+        "./app/ts/*"
     ]
 }
