@@ -30,25 +30,55 @@ router.get("/list", (req, res, next) => {
 
                     apiRequests.push({
                         destinationListName: theName,
-                        tmdbId: id
+                        path: `tv/${id}?append_to_response=images,similar`
                     });
                 }
             }
 
+            let popularListName = "Popular";
+
+            seriesData.push({
+                name: popularListName,
+                series: []
+            });
+
+            apiRequests.push({
+                destinationListName: popularListName,
+                path: `tv/popular`
+            });
+
             let apiCall = (apiReq, cb) => {
-                apiService.request(`tv/${apiReq.tmdbId}?append_to_response=images,similar`, (err, data) => {
+                apiService.request(apiReq.path, (err, data) => {
                     if (err) {
                         next(err);
                     }
                     else {
-                        for (let listIndex = seriesData.length; listIndex--;) {
-                            let name = seriesData[listIndex].name;
 
-                            if (name == apiReq.destinationListName) {
-                                seriesData[listIndex].series.push(data);
-                                cb();
+                        if (apiReq.destinationListName == popularListName) {
+
+                            for (var i = 5; i--;) {                            
+                                let seriesIndex = Math.ceil(Math.random() * data.results.length - 1);
+
+                                for (let listIndex = seriesData.length; listIndex--;) {
+                                    let name = seriesData[listIndex].name;
+
+                                    if (name == apiReq.destinationListName) {
+                                        seriesData[listIndex].series.push(data.results[seriesIndex]);
+                                    }
+                                }
                             }
                         }
+                        else {
+                            for (let listIndex = seriesData.length; listIndex--;) {
+                                let name = seriesData[listIndex].name;
+
+                                if (name == apiReq.destinationListName) {
+                                    seriesData[listIndex].series.push(data);
+                                }
+                            }
+                        }
+
+                        cb();
                     }
                 });
             },
