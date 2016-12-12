@@ -30,7 +30,7 @@ router.get("/list", (req, res, next) => {
             apiRequests.push({
                 destinationListName: popularListName,
                 path: `tv/popular`
-            });;
+            });
 
             for (let listIndex = data.length; listIndex--;) {
 
