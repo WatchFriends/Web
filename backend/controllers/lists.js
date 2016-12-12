@@ -13,38 +13,56 @@ router.get("/list", (req, res, next) => {
         else {
             
             let seriesData = [],
-                toLoad = 0,
-                loaded = 0;
+                apiRequests = [];
 
             for (let listIndex = data.length; listIndex--;) {
 
-                let temp = { 
-                    name: data[listIndex].name, 
-                    series: [] 
-                };
+                let theName = data[listIndex].name;
+                console.log("listname: " + theName);
+
+                seriesData.push({
+                    name: theName,
+                    series: []
+                });
 
                 for (let seriesIndex = data[listIndex].series.length; seriesIndex--;) {
 
                     let id = data[listIndex].series[seriesIndex];
-                    toLoad += 1;
 
-                    apiService.request(`tv/${id}?append_to_response=images,similar`, (err, data) => {
-                        if (err) {
-                            // next(err);
-                        }
-                        else {
-                            loaded += 1;
-                            temp.series.push(data);
-                        }
+                    apiRequests.push({
+                        destinationListName: theName,
+                        tmdbId: id
                     });
                 }
-
-                seriesData.push(temp);
             }
 
-            setTimeout(() => {
-                res.send(seriesData);
-            }, 5000);
+            let apiCall = (apiReq, cb) => {
+                apiService.request(`tv/${apiReq.tmdbId}?append_to_response=images,similar`, (err, data) => {
+                    if (err) {
+                        next(err);
+                    }
+                    else {
+                        for (let listIndex = seriesData.length; listIndex--;) {
+                            let name = seriesData[listIndex].name;
+
+                            if (name == apiReq.destinationListName) {
+                                seriesData[listIndex].series.push(data);
+                                cb();
+                            }
+                        }
+                    }
+                });
+            },
+            afterApiCall = (err) => {
+                if (err) {
+                    next(err);
+                }
+                else {
+                    res.send(seriesData);
+                }
+            };
+
+            async.each(apiRequests, apiCall, afterApiCall);
         }
     });
 });
