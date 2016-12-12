@@ -14,6 +14,23 @@ router.get("/list", (req, res, next) => {
             
             let seriesData = [],
                 apiRequests = [];
+            const popularListName = "Popular",
+                  recommendByFriends = "Recommend by friends";
+
+            seriesData.push({
+                name: popularListName,
+                series: []
+            });
+
+            // seriesData.push({
+            //     name: recommendByFriends,
+            //     series: []
+            // });
+
+            apiRequests.push({
+                destinationListName: popularListName,
+                path: `tv/popular`
+            });;
 
             for (let listIndex = data.length; listIndex--;) {
 
@@ -30,22 +47,10 @@ router.get("/list", (req, res, next) => {
 
                     apiRequests.push({
                         destinationListName: theName,
-                        path: `tv/${id}?append_to_response=images,similar`
+                        path: `tv/${id}`
                     });
                 }
             }
-
-            let popularListName = "Popular";
-
-            seriesData.push({
-                name: popularListName,
-                series: []
-            });
-
-            apiRequests.push({
-                destinationListName: popularListName,
-                path: `tv/popular`
-            });
 
             let apiCall = (apiReq, cb) => {
                 apiService.request(apiReq.path, (err, data) => {
@@ -56,14 +61,22 @@ router.get("/list", (req, res, next) => {
 
                         if (apiReq.destinationListName == popularListName) {
 
+                            let picked = [];
                             for (var i = 5; i--;) {                            
                                 let seriesIndex = Math.ceil(Math.random() * data.results.length - 1);
 
-                                for (let listIndex = seriesData.length; listIndex--;) {
-                                    let name = seriesData[listIndex].name;
+                                if (picked.indexOf(seriesIndex) >= 0) {
+                                    i++;
+                                }
+                                else {
+                                    picked.push(seriesIndex);
 
-                                    if (name == apiReq.destinationListName) {
-                                        seriesData[listIndex].series.push(data.results[seriesIndex]);
+                                    for (let listIndex = seriesData.length; listIndex--;) {
+                                        let name = seriesData[listIndex].name;
+
+                                        if (name == apiReq.destinationListName) {
+                                            seriesData[listIndex].series.push(data.results[seriesIndex]);
+                                        }
                                     }
                                 }
                             }
