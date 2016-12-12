@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //routes
 app.use("/module", require("./controllers/module"));
-app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series")]);
+app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series"), require("./controllers/lists")]);
 
 //error handler
 app.use(["/data", "/api"], (err, req, res, next) => {
