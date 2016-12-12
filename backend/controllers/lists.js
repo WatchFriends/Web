@@ -18,7 +18,6 @@ router.get("/list", (req, res, next) => {
             for (let listIndex = data.length; listIndex--;) {
 
                 let theName = data[listIndex].name;
-                console.log("listname: " + theName);
 
                 seriesData.push({
                     name: theName,
