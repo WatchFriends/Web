@@ -5,7 +5,7 @@ class Achievement{
 }
 
 class AchievementType{
-    name:name;
+    name:String;
     color:string;
     condition:string;
 }

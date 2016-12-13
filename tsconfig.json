@@ -1,15 +1,9 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
-        "typeRoots" : ["./typings"],
-        //"outFile": "./wwwroot/compiled.js",
-        //"module": "system",
-        "outDir": "./wwwroot/js",
-        "module": "commonjs",
         "emitDecoratorMetadata": true,
-        "target": "es5"
-    },
-        "include": [
-        "./app/ts/*"
-    ]
+        "target": "es5",
+        //"module": "system",
+        "removeComments": true
+    }
 }
