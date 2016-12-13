@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
-        "typeRoots" : ["./typings"]
+        "typeRoots" : ["./typings"],
+        "outFile": "compiled.js",
+        "emitDecoratorMetadata": true,
+        "module": "system",
+        "target": "es5"
     },
         "include": [
         "app/ts/*"
