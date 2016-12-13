@@ -3,7 +3,10 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "target": "es5",
-        //"module": "system",
-        "removeComments": true
-    }
+        "module": "commonjs",
+        "moduleResolution": "node"
+    },
+    "exclude": [
+        "node_modules"
+    ]
 }
