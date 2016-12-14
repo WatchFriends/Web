@@ -1,13 +1,19 @@
 {
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "typeRoots" : ["./typings"],
-        "outFile": "compiled.js",
-        "emitDecoratorMetadata": true,
-        "module": "system",
-        "target": "es5"
-    },
-        "include": [
-        "app/ts/*"
-    ]
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "include": [
+    "app/ts/*"
+  ]
 }
