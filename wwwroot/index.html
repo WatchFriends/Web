@@ -6,7 +6,25 @@
     <title>Welcome WatchFriends</title>
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/main.min.css"/>
+
+    <script src="modules/core-js/client/shim.min.js"></script>
+    <script src="modules/zone.js/dist/zone.js"></script>
+    <script src="modules/reflect-metadata/Reflect.js"></script>
+    <script src="modules/systemjs/dist/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+
+    <script>
+        System.import('app').catch(function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
+    </script>
 </head>
+
+
+
 <body>
 <nav class="navbar">
     <div class="container">
@@ -48,24 +66,10 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container -->
 </nav>
+
 <wf-app>Loading...</wf-app>
 
 <script src="lib/jquery/dist/jquery.min.js"></script>
 <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-<script src="module/core-js/client/shim.min.js"></script>
-<script src="module/zone.js/dist/zone.js"></script>
-<script src="module/reflect-metadata/Reflect.js"></script>
-<script src="module/systemjs/dist/system.src.js"></script>
-
-<script src="js/systemjs.config.js"></script>
-
-<script>
-    System.import('app').catch(function (err) {
-        if (err) {
-            console.error(err);
-        }
-    });
-</script>
 </body>
 </html>
