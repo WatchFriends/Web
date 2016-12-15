@@ -4,9 +4,7 @@ install:
 language: node_js
 script:
   - gulp html
-  - gulp css
   - gulp scss
-  - gulp js
   - gulp ts
   - gulp node
 node_js:
