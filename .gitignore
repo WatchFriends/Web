@@ -2,6 +2,10 @@ error.log
 dbConfig.js
 apiConfig.js
 config.json
+**/*.min.js
+**/*.min.css
+**/ts/**/*.js
+**/ts/**/*.map
 
 ########################################
 # Jetbrains                            #
@@ -68,5 +72,4 @@ bower_components
 .bower-tmp
 
 # wwwroot
-wwwroot/lib/
-wwwroot/**/*.min.*
+wwwroot

@@ -1,7 +1,19 @@
 const config = require("./config.json"),
       mongoose = require('mongoose'),
-      achievement = require("./../models/achievement");
+      achievement = require("./../models/achievement"),
+      list = require("./../models/list"),
+      series = require("./../models/series");
       
 module.exports = {
-    getAchievements: (cb) => achievement.find({}, cb)
+    /* ACHIEVEMENTS */
+    getAchievements: (cb) => achievement.find({}).exec(cb),
+    
+    /* LIJSTEN HOME FRAGMENT */
+    getLists: (cb) => list.find({}).exec(cb),
+    
+    /* SERIES */
+    insertFollowingSeries: (body, cb) => {
+
+        series.insert(body).exec(cb);
+    }
 };

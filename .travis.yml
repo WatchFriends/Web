@@ -1,15 +1,13 @@
 install:
   - npm install
-  - npm install -g bower
-  #- npm install mongodb --save
-  #- npm install -g express
-  - bower install bootstrap
-  - bower install socket.io
+  - npm install -g angular-cli
 language: node_js
 script:
   - gulp html
   - gulp css
+  - gulp scss
   - gulp js
+  - gulp ts
   - gulp node
 node_js:
   - "6.9"
