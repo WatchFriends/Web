@@ -5,21 +5,12 @@ var webpack = require("webpack"),
 
 module.exports = {
     target: 'web',
-    entry: { app: "./app/main" },
+    entry: "./app/ts/main",
     output: {
-        publicPath: '',
         path: "./wwwroot",
-        filename: "[name].bundle.js"
+        filename: "app.bundle.js"
     },
-    node: {
-        global: true,
-        crypto: 'empty',
-        __dirname: true,
-        __filename: true,
-        process: true,
-        Buffer: false
-    },
-    devtool: "source-map",
+    devtool: "inline-source-map",
     module: {
         rules: [
             {
