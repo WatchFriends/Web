@@ -14,7 +14,7 @@
       "main": "main.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
-      "prefix": "",
+      "prefix": "app",
       "mobile": false,
       "styles": [
         "site.scss"
