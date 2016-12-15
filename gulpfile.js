@@ -15,9 +15,8 @@ var paths = {
     node: "./backend/**/*.js"
 };
 
-var eventlogger = event => console.log('File ${event.path} was ${event.type}');
-
 gulp.task("default", () => {
+    var eventlogger = event => console.log('File ${event.path} was ${event.type}');
     var html = gulp.watch(paths.html, ["html"]),
         scss = gulp.watch(paths.scss, ["scss"]),
         css = gulp.watch(paths.css, ["css"]),

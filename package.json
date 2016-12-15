@@ -2,6 +2,7 @@
   "name": "watchfriends",
   "version": "0.0.0",
   "angular-cli": {},
+  "description": "Front-end and back-end project watchfriends",
   "scripts": {
     "start": "ng serve",
     "lint": "tslint \"frontend/**/*.ts\"",
