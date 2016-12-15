@@ -16,7 +16,7 @@ var paths = {
 };
 
 gulp.task("default", () => {
-    var eventlogger = event => console.log('File ${event.path} was ${event.type}');
+    var eventlogger = event => console.log(`File ${event.path} was ${event.type}`);
     var html = gulp.watch(paths.html, ["html"]),
         scss = gulp.watch(paths.scss, ["scss"]),
         css = gulp.watch(paths.css, ["css"]),
@@ -34,7 +34,7 @@ gulp.task("default", () => {
 gulp.task("html", () => 
     gulp.src(paths.html)
         .pipe(htmlhint(".htmlhintrc"))
-        .pipe(htmlhint.reporter("htmlhint-stylish"))
+       // .pipe(htmlhint.reporter("htmlhint-stylish"))
         .pipe(htmlhint.failReporter())
 );
 
@@ -56,7 +56,7 @@ gulp.task("ts", () =>
         .pipe(tslint())
 );
 
-var jsreporter = jshint.reporter("jshint-stylish", { verbose: true });
+var jsreporter = jshint.reporter("default", { verbose: true });
 
 gulp.task("js", () => 
     gulp.src(paths.js)  
