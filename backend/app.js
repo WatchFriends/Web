@@ -16,7 +16,6 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //routes
-app.use("/module", require("./controllers/module"));
 app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series"), require("./controllers/lists")]);
 
 //error handler
@@ -34,7 +33,7 @@ app.use((err, req, res, next) => {
     res.locals.error = req.app.get("env") === "development" ? err : {};
 
     res.status(err.status || 500);
-    res.sendFile(path.join(__dirname,"../wwwroot/error.html"));
+    res.sendFile(path.join(__dirname,"./error.html"));
 });
 
 module.exports = app;
