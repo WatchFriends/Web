@@ -6,107 +6,85 @@ const dbService = require("./../data/databaseService.js"),
 
 router.get("/list", (req, res, next) => {
 
-    dbService.getLists((err, data) => {
+    let ListsData = [{ name: "Popular",              series: [], apiRequest: "tv/popular",      seriesId: null },
+                     { name: "Recommend by friends", series: [], apiRequest: null,              seriesId: null },
+                     { name: "Today on TV",          series: [], apiRequest: "tv/airing_today", seriesId: null }];
+
+    let everythingDone = (err) => {
         if (err) {
             next(err);
         }
         else {
-            
-            let seriesData = [],
-                apiRequests = [];
-            const popularListName = "Popular",
-                  recommendByFriends = "Recommend by friends";
+            res.send(ListsData);
+        }
+    };
 
-            seriesData.push({
-                name: popularListName,
-                series: []
-            });
+    let apiCall = (listItem, cb) => {
 
-            // seriesData.push({
-            //     name: recommendByFriends,
-            //     series: []
-            // });
+        if (listItem.seriesId != null) {
 
-            apiRequests.push({
-                destinationListName: popularListName,
-                path: `tv/popular`
-            });
-
-            for (let listIndex = data.length; listIndex--;) {
-
-                let theName = data[listIndex].name;
-
-                seriesData.push({
-                    name: theName,
-                    series: []
+            async.each(listItem.seriesId, (id, cb2) => {
+                apiService.request(`tv/${id}`, (err, data) => {
+                    listItem.series.push(data);
+                    cb2();
                 });
+            }, cb);
+        }
 
-                for (let seriesIndex = data[listIndex].series.length; seriesIndex--;) {
+        else if (listItem.seriesId == null && listItem.apiRequest != null) {
 
-                    let id = data[listIndex].series[seriesIndex];
+            apiService.request(listItem.apiRequest, (err, data) => {
+                
+                if (listItem.name == "Popular") {
 
-                    apiRequests.push({
-                        destinationListName: theName,
-                        path: `tv/${id}`
-                    });
-                }
-            }
+                    let rnd,
+                        picked = [];
+                    
+                    for (let counter = 5; counter--;) {
 
-            let apiCall = (apiReq, cb) => {
-                apiService.request(apiReq.path, (err, data) => {
-                    if (err) {
-                        next(err);
-                    }
-                    else {
+                        rnd =  Math.ceil(Math.random() * data.results.length - 1);
 
-                        if (apiReq.destinationListName == popularListName) {
-
-                            let picked = [];
-                            for (var i = 5; i--;) {                            
-                                let seriesIndex = Math.ceil(Math.random() * data.results.length - 1);
-
-                                if (picked.indexOf(seriesIndex) >= 0) {
-                                    i++;
-                                }
-                                else {
-                                    picked.push(seriesIndex);
-
-                                    for (let listIndex = seriesData.length; listIndex--;) {
-                                        let name = seriesData[listIndex].name;
-
-                                        if (name == apiReq.destinationListName) {
-                                            seriesData[listIndex].series.push(data.results[seriesIndex]);
-                                        }
-                                    }
-                                }
-                            }
+                        if (picked.indexOf(rnd) >= 0) {
+                            counter++;
                         }
                         else {
-                            for (let listIndex = seriesData.length; listIndex--;) {
-                                let name = seriesData[listIndex].name;
-
-                                if (name == apiReq.destinationListName) {
-                                    seriesData[listIndex].series.push(data);
-                                }
-                            }
+                            picked.push(rnd);
+                            listItem.series.push(data.results[rnd]);
                         }
-
-                        cb();
                     }
-                });
-            },
-            afterApiCall = (err) => {
-                if (err) {
-                    next(err);
                 }
                 else {
-                    res.send(seriesData);
+                    listItem.series = data.results;
                 }
-            };
 
-            async.each(apiRequests, apiCall, afterApiCall);
+                cb();
+            });
         }
-    });
+        else if (listItem.seriesId == null && listItem.apiRequest == null) {
+            // TODO: verder uit te werken
+            cb();
+        }
+    };
+
+    let dbData = (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            for (let dataIndex = data.length; dataIndex--;) {
+                ListsData.push({
+                    name: data[dataIndex].name,
+                    series: [],
+                    apiRequest: "tv/{id}",
+                    seriesId: data[dataIndex].series
+                });
+            }
+        }
+
+        async.each(ListsData, apiCall, everythingDone);
+    };
+
+    dbService.getLists(dbData);
 });
 
 module.exports = router;
