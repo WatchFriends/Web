@@ -2,14 +2,15 @@
 "use strict";
 
 var mongoose = require("mongoose"),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    utils = require("../helpers/utils");
 
 var tokenSchema = new Schema({
     created: {
         type: Date,
         default: Date.now
     },
-    code: String,
+    code: { type: String, unique: true, default: () => utils.uid(24) }
     redirectUri: String,
     user: {
         type: Schema.ObjectId,

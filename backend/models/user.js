@@ -3,7 +3,6 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    crypto = require("crypto"),
     authTypes = ["facebook","google"];
 
 var userSchema = new Schema({
@@ -20,7 +19,7 @@ var userSchema = new Schema({
 userSchema.virtual("password").set(password=>{
     this._password = password;
     this.salt = this.makeSalt();
-    this.hash = this.encrupt(password);
+    this.hash = this.encrypt(password);
 }).get(() => this._password);
 
 var isprovider = provider => authTypes.indexof(provider) !==-1;
@@ -37,12 +36,13 @@ userSchema.pre("save", next =>{
 });
 
 userSchema.methods = {
-    authenticate: plaintext => this.encryptPassword(plaintext) === this.hash,
+    authenticate: plaintext => this.encrypt(plaintext) === this.hash,
     makeSalt: () => Math.round((new Date().valueof() * Math.random())) + '',
     encrypt: password => {
         if(!password) return '';
-        return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+       // return crypto.createHmac('sha1', this.salt).update(password).digest('hex'); //TODO
     }
 };
 
 module.exports = mongoose.model('users', userSchema);
+
