@@ -21,7 +21,7 @@ router.get("/list", (req, res, next) => {
 
     let apiCall = (listItem, cb) => {
 
-        if (listItem.seriesId != null) {
+        if (listItem.seriesId !== null) {
 
             async.each(listItem.seriesId, (id, cb2) => {
                 apiService.request(`tv/${id}`, (err, data) => {
@@ -31,7 +31,7 @@ router.get("/list", (req, res, next) => {
             }, cb);
         }
 
-        else if (listItem.seriesId == null && listItem.apiRequest != null) {
+        else if (listItem.seriesId === null && listItem.apiRequest !== null) {
 
             apiService.request(listItem.apiRequest, (err, data) => {
                 
@@ -60,7 +60,7 @@ router.get("/list", (req, res, next) => {
                 cb();
             });
         }
-        else if (listItem.seriesId == null && listItem.apiRequest == null) {
+        else if (listItem.seriesId === null && listItem.apiRequest === null) {
             // TODO: verder uit te werken
             cb();
         }
