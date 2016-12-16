@@ -8,7 +8,6 @@ var mongoose = require('mongoose'),
 var userSchema = new Schema({
 	name: String,
     email: String,
-    username : String,
     provider: String,
     hash: String,
     salt: String,
@@ -26,7 +25,6 @@ var isprovider = provider => authTypes.indexof(provider) !==-1;
 
 userSchema.path("name").validate(name => isprovider(this.provider) || name.length, "name cannot be empty"); 
 userSchema.path("email").validate(email => isprovider(this.provider) || email.length, "e-mail cannot be empty"); 
-userSchema.path("username").validate(username => isprovider(this.provider) || username.length, "username cannot be empty"); 
 userSchema.path("hash").validate(hash => isprovider(this.provider) || hash.length, "password cannot be empty"); 
 
 userSchema.pre("save", next =>{

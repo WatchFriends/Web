@@ -24,7 +24,6 @@ app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //routes
 app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series"), require("./controllers/lists")]);
-app.use("/login", require("./controllers/login"));
 app.use("/auth", require("./controllers/auth"));
 
 //error handler
