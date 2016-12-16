@@ -20,37 +20,35 @@ router.get("/list", (req, res, next) => {
 
     let apiCallSeries = (listItem, cb) => {
 
-        if (listItem.seriesId === null && listItem.apiRequest !== null) {
+        if (listItem.apiRequest !== null) {
 
             apiService.request(listItem.apiRequest, (err, data) => {
                 
-                if (listItem.name == "Popular") {
+                switch (listItem.name) {
+                    case "Popular":
+                        let rnd, picked = [];
+                        
+                        for (let counter = 5; counter--;) {
 
-                    let rnd,
-                        picked = [];
-                    
-                    for (let counter = 5; counter--;) {
+                            rnd =  Math.ceil(Math.random() * data.results.length - 1);
 
-                        rnd =  Math.ceil(Math.random() * data.results.length - 1);
-
-                        if (picked.indexOf(rnd) >= 0) {
-                            counter++;
+                            if (picked.indexOf(rnd) >= 0) {
+                                counter++;
+                            }
+                            else {
+                                picked.push(rnd);
+                                listItem.series.push(data.results[rnd]);
+                            }
                         }
-                        else {
-                            picked.push(rnd);
-                            listItem.series.push(data.results[rnd]);
-                        }
-                    }
-                }
-                else {
-                    // TODO: if (listname == "Today on TV") { // check gebruikers favorite series. }
-                    listItem.series = data.results;
+                    default: 
+                        // TODO: if (listname == "Today on TV") { // check gebruikers favorite series. }
+                        listItem.series = data.results;
                 }
 
                 cb();
             });
         }
-        else if (listItem.seriesId === null && listItem.apiRequest === null) {
+        else {
             // TODO: verder uit te werken
             cb();
         }
@@ -59,7 +57,7 @@ router.get("/list", (req, res, next) => {
     let genresData = (err, data) => {
 
         // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
-        async.each(ListsData, apiCall, everythingDone);
+        async.each(ListsData, apiCallSeries, everythingDone);
     };
 
     apiService.request("genre/tv/list",  genresData);
