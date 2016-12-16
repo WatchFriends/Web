@@ -1,7 +1,6 @@
 const config = require("./config.json"),
       mongoose = require('mongoose'),
       achievement = require("./../models/achievement"),
-      list = require("./../models/list"),
       series = require("./../models/series");
       
 module.exports = {
