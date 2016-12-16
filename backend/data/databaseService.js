@@ -8,9 +8,6 @@ module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
     
-    /* LIJSTEN HOME FRAGMENT */
-    getLists: (cb) => list.find({}).exec(cb),
-    
     /* SERIES */
     insertFollowingSeries: (body, cb) => {
 

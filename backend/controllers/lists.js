@@ -1,14 +1,13 @@
-const dbService = require("./../data/databaseService.js"),
-      apiService = require("./../data/apiService.js"),
+const apiService = require("./../data/apiService.js"),
       express = require("express"),
       async = require("async"),
       router = express.Router();
 
 router.get("/list", (req, res, next) => {
 
-    let ListsData = [{ name: "Popular",              series: [], apiRequest: "tv/popular",      seriesId: null },
-                     { name: "Recommend by friends", series: [], apiRequest: null,              seriesId: null },
-                     { name: "Today on TV",          series: [], apiRequest: "tv/airing_today", seriesId: null }];
+    let ListsData = [{ name: "Popular",              series: [], apiRequest: "tv/popular" },
+                     { name: "Recommend by friends", series: [], apiRequest: null },
+                     { name: "Today on TV",          series: [], apiRequest: "tv/airing_today" }];
 
     let everythingDone = (err) => {
         if (err) {
@@ -19,19 +18,9 @@ router.get("/list", (req, res, next) => {
         }
     };
 
-    let apiCall = (listItem, cb) => {
+    let apiCallSeries = (listItem, cb) => {
 
-        if (listItem.seriesId !== null) {
-
-            async.each(listItem.seriesId, (id, cb2) => {
-                apiService.request(`tv/${id}`, (err, data) => {
-                    listItem.series.push(data);
-                    cb2();
-                });
-            }, cb);
-        }
-
-        else if (listItem.seriesId === null && listItem.apiRequest !== null) {
+        if (listItem.seriesId === null && listItem.apiRequest !== null) {
 
             apiService.request(listItem.apiRequest, (err, data) => {
                 
@@ -54,6 +43,7 @@ router.get("/list", (req, res, next) => {
                     }
                 }
                 else {
+                    // TODO: if (listname == "Today on TV") { // check gebruikers favorite series. }
                     listItem.series = data.results;
                 }
 
@@ -66,25 +56,13 @@ router.get("/list", (req, res, next) => {
         }
     };
 
-    let dbData = (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            for (let dataIndex = data.length; dataIndex--;) {
-                ListsData.push({
-                    name: data[dataIndex].name,
-                    series: [],
-                    apiRequest: "tv/{id}",
-                    seriesId: data[dataIndex].series
-                });
-            }
-        }
+    let genresData = (err, data) => {
 
+        // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
         async.each(ListsData, apiCall, everythingDone);
     };
 
-    dbService.getLists(dbData);
+    apiService.request("genre/tv/list",  genresData);
 });
 
 module.exports = router;
