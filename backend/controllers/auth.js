@@ -7,6 +7,6 @@ router.get("/login", passport.authenticate('local', {
     failureRedirect: '/auth/login'
 }));
 
-router.get("/facebook", passport.authenticate('facebook'), (req, res) => res.redirect("/"));
+router.get("/facebook", passport.authenticate('facebook', {scope: ["email"]}), (req, res) => res.redirect("/"));
 
 module.exports = router;

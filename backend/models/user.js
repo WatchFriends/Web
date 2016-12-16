@@ -6,13 +6,19 @@ var mongoose = require('mongoose'),
     authTypes = ["facebook","google"];
 
 var userSchema = new Schema({
-	name: String,
+    //always
+    name: { 
+        familyName: String,
+        givenName: String,
+        middleName: String
+    },
     email: String,
-    provider: String,
-    hash: String,
+    //local
     salt: String,
-    facebook: {},
-    google: {}
+    hash: String,
+    //oauth
+    provider: String,
+    providerId: String
 });
 
 userSchema.virtual("password").set(password=>{
