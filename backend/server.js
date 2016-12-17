@@ -3,6 +3,28 @@ var app = require("./app"),
     config = require("./data/config.json"),
     http = require("http");
 
+Array.prototype.random = (max) => {
+        
+    if (max) {
+        let picked = [], rnd;
+
+        for (let counter = max; counter--;) { // zou dat werken zo?
+            rnd = Math.floor(Math.random() * this.length - 1);
+            
+            if (picked.indexOf(rnd) >= 0) {
+                max++;
+            }
+            else {
+                picked.push(this[rnd]);
+            }
+        }
+        return picked;
+    }
+    else {
+        return this[Math.floor(Math.random() * this.length - 1)]
+    }
+};
+
 //db
 mongoose.Promise = global.Promise;
 mongoose.connect(config.db.development);

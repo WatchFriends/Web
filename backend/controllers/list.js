@@ -1,61 +1,60 @@
-const apiService = require("./../data/apiService.js"),
+const apiService = require("./../data/apiService"),
+      utils = require("./../helpers/utils"),
       express = require("express"),
-      rnd = require("./../helpers/utils.js").randomNumber,
       async = require("async"),
       router = express.Router();
 
 router.get("/list", (req, res, next) => {
 
-    let ListsData = [{ name: "Popular",              series: [], apiRequest: "tv/popular" },
-                     { name: "Recommend by friends", series: [], apiRequest: null },
-                     { name: "Today on TV",          series: [], apiRequest: "tv/airing_today" }];
+    const POPULAR = "Popular", 
+          FRIENDS = "Recommend by friends", 
+          TODAY_ON_TV = "Today on TV";
 
-    let everythingDone = (err) => {
+    let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      },
+                     { name: FRIENDS,     series: [], apiRequest: null              },
+                     { name: TODAY_ON_TV, Series: [], apiRequest: "tv/airing_today" }],
+
+    everythingDone = (err) => {
         if (err) {
             next(err);
         }
         else {
             res.send(ListsData);
         }
-    };
+    },
 
-    let apiCallSeries = (listItem, cb) => {
+    apiCallSeries = (listItem, cb) => {
 
         if (listItem.apiRequest !== null) {
 
-            apiService.request(listItem.apiRequest, (err, data) => {
+            let requested = (err, data) => {
                 
+                if (err) {
+                    next(err);
+                }
+
                 switch (listItem.name) {
                     case "Popular":
-                        let picked = [], lengte = data.results.length;
-                        
-                        for (let counter = 5; counter--;) {
+                        listItem.series = data.results.random(5);
+                        break;
 
-                            let rndNumber =  rnd(lengte);
-
-                            if (picked.indexOf(rndNumber) >= 0) {
-                                counter++;
-                            }
-                            else {
-                                picked.push(rndNumber);
-                                listItem.series.push(data.results[rndNumber]);
-                            }
-                        }
                     default: 
-                        // TODO: if (listname == "Today on TV") { // check gebruikers favorite series. }
+                        // TODO: case "Today on TV": // check gebruikers favorite series.
                         listItem.series = data.results;
+                        break;
                 }
 
                 cb();
-            });
+            };
+            apiService.request(listItem.apiRequest, requested);
         }
         else {
             // TODO: verder uit te werken
             cb();
         }
-    };
+    },
 
-    let genresData = (err, data) => {
+    genresData = (err, data) => {
 
         // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
         async.each(ListsData, apiCallSeries, everythingDone);
