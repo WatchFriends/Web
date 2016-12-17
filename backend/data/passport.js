@@ -11,13 +11,27 @@ var mongoose = require("mongoose"),
 function authify (accessToken, refreshToken, profile, cb) {
     email = profile.emails[0].value;
     User.findOne({ email }, (err, user) => {
-        if (err || user) return cb(err, user); //err? -> cb(err), user? -> cb(null, user)
-        User.create({
-            email,
-            name: profile.name,
-            provider: profile.provider,
-            providerId: profile.id
-        }, cb);
+        if (err) return cb(err); 
+        if (user) {
+            if (!user.providers) user.providers = [];
+            var provider = user.providers.find(provider => provider.name == profile.provider);
+            if(!provider) { //nieuwe provider voor dit account
+                user.providers.push({
+                    name: profile.provider,
+                    id: profile.id
+                });
+                return user.save(err => cb(err, user));
+            }
+            return cb(null, user)
+        }
+        user = new User();
+        user.email = email;
+        user.name = profile.name;
+        user.providers[0] = {
+            name: profile.provider,
+            id: profile.id
+        };
+        user.save(err => cb(err, user));
     });
 }
 
@@ -25,7 +39,7 @@ module.exports = config => {
     passport.serializeUser((user, cb) => cb(null, user.id));
 
     passport.deserializeUser((id, cb) => User.findById(id, cb));
-
+    //https://github.com/jaredhanson/passport-local
     passport.use("register", new LocalStrategy({ usernameField: "email" }, (email, password, cb) => {
         User.findOne({ email }, (err, user) => {
             if (err) return cb(err);

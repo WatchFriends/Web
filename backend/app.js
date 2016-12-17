@@ -27,7 +27,7 @@ app.use(["/data", "/api"], [require("./controllers/achievement"), require("./con
 app.use("/auth", require("./controllers/auth"));
 
 //error handler
-app.use(["/data", "/api"], (err, req, res, next) => {
+app.use(["/data", "/api", "/auth"], (err, req, res, next) => {
     res.status(err.status || 500);
     res.send({});//empty object
 });
