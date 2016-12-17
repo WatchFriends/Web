@@ -12,7 +12,11 @@ var paths = {
     css: "./frontend/**/*.css",
     ts: "./frontend/**/*.ts",
     js: "./frontend/**/*.js",
-    node: "./backend/**/*.js"
+    node: "./backend/**/*.js",
+    libs: {
+        SRC: './bower_components/*/dist/**/*',
+        DEST: './frontend/assets/lib'
+    }
 };
 
 gulp.task("default", () => {
@@ -31,41 +35,45 @@ gulp.task("default", () => {
     node.on('change', eventlogger);
 });
 
-gulp.task("html", () => 
+gulp.task("html", () =>
     gulp.src(paths.html)
         .pipe(htmlhint(".htmlhintrc"))
-       // .pipe(htmlhint.reporter("htmlhint-stylish"))
+        // .pipe(htmlhint.reporter("htmlhint-stylish"))
         .pipe(htmlhint.failReporter())
 );
 
-gulp.task("scss", () => 
+gulp.task("scss", () =>
     gulp.src(paths.scss)
         .pipe(sass().on('error', sass.logError))
         .pipe(csslint())
         .pipe(csslint.formatter())
 );
 
-gulp.task("css", () => 
+gulp.task("css", () =>
     gulp.src(paths.css)
         .pipe(csslint())
         .pipe(csslint.formatter())
 );
 
-gulp.task("ts", () => 
+gulp.task("ts", () =>
     gulp.src(paths.ts)
         .pipe(tslint())
 );
 
-var jsreporter = jshint.reporter("default", { verbose: true });
+var jsreporter = jshint.reporter("default", {verbose: true});
 
-gulp.task("js", () => 
-    gulp.src(paths.js)  
+gulp.task("js", () =>
+    gulp.src(paths.js)
         .pipe(jshint())
         .pipe(jsreporter)
 );
 
-gulp.task("node", () => 
+gulp.task("node", () =>
     gulp.src(paths.node)
-        .pipe(jshint({esnext:true}))
+        .pipe(jshint({esnext: true}))
         .pipe(jsreporter)
+);
+
+gulp.task("copy-libs", () =>
+    gulp.src(paths.libs.SRC).pipe(gulp.dest(paths.libs.DEST))
 );

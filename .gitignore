@@ -73,3 +73,4 @@ bower_components
 
 # wwwroot
 wwwroot
+/frontend/assets/lib/
