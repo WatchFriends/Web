@@ -10,14 +10,14 @@ var userSchema = new Schema({
     name: {
         familyName: { type: String, required: true },
         givenName: { type: String, required: true },
-        middleName: { type: String, required: true }
+        middleName: { type: String }
     },
     email: { type: String, required: true },
     //local
     salt: String,
     hash: String,
     //oauth
-    providers: [{name:String, id:String}] //provider name and user id
+    providers: [{ name: String, id: String }] //provider name and user id
 });
 
 userSchema.virtual("password").set(password => {
@@ -26,11 +26,11 @@ userSchema.virtual("password").set(password => {
     this.hash = this.encrypt(password);
 }).get(() => this._password);
 
-var isprovider = providers => providers.foreach( provider => authTypes.indexof(provider) !== -1);
+var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
 userSchema.pre("save", next => {
     if (!this.isNew) return next();
-    if ((this.password && this.password.length ) || (this.providers && isprovider(this.providers))) next();
+    if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) next();
     else next(new Error("invalid password"));
 });
 
