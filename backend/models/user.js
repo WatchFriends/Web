@@ -17,7 +17,7 @@ var userSchema = new Schema({
     salt: String,
     hash: String,
     //oauth
-    providers: [{ name: String, id: String }] //provider name and user id
+    providers: [{ name: String, id: String, token: String }] //provider name, user id and accestoken
 });
 
 userSchema.virtual("password").set(password => {

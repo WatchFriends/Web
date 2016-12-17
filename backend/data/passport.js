@@ -19,7 +19,8 @@ function authify (accessToken, refreshToken, profile, cb) {
             if(!provider) { //nieuwe provider voor dit account
                 user.providers.push({
                     name: profile.provider,
-                    id: profile.id
+                    id: profile.id,
+                    token: accessToken
                 });
                 return user.save(err => cb(err, user));
             }
