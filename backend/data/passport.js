@@ -3,8 +3,9 @@
 
 var mongoose = require("mongoose"),
     passport = require("passport"),
-    LocalStrategy = require("passport-local"),
-    FacebookStrategy = require("passport-facebook"),
+    LocalStrategy = require("passport-local").Strategy,
+    FacebookStrategy = require("passport-facebook").Strategy,
+    GoogleStrategy = require("passport-google-oauth").OAuth2Strategy, //of OAuthStrategy
     User = require("../models/user");
 
 // http://passportjs.org/docs/profile
@@ -68,5 +69,11 @@ module.exports = config => {
         callbackURL: "/auth/facebook/callback",
         profileFields: ['id', 'email', 'first_name', 'last_name'], //vraagt enkel specifieke velden op
         enableProof: true //veiligheid (stuurt gehashte clientsecret en requesttoken ipv. enkel de requesttoken)
+    }, authify));    
+    //https://github.com/jaredhanson/passport-google-oauth2
+    passport.use(new GoogleStrategy({
+        clientID: config.auth.google.key,
+        clientSecret: config.auth.google.secret,
+        callbackURL: "/auth/google/callback",
     }, authify));
 };
