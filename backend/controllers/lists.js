@@ -1,5 +1,6 @@
 const apiService = require("./../data/apiService.js"),
       express = require("express"),
+      rnd = require("./../helpers/utils.js").randomNumber,
       async = require("async"),
       router = express.Router();
 
@@ -26,18 +27,18 @@ router.get("/list", (req, res, next) => {
                 
                 switch (listItem.name) {
                     case "Popular":
-                        let rnd, picked = [];
+                        let picked = [], lengte = data.results.length;
                         
                         for (let counter = 5; counter--;) {
 
-                            rnd =  Math.ceil(Math.random() * data.results.length - 1);
+                            let rndNumber =  rnd(lengte);
 
-                            if (picked.indexOf(rnd) >= 0) {
+                            if (picked.indexOf(rndNumber) >= 0) {
                                 counter++;
                             }
                             else {
-                                picked.push(rnd);
-                                listItem.series.push(data.results[rnd]);
+                                picked.push(rndNumber);
+                                listItem.series.push(data.results[rndNumber]);
                             }
                         }
                     default: 
