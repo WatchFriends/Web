@@ -17,8 +17,7 @@ var userSchema = new Schema({
     salt: String,
     hash: String,
     //oauth
-    provider: String,
-    providerId: String
+    providers: [{name:String, id:String}] //provider name and user id
 });
 
 userSchema.virtual("password").set(password => {
@@ -27,12 +26,12 @@ userSchema.virtual("password").set(password => {
     this.hash = this.encrypt(password);
 }).get(() => this._password);
 
-var isprovider = provider => authTypes.indexof(provider) !== -1;
+var isprovider = providers => providers.foreach( provider => authTypes.indexof(provider) !== -1);
 
 userSchema.pre("save", next => {
     if (!this.isNew) return next();
-    if (!this.password || !this.password.length && !isprovider(this.provider)) next(new Error("invalid password"));
-    else next();
+    if ((this.password && this.password.length ) || (this.providers && isprovider(this.providers))) next();
+    else next(new Error("invalid password"));
 });
 
 userSchema.methods = {

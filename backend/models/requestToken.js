@@ -10,7 +10,7 @@ var tokenSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    code: { type: String, unique: true, default: () => utils.uid(24) }
+    code: { type: String, unique: true, default: () => utils.uid(24) },
     redirectUri: String,
     user: {
         type: Schema.ObjectId,

@@ -26,10 +26,23 @@ module.exports = config => {
 
     passport.deserializeUser((id, cb) => User.findById(id, cb));
 
-    passport.use(new LocalStrategy((username, password, cb) => {
-        User.findOne({ email: username }, (err, user) => {
+    passport.use("register", new LocalStrategy({ usernameField: "email" }, (email, password, cb) => {
+        User.findOne({ email }, (err, user) => {
             if (err) return cb(err);
-            if (!user) return cb(null, false, { message: 'Incorrect username.' });
+            if (user) return cb(null, false, { message: 'That e-mail is already taken.' });
+            user = new User();
+            user.email = email;
+            user.password = password; //property setter doet encryptie
+            user.save(err => {
+                if(err) return cb(err);
+                return cb(null, user);
+            })
+        });
+    }));
+    passport.use("login", new LocalStrategy({ usernameField: "email" }, (email, password, cb) => {
+        User.findOne({ email }, (err, user) => {
+            if (err) return cb(err);
+            if (!user) return cb(null, false, { message: 'Incorrect e-mail.' });
             if (!user.authenticate(password)) return cb(null, false, { message: 'Incorrect password.' });
             return cb(null, user);
         });

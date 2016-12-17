@@ -2,7 +2,11 @@ var express = require("express"),
     passport = require("passport"),
     router = express.Router();
 
-router.get("/login", passport.authenticate('local', {
+router.post("/register", passport.authenticate('register', {
+    successRedirect: '/',
+    failureRedirect: '/auth/register'
+}));
+router.post("/login", passport.authenticate('login', {
     successRedirect: '/',
     failureRedirect: '/auth/login'
 }));
