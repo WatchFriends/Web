@@ -4,24 +4,22 @@ Array.prototype.random = function (max, repeat) {
         let picked = [], rnd, length = this.length;
         if (!repeat && max > length) 
             throw new Error(`Cannot take ${max} random elements from an array of size ${length}`);
+        while (max--) {
+            rnd = Math.floor(Math.random() * length);
 
-        for (; max--;) {
-            rnd = Math.ceil(Math.random() * length - 1);
-
-            if (!repeat && picked.indexOf(rnd)) {
-                max++;
+            if (repeat || picked.indexOf(rnd) < 0) { 
+                picked.push(rnd);
             }
             else {
-                picked.push(this[rnd]);
+                max++; //het element zit al in picked, en repeat is falsy
             }
         }
-        return picked;
+        return picked.map(i => this[i]);
     }
-    else {
-        return this[Math.ceil(Math.random() * this.length - 1)];
-    }
+    
+    return this[Math.floor(Math.random() * this.length)];
 };
 
 module.exports = {
-    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join()
-};
+    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join("")
+}
