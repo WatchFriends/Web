@@ -1,5 +1,4 @@
 const config = require("./config.json"),
-      rnd = require("./../helpers/utils").randomNumber,
       request = require("request");
 
 module.exports = (() => {
