@@ -3,7 +3,7 @@ Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me ee
     if (max) {
         let picked = [], rnd;
 
-        for (let counter = max; counter--;) { // zou dat werken zo?
+        for (; max--;) {
             rnd = Math.ceil(Math.random() * this.length - 1);
             
             if (picked.indexOf(rnd) >= 0) {
