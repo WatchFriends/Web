@@ -32,7 +32,6 @@ app.use(["/data", "/api"], [
         res.status(404);
         res.json({ message: "Api route not found", status: 404 });
     }]);
-//app.use("/", require("./controllers/index"));
 
 //error handler
 app.use((req, res, next) => 
