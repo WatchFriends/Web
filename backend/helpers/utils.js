@@ -22,6 +22,11 @@ Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me ee
 
 module.exports = {
     uid: number => {
-        return "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number).join(""); 
+        var buff = [],
+             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",		
+             charlen = chars.length;		
+         for(var i = 0; i < number; i++)		
+             buf.push(chars[Math.floor(Math.random*charlen)]);		
+         return buf.join("");
     }
 };
