@@ -1,12 +1,14 @@
-Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me een fout zie: http://stackoverflow.com/questions/41218673/keyword-this-gives-an-empty-object-in-prototype-of-array-node-js
-        
+Array.prototype.random = function (max, repeat) {
+
     if (max) {
-        let picked = [], rnd;
+        let picked = [], rnd, length = this.length;
+        if (!repeat && max > length) 
+            throw new Error(`Cannot take ${max} random elements from an array of size ${length}`);
 
         for (; max--;) {
-            rnd = Math.ceil(Math.random() * this.length - 1);
-            
-            if (picked.indexOf(rnd) >= 0) {
+            rnd = Math.ceil(Math.random() * length - 1);
+
+            if (!repeat && picked.indexOf(rnd)) {
                 max++;
             }
             else {
@@ -21,12 +23,5 @@ Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me ee
 };
 
 module.exports = {
-    uid: number => {
-        var buff = [],
-             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",		
-             charlen = chars.length;		
-         for(var i = 0; i < number; i++)		
-             buf.push(chars[Math.floor(Math.random*charlen)]);		
-         return buf.join("");
-    }
+    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join()
 };
