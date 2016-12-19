@@ -27,11 +27,15 @@ app.use("/api/auth", require("./controllers/auth"));
 app.use(["/data", "/api"], [
     require("./controllers/achievement"),
     require("./controllers/series"),
-    require("./controllers/lists"),
-    (req, res) => {
-        res.status(404);
-        res.json({ message: "Api route not found", status: 404 });
-    }]);
+    require("./controllers/list"),
+    (req, res, next) => { //geen route beschikbaar
+        var error = new Error("Api route not found")
+        error.status =404;
+        next(error);
+    },
+    (err, req, res, next) => 
+        res.json({ message: err.message, status: err.status})
+    ]);
 
 //error handler
 app.use((req, res, next) => 
