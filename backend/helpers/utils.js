@@ -16,9 +16,8 @@ Array.prototype.random = function (max, repeat) {
         }
         return picked.map(i => this[i]);
     }
-    else {
-        return this[Math.floor(Math.random() * length)];
-    }
+    
+    return this[Math.floor(Math.random() * this.length)];
 };
 
 module.exports = {
