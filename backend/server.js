@@ -3,13 +3,13 @@ var app = require("./app"),
     config = require("./data/config.json"),
     http = require("http");
 
-Array.prototype.random = (max) => {
+Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me een fout zie: http://stackoverflow.com/questions/41218673/keyword-this-gives-an-empty-object-in-prototype-of-array-node-js
         
     if (max) {
         let picked = [], rnd;
 
         for (let counter = max; counter--;) { // zou dat werken zo?
-            rnd = Math.floor(Math.random() * this.length - 1);
+            rnd = Math.ceil(Math.random() * this.length - 1);
             
             if (picked.indexOf(rnd) >= 0) {
                 max++;
@@ -21,7 +21,7 @@ Array.prototype.random = (max) => {
         return picked;
     }
     else {
-        return this[Math.floor(Math.random() * this.length - 1)]
+        return this[Math.ceil(Math.random() * this.length - 1)];
     }
 };
 
