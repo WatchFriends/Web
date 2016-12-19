@@ -1,10 +1,10 @@
-Array.prototype.random = function (max, repeat) { // @Jasper: de `=>` syntax geeft me een fout zie: http://stackoverflow.com/questions/41218673/keyword-this-gives-an-empty-object-in-prototype-of-array-node-js
+Array.prototype.random = function (max, repeat) {
 
     if (max) {
         let picked = [], rnd, length = this.length;
         if (!repeat && max > length) 
             throw new Error(`Cannot take ${max} random elements from an array of size ${length}`);
-            
+
         for (; max--;) {
             rnd = Math.ceil(Math.random() * length - 1);
 
