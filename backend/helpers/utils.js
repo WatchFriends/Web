@@ -7,14 +7,14 @@ Array.prototype.random = function (max, repeat) {
         while (max--) {
             rnd = Math.floor(Math.random() * length);
 
-            if (repeat || picked.indexOf(this[rnd]) < 0) { 
-                picked.push(this[rnd]);
+            if (repeat || picked.indexOf(rnd) < 0) { 
+                picked.push(rnd);
             }
             else {
                 max++; //het element zit al in picked, en repeat is falsy
             }
         }
-        return picked;
+        return picked.map(i => this[i]);
     }
     else {
         return this[Math.floor(Math.random() * length)];
@@ -22,4 +22,5 @@ Array.prototype.random = function (max, repeat) {
 };
 
 module.exports = {
-    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join()
+    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join("")
+}
