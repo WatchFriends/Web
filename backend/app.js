@@ -11,11 +11,11 @@ var express = require("express"),
 
 //middleware
 app.use(logger("dev"));
-app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(bodyParser.json({ type: 'application/vnd.api+json' })); 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({secret: config.sessionSecret}));
+app.use(session({ secret: config.sessionSecret }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -23,25 +23,27 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, "../wwwroot")));
 
 //routes
-app.use(["/data", "/api"], [require("./controllers/achievement"), require("./controllers/series"), require("./controllers/lists")]);
-app.use("/auth", require("./controllers/auth"));
+app.use("/api/auth", require("./controllers/auth"));
+app.use(["/data", "/api"], [
+    require("./controllers/achievement"),
+    require("./controllers/series"),
+    require("./controllers/lists"),
+    (req, res) => {
+        res.status(404);
+        res.json({ message: "Api route not found", status: 404 });
+    }]);
+//app.use("/", require("./controllers/index"));
 
 //error handler
-app.use(["/data", "/api", "/auth"], (err, req, res, next) => {
-    res.status(err.status || 500);
-    res.send({});//empty object
-});
-app.use((req, res, next) => {
-    var err = new Error("not found");
-    err.status = 404;
-    next(err);
-});
-app.use((err, req, res, next) => {
-    res.locals.message = err.message;
+app.use((req, res, next) => 
+    //kan een angular route zijn, of een file die niet bestaat
+    res.sendFile(path.join(__dirname, "./../wwwroot/index.html"))
+);
+app.use((err, req, res, next) => {    
+    res.locals.message = err.messsage;
     res.locals.error = req.app.get("env") === "development" ? err : {};
-
     res.status(err.status || 500);
-    res.sendFile(path.join(__dirname,"./error.html"));
+    res.sendFile(path.join(__dirname, "./error.html")); //todo view engine -> beter code tonen
 });
 
 module.exports = app;

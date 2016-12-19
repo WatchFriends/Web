@@ -3,14 +3,8 @@ var express = require("express"),
     router = express.Router();
 
 //local
-router.post("/register", passport.authenticate('register', {
-    successRedirect: '/',
-    failureRedirect: '/auth/register'
-}));
-router.post("/login", passport.authenticate('login', {
-    successRedirect: '/',
-    failureRedirect: '/auth/login'
-}));
+router.post("/register", passport.authenticate('register'));
+router.post("/login", passport.authenticate('login'));
 router.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
@@ -18,16 +12,10 @@ router.get("/logout", (req, res) => {
 
 //facebook
 router.get("/facebook", passport.authenticate('facebook', { scope: "email" }));
-router.get("/facebook/callback", passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
+router.get("/facebook/callback", passport.authenticate('facebook'));
 
 //google
 router.get("/google", passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
-router.get("/google/callback", passport.authenticate('google', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-}));
+router.get("/google/callback", passport.authenticate('google'));
 
 module.exports = router;

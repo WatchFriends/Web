@@ -67,14 +67,14 @@ module.exports = config => {
     passport.use(new FacebookStrategy({
         clientID: config.auth.facebook.key,
         clientSecret: config.auth.facebook.secret,
-        callbackURL: "/auth/facebook/callback",
+        callbackURL: "/api/auth/facebook/callback",
         profileFields: ['id', 'email', 'first_name', 'last_name'], //vraagt enkel specifieke velden op
         enableProof: true //veiligheid (stuurt gehashte clientsecret en requesttoken ipv. enkel de requesttoken)
     }, authify));    
     //https://github.com/jaredhanson/passport-google-oauth2
-    passport.use(new GoogleStrategy({
+   /* passport.use(new GoogleStrategy({
         clientID: config.auth.google.key,
         clientSecret: config.auth.google.secret,
-        callbackURL: "/auth/google/callback",
-    }, authify));
+        callbackURL: "/api/auth/google/callback",
+    }, authify));*/
 };

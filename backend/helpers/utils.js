@@ -1,6 +1,6 @@
 module.exports = {
     uid: number => {
-        var buff = [],
+        var buf = [],
             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
             charlen = chars.length;
         for(var i = 0; i < number; i++)
