@@ -1,10 +1,32 @@
+Array.prototype.random = function (max) { // @Jasper: de `=>` syntax geeft me een fout zie: http://stackoverflow.com/questions/41218673/keyword-this-gives-an-empty-object-in-prototype-of-array-node-js
+        
+    if (max) {
+        let picked = [], rnd;
+
+        for (; max--;) {
+            rnd = Math.ceil(Math.random() * this.length - 1);
+            
+            if (picked.indexOf(rnd) >= 0) {
+                max++;
+            }
+            else {
+                picked.push(this[rnd]);
+            }
+        }
+        return picked;
+    }
+    else {
+        return this[Math.ceil(Math.random() * this.length - 1)];
+    }
+};
+
 module.exports = {
     uid: number => {
         var buff = [],
-            chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-            charlen = chars.length;
-        for(var i = 0; i < number; i++)
-            buf.push(chars[Math.floor(Math.random*charlen)]);
-        return buf.join("");
+             chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",		
+             charlen = chars.length;		
+         for(var i = 0; i < number; i++)		
+             buf.push(chars[Math.floor(Math.random*charlen)]);		
+         return buf.join("");
     }
 };
