@@ -23,5 +23,5 @@ Array.prototype.random = function (max, repeat) {
 };
 
 module.exports = {
-    uid: number => "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".random(number, true).join()
+    uid: number => Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").random(number, true).join("")
 };

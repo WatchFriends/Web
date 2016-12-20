@@ -41,11 +41,12 @@
     "passport-facebook": "^2.1.1",
     "passport-google": "^0.3.0",
     "passport-google-oauth": "^1.0.0",
+    "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
+    "request": "^2.79.0",
     "rxjs": "5.0.0-beta.12",
     "ts-helpers": "^1.1.1",
-    "zone.js": "^0.6.23",
-    "request": "^2.79.0"
+    "zone.js": "^0.6.23"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.2.3",
