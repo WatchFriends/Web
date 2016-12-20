@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-form',
@@ -6,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public model = new User();
+  model = {};
 
-  constructor() { }
+  public login() {
+    console.log("login function");
+  }
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }

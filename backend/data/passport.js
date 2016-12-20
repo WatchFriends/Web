@@ -13,12 +13,12 @@ var mongoose = require("mongoose"),
 // http://passportjs.org/docs/profile
 var authify = (accessToken, refreshToken, profile, cb) => {
     var email = profile.emails[0].value;
-    User.findOne({ email: email }, (err, user) => {
+    User.findOne({ email }, (err, user) => {
         if (err) return cb(err);
         if (user) {
             if (!user.providers) user.providers = [];
             var provider = user.providers.find(provider => provider.name == profile.provider);
-            if (!provider) { //nieuwe provider voor dit account
+            if (!provider) { //nieuwe provider voor dit account, user moet al ingelogd zijn om dit te mogen doen.
                 user.providers.push({
                     name: profile.provider,
                     id: profile.id,
