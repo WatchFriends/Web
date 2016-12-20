@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 import { NavComponent } from './nav/nav.component';
 
 @NgModule({
@@ -18,7 +18,8 @@ import { NavComponent } from './nav/nav.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    NgbModule.forRoot()
+    DropdownModule.forRoot(),
+    CollapseModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
