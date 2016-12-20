@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  model = {};
+  model = { email: "", password: "" };
 
-  public login() {
-    console.log("login function");
+  public login(event: Event) {
+    event.preventDefault();
+    console.dir(this.model);
   }
 
   constructor(private router: Router) { }
