@@ -52,16 +52,6 @@ router.get("/series/popular", (req, res, next) => {
     });
 });
 
-router.get("/series/:id/similar", (req, res, next) => {
-    apiService.request(`tv/${req.params.id}/similar?language=en-US`, (err, data) => {
-       if (err){
-           next(err);
-       } else {
-           res.send(data);
-       }
-    });
-});
-
 router.post("/series/follow", (req, res, next) => {
 
     dbService.insertFollowingSeries(req.body, (err, data) => {
