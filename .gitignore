@@ -6,6 +6,7 @@ config.json
 **/*.min.css
 **/ts/**/*.js
 **/ts/**/*.map
+hubot.js
 
 ########################################
 # Jetbrains                            #
