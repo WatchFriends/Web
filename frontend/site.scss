@@ -10,32 +10,39 @@ body {
 header {
   margin-bottom: $footer-header-margin;
 }
-
-.home-section h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 36px;
-}
-
-.wrapper {
+.images-content h1{
   position: relative;
-  padding: 15px;
-  height: 550px;
 }
 
-.img-home {
-  width: 100%; /* zijn dat geen default attributen? */
-  height: 100%;
+.images-content{
+  margin: 0;
 }
+
+
+.img-home, .img-serie,.img-followers {
+  position: absolute;
+  width: 100%; /* zijn dat geen default attributen? */
+  clip: rect(10px,1920px,800px,0px);
+}
+
+.img-serie{
+  top: 800px;
+}
+
+.img-followers{
+  top: 1580px;
+}
+
 
 .btnLogin, .btnSignUp {
   color: $text-color;
   font-family: $font;
   padding: 10px;
   border: 2px solid $footer-color;
-  position: absolute;
+  position: relative;
   font-size: 22px;
-  top: 490px;
+
+
   cursor: pointer;
 
   &:hover {
@@ -43,6 +50,10 @@ header {
   }
 }
 
+.series{
+  position: relative;
+
+}
 .btnLogin {
   background-color: $button-color-default;
   left: 210px;
@@ -50,17 +61,17 @@ header {
 
 .btnSignUp {
   background-color: $nav-color;
-  left: 30px; /* todo: aanpassen zie ik liever anders staan */
+
 }
 
-h2 {
-  font-size: 28px;
-}
 
 footer {
   margin-top: $footer-header-margin;
   background-color: $footer-color;
   height: 200px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 
   p {
     text-align: center;
