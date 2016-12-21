@@ -64,14 +64,15 @@ module.exports = config => {
             })
         })
     ));
-    passport.use("login", new LocalStrategy({ usernameField: "email" }, (email, password, cb) =>
+    passport.use("login", new LocalStrategy({ usernameField: "email" }, (email, password, cb) => {
         User.findOne({ email }, (err, user) => {
             if (err) return cb(err);
             if (!user) return cb(null, false, { message: 'Incorrect e-mail.' });
+            if(user.password = "") return cb(null, false, { message: 'Log in using Google+ or Facebook.' });
             if (!user.authenticate(password)) return cb(null, false, { message: 'Incorrect password.' });
             return cb(null, user);
-        })
-    ));
+        });
+    }));
 
     //http://passportjs.org/docs/facebook
     passport.use(new FacebookStrategy({

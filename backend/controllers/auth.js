@@ -31,9 +31,14 @@ var successful = (req, res, next) => {
     })
 };
 
+var log = (req,res,next) =>{
+    console.dir(req.body);
+    next();
+}
+
 //local
 router.post("/register", passport.authenticate('register'), successful);
-router.post("/login", passport.authenticate('login'), successful);
+router.post("/login",log, passport.authenticate('login'), successful);
 router.get("/logout", (req, res) => {
     req.logout();
     res.json({ message: "logged out succesfully" });

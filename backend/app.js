@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, "../wwwroot")));
 //routes
 app.use("/api/auth", require("./controllers/auth"));
 app.use(["/data", "/api"], [
-    passport.authenticate("bearer"),
+    //passport.authenticate("bearer"),
     require("./controllers/achievement"),
     require("./controllers/series"),
     require("./controllers/list"),

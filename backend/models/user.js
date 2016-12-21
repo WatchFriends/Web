@@ -12,7 +12,7 @@ var userSchema = new Schema({
         givenName: { type: String, required: true },
         middleName: { type: String }
     },
-    email: { type: String, required: true },
+    email: { type: String, required: true, index: { unique: true } },
     //local
     salt: String,
     hash: String,
@@ -35,9 +35,11 @@ userSchema.pre("save", next => {
 });
 
 userSchema.methods = {
-    authenticate: plaintext => this.encrypt(plaintext) === this.hash,
+    authenticate: function (plaintext) {
+        return this.encrypt(plaintext) === this.hash;
+    },
     makeSalt: () => Math.round((new Date().valueof() * Math.random())) + '',
-    encrypt: password => {
+    encrypt: function (password) {
         if (!password) return '';
         return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
     }
