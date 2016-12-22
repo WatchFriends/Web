@@ -31,19 +31,19 @@ app.use(["/data", "/api"], [
     require("./controllers/list"),
     (req, res, next) => { //geen route beschikbaar
         var error = new Error("Api route not found")
-        error.status =404;
+        error.status = 404;
         next(error);
     },
-    (err, req, res, next) => 
-        res.json({ message: err.message, status: err.status})
-    ]);
+    (err, req, res, next) =>
+        res.json({ errror: { message: err.message || "Server error", status: err.status || 500 } })
+]);
 
 //error handler
-app.use((req, res, next) => 
+app.use((req, res, next) =>
     //kan een angular route zijn, of een file die niet bestaat
     res.sendFile(path.join(__dirname, "./../wwwroot/index.html"))
 );
-app.use((err, req, res, next) => {    
+app.use((err, req, res, next) => {
     res.locals.message = err.messsage;
     res.locals.error = req.app.get("env") === "development" ? err : {};
     res.status(err.status || 500);

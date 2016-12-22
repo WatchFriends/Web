@@ -1,10 +1,10 @@
-var express = require("express"),
-    passport = require("passport"),
+var express = require('express'),
+    passport = require('passport'),
     router = express.Router(),
-    utils = require("./../helpers/utils"),
-    AccessToken = require("../models/accessToken");
+    utils = require('./../helpers/utils'),
+    AccessToken = require('../models/accessToken');
 
-var successful = (req, res, next) => {
+var succesful = (req, res, next) => {
     AccessToken.findOne({ user: req.user._id }, (err, token) => {
         if (err) return next(err);
         if (token)
@@ -31,25 +31,32 @@ var successful = (req, res, next) => {
     })
 };
 
-var log = (req,res,next) =>{
-    console.dir(req.body);
-    next();
-}
+var authenticate = strategy =>  //stringname strategy voor passport.authenticate
+    (req, res, next) =>  //we hebben next nodig
+        passport.authenticate(strategy, (err, user, info) => { //custom authenicatie functie om errors als json te versturen
+            if (err) return next(err);
+            if (!user) {
+                err = new Error(info.message || 'Authentication failed');
+                err.status = 400;
+                return next(err);
+            }
+            next();
+        })(req, res, next);
 
 //local
-router.post("/register", passport.authenticate('register'), successful);
-router.post("/login",log, passport.authenticate('login'), successful);
-router.get("/logout", (req, res) => {
+router.post('/register', authenticate('register'), succesful);
+router.post('/login', authenticate('login'), succesful);
+router.get('/logout', (req, res) => {
     req.logout();
-    res.json({ message: "logged out succesfully" });
+    res.json({ message: 'logged out succesfully' });
 })
 
 //facebook
-router.get("/facebook", passport.authenticate('facebook', { scope: "email" }));
-router.get("/facebook/callback", passport.authenticate('facebook'), successful);
+router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));
+router.get('/facebook/callback', authenticate('facebook'), succesful);
 
 //google
-router.get("/google", passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
-router.get("/google/callback", passport.authenticate('google'), successful);
+router.get('/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'email'] }));
+router.get('/google/callback', authenticate('google'), succesful);
 
 module.exports = router;

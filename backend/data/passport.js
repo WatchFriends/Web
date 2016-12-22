@@ -68,7 +68,7 @@ module.exports = config => {
         User.findOne({ email }, (err, user) => {
             if (err) return cb(err);
             if (!user) return cb(null, false, { message: 'Incorrect e-mail.' });
-            if(user.password = "") return cb(null, false, { message: 'Log in using Google+ or Facebook.' });
+            if(!user.password) return cb(null, false, { message: 'Log in using Google+ or Facebook.' });
             if (!user.authenticate(password)) return cb(null, false, { message: 'Incorrect password.' });
             return cb(null, user);
         });

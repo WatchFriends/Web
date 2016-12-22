@@ -13,6 +13,10 @@ export class AuthService {
   login(data) {
     var body = `email=${data.email}&password=${data.password}`;
     //var body = JSON.stringify(data);
+    /*var body = new FormData();
+    body.append("email", data.email);
+    body.append("password", data.password);*/
+
     return this.http.post("api/auth/login", body, this.options)
       .do(console.dir)
       .map((res) => {

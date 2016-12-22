@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    crypto = require("crypto"),
+    bcrypt = require('bcrypt-nodejs'),
     authTypes = ["facebook", "google"];
 
 var userSchema = new Schema({
@@ -20,29 +20,22 @@ var userSchema = new Schema({
     providers: [{ name: String, id: String, token: String }] //provider name, user id and accestoken
 });
 
-userSchema.virtual("password").set(password => {
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hash = this.encrypt(password);
-}).get(() => this._password);
-
 var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
 userSchema.pre("save", next => {
+    if (this.isModified('password')) {
+        bcrypt.hash(this.password, null, null, (err, hash) => {
+            if (err) return next(err);
+            this.password = hash;
+        });
+    }
     if (!this.isNew) return next();
     if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) next();
     else next(new Error("invalid password"));
 });
 
-userSchema.methods = {
-    authenticate: function (plaintext) {
-        return this.encrypt(plaintext) === this.hash;
-    },
-    makeSalt: () => Math.round((new Date().valueof() * Math.random())) + '',
-    encrypt: function (password) {
-        if (!password) return '';
-        return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
-    }
+userSchema.methods.authenticate = function (plaintext, cb) {
+    bcrypt.compare(attemptedPassword, this.password, cb);
 };
 
 module.exports = mongoose.model('users', userSchema);
