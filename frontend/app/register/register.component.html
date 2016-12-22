@@ -1,0 +1,50 @@
+<div class="container">
+  <h1>Register Form</h1>
+  <button (click)="openAuthWindow('google')" md-raised-button color="primary">Google</button>
+  <button (click)="openAuthWindow('Facebook')" md-raised-button color="primary">Facebook</button>
+  <form role="form" #loginForm="ngForm" (ngSubmit)="submit($event)">
+    <div class="form-group">
+      <label for="em">E-mail</label>
+      <input class="form-control" type="email" id="em" placeholder="abc@email.com" required
+        [(ngModel)]="model.email" name="email" #email="ngModel"/>
+      <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        E-mail is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="em">First name</label>
+      <input class="form-control" type="text" id="fn" placeholder="first name" required
+        [(ngModel)]="model.firstname" name="firstname" #firstname="ngModel"/>
+      <div [hidden]="firstname.valid || firstname.pristine" class="alert alert-danger">
+        E-mail is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="em">Last name</label>
+      <input class="form-control" type="text" id="ln" placeholder="last name" required
+        [(ngModel)]="model.lastname" name="lastname" #lastname="ngModel"/>
+      <div [hidden]="lastname.valid || lastname.pristine" class="alert alert-danger">
+        E-mail is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="pw">Password</label>
+      <input class="form-control" type="password" id="pw" placeholder="password"  required
+        [(ngModel)]="model.password" name="password" #password="ngModel"/>
+      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+        Password is required.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="pw2">Repeat password</label>
+      <input class="form-control" type="password" id="pw2" placeholder="password"  required
+        [(ngModel)]="model.password2" name="password2" #password2="ngModel"/>
+      <div [hidden]="password2.valid || password2.pristine" class="alert alert-danger">
+        Repeat your password.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="submitted">Register</button>
+  </form>
+</div>

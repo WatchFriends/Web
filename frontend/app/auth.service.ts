@@ -19,14 +19,27 @@ export class AuthService {
 
     return this.http.post("api/auth/login", body, this.options)
       .do(console.dir)
-      .map((res) => {
-        console.dir(res);
+      .map((res) => { 
         var json = res.json();
         localStorage.setItem("access-token", json.token);
         localStorage.setItem("user", json.user);
         return json;
       })
-      .catch((res, caught) => Observable.of(res.json()));
+      .catch((res, caught) => Observable.of(res));
+  }
+
+  register(data){
+    var body = `email=${data.email}&password=${data.password}&firstname=${data.firstname}&lastname=${data.lastname}`;
+    
+    return this.http.post("api/auth/register", body, this.options)
+      .do(console.dir)
+      .map((res) => { 
+        var json = res.json();
+        localStorage.setItem("access-token", json.token);
+        localStorage.setItem("user", json.user);
+        return json;
+      })
+      .catch((res, caught) => Observable.of(res));
   }
 
   achievements(){

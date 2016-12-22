@@ -9,10 +9,16 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  
   model = {email:'', password:''};
   submitted = false;
   achievements;
+
+  constructor(private router: Router, private auth: AuthService) { }
+
+  ngOnInit() {
+    this.auth.achievements().subscribe(a=>this.achievements = a);
+  }
 
   submit(event: Event) {
     this.submitted = true;
@@ -24,13 +30,6 @@ export class LoginComponent implements OnInit {
   }
 
   openAuthWindow(provider: string){
-
+    
   }
-
-  ngOnInit() {
-    this.auth.achievements().subscribe(a=>this.achievements = a);
-  }
-
-  constructor(private router: Router, private auth: AuthService) { }
-
 }
