@@ -4,25 +4,11 @@
   position: relative;
 }
 
-.images-content{
-  margin: 0;
+.img-home--header {
+  position: relative;
+  top: -50px;
+  z-index: -1;
 }
-
-
-.img-home, .img-serie,.img-followers {
-  position: absolute;
-  width: 100%; /* zijn dat geen default attributen? */
-  clip: rect(10px,1920px,800px,0px);
-}
-
-.img-serie{
-  top: 800px;
-}
-
-.img-followers{
-  top: 1580px;
-}
-
 
 .btnLogin, .btnSignUp {
   color: $text-color;
@@ -31,8 +17,6 @@
   border: 2px solid $footer-color;
   position: relative;
   font-size: 22px;
-
-
   cursor: pointer;
 
   &:hover {
@@ -40,10 +24,6 @@
   }
 }
 
-.series{
-  position: relative;
-
-}
 .btnLogin {
   background-color: $button-color-default;
   left: 210px;
@@ -51,5 +31,4 @@
 
 .btnSignUp {
   background-color: $nav-color;
-
 }
