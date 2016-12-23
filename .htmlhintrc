@@ -1,6 +1,6 @@
 {
   "tagname-lowercase": true,
-  "attr-lowercase": true,
+  "attr-lowercase": false,
   "attr-value-double-quotes": true,
   "doctype-first": false,
   "id-unique": true,
@@ -10,7 +10,7 @@
   "head-script-disabled": true,
   "tag-pair": true,
   "title-require": true,
-  "attr-value-not-empty": true,
+  "attr-value-not-empty": false,
   "tag-self-close": true,
   "spec-char-escape": true,
   "src-not-empty": true,

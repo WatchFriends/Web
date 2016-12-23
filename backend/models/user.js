@@ -1,48 +1,44 @@
 /*jslint node: true */
-"use strict";
+'use strict';
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    crypto = require("crypto"),
-    authTypes = ["facebook","google"];
+    bcrypt = require('bcrypt-nodejs'),
+    authTypes = ['facebook', 'google'];
 
 var userSchema = new Schema({
-	name: String,
-    email: String,
-    username : String,
-    provider: String,
-    hash: String,
-    salt: String,
-    facebook: {},
-    google: {}
+    name: {
+        familyName: { type: String, required: true },
+        givenName: { type: String, required: true },
+        middleName: { type: String }
+    },
+    email: { type: String, required: true, index: { unique: true } },
+    //local
+    password: String,
+    //oauth
+    providers: [{ name: String, id: String, token: String }] //provider name, user id and accestoken
 });
 
-userSchema.virtual("password").set(password=>{
-    this._password = password;
-    this.salt = this.makeSalt();
-    this.hash = this.encrupt(password);
-}).get(() => this._password);
+var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
-var isprovider = provider => authTypes.indexof(provider) !==-1;
-
-userSchema.path("name").validate(name => isprovider(this.provider) || name.length, "name cannot be empty"); 
-userSchema.path("email").validate(email => isprovider(this.provider) || email.length, "e-mail cannot be empty"); 
-userSchema.path("username").validate(username => isprovider(this.provider) || username.length, "username cannot be empty"); 
-userSchema.path("hash").validate(hash => isprovider(this.provider) || hash.length, "password cannot be empty"); 
-
-userSchema.pre("save", next =>{
-    if(!this.isNew) return next();
-    if(!this.password || !this.password.length && ! isprovider(this.provider)) next(new Error("invalid password"));
-    else next();
-});
-
-userSchema.methods = {
-    authenticate: plaintext => this.encryptPassword(plaintext) === this.hash,
-    makeSalt: () => Math.round((new Date().valueof() * Math.random())) + '',
-    encrypt: password => {
-        if(!password) return '';
-        return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
+userSchema.pre('save', function(next) {
+    if (this.isModified('password')) {
+        bcrypt.hash(this.password, null, null, (err, hash) => {
+            if (err) return next(err);
+            this.password = hash;
+            return next();
+        });
     }
+    else{
+        if (!this.isNew) return next();
+        if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) return next();
+        next(new Error('invalid password'));
+    }
+});
+
+userSchema.methods.authenticate = function (plaintext, cb) {
+    bcrypt.compare(plaintext, this.password, cb);
 };
 
 module.exports = mongoose.model('users', userSchema);
+

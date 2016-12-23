@@ -1,0 +1,25 @@
+{
+  "db": {
+    "development": ""
+  },
+  "api": {
+    "hostname": "http://api.themoviedb.org/3/",
+    "port": 80,
+    "methode": "GET",
+    "keys": [
+      "",
+      ""
+    ]
+  },
+  "auth":{
+    "facebook":{
+        "key":"",
+        "secret":""
+    },
+    "google":{
+        "key":"",
+        "secret":""
+    }
+  },
+  "sessionSecret":""
+}
