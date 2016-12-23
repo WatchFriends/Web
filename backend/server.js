@@ -1,7 +1,8 @@
 var app = require("./app"),
     mongoose = require("mongoose"),
     config = require("./data/config.json"),
-    http = require("http");
+    http = require("http"),
+    passportconf = require("./data/passport");
 
 //db
 mongoose.Promise = global.Promise;
@@ -9,6 +10,9 @@ mongoose.connect(config.db.development);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", ()=>{});
+
+//auth
+passportconf(config);
 
 //server
 var port = process.env.PORT || "3000";
