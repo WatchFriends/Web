@@ -5,8 +5,8 @@
             <!--  <h2>Watchfriends is an online platform where you can track series you have watched</h2> -->
             <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!"/>
 
-            <button class="btnSignUp">Join Watchfriends</button>
-            <button class="btnLogin">Already a member? Log in</button>
+            <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
+            <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
         </div>
     </section>
     <section class="home-section">
@@ -15,7 +15,7 @@
             <!--  <h2>Searching for a series to track?</h2> -->
             <img class="img-home" [src]="imageSeries" alt="Searching for a series?"/>
 
-            <button class="btnSignUp">Explore new series</button>
+            <a routerLink="/register" class="btnSignUp">Explore new series</a>
         </div>
     </section>
     <section class="home-section">
@@ -24,7 +24,7 @@
             <!-- <h2>Choose who you want to follow </h2>
             <h2>Keep track of their series</h2> -->
             <img class="img-home" [src]="imageFollowers" alt="Keep track your followers' series!"/>
-            <button class="btnSignUp">Expand your network</button>
+            <a routerLink="/register" class="btnSignUp">Expand your network</a>
         </div>
     </section>
 </div>
