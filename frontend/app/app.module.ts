@@ -1,18 +1,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 // import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 import { NavComponent } from './nav/nav.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './auth.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -20,8 +25,16 @@ import { NavComponent } from './nav/nav.component';
     HttpModule,
     // DropdownModule.forRoot(),
     // CollapseModule.forRoot(),
+    RouterModule.forRoot([
+      { path: "home", component: HomeComponent },
+      { path: "login", component: LoginComponent },
+      { path: "register", component: RegisterComponent },
+      { path: "**", redirectTo: "home" }])
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    FormBuilder,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

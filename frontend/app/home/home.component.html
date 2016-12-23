@@ -1,46 +1,37 @@
+<div class="images-content">
+    <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!"/>
+    <div class="container">
+        <h1>Welcome to Watchfriends</h1>
+        <button class="btnSignUp">Join Watchfriends</button>
+        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    </div>
+</div>
 
+<div class="images-content">
+    <img class="img-serie" [src]="imageSeries" alt="WatchFriends Welcome!"/>
+    <div class="container series">
+        <h1>Explore thousands of series & keep track of them</h1>
+        <button class="btnSignUp">Explore new series</button>
+        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    </div>
+</div>
 
-        <div class="images-content">
-            <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!"/>
-            <div class="container">
-                <h1>Welcome to Watchfriends</h1>
-                <button class="btnSignUp">Join Watchfriends</button>
-                <!--  <button class="btnLogin">Already a member? Log in</button> -->
-
-            </div>
-        </div>
-
-        <div class="images-content">
-            <img class="img-serie" [src]="imageSeries" alt="WatchFriends Welcome!"/>
-            <div class="container series">
-                <h1>Explore thousands of series & keep track of them</h1>
-                <button class="btnSignUp">Explore new series</button>
-                <!--  <button class="btnLogin">Already a member? Log in</button> -->
-
-            </div>
-        </div>
-        <div class="images-content">
-            <img class="img-followers" [src]="imageFollowers" alt="WatchFriends Welcome!"/>
-            <div class="container followers">
-                <h1>Follow people and see what they watch</h1>
-                <button class="btnSignUp">Expand your network</button>
-                <!--  <button class="btnLogin">Already a member? Log in</button> -->
-
-            </div>
-        </div>
-
-
-
-
-
+<div class="images-content">
+    <img class="img-followers" [src]="imageFollowers" alt="WatchFriends Welcome!"/>
+    <div class="container followers">
+        <h1>Follow people and see what they watch</h1>
+        <button class="btnSignUp">Expand your network</button>
+        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    </div>
+</div>
 
 <!--<div class="container">
 
     <section class="home-section">
 
         <div class="wrapper">
-
-
+            <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
+            <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
         </div>
     </section>
     <!--<section class="home-section">
@@ -49,7 +40,7 @@
 
             <img class="img-home" [src]="imageSeries" alt="Searching for a series?"/>
 
-            <button class="btnSignUp">Explore new series</button>
+            <a routerLink="/register" class="btnSignUp">Explore new series</a>
         </div>
     </section>
     <section class="home-section">
@@ -58,7 +49,7 @@
             <!-- <h2>Choose who you want to follow </h2>
 
             <img class="img-home" [src]="imageFollowers" alt="Keep track your followers' series!"/>
-            <button class="btnSignUp">Expand your network</button>
+            <a routerLink="/register" class="btnSignUp">Expand your network</a>
         </div>
     </section>
 
