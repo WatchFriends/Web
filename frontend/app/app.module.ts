@@ -1,15 +1,18 @@
+//packages
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
+//components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
 import { RegisterComponent } from './register/register.component';
+//services
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [

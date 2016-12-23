@@ -64,18 +64,3 @@ header {
 
 }
 
-
-footer {
-  margin-top: $footer-header-margin;
-  background-color: $footer-color;
-  height: 200px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-
-  p {
-    text-align: center;
-    padding: 85px;
-    font-size: 20px;
-  }
-}
