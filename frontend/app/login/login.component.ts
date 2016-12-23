@@ -4,7 +4,6 @@ import { AuthService } from '../auth.service';
 //import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
