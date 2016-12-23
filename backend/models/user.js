@@ -1,10 +1,10 @@
 /*jslint node: true */
-"use strict";
+'use strict';
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt-nodejs'),
-    authTypes = ["facebook", "google"];
+    authTypes = ['facebook', 'google'];
 
 var userSchema = new Schema({
     name: {
@@ -14,16 +14,15 @@ var userSchema = new Schema({
     },
     email: { type: String, required: true, index: { unique: true } },
     //local
-    salt: String,
-    hash: String,
+    password: String,
     //oauth
     providers: [{ name: String, id: String, token: String }] //provider name, user id and accestoken
 });
 
 var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
-userSchema.pre("save", next => {
-    if (this.isModified('password')) {
+userSchema.pre('save', function(next) {
+    if (this.isNew || this.isModified('password')) {
         bcrypt.hash(this.password, null, null, (err, hash) => {
             if (err) return next(err);
             this.password = hash;
@@ -31,11 +30,11 @@ userSchema.pre("save", next => {
     }
     if (!this.isNew) return next();
     if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) next();
-    else next(new Error("invalid password"));
+    else next(new Error('invalid password'));
 });
 
 userSchema.methods.authenticate = function (plaintext, cb) {
-    bcrypt.compare(attemptedPassword, this.password, cb);
+    bcrypt.compare(plaintext, this.password, cb);
 };
 
 module.exports = mongoose.model('users', userSchema);
