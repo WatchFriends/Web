@@ -22,15 +22,18 @@ var userSchema = new Schema({
 var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
 userSchema.pre('save', function(next) {
-    if (this.isNew || this.isModified('password')) {
+    if (this.isModified('password')) {
         bcrypt.hash(this.password, null, null, (err, hash) => {
             if (err) return next(err);
             this.password = hash;
+            return next();
         });
     }
-    if (!this.isNew) return next();
-    if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) next();
-    else next(new Error('invalid password'));
+    else{
+        if (!this.isNew) return next();
+        if ((this.password && this.password.length) || (this.providers && isprovider(this.providers))) return next();
+        next(new Error('invalid password'));
+    }
 });
 
 userSchema.methods.authenticate = function (plaintext, cb) {

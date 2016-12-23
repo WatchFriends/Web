@@ -40,7 +40,10 @@ var authenticate = strategy =>  //stringname strategy voor passport.authenticate
                 err.status = 400;
                 return next(err);
             }
-            next();
+            req.logIn(user, err => {
+                if (err) return next(err);
+                return next();
+            })
         })(req, res, next);
 
 //local
