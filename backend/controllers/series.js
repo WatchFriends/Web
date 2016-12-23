@@ -28,7 +28,7 @@ router.get("/series/:id/season/:season", (req, res, next) => {
     });
 });
 
-router.get("/series/:id/seasons/:season/episode/:episode", (req, res, next) => {
+router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
 
     apiService.request(`tv/${req.params.id}/season/${req.params.season}/episode/${req.params.episode}?append_to_response=images,similar`, (err, data) => {
         if (err) {
