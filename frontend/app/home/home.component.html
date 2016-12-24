@@ -1,33 +1,42 @@
-<div class="images-content img-home--header">
-    <div class="image-wrapper">
+<div class="imagecontainer imagecontainer--header">
+    <div class="imagecontainer__wrapper">
         <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
     </div>
-    <div class="container">
-        <h1>Welcome to Watchfriends</h1>
-        <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-        <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    <div class="imagecontainer__content">
+        <div class="container">
+            <h1>Welcome to Watchfriends</h1>
+            <p class="text-big">Track your series and follow your friends</p>
+            <p>
+                <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
+                <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
+            </p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <div class="image-wrapper">
+<div class="imagecontainer">
+    <div class="imagecontainer__wrapper">
         <img class="img-home" [src]="imageSeries" alt="WatchFriends Welcome!" />
     </div>
-    <div class="container series">
-        <h1>Explore thousands of series & keep track of them</h1>
-        <a routerLink="/register" class="btnSignUp">Explore new series</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    <div class="imagecontainer__content">
+        <div class="container">
+            <h2>Explore thousands of series & keep track of them</h2>
+            <p><a routerLink="/register" class="btnSignUp">Explore new series</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <div class="image-wrapper">
+<div class="imagecontainer">
+    <div class="imagecontainer__wrapper">
         <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
     </div>
-    <div class="container followers">
-        <h1>Follow people and see what they watch</h1>
-        <a routerLink="/register" class="btnSignUp">Expand your network</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+    <div class="imagecontainer__content">
+        <div class="container">
+            <h2>Follow people and see what they watch</h2>
+            <p><a routerLink="/register" class="btnSignUp">Expand your network</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
