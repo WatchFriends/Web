@@ -1,4 +1,5 @@
 import {Component} from "@angular/core";
+import "../../assets/js/home.js";
 
 @Component({
     templateUrl: './home.component.html',
