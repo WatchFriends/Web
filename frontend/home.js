@@ -3,12 +3,10 @@
 (function() {
 
     var images = [];
-    var overlays = [];
 
     function init() {
 
         images = document.querySelectorAll(".imagecontainer, .imagecontainer__wrapper, .imagecontainer__content");
-        //overlays = document.getElementsByClassName(""); 
     }
 
     function setHeight() {
