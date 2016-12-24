@@ -2,21 +2,23 @@
 
 .imagecontainer { 
   height: 1200px;
-
-  &.imagecontainer--header {
-    position: relative;
-    top: -50px;  
-  }
+  overflow: none;
+  z-index: 1;
+  position: relative;
+  top: -52px; 
 
   .imagecontainer__wrapper {
     position: absolute;
     z-index: -1;
+    overflow: hidden;
   }
 
   .imagecontainer__content {
 
     background-color: rgba(0,0,0,0.5);
     z-index: 100;
+    display: flex;
+    align-items: center;
 
     .container {
       padding: 100px 0;
@@ -48,10 +50,16 @@
   background-color: $nav-color;
 }
 
-@each $header, $size in (h1: 4em, h2: 3em, h3: 2em, p: 1.7em) {
+@each $header, $size in (h1: 4em, h2: 3em, h3: 2em) {
   #{$header} {
     font-size: $size;
     text-align: center;
     margin-bottom: 60px;
   }
+}
+
+p.text-big {
+  font-size: 1.7em;
+  text-align: center;
+  margin-bottom: 60px;
 }
