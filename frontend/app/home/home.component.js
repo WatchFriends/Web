@@ -26,6 +26,20 @@
         }
     }
 
+    function carousel(){
+        var mainSlider = document.getElementById('carousel-poster');
+        mainSlider.addEventListener('slide.bs.carousel', function(e) {
+            // get the caption of current active item before slide
+            var active = mainSlider.querySelector('.item.active .carousel-caption');
+            active.classList.remove('slide')
+        });
+        mainSlider.addEventListener('slid.bs.carousel', function(e) {
+            // get the caption of new active item after slide
+            var active = mainSlider.querySelector('.item.active .carousel-caption');
+            active.classList.add('slide')
+        });
+    }
+
     init();
     setHeight();
 })();
