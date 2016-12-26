@@ -12,7 +12,7 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 //services
-import { AuthService } from './auth.service';
+import { AuthService } from './services';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { AuthService } from './auth.service';
   ],
   providers: [
     AuthService,
-    FormBuilder,
   ],
   bootstrap: [AppComponent]
 })

@@ -5,6 +5,7 @@
   "description": "Front-end and back-end project watchfriends",
   "scripts": {
     "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build --prod --aot",
     "lint": "tslint \"frontend/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
