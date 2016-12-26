@@ -1,21 +1,41 @@
 @import "../../_variables";
 
+.imagecontainer, footer {
+  position: relative;
+  top: -52px; 
+}
+
+.contentcontainer {
+  display: flex;
+  align-items: center;
+
+  .contentcontainer_row {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
 .imagecontainer { 
   height: 1200px;
   overflow: none;
   z-index: 1;
-  position: relative;
-  top: -52px; 
 
-  .imagecontainer__wrapper {
+  .imagecontainer_wrapper {
     position: absolute;
     z-index: -1;
     overflow: hidden;
   }
 
-  .imagecontainer__content {
-
-    background-color: rgba(0,0,0,0.5);
+  .imagecontainer_content {
+    background-color: $imagecontainer_content-backgroundcolor;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -26,7 +46,7 @@
   }
 }
 
-.btnLogin, .btnSignUp {
+.btn-signUp {
   color: $text-color;
   font-family: $font;
   padding: 10px;
@@ -35,6 +55,7 @@
   font-size: 22px;
   cursor: pointer;
   transform: opacity 0.5s;
+  background-color: $nav-color;
 
   &:hover {
     opacity: 0.7;
@@ -47,13 +68,34 @@
   margin: 0 auto;
 }
 
-.btnLogin {
-  background-color: $button-color-default;
-  left: 210px;
+.postercarousel { 
+  display: flex;
+  flex-direction: row;
+
+  img {
+    &:nth-child(1) {
+      width: 50%;
+    }
+
+    &:nth-child(2) {
+      width: 40%;
+      height: 40%;
+    }
+  }
 }
 
-.btnSignUp {
-  background-color: $nav-color;
+.googleplay {
+  text-align: center;
+
+  img {
+    width: 50%;
+  }
+}
+
+.apppicture {
+  position: relative;
+  top: 144px;
+  z-index: 1;
 }
 
 @each $header, $size in (h1: 4em, h2: 3em, h3: 2em) {
