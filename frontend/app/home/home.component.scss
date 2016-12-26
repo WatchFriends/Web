@@ -1,6 +1,8 @@
 @import "../../_variables";
 
-.imagecontainer, footer {
+.imagecontainer, 
+footer,
+.contentcontainer {
   position: relative;
   top: -52px; 
 }
@@ -94,7 +96,7 @@
 
 .apppicture {
   position: relative;
-  top: 144px;
+  top: 196px;
   z-index: 1;
 }
 
