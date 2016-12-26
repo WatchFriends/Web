@@ -16,7 +16,7 @@
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
       "prefix": "app",
-      "mobile": true,
+      "mobile": false,
       "styles": [
         "site.scss"
       ],
@@ -44,7 +44,7 @@
     "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
-      "style": true,
+      "style": false,
       "template": false
     },
     "spec": {
