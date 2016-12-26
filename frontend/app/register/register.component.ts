@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services';
+import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './register.component.html',
@@ -12,22 +13,21 @@ export class RegisterComponent implements OnInit {
   error;
   constructor(private auth: AuthService) { }
 
-  submit(event: Event, form) {
+  submit(event: Event, form: NgForm) {
     event.preventDefault();
-    this.submitted = true;    
+    this.submitted = true;
     this.auth.register(this.model).subscribe(
       res => {//no error
         this.error = null;
         this.submitted = false;
       },
       err => {//error      
-        console.log(this.error = err);
+        this.error = err;
         this.submitted = false;
-    });
+      });
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

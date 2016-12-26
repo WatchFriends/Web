@@ -31,13 +31,13 @@ app.use(['/data', '/api'], [
     require('./controllers/list'),
     (req, res, next) => { //geen route beschikbaar
         res.status(404);
-        res.json({ message: 'Api route not found', status: 404 })
+        res.json({ message: 'Api route not found', status: 404 });
     },
     (err, req, res, next) => {
         if (typeof err == 'string') err = new Error(err);
         err.status = err.status || 500;
-        res.status(err.status)
-        res.json({ message: err.message || 'Server error', status: err.status })
+        res.status(err.status);
+        res.json({ message: err.message || 'Server error', status: err.status });
     }
 ]);
 

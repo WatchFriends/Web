@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services';
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './login.component.html',
@@ -14,24 +14,21 @@ export class LoginComponent implements OnInit {
 
   constructor(private auth: AuthService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  submit(event: Event, form) {
+  submit(event: Event, form: NgForm) {
     event.preventDefault();
-    this.submitted = true;    
+    this.submitted = true;
     this.auth.login(this.model).subscribe(
       res => {//no error
         this.error = null;
         this.submitted = false;
       },
       err => {//error      
-        console.log(this.error = err);
+        this.error = err;
         this.submitted = false;
-    });
+      });
   }
 
-  openAuthWindow(provider: string) {
-
-  }
+  openAuthWindow(provider: string) { }
 }
