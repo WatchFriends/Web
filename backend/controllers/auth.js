@@ -37,7 +37,7 @@ var authenticate = strategy =>  //stringname strategy voor passport.authenticate
             if (err) return next(err);
             if (!user) {
                 err = new Error(info.message || 'Authentication failed');
-                err.status = 400;
+                err.status = 401;
                 return next(err);
             }
             req.logIn(user, err => {
