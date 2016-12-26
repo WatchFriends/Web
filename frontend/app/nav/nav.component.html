@@ -8,6 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
       <a class="navbar-brand" routerLink="/home">WatchFriends</a>
+      <span *ngIf="loading">loading route</span>
     </div>
     <div [collapse]="isCollapsed">
       <ul class="nav navbar-nav">

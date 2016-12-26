@@ -11,3 +11,24 @@ header {
   margin-bottom: $footer-header-margin;
 }
 
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading{
+  display: inline-block;
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 100px;
+  margin:auto;
+  font-size:1.5em;
+  text-align: center;
+}
