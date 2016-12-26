@@ -4,14 +4,19 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Welcome WatchFriends</title>
-    <base href="/"/>
+    <title>WatchFriends</title>
+    <base href="/" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/bootstrap.min.css" />
 </head>
 
 <body>
-    <wf-app>Loading...</wf-app>
+    <wf-app>
+        <div class="loading">
+            Loading WatchFriends<br/>
+            <span class="glyphicon glyphicon-refresh spinning"></span>
+        </div>
+    </wf-app>
 </body>
 
 </html>

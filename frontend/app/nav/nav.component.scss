@@ -1,0 +1,28 @@
+@import "../../_variables";
+.navbar {
+  background-color: $nav-color;
+  border-radius: 0;
+
+  a {
+    color: $text-color;
+  }
+
+  .icon-bar {
+    background-color: $text-color;
+  }
+
+  .nav {
+    > li {
+      > a, .dropdown a {
+        &:focus, &:hover, &:active {
+          background-color: $button-color-default;
+          color: $body-color;
+        }
+      }
+    }
+
+    .dropdown-menu {
+      background-color: $nav-color;
+    }
+  }
+}

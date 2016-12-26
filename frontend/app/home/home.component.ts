@@ -1,13 +1,12 @@
 import{Component} from "@angular/core";
 
 @Component({
-    selector: 'home',
     templateUrl: './home.component.html'
  })
 
 export class HomeComponent{
 
-    imageWelcome: string = "http://cdn1-www.comingsoon.net/assets/uploads/gallery/the-walking-dead-season-7/the-walking-dead-season-7-rick-lincoln-michonne-gurira-cci-key-art-1200x707-1.jpg";
-    imageSeries: string = "https://i.ytimg.com/vi/pvqZ7di5O_8/maxresdefault.jp";
-    imageFollowers: string = "http://www.ew.com/sites/default/files/i/2015/06/23/minions.jpg";
+    imageWelcome: string = "http://www.siwallpaperhd.com/wp-content/uploads/2016/03/tv_series_viking_background_wallpaper.jpg";
+    imageSeries: string = "http://cdn.pcwallart.com/images/arrow-tv-series-wallpaper-2.jpg";
+    imageFollowers: string = "http://justgoodvibe.com/wp-content/uploads/2015/12/gotham-1.jpg";
 }

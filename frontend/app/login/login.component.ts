@@ -1,35 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-//import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services';
+import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'login-form',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  model = {email:'', password:''};
+
+  model = { email: '', password: '' };
   submitted = false;
-  achievements;
+  error: { message: string, status: number };
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private auth: AuthService) { }
 
-  ngOnInit() {
-    this.auth.achievements().subscribe(a=>this.achievements = a);
-  }
+  ngOnInit() { }
 
-  submit(event: Event) {
-    this.submitted = true;
+  submit(event: Event, form: NgForm) {
     event.preventDefault();
-    console.dir(this.model);
-    this.auth.login(this.model).subscribe(res => {
-      this.submitted = false;
-    });
+    this.submitted = true;
+    this.auth.login(this.model).subscribe(
+      res => {//no error
+        this.error = null;
+        this.submitted = false;
+      },
+      err => {//error      
+        this.error = err;
+        this.submitted = false;
+      });
   }
 
-  openAuthWindow(provider: string){
-    
-  }
+  openAuthWindow(provider: string) { }
 }

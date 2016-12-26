@@ -11,88 +11,24 @@ header {
   margin-bottom: $footer-header-margin;
 }
 
-.home-section h1 {
+.glyphicon.spinning {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.loading{
+  display: inline-block;
+  position: fixed;
+  top:0;
+  bottom: 0;
+  left:0;
+  right: 0;
+  height: 100px;
+  margin:auto;
+  font-size:1.5em;
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 36px;
-}
-
-.wrapper {
-  position: relative;
-  padding: 15px;
-  height: 550px;
-}
-
-.img-home {
-  width: 100%; /* zijn dat geen default attributen? */
-  height: 100%;
-}
-
-.btnLogin, .btnSignUp {
-  color: $text-color;
-  font-family: $font;
-  padding: 10px;
-  border: 2px solid $footer-color;
-  position: absolute;
-  font-size: 22px;
-  top: 490px;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
-}
-
-.btnLogin {
-  background-color: $button-color-default;
-  left: 210px;
-}
-
-.btnSignUp {
-  background-color: $nav-color;
-  left: 30px; /* todo: aanpassen zie ik liever anders staan */
-}
-
-h2 {
-  font-size: 28px;
-}
-
-footer {
-  margin-top: $footer-header-margin;
-  background-color: $footer-color;
-  height: 200px;
-
-  p {
-    text-align: center;
-    padding: 85px;
-    font-size: 20px;
-  }
-}
-
-.navbar {
-  background-color: $nav-color;
-  border-radius: 0;
-
-  a {
-    color: $text-color;
-  }
-
-  .icon-bar {
-    background-color: $text-color;
-  }
-
-  .nav {
-    > li {
-      > a, .dropdown a {
-        &:focus, &:hover, &:active {
-          background-color: $button-color-default;
-          color: $body-color;
-        }
-      }
-    }
-
-    .dropdown-menu {
-      background-color: $nav-color;
-    }
-  }
 }

@@ -5,6 +5,7 @@
   "description": "Front-end and back-end project watchfriends",
   "scripts": {
     "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build --prod --aot",
     "lint": "tslint \"frontend/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
@@ -38,6 +39,7 @@
     "method-override": "^2.3.7",
     "mongoose": "^4.7.2",
     "morgan": "^1.7.0",
+    "ng2-bootstrap": "^1.1.16-8",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google": "^0.3.0",
