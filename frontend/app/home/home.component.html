@@ -1,57 +1,47 @@
-<div class="images-content">
-    <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
-    <div class="container">
-        <h1>Welcome to Watchfriends</h1>
-        <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-        <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="imagecontainer imagecontainer--header">
+    <div class="imagecontainer__wrapper">
+        <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer__content">
+        <div class="container">
+            <img class="logo" [src]="logoPng" alt="Logo Watchfriends" />
+            <h1>Welcome to Watchfriends</h1>
+            <p class="text-big">Track your series and follow your friends</p>
+            <p class="text-big">
+                <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
+                <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
+            </p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-serie" [src]="imageSeries" alt="WatchFriends Welcome!" />
-    <div class="container series">
-        <h1>Explore thousands of series & keep track of them</h1>
-        <a routerLink="/register" class="btnSignUp">Explore new series</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="imagecontainer">
+    <div class="imagecontainer__wrapper">
+        <img class="img-home" [src]="imageSeries" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer__content">
+        <div class="container">
+            <h2>Explore thousands of series & keep track of them</h2>
+            <p class="text-big"><a routerLink="/register" class="btnSignUp">Explore new series</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-followers" [src]="imageFollowers" alt="WatchFriends Welcome!" />
-    <div class="container followers">
-        <h1>Follow people and see what they watch</h1>
-        <a routerLink="/register" class="btnSignUp">Expand your network</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="imagecontainer">
+    <div class="imagecontainer__wrapper">
+        <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer__content">
+        <div class="container">
+            <h2>Follow people and see what they watch</h2>
+            <p class="text-big"><a routerLink="/register" class="btnSignUp">Expand your network</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<!--<div class="container">
+<script>
 
-    <section class="home-section">
-
-        <div class="wrapper">
-            <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-            <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
-        </div>
-    </section>
-    <!--<section class="home-section">
-        <h1>Series</h1>
-        <div class="wrapper">
-
-            <img class="img-home" [src]="imageSeries" alt="Searching for a series?"/>
-
-            <a routerLink="/register" class="btnSignUp">Explore new series</a>
-        </div>
-    </section>
-    <section class="home-section">
-        <h1>Followers</h1>
-        <div class="wrapper">
-            <!-- <h2>Choose who you want to follow </h2>
-
-            <img class="img-home" [src]="imageFollowers" alt="Keep track your followers' series!"/>
-            <a routerLink="/register" class="btnSignUp">Expand your network</a>
-        </div>
-    </section>
-
-</div>-->
+</script>
