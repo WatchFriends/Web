@@ -4,8 +4,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
     bcrypt = require('bcrypt-nodejs'),
-    authTypes = ['facebook', 'google'],
-    userSeries = require("./userSeries");
+    authTypes = ['facebook', 'google'];
 
 var userSchema = new Schema({
     name: {

@@ -3,8 +3,7 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    users = require("../models/user"),
-    userSeries = require("../models/userSeries");
+    users = require("../models/user");
 
 router.get("/series/:id", (req, res, next) => {
 
@@ -54,40 +53,11 @@ router.get("/series/popular", (req, res, next) => {
 });
 
 router.post("/series/follow", (req, res, next) => {
-    users.update({
-        "_id": req.body.userId,
-        "series": {
-            "$not": {
-                "$elemMatch": {
-                    "seriesId": req.body.seriesId
-                }
-            }
-        }
-    }, {
-        "$addToSet": {
-            "series": {
-                "seriesId": req.body.seriesId,
-                "following": req.body.following,
-                "seasons": []
-            }
-        }
-    }, {multi: true}, (err, data) => {
+    dbService.updateFollowingSeries(req.body, (err, data) => {
         if (err)
             next(err);
         else
             res.send(data);
-    });
-
-    users.update({
-        "_id": req.body.userId,
-        "series.seriesId": req.body.seriesId
-    }, {
-        "$set": {
-            "series.$.following": req.body.following
-        }
-    }, {multi: true}, (err) => {
-        if (err)
-            next(err);
     });
 });
 
