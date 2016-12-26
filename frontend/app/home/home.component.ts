@@ -14,5 +14,5 @@ export class HomeComponent{
     androidApp: string = "../../assets/android_app2.png";
     playStoreButton: string = "../../assets/google_play_store_btn.png";
 
-    myInnerHeight: Number = window.innerHeight;
+    innerHeight: Number = window.innerHeight;
 }
