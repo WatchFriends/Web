@@ -3,26 +3,19 @@
 img {
   width: 100%;
   height: 100%;
-  -webkit-transform: scale(1);
   transform: scale(1);
-  -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out;
   filter: blur(0);
 
-
   &:hover{
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
     opacity: 1;
   }
 }
 
 
+.container .active-title {
 
-
-.container {
-
-  .active-title {
     display: block;
     text-align: center;
     border-bottom: 2px solid $button-color-default;
@@ -31,7 +24,7 @@ img {
       cursor: default;
     }
   }
-}
+
 
 nav a {
   position: relative;
@@ -61,8 +54,6 @@ nav a {
     text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
     content: attr(data-hover);
     position: absolute;
-    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
     transition: transform 0.3s, opacity 0.3s;
     pointer-events: none;
   }
@@ -77,24 +68,16 @@ nav a {
       height: 2px;
       background: $button-color-default;
       opacity: 0;
-      -webkit-transform: translateY(5px);
-      -moz-transform: translateY(5px);
       transform: translateY(5px);
-      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-      -moz-transition: -moz-transform 0.3s, opacity 0.3s;
       transition: transform 0.3s, opacity 0.3s;
       pointer-events: none;
     }
     &:hover::before, &:focus::before {
       opacity: 0;
-      -webkit-transform: translateY(-2px);
-      -moz-transform: translateY(-2px);
       transform: translateY(-2px);
     }
     &:hover::after, &:focus::after {
       opacity: 1;
-      -webkit-transform: translateY(0px);
-      -moz-transform: translateY(0px);
       transform: translateY(0px);
     }
   }
@@ -104,9 +87,7 @@ nav a {
 
   .col-small, .col-big {
     padding: 0;
-    position: relative;
     overflow: hidden;
-
   }
 }
 
@@ -144,13 +125,11 @@ nav a {
     &.eye-small{
 
       left: 400px;
-
     }
 
     &.list-small{
 
       left: 440px;
-
     }
   }
 
