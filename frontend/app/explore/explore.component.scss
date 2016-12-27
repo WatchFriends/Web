@@ -6,6 +6,7 @@ img {
   transform: scale(1);
   transition: .3s ease-in-out;
   filter: blur(0);
+  float: left;
 
   &:hover{
     transform: scale(1.1);
@@ -157,4 +158,12 @@ nav a {
     text-decoration: none;
     opacity: 0.7;
   }
+}
+
+@media screen and (max-width: 1440px){
+
+ img{
+   float: none;
+ }
+
 }
