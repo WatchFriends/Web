@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from "rxjs";
+import {ServerError } from ".";
 
-export class ServerError {
-  message: string;
-  status: number;
-}
 
 @Injectable()
 export class AuthService {
