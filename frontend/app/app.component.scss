@@ -7,6 +7,7 @@ footer {
   padding: 15px 0;
   margin: 0;
   z-index: 9999;
+  position: absolute;
 
 
   p {
@@ -15,4 +16,8 @@ footer {
     color: $text-color;
     margin-bottom: 0;
   }
+}
+
+body, html {
+  overflow-x: hidden;
 }

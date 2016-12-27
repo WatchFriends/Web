@@ -12,8 +12,11 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 //services
-import { AuthService } from './auth.service';
+
 import { ExploreComponent } from './explore/explore.component';
+
+import { AuthService } from './services';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +42,6 @@ import { ExploreComponent } from './explore/explore.component';
   ],
   providers: [
     AuthService,
-    FormBuilder,
   ],
   bootstrap: [AppComponent]
 })
