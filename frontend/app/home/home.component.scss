@@ -1,7 +1,6 @@
 @import "../../_variables";
 
 .imagecontainer, 
-footer,
 .contentcontainer {
   position: relative;
   top: -52px; 
@@ -12,10 +11,13 @@ footer,
   align-items: center;
 
   .contentcontainer_row {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
+
+    @media (min-width: $screen-md) { 
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+    }
 
     > div {
       display: flex;
@@ -33,6 +35,9 @@ footer,
   .imagecontainer_wrapper {
     position: absolute;
     z-index: -1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
     overflow: hidden;
   }
 
@@ -59,30 +64,35 @@ footer,
   transform: opacity 0.5s;
   background-color: $nav-color;
 
+  @media (max-width: $screen-md) {
+    display: inline-block;
+    margin: 5px 0;
+  }
+
   &:hover {
     opacity: 0.7;
-  }
+  } 
 }
 
 .logo {
-  display: block;
   width: 200px;
   margin: 0 auto;
+
+  @media (min-width: $screen-md) {
+    display: block;
+  }
+
+  @media (max-width: $screen-md) {
+    display: none;
+  }
 }
 
-.postercarousel { 
+.carousel { 
   display: flex;
   flex-direction: row;
 
-  img {
-    &:nth-child(1) {
-      width: 50%;
-    }
-
-    &:nth-child(2) {
-      width: 40%;
-      height: 40%;
-    }
+  @media (max-width: $screen-md) {
+      width: 65%;
   }
 }
 
@@ -95,9 +105,16 @@ footer,
 }
 
 .apppicture {
-  position: relative;
-  top: 196px;
-  z-index: 1;
+  @media (min-width: $screen-md) {
+    position: relative;
+    top: 196px;
+    z-index: 1;
+  }
+
+  @media (max-width: $screen-md) {
+    width: 70%;
+    margin: 10px 0 0 0;
+  }
 }
 
 @each $header, $size in (h1: 4em, h2: 3em, h3: 2em) {

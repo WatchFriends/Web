@@ -28,7 +28,7 @@ var succesful = (req, res, next) => {
                 }
             });
         });
-    })
+    });
 };
 
 var authenticate = strategy =>  //stringname strategy voor passport.authenticate
@@ -37,13 +37,13 @@ var authenticate = strategy =>  //stringname strategy voor passport.authenticate
             if (err) return next(err);
             if (!user) {
                 err = new Error(info.message || 'Authentication failed');
-                err.status = 400;
+                err.status = 401;
                 return next(err);
             }
             req.logIn(user, err => {
                 if (err) return next(err);
                 return next();
-            })
+            });
         })(req, res, next);
 
 //local
@@ -52,7 +52,7 @@ router.post('/login', authenticate('login'), succesful);
 router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out succesfully' });
-})
+});
 
 //facebook
 router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));

@@ -1,25 +1,31 @@
 <div class="container">
-  {{achievements | json}}
   <h1>Login Form</h1>
-  <button (click)="openAuthWindow('google')" md-raised-button color="primary">Google</button>
-  <button (click)="openAuthWindow('Facebook')" md-raised-button color="primary">Facebook</button>
-  <form role="form" #loginForm="ngForm" (ngSubmit)="submit($event)">
-    <div class="form-group">
-      <label for="em">E-mail</label>
-      <input class="form-control" type="email" id="em" placeholder="abc@email.com" required
-        [(ngModel)]="model.email" name="email" #email="ngModel"/>
-      <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+  <form role="form" #form="ngForm" (ngSubmit)="submit($event, form)" novalidate>
+    
+    <div *ngIf="error" class="alert alert-warning">
+      {{error.message}}
+    </div>
+
+    <div class="form-group" [class.has-error]="email.invalid && email.touched">
+      <label class="control-label" for="em">E-mail</label>
+      <input class="form-control" type="email" id="em" placeholder="abc@email.com" required 
+      [(ngModel)]="model.email" name="email" #email="ngModel" />
+      <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
         E-mail is required.
       </div>
     </div>
-    <div class="form-group">
-      <label for="pw">Password</label>
-      <input class="form-control" type="password" id="pw" placeholder="password"  required
-        [(ngModel)]="model.password" name="password" #password="ngModel"/>
-      <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+
+    <div class="form-group" [class.has-error]="password.invalid && password.touched">
+      <label class="control-label" for="pw">Password</label>
+      <input class="form-control" type="password" id="pw" placeholder="password" required 
+      [(ngModel)]="model.password" name="password" #password="ngModel" maxlength="55"/>
+      <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
         Password is required.
       </div>
     </div>
-    <button type="submit" class="btn btn-default" [disabled]="submitted">Login</button>
+
+    <button type="submit" class="btn btn-default" [disabled]="form.invalid || submitted">Login</button>
+    <button class="btn btn-warning" (click)="openAuthWindow('google')" md-raised-button color="primary" disabled>Google</button>
+    <button class="btn btn-primary" (click)="openAuthWindow('Facebook')" md-raised-button color="primary" disabled>Facebook</button>
   </form>
 </div>

@@ -26,7 +26,7 @@ var authify = (accessToken, refreshToken, profile, cb) => {
                 });
                 return user.save(err => cb(err, user));
             }
-            return cb(null, user)
+            return cb(null, user);
         }
         user = new User();
         user.email = email;
@@ -66,7 +66,7 @@ module.exports = config => {
             user.save(err => {
                 if (err) return cb(err);
                 return cb(null, user);
-            })
+            });
         })
     ));
     passport.use('login', new LocalStrategy({ usernameField: 'email' }, (email, password, cb) => {

@@ -8,7 +8,8 @@
       "root": "frontend",
       "outDir": "wwwroot",
       "assets": [
-        "assets"
+        "assets",
+        "fonts"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -43,7 +44,7 @@
     "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
-      "style": true,
+      "style": false,
       "template": false
     },
     "spec": {
