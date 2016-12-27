@@ -8,36 +8,102 @@ img {
   -webkit-transition: .3s ease-in-out;
   transition: .3s ease-in-out;
 
+  &:hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
 }
 
-img:hover {
-  -webkit-transform: scale(1.3);
-  transform: scale(1.1);
 
-}
 
 .container {
 
-  .trending {
-    font-size: 4em;
-    margin: 0 auto;
+  .active-title {
+    display: block;
     text-align: center;
-    margin-left: 290px;
-    margin-right: 290px;
-    padding: 20px;
+    border-bottom: 2px solid $button-color-default;
+
+    &:hover{
+      cursor: default;
+    }
   }
 
-  h2 {
+}
 
-    font-size: 3em;
-    display: inline-block;
+nav a {
+  position: relative;
+  display: inline-block;
+  margin: 15px 25px;
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  font-size: 2em;
+  &:hover, &:focus {
+    outline: none;
+  }
+}
+
+.special-effect a {
+
+  color: $imagecontainer_content-backgroundcolor;
+  text-shadow: none;
+  padding: 10px 0;
+
+  &::before {
+    color: #fff;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+    content: attr(data-hover);
+    position: absolute;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
+  }
+  &:not(.active-title){
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: $button-color-default;
+      opacity: 0;
+      -webkit-transform: translateY(5px);
+      -moz-transform: translateY(5px);
+      transform: translateY(5px);
+      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+      -moz-transition: -moz-transform 0.3s, opacity 0.3s;
+      transition: transform 0.3s, opacity 0.3s;
+      pointer-events: none;
+    }
+    &:hover::before, &:focus::before {
+      opacity: 0;
+      -webkit-transform: translateY(-2px);
+      -moz-transform: translateY(-2px);
+      transform: translateY(-2px);
+    }
+    &:hover::after, &:focus::after {
+      opacity: 1;
+      -webkit-transform: translateY(0px);
+      -moz-transform: translateY(0px);
+      transform: translateY(0px);
+    }
 
   }
+
+
 }
 
 .row {
 
-  .col-sm-3, .col-sm-6 {
+  .col-small, .col-big {
     padding: 0;
     position: relative;
     overflow: hidden;
@@ -49,25 +115,24 @@ img:hover {
   position: absolute;
   width: 100%;
   height: 70px;
-  background-color: black;
-  opacity: 0.6;
-    h3 {
+  background-color: $imagecontainer_content-backgroundcolor;
+  h3 {
       text-align: center;
       text-transform: uppercase;
-
+      margin: 0;
+      padding-top: 25px;
     }
 
 }
-
-
 
 .glyphicon{
 
   color: $text-color;
 
-  &.glyphicon-eye-open, &.glyphicon-list{
-    top: 4px;
-    left: 250px;
+  &.glyphicon-eye-open, &.glyphicon-list,&.eye-small, &.list-small{
+    position: absolute;
+    top: 27px;
+    left: 880px;
 
     &:hover{
       cursor: pointer;
@@ -75,15 +140,26 @@ img:hover {
     }
 
     &.glyphicon-list{
-      left: 270px;
+      left: 920px;
     }
-  }
 
+    &.eye-small{
+
+      left: 400px;
+
+    }
+
+    &.list-small{
+
+      left: 440px;
+
+    }
+
+  }
 
   &.glyphicon-circle-arrow-right{
     top: 4px;
   }
-
 
 }
 
@@ -92,7 +168,7 @@ img:hover {
 }
 
 .shadow {
-  top: 470px;
+  top: 465px;
 
 }
 
@@ -103,7 +179,8 @@ img:hover {
   left: 750px;
   color: white;
 
-  :hover{
+  &:hover{
     text-decoration: none;
+    opacity: 0.7;
   }
 }
