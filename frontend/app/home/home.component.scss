@@ -1,55 +1,132 @@
 @import "../../_variables";
 
-.images-content h1{
+.imagecontainer, 
+.contentcontainer {
   position: relative;
+  top: -52px; 
 }
 
-.images-content{
-  margin: 0;
+.contentcontainer {
+  display: flex;
+  align-items: center;
+
+  .contentcontainer_row {
+
+    @media (min-width: $screen-md) { 
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
 }
 
+.imagecontainer { 
+  height: 1200px;
+  overflow: none;
+  z-index: 1;
 
-.img-home, .img-serie,.img-followers {
-  position: absolute;
-  width: 100%; /* zijn dat geen default attributen? */
-  clip: rect(10px,1920px,800px,0px);
+  .imagecontainer_wrapper {
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .imagecontainer_content {
+    background-color: $imagecontainer_content-backgroundcolor;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+
+    .container {
+      padding: 100px 0;
+    }
+  }
 }
 
-.img-serie{
-  top: 800px;
-}
-
-.img-followers{
-  top: 1580px;
-}
-
-
-.btnLogin, .btnSignUp {
+.btn-signUp {
   color: $text-color;
   font-family: $font;
   padding: 10px;
   border: 2px solid $footer-color;
   position: relative;
   font-size: 22px;
-
-
   cursor: pointer;
+  transform: opacity 0.5s;
+  background-color: $nav-color;
+
+  @media (max-width: $screen-md) {
+    display: inline-block;
+    margin: 5px 0;
+  }
 
   &:hover {
     opacity: 0.7;
+  } 
+}
+
+.logo {
+  width: 200px;
+  margin: 0 auto;
+
+  @media (min-width: $screen-md) {
+    display: block;
+  }
+
+  @media (max-width: $screen-md) {
+    display: none;
   }
 }
 
-.series{
-  position: relative;
+.carousel { 
+  display: flex;
+  flex-direction: row;
 
+  @media (max-width: $screen-md) {
+      width: 65%;
+  }
 }
-.btnLogin {
-  background-color: $button-color-default;
-  left: 210px;
+
+.googleplay {
+  text-align: center;
+
+  img {
+    width: 50%;
+  }
 }
 
-.btnSignUp {
-  background-color: $nav-color;
+.apppicture {
+  @media (min-width: $screen-md) {
+    position: relative;
+    top: 196px;
+    z-index: 1;
+  }
 
+  @media (max-width: $screen-md) {
+    width: 70%;
+    margin: 10px 0 0 0;
+  }
+}
+
+@each $header, $size in (h1: 4em, h2: 3em, h3: 2em) {
+  #{$header} {
+    font-size: $size;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+}
+
+p.text-big {
+  font-size: 1.7em;
+  text-align: center;
+  margin-bottom: 60px;
 }

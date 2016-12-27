@@ -1,57 +1,126 @@
-<div class="images-content">
-    <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
-    <div class="container">
-        <h1>Welcome to Watchfriends</h1>
-        <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-        <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="imagecontainer" [style.height.px]="innerHeight">
+    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
+        <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+        <div class="container">
+            <img class="logo" [src]="logoPng" alt="Logo Watchfriends" />
+            <h1>Welcome to Watchfriends</h1>
+            <p class="text-big">Track your series and follow your friends</p>
+            <p class="text-big">
+
+                <a routerLink="/register" class="btn-signUp">Join Watchfriends</a>
+                <a routerLink="/login" class="btn-signUp">Already a member? Log in</a>
+            </p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-serie" [src]="imageSeries" alt="WatchFriends Welcome!" />
-    <div class="container series">
-        <h1>Explore thousands of series & keep track of them</h1>
-        <a routerLink="/register" class="btnSignUp">Explore new series</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+
+<div class="imagecontainer" [style.height.px]="innerHeight">
+    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
+        <img class="img-home" [src]="imageSeries" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+        <div class="container">
+
+
+            <h2>Explore thousands of series &amp; keep track of them</h2>
+            <p class="text-big"><a routerLink="/register" class="btn-signUp">Explore new series</a></p>
+
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-followers" [src]="imageFollowers" alt="WatchFriends Welcome!" />
-    <div class="container followers">
-        <h1>Follow people and see what they watch</h1>
-        <a routerLink="/register" class="btnSignUp">Expand your network</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="contentcontainer" [style.height.px]="innerHeight">
+    <div class="contentcontainer_row">
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <h2>Find &amp; track your series</h2>
+            <p class="text-big">Track your series and see whats episode is next.</p>
+        </div>
+        <div class="col-md-6 col-xs-12 col-sm-12">
+
+            <div id="carousel-poster" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-poster" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-poster" data-slide-to="1"></li>
+                    <li data-target="#carousel-poster" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="https://image.tmdb.org/t/p/w500/b8BgPfjNjSZHpX75TyWaj5GHZT1.jpg" alt="The walking dead" />
+                        <div class="carousel-caption">
+                            <p class="text-big"><a href="#">The walking dead</a></p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://image.tmdb.org/t/p/w500/1Dmrgwv8VcTWQOaoyWm71KOeFEE.jpg" alt="Eastlanders" />
+                        <div class="carousel-caption">
+                            <p class="text-big"><a href="#">Eastlanders</a></p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="https://image.tmdb.org/t/p/w500/igDhbYQTvact1SbNDbzoeiFBGda.jpg" alt="Doctor who" />
+                        <div class="carousel-caption">
+                            <p class="text-big"><a href="#">Doctor Who</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-poster" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-poster" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
-<!--<div class="container">
-
-    <section class="home-section">
-
-        <div class="wrapper">
-            <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-            <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
+<div class="imagecontainer" [style.height.px]="innerHeight">
+    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
+        <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+        <div class="container">
+            <h2>Follow people and see their watchlist</h2>
+            <p class="text-big"><a routerLink="/register" class="btn-signUp">Expand your network</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
         </div>
-    </section>
-    <!--<section class="home-section">
-        <h1>Series</h1>
-        <div class="wrapper">
+    </div>
+</div>
 
-            <img class="img-home" [src]="imageSeries" alt="Searching for a series?"/>
-
-            <a routerLink="/register" class="btnSignUp">Explore new series</a>
+<div class="imagecontainer" [style.height.px]="innerHeight">
+    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
+        <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
+    </div>
+    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+        <div class="container">
+            <h2>Download the app for Android</h2>
+            <p class="text-big"><a routerLink="/download" class="btn-signUp" target="_blank">Download now</a></p>
+            <!--  <button class="btnLogin">Already a member? Log in</button> -->
         </div>
-    </section>
-    <section class="home-section">
-        <h1>Followers</h1>
-        <div class="wrapper">
-            <!-- <h2>Choose who you want to follow </h2>
+    </div>
+</div>
 
-            <img class="img-home" [src]="imageFollowers" alt="Keep track your followers' series!"/>
-            <a routerLink="/register" class="btnSignUp">Expand your network</a>
+<div class="contentcontainer" [style.height.px]="innerHeight">
+    <div class="contentcontainer_row">
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <h2>Download the app for Android</h2>
+            <p class="text-big">Get a better experiance.</p>
+            <a href="#" target="_blank" class="googleplay"><img [src]="playStoreButton" alt="Go to Google play store" /></a>
         </div>
-    </section>
-
-</div>-->
+        <div class="col-md-6 col-xs-12 col-sm-12">
+            <img [src]="androidApp" alt="Track your series" class="apppicture" />
+        </div>
+    </div>
+</div>

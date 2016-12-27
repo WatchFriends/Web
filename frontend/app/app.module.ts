@@ -12,7 +12,11 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 //services
+
+import { ExploreComponent } from './explore/explore.component';
+
 import { AuthService } from './services';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +24,8 @@ import { AuthService } from './services';
     HomeComponent,
     NavComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ExploreComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { AuthService } from './services';
       { path: "home", component: HomeComponent },
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
+      {path: "explore", component: ExploreComponent},
       { path: "**", redirectTo: "home" }])
   ],
   providers: [
