@@ -4,6 +4,9 @@
 .contentcontainer {
   position: relative;
   top: -52px; 
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
 }
 
 .contentcontainer {
@@ -28,7 +31,6 @@
 }
 
 .imagecontainer { 
-  height: 1200px;
   overflow: none;
   z-index: 1;
 
@@ -39,17 +41,22 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    width: 100%;
+    img{
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) 
+    }
   }
 
   .imagecontainer_content {
+    height: 100%;
     background-color: $imagecontainer_content-backgroundcolor;
     z-index: 100;
     display: flex;
     align-items: center;
-
-    .container {
-      padding: 100px 0;
-    }
+    padding: 0 100px;
   }
 }
 
