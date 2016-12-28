@@ -1,181 +1,173 @@
 @import "../../_variables";
 
-img {
-  width: 100%;
-  height: 100%;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-  -webkit-transition: .3s ease-in-out;
-  transition: .3s ease-in-out;
-  filter: blur(0);
+// sub menu: newest, trending, popular
+.submenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
-
-  &:hover{
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    opacity: 1;
+  @media (max-width: $screen-sm) {
+    font-size: 0.6em;
   }
-}
 
-
-
-
-.container {
-
-  .active-title {
-    display: block;
-    text-align: center;
+  .active {
     border-bottom: 2px solid $button-color-default;
-
-    &:hover{
-      cursor: default;
-    }
   }
-}
 
-nav a {
-  position: relative;
-  display: inline-block;
-  margin: 15px 25px;
-  outline: none;
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 400;
-  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-  font-size: 2em;
-  &:hover, &:focus {
-    outline: none;
-  }
-}
-
-.special-effect a {
-
-  color: $imagecontainer_content-backgroundcolor;
-  text-shadow: none;
-  padding: 10px 0;
-
-  &::before {
-    color: #fff;
-    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
-    content: attr(data-hover);
-    position: absolute;
-    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-    -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-    transition: transform 0.3s, opacity 0.3s;
-    pointer-events: none;
-  }
-  &:not(.active-title){
-
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 2px;
-      background: $button-color-default;
-      opacity: 0;
-      -webkit-transform: translateY(5px);
-      -moz-transform: translateY(5px);
-      transform: translateY(5px);
-      -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
-      -moz-transition: -moz-transform 0.3s, opacity 0.3s;
-      transition: transform 0.3s, opacity 0.3s;
-      pointer-events: none;
-    }
-    &:hover::before, &:focus::before {
-      opacity: 0;
-      -webkit-transform: translateY(-2px);
-      -moz-transform: translateY(-2px);
-      transform: translateY(-2px);
-    }
-    &:hover::after, &:focus::after {
-      opacity: 1;
-      -webkit-transform: translateY(0px);
-      -moz-transform: translateY(0px);
-      transform: translateY(0px);
-    }
-  }
-}
-
-.row {
-
-  .col-small, .col-big {
-    padding: 0;
+  a {
+    padding: 10px 0;
     position: relative;
-    overflow: hidden;
+    display: inline-block;
+    margin: 15px 25px;
+    color: $text-color;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 2em;
 
+    &:not(.active){
+      // lijntje dat erbij komt als je erover howert.
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background: $button-color-default;
+        opacity: 0;
+        transform: translateY(5px);
+        transition: transform 0.3s, opacity 0.3s;
+        pointer-events: none;
+      }
+      &:hover::after, &:focus::after {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
   }
 }
 
-.shadow, .shadow-small {
-  position: absolute;
-  width: 100%;
-  height: 70px;
-  background-color: $imagecontainer_content-backgroundcolor;
-  h3 {
+// column spacing
+.seriescontainer {
+  padding: 0;
+  overflow: hidden;
+  float: left;
+  position: relative;
+
+  @media (min-width: $screen-sm) {
+    width: 50%;
+  }
+
+  @media (min-width: $screen-md) {
+    width: 33.333333333%;
+  }
+
+  @media (min-width: $screen-lg) {
+    width: 25%;
+  }
+
+  &.seriescontainer-big {
+    width: 50%;
+
+    @media (max-width: $screen-sm) {
+      width: 100%;
+    }
+  }
+
+  .seriescontainer_wrapper img {
+    width: 100%;
+    height: 100%;
+    transform: scale(1);
+    transition: .3s ease-in-out;
+    filter: blur(0);
+
+    &:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+  }
+
+  .seriescontainer_content {
+    position: absolute;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    bottom: 0px;
+
+    h3, p {
+      margin: 20px 5px;
+      padding: 0;
+    }
+
+    h3 {
       text-align: center;
       text-transform: uppercase;
-      margin: 0;
-      padding-top: 25px;
-    }
-}
-
-.glyphicon{
-
-  color: $text-color;
-
-  &.glyphicon-eye-open, &.glyphicon-list,&.eye-small, &.list-small{
-    position: absolute;
-    top: 27px;
-    left: 880px;
-
-    &:hover{
-      cursor: pointer;
-      color: $button-color-default;
+      width: 70%;
+      float: left;
     }
 
-    &.glyphicon-list{
-      left: 920px;
-    }
+    p {
+      width: 20%;
+      float: right;
+      font-size: 1.5em;
+      text-align: right;
 
-    &.eye-small{
-
-      left: 400px;
-
-    }
-
-    &.list-small{
-
-      left: 440px;
-
+      span {
+        margin: 0 5px;
+      }
     }
   }
-
-  &.glyphicon-circle-arrow-right{
-    top: 4px;
-  }
 }
 
-.shadow-small {
-  top: 198px;
-}
+// .glyphicon {
+//   color: $text-color;
 
-.shadow {
-  top: 465px;
-}
+//   &.glyphicon-eye-open, &.glyphicon-list,&.eye-small, &.list-small{
+//     position: absolute;
+//     top: 27px;
+//     left: 880px;
 
-.more-series{
-  font-size: 1.5em;
-  position: absolute;
-  top: 30px;
-  left: 750px;
-  color: white;
+//     &:hover{
+//       cursor: pointer;
+//       color: $button-color-default;
+//     }
 
-  &:hover{
-    text-decoration: none;
-    opacity: 0.7;
-  }
-}
+//     &.glyphicon-list{
+//       left: 920px;
+//     }
+
+//     &.eye-small{
+//       left: 400px;
+//     }
+
+//     &.list-small{
+//       left: 440px;
+//     }
+//   }
+
+//   &.glyphicon-circle-arrow-right{
+//     top: 4px;
+//   }
+// }
+
+// .shadow-small {
+//   top: 198px;
+// }
+
+// .shadow {
+//   top: 465px;
+// }
+
+// .more-series{
+//   font-size: 1.5em;
+//   position: absolute;
+//   top: 30px;
+//   left: 750px;
+//   color: white;
+
+//   &:hover{
+//     text-decoration: none;
+//     opacity: 0.7;
+//   }
+// }
+

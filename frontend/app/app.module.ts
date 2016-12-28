@@ -16,6 +16,7 @@ import { RegisterComponent } from './register/register.component';
 import { ExploreComponent } from './explore/explore.component';
 
 import { AuthService } from './services';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AuthService } from './services';
     NavComponent,
     LoginComponent,
     RegisterComponent,
-    ExploreComponent
+    ExploreComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
