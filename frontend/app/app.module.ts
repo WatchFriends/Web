@@ -17,6 +17,7 @@ import { ExploreComponent } from './explore/explore.component';
 
 import { AuthService } from './services';
 import { SearchComponent } from './search/search.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SearchComponent } from './search/search.component';
     LoginComponent,
     RegisterComponent,
     ExploreComponent,
-    SearchComponent
+    SearchComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { SearchComponent } from './search/search.component';
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
       {path: "explore", component: ExploreComponent},
+      {path: "profile", component: ProfileComponent},
       { path: "**", redirectTo: "home" }])
   ],
   providers: [
