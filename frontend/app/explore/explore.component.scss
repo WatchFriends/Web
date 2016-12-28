@@ -36,6 +36,11 @@ nav a {
 
 .special-effect  {
 
+  @media (max-width: $screen-sm) {
+
+    font-size: 0.6em;
+
+  }
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -178,3 +183,4 @@ nav a {
     opacity: 0.7;
   }
 }
+
