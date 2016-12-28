@@ -12,7 +12,7 @@
         </div>
         <div [collapse]="isCollapsed">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
+                <li class="active"><a  routerLink="/explore"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Following</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> To Watch</a></li>
             </ul>
@@ -22,7 +22,7 @@
                     <div class="input-group">
                         <input id="searchinputfield" type="text" class="form-control" placeholder="Search" />
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
+                            <button (click)="loadPhotos()" type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
                         </span>

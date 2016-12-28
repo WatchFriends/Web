@@ -9,10 +9,12 @@ footer {
   z-index: 9999;
   position: absolute;
 
+
   p {
     text-align: center;
     font-size: 20px;
     color: $text-color;
+    margin-bottom: 0;
   }
 }
 
