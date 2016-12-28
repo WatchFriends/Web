@@ -24,4 +24,13 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  errorMessage: any;
+
+  loadPhotos(){
+
+    // service aanmaken
+    this.errorMessage = console.log("hello");
+
+  }
+
 }
