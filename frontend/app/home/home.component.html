@@ -37,7 +37,7 @@
         <div class="col-md-6">
             <carousel interval="2000" class="carousel">
                 <slide *ngFor="let poster of posters" class="item">
-                    <img [src]="poster.image" [alt]="poster.title" style="margin:auto" >
+                    <img [src]="poster.image" [alt]="poster.title">
                     <div class="carousel-caption">
                         <p class="text-big"><a href="#">{{poster.title}}</a></p>
                     </div>

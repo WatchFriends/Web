@@ -1,14 +1,13 @@
 @import "../_variables";
 
 footer {
-  margin-top: $footer-header-margin;
   background-color: $footer-color;
   width: 100%;
-  padding: 15px 0;
   margin: 0;
+  margin-top: -$footer-size;
   z-index: 9999;
-  position: absolute;
 
+  height: $footer-size;
 
   p {
     text-align: center;
@@ -16,8 +15,4 @@ footer {
     color: $text-color;
     margin-bottom: 0;
   }
-}
-
-body, html {
-  overflow-x: hidden;
 }
