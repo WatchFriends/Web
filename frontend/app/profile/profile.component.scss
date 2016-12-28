@@ -1,16 +1,36 @@
+@import "../../_variables";
 
-img{
+.container-fluid{
+  padding: 0;
+}
+
+
+.bg-splice {
+    height: 500px;
+
+  @media (max-width: $screen-lg) {
+    height: 400px;
+  }
+
+
+  img{
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.bg-splice_watchlist{
   width: 100%;
   height: 100%;
   position: relative;
+  opacity: 0.4;
 }
-
-.bg-splice{
-  height: 600px;
-}
-
 .container{
 
+  h4{
+    margin-bottom: 20px;
+  }
 
   .container-profile{
     text-align: center;
@@ -21,10 +41,33 @@ img{
     left: 0;
     z-index: 1;
         img{
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
+          border: 5px solid $button-color-default;
+          border-radius: 50%;
+          width: 100px;
+          height: 100px;
       }
   }
 
+}
+
+.btn-follow {
+  color: $text-color;
+  font-family: $font;
+  padding: 15px;
+  position: relative;
+  font-size: 16px;
+  cursor: pointer;
+  transform: opacity 0.5s;
+  background-color: $nav-color;
+  border: 2px solid $imagecontainer_content-backgroundcolor;
+
+  @media (max-width: $screen-md) {
+    display: inline-block;
+    margin: 5px 0;
+  }
+
+  &:hover {
+    text-decoration: none;
+    opacity: 0.7;
+  }
 }

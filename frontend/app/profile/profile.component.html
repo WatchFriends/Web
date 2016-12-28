@@ -1,17 +1,19 @@
 <div class="container-fluid">
   <div class="row bg-splice">
-      <img [src]="backgroundImage" alt="Background"/>
+      <img [src]="backgroundProfile" alt="Profile Background"/>
   </div>
-
 
   <div class="container">
     <div class="container-profile">
       <img [src]="profilePicture" alt="Profile"/>
       <h1>Michiel Zyde</h1>
-      <h3>15 followers</h3>
-      <button class="btn btn-default btn-lg">Follow</button>
+      <h4>15 followers</h4>
+      <a class="btn-follow"><span class="glyphicon glyphicon-user"></span> Follow</a>
     </div>
   </div>
+
+  <img [src]="backgroundWatchlist" alt="Watchlist Background" class="bg-splice_watchlist"/>
+  <h1>My Watchlist</h1>
 
 
 
