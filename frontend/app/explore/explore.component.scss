@@ -42,7 +42,7 @@
       }
       &:hover::after, &:focus::after {
         opacity: 1;
-        transform: translateY(0px);
+        transform: translateY(0);
       }
     }
   }
@@ -92,7 +92,7 @@
     position: absolute;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    bottom: 0px;
+    bottom: 0;
 
     h3, p {
       margin: 20px 5px;
