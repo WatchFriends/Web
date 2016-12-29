@@ -13,7 +13,7 @@ export class UserService {
   get name() { return this._name };
   get email() { return this._email };
   get token() { return this._token };
-  get authenticated() { return this.authenticated };
+  get authenticated() { return this._authenticated };
 
   setUser(user) {
     if (user) {

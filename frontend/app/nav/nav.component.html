@@ -12,7 +12,7 @@
         </div>
         <div [collapse]="isCollapsed">
             <ul class="nav navbar-nav">
-                <li class="active"><a  routerLink="/explore"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
+                <li><a routerLink="/explore"><span class="glyphicon glyphicon-globe"></span> Explore</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Following</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> To Watch</a></li>
             </ul>
@@ -24,14 +24,17 @@
                         <span class="input-group-btn">
                             <button (click)="loadPhotos()" type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
-                            </button>
+                        </button>
                         </span>
                     </div>
                 </div>
             </form>
-            <ul class="nav navbar-nav navbar-right">
+            <ul *ngIf="!user.authenticated" class="nav navbar-nav navbar-right">
                 <li><a routerLink="/login">Login</a></li>
                 <li><a routerLink="/register">Register</a></li>
+            </ul>
+            <ul *ngIf="user.authenticated" class="nav navbar-nav navbar-right">
+                <li><a routerLink="/profile">{{user.name.givenName}} {{user.name.familyName}}</a></li>
             </ul>
         </div>
     </div>
