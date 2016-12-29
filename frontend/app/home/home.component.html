@@ -31,7 +31,7 @@
         <div class="col-md-6">
             <carousel interval="2000" class="carousel">
                 <slide *ngFor="let poster of posters" class="item">
-                    <img [src]="poster.image" [alt]="poster.title">
+                    <img [src]="poster.image" [alt]="poster.title" />
                     <div class="carousel-caption">
                         <p class="text-big"><a routerLink="#">{{poster.title}}</a></p>
                     </div>
@@ -53,7 +53,7 @@
 </div>
 
 <div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageFollowers+')'">
-    <div class="imagecontainer_content" >
+    <div class="imagecontainer_content">
         <div class="container">
             <h2>Download the app for Android</h2>
             <p class="text-big">
