@@ -17,7 +17,7 @@
     <div class="imagecontainer_content">
         <div class="container">
             <h2>Explore thousands of series &amp; keep track of them</h2>
-            <p class="text-big"><a routerLink="/register" class="btn-signUp">Explore new series</a></p>
+            <p class="text-big"><a routerLink="/explore" class="btn-signUp">Explore new series</a></p>
         </div>
     </div>
 </div>
@@ -33,7 +33,7 @@
                 <slide *ngFor="let poster of posters" class="item">
                     <img [src]="poster.image" [alt]="poster.title">
                     <div class="carousel-caption">
-                        <p class="text-big"><a href="#">{{poster.title}}</a></p>
+                        <p class="text-big"><a routerLink="#">{{poster.title}}</a></p>
                     </div>
                 </slide>
             </carousel>
@@ -46,7 +46,7 @@
         <div class="container">
             <h2>Follow people and see their watchlist</h2>
             <p class="text-big">
-                <a routerLink="/register" class="btn-signUp">Expand your network</a>
+                <a routerLink="/following" class="btn-signUp">Expand your network</a>
             </p>
         </div>
     </div>
@@ -67,7 +67,7 @@
     <div class="contentcontainer_row">
         <div class="col-md-6">
             <h2>Download the app for Android</h2>
-            <p class="text-big">Get a better experiance.</p>
+            <p class="text-big">Get a better experience.</p>
             <a href="#" target="_blank" class="googleplay">
                 <img [src]="playStoreButton" alt="Go to Google play store" />
             </a>

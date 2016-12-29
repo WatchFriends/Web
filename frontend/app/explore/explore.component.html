@@ -1,24 +1,29 @@
 <div class="container-fluid">
     <div class="container">
         <nav class="submenu">
-            <div class="col-md-4">
-                <a href="#" data-hover="Newest">Newest</a>
+            <div class="col-md-4"> 
+                <a routerLink="newest" data-hover="Newest">Newest</a>
             </div>
             <div class="col-md-4">
-                <a href="#" data-hover="Trending" class="active">Trending</a>
+                <a routerLink="trending" data-hover="Trending" class="active">Trending</a>
             </div>
            <div class="col-md-4">
-               <a href="#" data-hover="Popular">Popular</a>
+               <a routerLink="popular" data-hover="Popular">Popular</a>
            </div>
         </nav>
     </div>
 
     <div class="row">
         <div *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
-            <a [routerLink]="['series', item.id]" class="seriescontainer_wrapper"><img [src]="item.image" [alt]="item.title" class="image-responsive"/></a>
+            <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
+                <img [src]="item.image" [alt]="item.title" class="image-responsive"/>
+            </a>
             <div class="seriescontainer_content">
                 <h3>{{item.title}}</h3>
-                <p><span class="glyphicon glyphicon-eye-open"></span><span class="glyphicon glyphicon-list"></span></p>
+                <p>
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                    <span class="glyphicon glyphicon-list"></span>
+                </p>
             </div>
         </div>
     </div>
