@@ -31,13 +31,13 @@
 }
 
 .imagecontainer { 
-  overflow: none;
+  height: 1200px;
+  overflow: hidden;
   z-index: 1;
 
   .imagecontainer_wrapper {
     position: absolute;
     z-index: -1;
-    overflow: hidden;
     display: flex;
     align-items: center;
     overflow: hidden;
