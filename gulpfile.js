@@ -44,8 +44,21 @@ gulp.task("html", () =>
 
 gulp.task("scss", () =>
     gulp.src(paths.scss)
-        .pipe(sass().on('error', sass.logError))
-        .pipe(csslint())
+        .pipe(sass().on('warning', () => {
+            throw sass.log;
+        }))
+        .pipe(csslint({
+            "important": false,
+            "order-alphabetical": false,
+            "adjoining-classes": false,
+            "ids": false,
+            "import": false,
+            "empty-rules": false,
+            "fallback-colors": false,
+            "qualified-headings": false,
+            "unique-headings": false,
+            "overqualified-elements": false
+        }))
         .pipe(csslint.formatter())
 );
 
@@ -71,9 +84,9 @@ gulp.task("js", () =>
 gulp.task("node", () =>
     gulp.src(paths.node)
         .pipe(jshint({esnext: true}))
-        .pipe(jsreporter)
 );
 
 gulp.task("copy-libs", () =>
-    gulp.src(paths.libs.SRC).pipe(gulp.dest(paths.libs.DEST))
+    gulp.src(paths.libs.SRC)
+        .pipe(gulp.dest(paths.libs.DEST))
 );
