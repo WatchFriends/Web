@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from "rxjs";
-import { ServerError } from ".";
+import { ServerError } from "./server-error";
+import { UserService } from "./user.service"
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private user: UserService) { }
 
     private dataHeaders = new Headers({ 'Content-Type': 'application/vnd.api+json' });
     private options = new RequestOptions({ headers: this.dataHeaders, withCredentials: true });
@@ -27,12 +28,12 @@ export class ApiService {
     }
 
     search(query) {
-        return this.http.get(`api/series/search?query=${query}&access_token=${this.token()}`,this.options)
+        return this.http.get(`api/series/search?query=${query}&access_token=${this.token()}`, this.options)
             .catch(this.catch);
     }
 
     achievements() {
-        return this.http.get(`api/series/achievement?access_token=${this.token()}`,this.options)
+        return this.http.get(`api/series/achievement?access_token=${this.token()}`, this.options)
             .catch(this.catch);
     }
 }
