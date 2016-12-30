@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
+import { DropdownModule, CollapseModule, CarouselModule } from 'ng2-bootstrap';
 //components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -35,6 +35,7 @@ import { SearchComponent } from './search/search.component';
     HttpModule,
     DropdownModule.forRoot(),
     CollapseModule.forRoot(),
+    CarouselModule.forRoot(),
     RouterModule.forRoot([
       { path: "home", component: HomeComponent },
       { path: "login", component: LoginComponent },
