@@ -6,7 +6,7 @@
   "id-unique": true,
   "style-disabled": true,
   "attr-no-duplication": true,
-  "alt-require": false,
+  "alt-require": true,
   "head-script-disabled": true,
   "tag-pair": true,
   "title-require": true,
