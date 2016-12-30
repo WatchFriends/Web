@@ -42,7 +42,7 @@
       }
       &:hover::after, &:focus::after {
         opacity: 1;
-        transform: translateY(0px);
+        transform: translateY(0);
       }
     }
   }
@@ -92,7 +92,7 @@
     position: absolute;
     width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    bottom: 0px;
+    bottom: 0;
 
     h3, p {
       margin: 20px 5px;
@@ -114,60 +114,12 @@
 
       span {
         margin: 0 5px;
+        cursor: pointer;
+
+        &:hover {
+          color: $button-color-default;
+        }
       }
     }
   }
 }
-
-// .glyphicon {
-//   color: $text-color;
-
-//   &.glyphicon-eye-open, &.glyphicon-list,&.eye-small, &.list-small{
-//     position: absolute;
-//     top: 27px;
-//     left: 880px;
-
-//     &:hover{
-//       cursor: pointer;
-//       color: $button-color-default;
-//     }
-
-//     &.glyphicon-list{
-//       left: 920px;
-//     }
-
-//     &.eye-small{
-//       left: 400px;
-//     }
-
-//     &.list-small{
-//       left: 440px;
-//     }
-//   }
-
-//   &.glyphicon-circle-arrow-right{
-//     top: 4px;
-//   }
-// }
-
-// .shadow-small {
-//   top: 198px;
-// }
-
-// .shadow {
-//   top: 465px;
-// }
-
-// .more-series{
-//   font-size: 1.5em;
-//   position: absolute;
-//   top: 30px;
-//   left: 750px;
-//   color: white;
-
-//   &:hover{
-//     text-decoration: none;
-//     opacity: 0.7;
-//   }
-// }
-
