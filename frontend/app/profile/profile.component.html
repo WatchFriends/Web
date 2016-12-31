@@ -8,13 +8,41 @@
       <img [src]="profilePicture" alt="Profile"/>
       <h1>Michiel Zyde</h1>
       <h4>15 followers</h4>
-      <a class="btn-follow"><span class="glyphicon glyphicon-user"></span> Follow</a>
+      <a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> Follow</a>
     </div>
   </div>
 
-  <img [src]="backgroundWatchlist" alt="Watchlist Background" class="bg-splice_watchlist"/>
-  <h1>My Watchlist</h1>
+  <div class="shadow">
+    <div class="container">
+      <nav class="shadow-submenu">
+          <div class="col-md-6">
+            <a href="#" data-hover="My Watchlist" class="active">My Watchlist</a>
+          </div>
+        <div class="col-md-6">
+          <a href="#" data-hover="Achievements">Achievements</a>
+        </div>
+      </nav>
+    </div>
+  </div>
 
-
-
+  <div class="row">
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistFirst" alt="Serie Title"/><span>Zoo</span></a>
+    </div>
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecond" alt="Serie Title"/><span>Vikings</span></a>
+    </div>
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistThird" alt="Serie Title"/><span>Salem</span></a>
+    </div>
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRow" alt="Serie Title"/><span>Lucifer</span></a>
+    </div>
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRowSecond" alt="Serie Title"/><span>Gotham</span></a>
+    </div>
+    <div class="watchlist">
+      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRowThird" alt="Serie Title"/><span>Suits</span></a>
+    </div>
+  </div>
 </div>
