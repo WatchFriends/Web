@@ -24,25 +24,11 @@
       </nav>
     </div>
   </div>
-
   <div class="row">
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistFirst" alt="Serie Title"/><span>Zoo</span></a>
-    </div>
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecond" alt="Serie Title"/><span>Vikings</span></a>
-    </div>
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistThird" alt="Serie Title"/><span>Salem</span></a>
-    </div>
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRow" alt="Serie Title"/><span>Lucifer</span></a>
-    </div>
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRowSecond" alt="Serie Title"/><span>Gotham</span></a>
-    </div>
-    <div class="watchlist">
-      <a href="#" class="watchlist_wrapper"><img [src]="imgWatchlistSecondRowThird" alt="Serie Title"/><span>Suits</span></a>
+    <div *ngFor="let item of watchlist; let i = index" class="watchlist">
+      <a [routerLink]="['/series', item.id]" class="watchlist_wrapper">
+          <img [src]="item.image" alt="item.title"/><span>{{item.title}}</span>
+      </a>
     </div>
   </div>
 </div>

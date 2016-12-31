@@ -37,7 +37,7 @@
       }
 
       @media (max-width: $screen-sm) {
-        font-size: 0.5em;
+        font-size: 0.6em;
       }
       .active {
         border-bottom: 2px solid $button-color-default;
@@ -55,7 +55,7 @@
         font-size: 1.5em;
 
         @media (max-width: $screen-sm) {
-          margin: 15px 25px;
+          margin: 15px 15px;
         }
 
         &:not(.active) {
