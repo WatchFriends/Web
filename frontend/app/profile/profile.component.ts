@@ -20,8 +20,8 @@ export class ProfileComponent {
     { image: "http://wallpapersinsider.com/wp-content/uploads/2016/04/Preacher-TV-Series-Wallpapers.jpg", title: "Lucifer", id:0, episodes: 1},
     { image: "http://www.wallpapermade.com/images/wallpapers/originals/gotham-characters-in-a-dark-street-wallpaper-3476.jpg", title: "Gotham", id:0, episodes: 10},
     { image: "http://cdn.wallpapersafari.com/87/70/jywP9k.jpg", title: "Suits", id:0, episodes: 5},
-    { image: "http://cdn.wallpapersafari.com/87/70/jywP9k.jpg", title: "Suits", id:0, episodes: 5},
-    { image: "http://cdn.wallpapersafari.com/87/70/jywP9k.jpg", title: "Suits", id:0, episodes: 5} 
+    { image: "https://image.tmdb.org/t/p/w533_and_h300_bestv2/tZjVVIYXACV4IIIhXeIM59ytqwS.jpg", title: "Rogue One: A Star Wars Story", id:330459, episodes: 5},
+    { image: "https://image.tmdb.org/t/p/w533_and_h300_bestv2/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg", title: "Breaking Bad", id:1396, episodes: 5} 
   ];
   watchlistLength = this.watchlist.length;
   achievements = [
