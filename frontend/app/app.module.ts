@@ -7,18 +7,15 @@ import { RouterModule } from '@angular/router';
 import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 //components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
+import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
+import { ExploreComponent } from './explore/explore.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-//services
-
-import { ExploreComponent } from './explore/explore.component';
-
-import { AuthService } from './services';
-import { SearchComponent } from './search/search.component';
 import { ProfileComponent } from './profile/profile.component';
-
+//services
+import { AuthService, ApiService, UserService } from './services';
 
 @NgModule({
   declarations: [
@@ -46,7 +43,9 @@ import { ProfileComponent } from './profile/profile.component';
       { path: "**", redirectTo: "home" }])
   ],
   providers: [
+    UserService,
     AuthService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

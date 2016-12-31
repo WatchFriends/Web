@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, NavigationEnd, Router } from '@angular/router';
+import { UserService } from '../services'
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +11,7 @@ export class NavComponent implements OnInit {
   
   loading = false;
 
-  constructor(router: Router) {
+  constructor(router: Router, private user: UserService) {
     router.events.subscribe(this.routerEvent);
   }
 
