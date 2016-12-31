@@ -67,7 +67,7 @@ router.get("/series/search", (req, res, next) => {
     let query = querystring.parse(req.baseUrl).query;
 
     if (!query) {
-        res.send({ message: "The query is required" });
+        next(new Error('The querystring parameter "query" is required'))
     }
     else {
         apiService.request(`search/tv?query=${query}`, (err, data) => {
