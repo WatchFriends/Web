@@ -1,34 +1,46 @@
 <div class="container-fluid">
-  <div class="row bg-splice">
-      <img [src]="backgroundProfile" alt="Profile Background"/>
-  </div>
-
-  <div class="container">
-    <div class="container-profile">
-      <img [src]="profilePicture" alt="Profile"/>
-      <h1>Michiel Zyde</h1>
-      <h4>15 followers</h4>
-      <a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> Follow</a>
+    <div class="row bg-splice">
+        <img [src]="backgroundProfile" alt="Profile Background"/>
     </div>
-  </div>
 
-  <div class="shadow">
     <div class="container">
-      <nav class="shadow-submenu">
-          <div class="col-md-6">
-            <a href="#" data-hover="My Watchlist" class="active">My Watchlist</a>
-          </div>
-        <div class="col-md-6">
-          <a href="#" data-hover="Achievements">Achievements</a>
+        <div class="container-profile">
+            <img [src]="profilePicture" alt="Profile"/>
+            <h1>Michiel Zyde</h1>
+            <h4>15 followers</h4>
+            <a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> Follow</a>
         </div>
-      </nav>
     </div>
-  </div>
-  <div class="row">
-    <div *ngFor="let item of watchlist; let i = index" class="watchlist">
-      <a [routerLink]="['/series', item.id]" class="watchlist_wrapper">
-          <img [src]="item.image" alt="item.title"/><span>{{item.title}}</span>
-      </a>
+
+    <div class="shadow">
+        <div class="container">
+            <nav class="shadow-submenu">
+                <div class="col-md-6">
+                    <a data-hover="My Watchlist" class="shadow-submenu_active">My Watchlist <span
+                            class="shadow-submenu_counter">6</span></a>
+                </div>
+                <div class="col-md-6">
+                    <a href="#" data-hover="Achievements">Achievements</a>
+                </div>
+            </nav>
+        </div>
     </div>
-  </div>
+    <div class="row">
+        <div *ngFor="let item of watchlist; let i = index" class="watchlist">
+            <a [routerLink]="['/series', item.id]" class="watchlist_wrapper">
+                <img [src]="item.image" alt="item.title"/><span>{{item.title}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let item of achievements; let i = index" class="achievements">
+            <div class="achievements_wrapper">
+                <h3>{{item.title}}</h3>
+                <img [src]="item.image" alt="item.title"/><span>{{item.subtitle}}</span>
+                <h4>{{item.progresstitle}}</h4>
+            </div>
+        </div>
+    </div>
+
+
 </div>
