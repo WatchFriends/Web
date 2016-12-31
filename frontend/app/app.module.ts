@@ -7,16 +7,14 @@ import { RouterModule } from '@angular/router';
 import { DropdownModule, CollapseModule, CarouselModule } from 'ng2-bootstrap';
 //components
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
+import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
+import { ExploreComponent } from './explore/explore.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 //services
-
-import { ExploreComponent } from './explore/explore.component';
-
-import { AuthService } from './services';
-import { SearchComponent } from './search/search.component';
+import { AuthService, ApiService, UserService } from './services';
 
 
 @NgModule({
@@ -40,11 +38,13 @@ import { SearchComponent } from './search/search.component';
       { path: "home", component: HomeComponent },
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
-      {path: "explore", component: ExploreComponent},
+      { path: "explore", component: ExploreComponent },
       { path: "**", redirectTo: "home" }])
   ],
   providers: [
+    UserService,
     AuthService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })
