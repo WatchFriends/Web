@@ -10,7 +10,7 @@
     font-size: 0.6em;
   }
 
-  .active {
+  .shadow-submenu_active {
     border-bottom: 2px solid $button-color-default;
   }
 
@@ -25,7 +25,7 @@
     letter-spacing: 1px;
     font-size: 2em;
 
-    &:not(.active){
+    &:not(.shadow-submenu_active){
       // lijntje dat erbij komt als je erover howert.
       &::after {
         content: '';
