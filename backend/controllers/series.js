@@ -63,14 +63,22 @@ router.post("/series/follow", (req, res, next) => {
 });
 
 router.get("/series/search", (req, res, next) => {
-    apiService.request(`search/tv?query=${querystring.parse(req.baseUrl).query}`, (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+
+    let query = querystring.parse(req.baseUrl).query;
+
+    if (!query) {
+        res.send({ message: "The query is required" });
+    }
+    else {
+        apiService.request(`search/tv?query=${query}`, (err, data) => {
+            if (err) {
+                next(err);
+            }
+            else {
+                res.send(data);
+            }
+        });
+    }
 });
 
 module.exports = router;
