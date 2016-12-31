@@ -1,4 +1,5 @@
 @import "../../_variables";
+@import "../sheared/serieslist";
 
 .container-fluid {
 
@@ -122,60 +123,60 @@
   }
 }
 
-.watchlist, .achievements {
-  padding: 0;
-  overflow: hidden;
-  float: left;
-  position: relative;
+// .watchlist, .achievements {
+//   padding: 0;
+//   overflow: hidden;
+//   float: left;
+//   position: relative;
 
-  @media (min-width: $screen-md) {
-    width: 50%;
-  }
-  @media (min-width: $screen-lg) {
-    width: 33.333333333%;
-  }
-  span {
-    opacity: 0;
-    font-size: 3em;
-    position: absolute;
-    color: $text-color;
-    font-weight: bold;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 100%;
-    transition: ease-in-out 0.3s;
-    text-transform: uppercase;
-  }
+//   @media (min-width: $screen-md) {
+//     width: 50%;
+//   }
+//   @media (min-width: $screen-lg) {
+//     width: 33.333333333%;
+//   }
+//   span {
+//     opacity: 0;
+//     font-size: 3em;
+//     position: absolute;
+//     color: $text-color;
+//     font-weight: bold;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//     line-height: 100%;
+//     transition: ease-in-out 0.3s;
+//     text-transform: uppercase;
+//   }
 
-  &:hover {
-    span {
-      opacity: 1;
-    }
-  }
+//   &:hover {
+//     span {
+//       opacity: 1;
+//     }
+//   }
 
-  .watchlist_wrapper img {
-    width: 100%;
-    height: 100%;
-    transform: scale(1);
-    transition: .3s ease-in-out;
-    filter: blur(0);
+//   .watchlist_wrapper img {
+//     width: 100%;
+//     height: 100%;
+//     transform: scale(1);
+//     transition: .3s ease-in-out;
+//     filter: blur(0);
 
-    &:hover {
-      transform: scale(1.1);
-    }
-  }
-}
+//     &:hover {
+//       transform: scale(1.1);
+//     }
+//   }
+// }
 
-.achievements_wrapper  {
+// .achievements_wrapper  {
 
-  h3,h4{
-    text-align: center;
-  }
-  img{
-    height: 150px;
-    width: 150px;
-    display: block;
-    margin: 0 auto;
-  }
-}
+//   h3,h4{
+//     text-align: center;
+//   }
+//   img{
+//     height: 150px;
+//     width: 150px;
+//     display: block;
+//     margin: 0 auto;
+//   }
+// }
