@@ -15,10 +15,6 @@ var userSchema = new Schema({
     email: {type: String, required: true, index: {unique: true}},
     //local
     password: String,
-    tokens: [{
-        token: String,
-        device: String
-    }],
     //oauth
     providers: [{name: String, id: String, token: String}], //provider name, user id and accestoken
     //series
