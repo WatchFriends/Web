@@ -36,12 +36,12 @@
         </div>
     </div>
     <div class="row">
-        <div *ngFor="let item of achievements; let i = index" class="achievements">
-            <div class="achievements_wrapper">
-                <h3>{{item.title}}</h3>
-                <img [src]="item.image" alt="item.title"/><span>{{item.subtitle}}</span>
-                <h4>{{item.progresstitle}}</h4>
-            </div>
+        <div *ngFor="let item of achievements; let i = index" class="achievementscontainer">
+            <h3>{{item.name}}</h3>
+            <p>{{item.description.replace('%d', item.next)}}</p>
+            <div [innerHTML]="item.image" [class]="item.status"></div>
+            <p class="bold">Progress till next achievement:</p>
+            <p><span>{{item.progress}}</span>/<span>{{item.next}}</span></p>
         </div>
     </div>
 

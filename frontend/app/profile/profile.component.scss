@@ -25,7 +25,7 @@
 }
 
 .shadow {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: $imagecontainer_content-backgroundcolor;
   margin-top: 40px;
 }
 
@@ -48,5 +48,37 @@
     border-radius: 50%;
     width: 200px;
     height: 200px;
+  }
+}
+
+.achievementscontainer {
+  padding: 0 40px;
+  float: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $screen-sm) {
+    width: 50%;
+  }
+
+  @media (min-width: $screen-md) {
+    width: 33.333333333%;
+  }
+
+  @media (min-width: $screen-lg) {
+    width: 25%;
+  }
+}
+
+@each $class, $color in (gold: #FFCC01, silver: #B4B8BC, brons: #D1A684) {
+  .#{$class} {
+    svg {
+      fill: $color;
+      height: 200px;
+      width: 200px;
+      margin: 50px 0;
+    }
   }
 }
