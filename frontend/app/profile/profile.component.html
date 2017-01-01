@@ -39,11 +39,9 @@
         <div *ngFor="let item of achievements; let i = index" class="achievementscontainer">
             <h3>{{item.name}}</h3>
             <p>{{item.description.replace('%d', item.next)}}</p>
-            <div [innerHTML]="item.image" [class]="item.status"></div>
+            <div [innerHTML]="transform(item.image)" [class]="item.status"></div>
             <p class="bold">Progress till next achievement:</p>
-            <p><span>{{item.progress}}</span>/<span>{{item.next}}</span></p>
+            <p>{{item.progress}}/{{item.next}}</p>
         </div>
     </div>
-
-
 </div>

@@ -72,13 +72,29 @@
   }
 }
 
-@each $class, $color in (gold: #FFCC01, silver: #B4B8BC, brons: #D1A684) {
-  .#{$class} {
-    svg {
-      fill: $color;
-      height: 200px;
-      width: 200px;
-      margin: 50px 0;
-    }
-  }
+svg {
+  width: 200px;
 }
+
+.brons {
+  fill: #D1A684;
+}
+
+.silver {
+  fill: #B4B8BC;
+}
+
+.gold {
+  fill: #FFCC01;
+}
+
+// @each $class, $color in (gold: #FFCC01, silver: #B4B8BC, brons: #D1A684) {
+//   .#{$class} {
+//     path {
+//       fill: $color;
+//       height: 200px;
+//       width: 200px;
+//       margin: 50px 0;
+//     }
+//   }
+// }
