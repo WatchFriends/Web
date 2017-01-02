@@ -54,7 +54,7 @@ router.get("/series/popular", (req, res, next) => {
 });
 
 router.post("/series/follow", (req, res, next) => {
-    dbService.updateFollowedSerie(req.body, (err, data) => {
+    dbService.updateFollowedSeries(req.body, (err, data) => {
         if (err)
             next(err);
         else

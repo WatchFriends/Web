@@ -2,7 +2,7 @@ const config = require("./config.json"),
     mongoose = require('mongoose'),
     achievement = require("./../models/achievement"),
     users = require("./../models/user"),
-    followedSerie = require('./../models/followedSerie'),
+    followedSeries = require('./../models/followedSeries'),
     watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
@@ -42,18 +42,18 @@ let existsWatchedEpisode = (body, cb) => {
             }
         });
     },
-    existsFollowedSerie = (body, cb) => {
-        followedSerie
+    existsFollowedSeries = (body, cb) => {
+        followedSeries
             .count({
                 userId: body.userId,
                 seriesId: body.seriesId
             })
             .exec(cb);
     },
-    updateFollowedSerie = (body, cb) => {
-        existsFollowedSerie(body, (err, count) => {
+    updateFollowedSeries = (body, cb) => {
+        existsFollowedSeries(body, (err, count) => {
             if (count > 0) {
-                followedSerie.update({
+                followedSeries.update({
                         userId: body.userId,
                         seriesId: body.seriesId
 
@@ -65,7 +65,7 @@ let existsWatchedEpisode = (body, cb) => {
                 )
                     .exec(cb);
             } else {
-                new followedSerie({
+                new followedSeries({
                     userId: body.userId,
                     seriesId: body.seriesId,
                     following: body.following
@@ -74,7 +74,7 @@ let existsWatchedEpisode = (body, cb) => {
         });
     },
     getAllFollowedSeriesByUserId = (user, cb) => {
-            followedSerie.find({
+            followedSeries.find({
                 userId: user._id,
                 following: true
             }, {
@@ -93,7 +93,8 @@ let existsWatchedEpisode = (body, cb) => {
             watched: 0,
             __v: 0,
         }).exec(cb);
-    }, updateFollowUser = (params, user, cb) =>{
+    };
+    /*, updateFollowUser = (params, user, cb) =>{
         existsFollowedUser(body, (err, count) => {
             if (count > 0) {
                 followedSerie.update({
@@ -115,15 +116,15 @@ let existsWatchedEpisode = (body, cb) => {
                 }).save(cb);
             }
         });
-    };
+    };*/
 
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
     /* FOLLOWEDSERIE */
-    existsFollowedSerie: existsFollowedSerie,
-    updateFollowedSerie: updateFollowedSerie,
+    existsFollowedSeries: existsFollowedSeries,
+    updateFollowedSeries: updateFollowedSeries,
     getAllFollowedSeriesByUserId: getAllFollowedSeriesByUserId,
 
     /* WATCHEDEPISODE */
