@@ -93,6 +93,28 @@ let existsWatchedEpisode = (body, cb) => {
             watched: 0,
             __v: 0,
         }).exec(cb);
+    }, updateFollowUser = (params, user, cb) =>{
+        existsFollowedUser(body, (err, count) => {
+            if (count > 0) {
+                followedSerie.update({
+                        userId: body.userId,
+                        seriesId: body.seriesId
+
+                    }, {
+                        "$set": {
+                            following: body.following
+                        }
+                    }
+                )
+                    .exec(cb);
+            } else {
+                new followedSerie({
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    following: body.following
+                }).save(cb);
+            }
+        });
     };
 
 module.exports = {
