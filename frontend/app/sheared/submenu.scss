@@ -13,7 +13,8 @@
     font-size: 0.6em;
   }
 
-  .submenu-item_active {
+  .submenu-item_active,
+  .active {
     border-bottom: 3px solid $button-color-default;
   }
 
@@ -28,6 +29,7 @@
     letter-spacing: 1px;
     font-size: 2em;
     text-align: center;
+    cursor: pointer;
 
     .shadow-submenu_counter {
         display: inline-block;
@@ -44,7 +46,8 @@
         }
     }
 
-    &:not(.submenu-item_active){
+    &:not(.submenu-item_active),
+    &:not(.active) {
       // lijntje dat erbij komt als je erover howert.
       &::after {
         content: '';

@@ -4,6 +4,10 @@
 
 .row {
   margin: 0;
+
+  &.bodybackground {
+    background-color: $body-color;
+  }
 }
 
 .container-fluid {
@@ -70,6 +74,14 @@
   @media (min-width: $screen-lg) {
     width: 25%;
   }
+
+  p {
+    text-align: center;
+  }
+}
+
+.bold {
+  font-weight: bold;
 }
 
 svg {
