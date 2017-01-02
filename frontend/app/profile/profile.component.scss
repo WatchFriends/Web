@@ -89,15 +89,15 @@ svg {
 }
 
 .brons {
-  fill: #D1A684;
+  fill: $brons;
 }
 
 .silver {
-  fill: #B4B8BC;
+  fill: $silver;
 }
 
 .gold {
-  fill: #FFCC01;
+  fill: $gold;
 }
 
 // @each $class, $color in (gold: #FFCC01, silver: #B4B8BC, brons: #D1A684) {
