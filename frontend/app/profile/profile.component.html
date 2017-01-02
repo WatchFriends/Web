@@ -7,7 +7,7 @@
         <div class="container-profile">
             <img [src]="profilePicture" alt="Profile"/>
             <h1>{{this.name}}</h1>
-            <h4><span>{{this.followers}}</span> followers</h4>
+            <p class="h4">{{this.followers}} followers</p>
             <a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> Follow</a>
         </div>
     </div>
@@ -27,7 +27,7 @@
 
     <div class="row" [style.display]="watchlistDisplay">
         <div *ngIf="watchlist.length == 0">
-            <p>No series tracked</p>
+            <p class="h4">No series tracked</p>
         </div>
         <div *ngIf="watchlist.length != 0"> 
             <div *ngFor="let item of watchlist; let i = index" class="seriescontainer">
@@ -42,20 +42,20 @@
     </div>
     <div class="row bodybackground" [style.display]="achievementDisplay">
         <div *ngIf="achievements.length == 0">
-            <p>Track or follow your series to collect achievements.</p>
+            <p class="h4">Track or follow your series to collect achievements.</p>
         </div>
         <div *ngIf="achievements.length != 0">
             <div *ngFor="let item of achievements; let i = index" class="achievementscontainer">
                 <h3>{{item.name}} ({{item.status}})</h3>
-                <p>{{transformDescription(item.description, item.collected)}}</p>
+                <p class="h4">{{transformDescription(item.description, item.collected)}}</p>
                 <div [innerHTML]="transformHtml(item.image)" [class]="item.status"></div>
                 <div *ngIf="item.status != 'gold'">
-                    <p class="bold">Progress till next achievement:</p>
-                    <p>{{item.progress}}/{{item.next}}</p>
+                    <p class="bold h4">Progress till next achievement:</p>
                 </div>
                 <div *ngIf="item.status == 'gold'">
-                    <p>Completed!</p>
+                    <p class="bold h4">Completed!</p>
                 </div>
+                <p class="h4">{{item.progress}}/{{item.next}}</p>
             </div>
         </div>
     </div>
