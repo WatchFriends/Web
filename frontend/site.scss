@@ -1,11 +1,15 @@
 @import "_variables";
 
+body, html {
+  overflow-x: hidden;
+  height: 100%;
+}
+
 body {
   background-color: $body-color;
   margin: 0;
   color: $text-color;
   font-family: $font;
-  overflow-x: hidden;
 }
 
 header {
