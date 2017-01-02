@@ -1,6 +1,6 @@
 @import "../../_variables";
-@import "../sheared/serieslist";
-@import "../sheared/submenu";
+@import "../shared/serieslist";
+@import "../shared/submenu";
 
 .row {
   margin: 0;
@@ -88,8 +88,8 @@ svg {
   width: 200px;
 }
 
-.brons {
-  fill: $brons;
+.bronze {
+  fill: $bronze;
 }
 
 .silver {
