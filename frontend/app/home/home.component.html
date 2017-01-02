@@ -1,57 +1,79 @@
-<div class="images-content">
-    <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
-    <div class="container">
-        <h1>Welcome to Watchfriends</h1>
-        <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-        <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageWelcome+')'">
+    <div class="imagecontainer_content">
+        <div class="container">
+            <img class="logo" [src]="logoPng" alt="Logo Watchfriends" />
+            <h1>Welcome to Watchfriends</h1>
+            <p class="text-big">Track your series and follow your friends</p>
+            <p class="text-big">
+                <a routerLink="/register" class="btn-signUp text-big">Join Watchfriends</a>
+                <a routerLink="/login" class="btn-signUp text-big">Already a member? Log in</a>
+            </p>
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-serie" [src]="imageSeries" alt="WatchFriends Welcome!" />
-    <div class="container series">
-        <h1>Explore thousands of series & keep track of them</h1>
-        <a routerLink="/register" class="btnSignUp">Explore new series</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageSeries+')'">
+    <div class="imagecontainer_content">
+        <div class="container">
+            <h2>Explore thousands of series &amp; keep track of them</h2>
+            <p class="text-big"><a routerLink="/explore" class="btn-signUp">Explore new series</a></p>
+        </div>
     </div>
 </div>
 
-<div class="images-content">
-    <img class="img-followers" [src]="imageFollowers" alt="WatchFriends Welcome!" />
-    <div class="container followers">
-        <h1>Follow people and see what they watch</h1>
-        <a routerLink="/register" class="btnSignUp">Expand your network</a>
-        <!--  <button class="btnLogin">Already a member? Log in</button> -->
+<div class="contentcontainer" [style.height.px]="innerHeight">
+    <div class="contentcontainer_row">
+        <div class="col-md-6">
+            <h2>Find &amp; track your series</h2>
+            <p class="text-big">Track your series and see whats episode is next.</p>
+        </div>
+        <div class="col-md-6">
+            <carousel interval="2000" class="carousel">
+                <slide *ngFor="let poster of posters" class="item">
+                    <img [src]="poster.image" [alt]="poster.title" />
+                    <div class="carousel-caption">
+                        <p class="text-big"><a routerLink="#">{{poster.title}}</a></p>
+                    </div>
+                </slide>
+            </carousel>
+        </div>
     </div>
 </div>
 
-<!--<div class="container">
-
-    <section class="home-section">
-
-        <div class="wrapper">
-            <a routerLink="/register" class="btnSignUp">Join Watchfriends</a>
-            <a routerLink="/login" class="btnSignUp">Already a member? Log in</a>
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageFollowers+')'">
+    <div class="imagecontainer_content">
+        <div class="container">
+            <h2>Follow people and see their watchlist</h2>
+            <p class="text-big">
+                <a routerLink="/following" class="btn-signUp">Expand your network</a>
+            </p>
         </div>
-    </section>
-    <!--<section class="home-section">
-        <h1>Series</h1>
-        <div class="wrapper">
+    </div>
+</div>
 
-            <img class="img-home" [src]="imageSeries" alt="Searching for a series?"/>
-
-            <a routerLink="/register" class="btnSignUp">Explore new series</a>
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageFollowers+')'">
+    <div class="imagecontainer_content">
+        <div class="container">
+            <h2>Download the app for Android</h2>
+            <p class="text-big">
+                <a routerLink="/download" class="btn-signUp" target="_blank">Download now</a>
+            </p>
         </div>
-    </section>
-    <section class="home-section">
-        <h1>Followers</h1>
-        <div class="wrapper">
-            <!-- <h2>Choose who you want to follow </h2>
+    </div>
+</div>
 
-            <img class="img-home" [src]="imageFollowers" alt="Keep track your followers' series!"/>
-            <a routerLink="/register" class="btnSignUp">Expand your network</a>
+<div class="contentcontainer" [style.height.px]="innerHeight">
+    <div class="contentcontainer_row">
+        <div class="col-md-6">
+            <h2>Download the app for Android</h2>
+            <p class="text-big">Get a better experience.</p>
+            <a href="#" target="_blank" class="googleplay">
+                <img [src]="playStoreButton" alt="Go to Google play store" />
+            </a>
         </div>
-    </section>
-
-</div>-->
+        <div class="col-md-6">
+            <img [src]="androidApp" alt="Track your series" class="apppicture" />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+@import "../../_variables";
+
+img {
+  width: 100%;
+  height: 100%;
+  transform: scale(1);
+  transition: .3s ease-in-out;
+  filter: blur(0);
+  float: left;
+
+  &:hover{
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+
+.container .active-title {
+
+  display: block;
+  text-align: center;
+  border-bottom: 2px solid $button-color-default;
+
+  &:hover{
+    cursor: default;
+  }
+}
+
+
+nav a {
+  position: relative;
+  display: inline-block;
+  margin: 15px 25px;
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+  font-size: 2em;
+  &:hover, &:focus {
+    outline: none;
+  }
+}
+
+.special-effect a {
+
+  color: $imagecontainer_content-backgroundcolor;
+  text-shadow: none;
+  padding: 10px 0;
+
+  &::before {
+    color: #fff;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+    content: attr(data-hover);
+    position: absolute;
+    transition: transform 0.3s, opacity 0.3s;
+    pointer-events: none;
+  }
+  &:not(.active-title){
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: $button-color-default;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: transform 0.3s, opacity 0.3s;
+      pointer-events: none;
+    }
+    &:hover::before, &:focus::before {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
+    &:hover::after, &:focus::after {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+}
+
+.row {
+
+  .col-small, .col-big {
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.shadow, .shadow-small {
+  position: absolute;
+  width: 100%;
+  height: 70px;
+  background-color: $imagecontainer_content-backgroundcolor;
+  h3 {
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    padding-top: 25px;
+  }
+}
+
+.glyphicon{
+
+  color: $text-color;
+
+  &.glyphicon-eye-open, &.glyphicon-list,&.eye-small, &.list-small{
+    position: absolute;
+    top: 27px;
+    left: 880px;
+
+    &:hover{
+      cursor: pointer;
+      color: $button-color-default;
+    }
+
+    &.glyphicon-list{
+      left: 920px;
+    }
+
+    &.eye-small{
+
+      left: 400px;
+    }
+
+    &.list-small{
+
+      left: 440px;
+    }
+  }
+
+  &.glyphicon-circle-arrow-right{
+    top: 4px;
+  }
+}
+
+.shadow-small {
+  top: 198px;
+}
+
+.shadow {
+  top: 465px;
+}
+
+.more-series{
+  font-size: 1.5em;
+  position: absolute;
+  top: 30px;
+  left: 750px;
+  color: white;
+
+  &:hover{
+    text-decoration: none;
+    opacity: 0.7;
+  }
+}
+
+@media screen and (max-width: 1440px){
+
+  img{
+    float: none;
+  }
+
+}

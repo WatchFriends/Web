@@ -3,7 +3,8 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    users = require("../models/user");
+    users = require("../models/user"),
+    querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
 
@@ -62,12 +63,31 @@ router.post("/series/follow", (req, res, next) => {
 });
 
 router.post("/series/watch", (req, res, next) => {
-    dbService.updateWatchedEpisode(req.body, (err, data) =>{
-       if (err)
-           next(err);
+    dbService.updateWatchedEpisode(req.body, (err, data) => {
+        if (err)
+            next(err);
         else
             res.send(data);
     });
+});
+
+router.get("/series/search", (req, res, next) => {
+
+    let query = querystring.parse(req.baseUrl).query;
+
+    if (!query) {
+        next(new Error('The querystring parameter "query" is required'))
+    }
+    else {
+        apiService.request(`search/tv?query=${query}`, (err, data) => {
+            if (err) {
+                next(err);
+            }
+            else {
+                res.send(data);
+            }
+        });
+    }
 });
 
 module.exports = router;
