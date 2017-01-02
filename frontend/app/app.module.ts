@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule, CarouselModule } from 'ng2-bootstrap';
+import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 //components
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -13,9 +13,9 @@ import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
 //services
 import { AuthService, ApiService, UserService } from './services';
-
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { AuthService, ApiService, UserService } from './services';
     LoginComponent,
     RegisterComponent,
     ExploreComponent,
-    SearchComponent
+    SearchComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,12 +34,12 @@ import { AuthService, ApiService, UserService } from './services';
     HttpModule,
     DropdownModule.forRoot(),
     CollapseModule.forRoot(),
-    CarouselModule.forRoot(),
     RouterModule.forRoot([
       { path: "home", component: HomeComponent },
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
-      { path: "explore", component: ExploreComponent },
+      {path: "explore", component: ExploreComponent},
+      {path: "profile", component: ProfileComponent},
       { path: "**", redirectTo: "home" }])
   ],
   providers: [

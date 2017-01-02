@@ -8,7 +8,7 @@ import { UserService } from '../services'
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
-
+  
   loading = false;
 
   constructor(router: Router, private user: UserService) {
@@ -18,10 +18,8 @@ export class NavComponent implements OnInit {
   routerEvent(event) {
     if (event instanceof NavigationStart)
       this.loading = true;
-    else if (event instanceof NavigationEnd) {
+    else if (event instanceof NavigationEnd)
       this.loading = true;
-    }
-      window.scrollTo(0, 0);
   }
 
   ngOnInit() {
@@ -29,7 +27,7 @@ export class NavComponent implements OnInit {
 
   errorMessage: any;
 
-  loadPhotos() {
+  loadPhotos(){
 
     // service aanmaken
     this.errorMessage = console.log("hello");
