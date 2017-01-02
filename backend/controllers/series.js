@@ -61,4 +61,13 @@ router.post("/series/follow", (req, res, next) => {
     });
 });
 
+router.post("/series/watch", (req, res, next) => {
+    dbService.updateWatchedEpisode(req.body, (err, data) =>{
+       if (err)
+           next(err);
+        else
+            res.send(data);
+    });
+});
+
 module.exports = router;

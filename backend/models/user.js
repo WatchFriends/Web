@@ -21,8 +21,8 @@ var userSchema = new Schema({
         seriesId: Number,
         following: Boolean,
         seasons: [{
-            id: Number,
-            episodes: [{id: Number, watched: Boolean}]
+            seasonId: Number,
+            episodes: [{episodeId: Number, watched: Boolean}]
         }]
     }]
 });
