@@ -15,4 +15,4 @@ var watchedEpisodeSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model('watchedEpisode', watchedEpisodeSchema);
+module.exports = mongoose.model('watchedEpisodes', watchedEpisodeSchema);

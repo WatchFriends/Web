@@ -3,7 +3,6 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    users = require("../models/user"),
     querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
