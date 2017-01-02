@@ -3,6 +3,7 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
+    followedSerie = require("../models/followedSerie"),
     querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
@@ -67,6 +68,16 @@ router.post("/episode/watch", (req, res, next) => {
             next(err);
         else
             res.send(data);
+    });
+});
+
+/* /series/following returnt null om 1 of andere reden, following niet */
+router.get('/following', function (req, res) {
+    dbService.getAllFollowedSeriesByUserId(req.user, (err, docs) => {
+        if (err)
+            next(err);
+        else
+            res.json(docs);
     });
 });
 

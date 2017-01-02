@@ -72,6 +72,12 @@ let existsWatchedEpisode = (body, cb) => {
                 }).save(cb);
             }
         });
+    },
+    getAllFollowedSeriesByUserId = (user, cb) => {
+        followedSerie.find({
+            userId: user.userId,
+            following: true
+        }).exec(cb);
     };
 
 module.exports = {
@@ -81,6 +87,7 @@ module.exports = {
     /* FOLLOWEDSERIE */
     existsFollowedSerie: existsFollowedSerie,
     updateFollowedSerie: updateFollowedSerie,
+    getAllFollowedSeriesByUserId: getAllFollowedSeriesByUserId,
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
