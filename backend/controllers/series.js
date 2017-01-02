@@ -71,14 +71,31 @@ router.post("/episode/watch", (req, res, next) => {
     });
 });
 
-/* /series/following returnt null om 1 of andere reden, following niet */
-router.get('/following', function (req, res) {
-    dbService.getAllFollowedSeriesByUserId(req.user, (err, docs) => {
+router.get('/user/series/following', function (req, res) {
+    dbService.getAllFollowedSeriesByUserId(req.user, (err, data) => {
         if (err)
             next(err);
         else
-            res.json(docs);
+            res.send(data);
     });
+});
+
+router.get('/user/:_id/series/following/', function (req, res) {
+    dbService.getAllFollowedSeriesByUserId(req.params, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    });
+});
+
+router.get('/user/watched/series/:series/season/:season', function (req, res) {
+    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    })
 });
 
 router.get("/series/search", (req, res, next) => {
