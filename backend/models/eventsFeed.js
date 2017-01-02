@@ -15,9 +15,10 @@ var eventsFeedSchema = new Schema({
             seriesId: Number,
             seasonId: Number,
             episodeId: Number,
-            rating: {type: Number, maxVal: 5}
+            //10 = 5 stars, 9 = 4.5 stars
+            rating: {type: Number, max: 10, default: 0}
         }],
-        time: Date
+        time: {type: Date, default: Date.now}
     }, {versionKey: false}
 );
 

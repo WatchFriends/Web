@@ -8,7 +8,8 @@ var mongoose = require('mongoose'),
 var followedSeriesSchema = new Schema({
         userId: String,
         seriesId: Number,
-        following: Boolean
+        following: Boolean,
+        rating: {type: Number, max: 10, default: 0}
     }, {versionKey: false}
 );
 
