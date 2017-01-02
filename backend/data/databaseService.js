@@ -79,8 +79,8 @@ let existsWatchedEpisode = (body, cb) => {
                 following: true
             }, {
                 userId: 0,
-                _v: 0,
-
+                following: 0,
+                __v: 0,
             }).exec(cb);
     },
     getWatchedEpisodesBySeriesSeasonId = (params, user, cb) => {
@@ -88,6 +88,10 @@ let existsWatchedEpisode = (body, cb) => {
             userId: user._id,
             seriesId: params.series,
             seasonId: params.season
+        }, {
+            userId: 0,
+            watched: 0,
+            __v: 0,
         }).exec(cb);
     };
 
