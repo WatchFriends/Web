@@ -12,7 +12,7 @@ var watchedEpisodeSchema = new Schema(
         seasonId: Number,
         episodeId: Number,
         watched: Boolean
-    }
+    }, {versionKey: false}
 );
 
 module.exports = mongoose.model('watchedEpisodes', watchedEpisodeSchema);
