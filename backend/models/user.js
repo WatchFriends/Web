@@ -17,15 +17,6 @@ var userSchema = new Schema({
     password: String,
     //oauth
     providers: [{name: String, id: String, token: String}], //provider name, user id and accestoken
-    //series
-    series: [{
-        seriesId: Number,
-        following: Boolean,
-        seasons: [{
-            id: Number,
-            episodes: [{id: Number, watched: Boolean}]
-        }]
-    }]
 });
 
 var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);

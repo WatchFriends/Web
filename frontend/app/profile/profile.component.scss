@@ -1,0 +1,112 @@
+@import "../../_variables";
+@import "../shared/serieslist";
+@import "../shared/submenu";
+
+.row {
+  margin: 0;
+
+  &.bodybackground {
+    background-color: $body-color;
+  }
+}
+
+.container-fluid {
+  padding: 0;
+
+  .bg-splice {
+    height: 450px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: -1;
+    }
+    @media (max-width: $screen-lg) {
+      height: 400px;
+    }
+  }
+}
+
+.shadow {
+  background-color: $imagecontainer_content-backgroundcolor;
+  margin-top: 40px;
+}
+
+.container-profile {
+  text-align: center;
+  position: absolute;
+  top: 140px;
+  margin: 0 auto;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  img {
+    border: 5px solid $button-color-default;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+  }
+}
+
+.achievementscontainer {
+  padding: 0 40px;
+  float: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $screen-sm) {
+    width: 50%;
+  }
+
+  @media (min-width: $screen-md) {
+    width: 33.333333333%;
+  }
+
+  @media (min-width: $screen-lg) {
+    width: 25%;
+  }
+
+  p {
+    text-align: center;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
+
+svg {
+  width: 200px;
+}
+
+.bronze {
+  fill: $bronze;
+}
+
+.silver {
+  fill: $silver;
+}
+
+.gold {
+  fill: $gold;
+}
+
+// @each $class, $color in (gold: #FFCC01, silver: #B4B8BC, brons: #D1A684) {
+//   .#{$class} {
+//     path {
+//       fill: $color;
+//       height: 200px;
+//       width: 200px;
+//       margin: 50px 0;
+//     }
+//   }
+// }
