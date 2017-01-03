@@ -18,8 +18,6 @@ export class SeriesDetailComponent implements OnInit {
         })
     }
 
-
-
     ngOnInit() {
         this.loadSeries();
     }
@@ -33,5 +31,4 @@ export class SeriesDetailComponent implements OnInit {
                 }
             );
     }
-
 }

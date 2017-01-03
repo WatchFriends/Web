@@ -4,4 +4,3 @@ export class ProductionCompany {
         public name: string
     ){}
 }
-
