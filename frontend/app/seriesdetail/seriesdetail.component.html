@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-5">
-            <img [src]="series?.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series?.poster_path :''">
+            <img [src]="series?.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series?.poster_path :''" />
         </div>
         <div class="col-md-7">
             <p>{{series?.name}}</p>
