@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../services';
+import { UserService } from '../services';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -11,12 +11,12 @@ export class RegisterComponent implements OnInit {
   model = { email: "", password: "", password2: "", firstname: "", lastname: "" };
   submitted = false;
   error;
-  constructor(private auth: AuthService) { }
+  constructor(private user: UserService) { }
 
   submit(event: Event, form: NgForm) {
     event.preventDefault();
     this.submitted = true;
-    this.auth.register(this.model).subscribe(
+    this.user.register(this.model).subscribe(
       res => {//no error
         this.error = null;
         this.submitted = false;
