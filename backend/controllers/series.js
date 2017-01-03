@@ -71,7 +71,7 @@ router.post("/episode/watch", (req, res, next) => {
     });
 });
 
-router.get('/user/series/following', function (req, res) {
+router.get('/series/user/following', function (req, res) {
     dbService.getAllFollowedSeriesByUserId(req.user, (err, data) => {
         if (err)
             next(err);
@@ -80,7 +80,7 @@ router.get('/user/series/following', function (req, res) {
     });
 });
 
-router.get('/user/:_id/series/following/', function (req, res) {
+router.get('/series/user/:_id/following/', function (req, res) {
     dbService.getAllFollowedSeriesByUserId(req.params, (err, data) => {
         if (err)
             next(err);
@@ -89,7 +89,7 @@ router.get('/user/:_id/series/following/', function (req, res) {
     });
 });
 
-router.get('/user/watched/series/:series/season/:season', function (req, res) {
+router.get('/series/user/watched/:series/season/:season', function (req, res) {
     dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
         if (err)
             next(err);
