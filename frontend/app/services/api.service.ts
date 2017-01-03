@@ -20,7 +20,7 @@ export class ApiService {
 
     tokenfyGet = (url: string) => {
         return `${url}${url.indexOf('?') > 0 ? '&' : '?'}access_token=${this.user.token}`;
-    }
+    };
 
     private catch = res => Observable.throw(<ServerError>res.json());
 

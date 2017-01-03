@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <img [src]="series?.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series?.poster_path :''" />
+        </div>
+        <div class="col-md-7">
+            <p>{{series?.name}}</p>
+            <p>Released on: {{series?.first_air_date}}</p>
+            <p ng-show="!series?.last_air_date">Ended on: {{series?.last_air_date}}</p>
+            <p>{{series?.overview}}</p>
+
+            <p>Genres
+            </p>
+            <ul class="list-inline">
+                <li *ngFor="let genres of series?.genres"><span class="label label-primary">{{genres.name}}</span></li>
+            </ul>
+        </div>
+
+        <!--todo: check if user is following series: true -> show unfollow button; false -> show follow button; not logged in -> no button; add follow/unfollow method -->
+
+        <button type="button" class="btn btn-default btn-lg">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
