@@ -1,4 +1,4 @@
-var express = require('express'),
+const express = require('express'),
     app = express(),
     path = require('path'),
     logger = require('morgan'),

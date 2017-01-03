@@ -6,14 +6,14 @@ const config = require("./config.json"),
     watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
-        watchedEpisode
-            .count({
-                userId: body.userId,
-                seriesId: body.seriesId,
-                seasonId: body.seasonId,
-                episodeId: body.episodeId
-            })
-            .exec(cb);
+    watchedEpisode
+        .count({
+            userId: body.userId,
+            seriesId: body.seriesId,
+            seasonId: body.seasonId,
+            episodeId: body.episodeId
+        })
+        .exec(cb);
     },
     updateWatchedEpisode = (body, cb) => {
         existsWatchedEpisode(body, (err, count) => {
@@ -84,5 +84,8 @@ module.exports = {
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
-    updateWatchedEpisode: updateWatchedEpisode
+    updateWatchedEpisode: updateWatchedEpisode,
+
+    /* USERS */
+    getUser: (cb) => User.find({}, cb)
 };

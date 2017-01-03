@@ -1,13 +1,14 @@
-var app = require("./app"),
+const app = require("./app"),
     mongoose = require("mongoose"),
     config = require("./data/config.json"),
     http = require("http"),
-    passportconf = require("./data/passport");
+    passportconf = require("./data/passport"),
+    jwt = require("jsonwebtoken");
 
 //db
 mongoose.Promise = global.Promise;
 mongoose.connect(config.db.development);
-var db = mongoose.connection;
+let db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", ()=>{});
 
@@ -15,14 +16,14 @@ db.once("open", ()=>{});
 passportconf(config);
 
 //server
-var port = process.env.PORT || "3000";
+let port = process.env.PORT || "3000";
 app.set("port", port);
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 server.listen(port);
 server.on("error", console.log);
 
 server.on("listening", () => {
-    var addr = server.address();
+    let addr = server.address();
     console.log("Server running, listening on port " + addr.port);
 });

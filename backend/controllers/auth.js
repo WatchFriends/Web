@@ -31,8 +31,8 @@ var succesful = (req, res, next) => {
     });
 };
 
-var authenticate = strategy => { //stringname strategy voor passport.authenticate
-    (req, res, next) => { //we hebben next nodig
+var authenticate = strategy =>  //stringname strategy voor passport.authenticate
+    (req, res, next) =>  //we hebben next nodig
         passport.authenticate(strategy, (err, user, info) => { //custom authenicatie functie om errors als json te versturen
             if (err) return next(err);
             if (!user) {
@@ -45,8 +45,6 @@ var authenticate = strategy => { //stringname strategy voor passport.authenticat
                 return next();
             });
         })(req, res, next);
-    };
-};
 
 //local
 router.post('/register', authenticate('register'), succesful);
@@ -54,12 +52,6 @@ router.post('/login', authenticate('login'), succesful);
 router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out succesfully' });
-});
-
-router.get("/logoutonall", (req, res) => {
-
-    // todo
-    res.json({ message: 'logged out on all devices succesfully' });
 });
 
 //facebook
