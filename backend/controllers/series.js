@@ -3,7 +3,7 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    followedSerie = require("../models/followedSerie"),
+    followedSeries = require("../models/followedSeries"),
     querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
