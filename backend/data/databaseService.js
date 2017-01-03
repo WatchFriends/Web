@@ -72,17 +72,63 @@ let existsWatchedEpisode = (body, cb) => {
                 }).save(cb);
             }
         });
+    },
+    getAllFollowedSeriesByUserId = (user, cb) => {
+            followedSeries.find({
+                userId: user._id,
+                following: true
+            }, {
+                userId: 0,
+                following: 0,
+                __v: 0,
+            }).exec(cb);
+    },
+    getWatchedEpisodesBySeriesSeasonId = (params, user, cb) => {
+        watchedEpisode.find({
+            userId: user._id,
+            seriesId: params.series,
+            seasonId: params.season
+        }, {
+            userId: 0,
+            watched: 0,
+            __v: 0,
+        }).exec(cb);
     };
+    /*, updateFollowUser = (params, user, cb) =>{
+        existsFollowedUser(body, (err, count) => {
+            if (count > 0) {
+                followedSerie.update({
+                        userId: body.userId,
+                        seriesId: body.seriesId
+
+                    }, {
+                        "$set": {
+                            following: body.following
+                        }
+                    }
+                )
+                    .exec(cb);
+            } else {
+                new followedSerie({
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    following: body.following
+                }).save(cb);
+            }
+        });
+    };*/
 
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
-    /* FOLLOWEDSERIES */
+    /* FOLLOWEDSERIE */
     existsFollowedSeries: existsFollowedSeries,
     updateFollowedSeries: updateFollowedSeries,
+    getAllFollowedSeriesByUserId: getAllFollowedSeriesByUserId,
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
-    updateWatchedEpisode: updateWatchedEpisode
+    updateWatchedEpisode: updateWatchedEpisode,
+    getWatchedEpisodesBySeriesSeasonId: getWatchedEpisodesBySeriesSeasonId
 };
