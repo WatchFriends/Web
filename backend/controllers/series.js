@@ -3,7 +3,6 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    users = require("../models/user"),
     querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
@@ -54,7 +53,16 @@ router.get("/series/popular", (req, res, next) => {
 });
 
 router.post("/series/follow", (req, res, next) => {
-    dbService.updateFollowingSeries(req.body, (err, data) => {
+    dbService.updateFollowedSeries(req.body, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    });
+});
+
+router.post("/episode/watch", (req, res, next) => {
+    dbService.updateWatchedEpisode(req.body, (err, data) => {
         if (err)
             next(err);
         else
