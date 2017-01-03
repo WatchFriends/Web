@@ -16,7 +16,7 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
 //services
-import {ApiService, UserService, SeriesDetailService} from './services';
+import {ApiService, AuthGuard, UserService, SeriesDetailService} from './services';
 
 @NgModule({
     declarations: [
@@ -41,7 +41,7 @@ import {ApiService, UserService, SeriesDetailService} from './services';
             {path: "login", component: LoginComponent},
             {path: "register", component: RegisterComponent},
             {path: "explore", component: ExploreComponent},
-            {path: "profile", component: ProfileComponent}, //userprofile
+            {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}, //userprofile
             {path: "profile/:id", component: ProfileComponent}, //friend profile
             {path: "series/:id", component: SeriesDetailComponent},
             {path: "**", redirectTo: "home"},
@@ -49,6 +49,7 @@ import {ApiService, UserService, SeriesDetailService} from './services';
     ],
     providers: [
         UserService,
+        AuthGuard,
         ApiService,
         SeriesDetailService
     ],
