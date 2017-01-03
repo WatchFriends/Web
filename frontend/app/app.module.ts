@@ -16,7 +16,7 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
 //services
-import {ApiService, AuthGuard, UserService, SeriesDetailService} from './services';
+import {ApiService, AuthGuard, UserService} from './services';
 
 @NgModule({
     declarations: [
@@ -50,8 +50,7 @@ import {ApiService, AuthGuard, UserService, SeriesDetailService} from './service
     providers: [
         UserService,
         AuthGuard,
-        ApiService,
-        SeriesDetailService
+        ApiService
     ],
     bootstrap: [AppComponent]
 })

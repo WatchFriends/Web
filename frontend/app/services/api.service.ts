@@ -22,21 +22,24 @@ export class ApiService {
     //adds token to headers
     get(url: string) {
         return this.http.get(url, { headers: new Headers({ 'Authorization ': `Bearer ${this.user.token}` }) })
+            .map(res => res.json())
             .catch(this.catch);
     }
 
+    //routes
     search(query) {
-        return this.get(`api/series/search?query=${query}`)
-            .catch(this.catch);
+        return this.get(`api/series/search?query=${query}`);
     }
 
     achievements() {
-        return this.http.get(`api/series/achievement`)
-            .catch(this.catch);
+        return this.http.get(`api/series/achievement`);
     }
 
     getUserData(id: string) {
-        return this.get(`api/users/${id}`)
-            .catch(this.catch);
+        return this.get(`api/users/${id}`);
+    }
+
+    getSeries(id: number) {
+        return this.get(`api/series/${id}`);
     }
 }
