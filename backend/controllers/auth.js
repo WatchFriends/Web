@@ -47,6 +47,7 @@ var authenticate = strategy =>  //stringname strategy voor passport.authenticate
 //local
 router.post('/register', authenticate('register'), successful);
 router.post('/login', authenticate('login'), successful);
+router.get('/login', authenticate('bearer'), successful);
 router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out successfully' });

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs';
 import { ServerError } from './server-error';
+
+const tokenKey = 'token';
+
 @Injectable()
 export class UserService {
 
@@ -11,7 +14,14 @@ export class UserService {
   private _authenticated: boolean;
   private _id: string;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) { 
+    this._token = localStorage[tokenKey]
+    if(this._token){
+      http.get('/api/auth/login', {headers: new Headers({'Authorization': `Bearer ${this._token}`})})
+        .catch(res => Observable.throw(<ServerError>res.json()))
+        .subscribe(res => this.handleResponse(res.json()));
+    }
+  }
 
   get name() { return this._name };
   get email() { return this._email };
@@ -34,6 +44,7 @@ export class UserService {
     if (!this._email) console.error('user does not have an id');
 
     this._token = json.token;
+    localStorage.setItem(tokenKey, this._token);
   }
 
   post(url: string, data: any) {
