@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, NavigationEnd, Router } from '@angular/router';
-import { UserService } from '../services'
+import { UserService, ApiService } from '../services'
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +11,7 @@ export class NavComponent implements OnInit {
   
   loading = false;
 
-  constructor(router: Router, private user: UserService) {
+  constructor(router: Router, public user: UserService, public api: ApiService) {
     router.events.subscribe(this.routerEvent);
   }
 

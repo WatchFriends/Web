@@ -3,6 +3,7 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
+    followedSeries = require("../models/followedSeries"),
     querystring = require('querystring');
 
 router.get("/series/:id", (req, res, next) => {
@@ -68,6 +69,33 @@ router.post("/episode/watch", (req, res, next) => {
         else
             res.send(data);
     });
+});
+
+router.get('/series/user/following', function (req, res) {
+    dbService.getAllFollowedSeriesByUserId(req.user, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    });
+});
+
+router.get('/series/user/:_id/following/', function (req, res) {
+    dbService.getAllFollowedSeriesByUserId(req.params, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    });
+});
+
+router.get('/series/user/watched/:series/season/:season', function (req, res) {
+    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
+        if (err)
+            next(err);
+        else
+            res.send(data);
+    })
 });
 
 router.get("/series/search", (req, res, next) => {
