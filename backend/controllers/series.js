@@ -45,13 +45,12 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
 router.get("/followed", (req, res, next) => {
     dbService.getFollowedSeries(req.user._id, callback(res, next));
 });
-router.put("/followed/:id", (req, res, next) => {
-    dbService.updateFollowedSeries(req.user._id, params.id, req.query.following, req.query.rating, callback(res, next));
+router.put("/followed/:series", (req, res, next) => {
+    dbService.updateFollowedSeries(req.user._id, params.series, req.query.following, req.query.rating, callback(res, next));
 });
-router.get('/followed/:id', (req, res) => {
-    dbService.getOneFollowedSeries(req.user._id, params.id, callback(res, next));
+router.get('/followed/:series', (req, res) => {
+    dbService.findFollowedSeries(req.user._id, params.series, callback(res, next));
 });
-
 
 router.get("/series/:id", (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));

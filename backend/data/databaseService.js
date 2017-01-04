@@ -6,25 +6,25 @@ const config = require("./config.json"),
     watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
-        watchedEpisode
-            .count({
-                userId: body.userId,
-                seriesId: body.seriesId,
-                seasonId: body.seasonId,
-                episodeId: body.episodeId
-            })
-            .exec(cb);
-    },
+    watchedEpisode
+        .count({
+            userId: body.userId,
+            seriesId: body.seriesId,
+            seasonId: body.seasonId,
+            episodeId: body.episodeId
+        })
+        .exec(cb);
+},
     updateWatchedEpisode = (body, cb) => {
         existsWatchedEpisode(body, (err, count) => {
             if (count > 0) {
                 watchedEpisode.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId,
-                        seasonId: body.seasonId,
-                        episodeId: body.episodeId
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    seasonId: body.seasonId,
+                    episodeId: body.episodeId
 
-                    }, {
+                }, {
                         "$set": {
                             watched: body.watched
                         }
@@ -54,10 +54,10 @@ let existsWatchedEpisode = (body, cb) => {
         existsFollowedSeries(body, (err, count) => {
             if (count > 0) {
                 followedSeries.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId
+                    userId: body.userId,
+                    seriesId: body.seriesId
 
-                    }, {
+                }, {
                         "$set": {
                             following: body.following
                         }
@@ -74,10 +74,10 @@ let existsWatchedEpisode = (body, cb) => {
         });
     },
     getAllFollowedSeriesByUserId = (userId, cb) => {
-            followedSeries.find({
-                user: userId,
-                following: true
-            }, {
+        followedSeries.find({
+            user: userId,
+            following: true
+        }, {
                 userId: 0,
                 following: 0,
                 __v: 0,
@@ -89,43 +89,43 @@ let existsWatchedEpisode = (body, cb) => {
             seriesId: params.series,
             seasonId: params.season
         }, {
-            userId: 0,
-            watched: 0,
-            __v: 0,
-        }).exec(cb);
+                userId: 0,
+                watched: 0,
+                __v: 0,
+            }).exec(cb);
     };
-    /*, updateFollowUser = (params, user, cb) =>{
-        existsFollowedUser(body, (err, count) => {
-            if (count > 0) {
-                followedSerie.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId
-
-                    }, {
-                        "$set": {
-                            following: body.following
-                        }
-                    }
-                )
-                    .exec(cb);
-            } else {
-                new followedSerie({
+/*, updateFollowUser = (params, user, cb) =>{
+    existsFollowedUser(body, (err, count) => {
+        if (count > 0) {
+            followedSerie.update({
                     userId: body.userId,
-                    seriesId: body.seriesId,
-                    following: body.following
-                }).save(cb);
-            }
-        });
-    };*/
+                    seriesId: body.seriesId
+
+                }, {
+                    "$set": {
+                        following: body.following
+                    }
+                }
+            )
+                .exec(cb);
+        } else {
+            new followedSerie({
+                userId: body.userId,
+                seriesId: body.seriesId,
+                following: body.following
+            }).save(cb);
+        }
+    });
+};*/
 
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
-    /* FOLLOWEDSERIE */
-    existsFollowedSeries,
-    updateFollowedSeries,
-    getAllFollowedSeriesByUserId,
+    /* FOLLOWEDSERIES */
+    getFollowedSeries: (user, cb) => followedSeries.find({ user }).exec(cb),
+    updateFollowedSeries: (user, seriesId, following, rating, cb) => followedSeries.update({ user, seriesId, following, rating }).exec(cb),
+    findFollowedSeries: (user, seriesId, cb) => followedSeries.find({ user, seriesId }).exec(cb),
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
