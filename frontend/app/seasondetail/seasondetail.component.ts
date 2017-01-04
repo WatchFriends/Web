@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
-import {ApiService} from "../services/api.service";
-
-import {Season} from '../model/season';
+import {ApiService} from "../services";
+import {Season} from '../models';
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

@@ -3,118 +3,67 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    followedSeries = require("../models/followedSeries"),
-    querystring = require('querystring');
+    followedSeries = require("../models/followedSeries");
+
+var callback = (res, next) =>
+    (err, data) => {
+        if (err) {
+            return next(err);
+        }
+        res.json(data);
+    }
+
+router.get("/series/search", (req, res, next) => {
+
+    let query = req.query.query;
+
+    if (!query) {
+        var err = new Error('The querystring parameter "query" is required');
+        err.status = 400;
+        return next(err);
+    }
+    apiService.request(`search/tv?query=${query}`, callback(res, next));
+
+});
 
 router.get("/series/:id", (req, res, next) => {
-
-    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));
 });
 
 router.get("/series/:id/season/:season", (req, res, next) => {
 
-    apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+    apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, callback(res, next));
 });
 
 router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
 
-    apiService.request(`tv/${req.params.id}/season/${req.params.season}/episode/${req.params.episode}?append_to_response=images,similar`, (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+    apiService.request(`tv/${req.params.id}/season/${req.params.season}/episode/${req.params.episode}?append_to_response=images,similar`,
+        callback(res, next));
 });
 
 router.get("/series/popular", (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, (err, data) => {
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
-        }
-    });
+    apiService.request(`tv/popular?language=en-us`, callback(res, next));
 });
 
 router.post("/series/follow", (req, res, next) => {
-    dbService.updateFollowedSeries(req.body, (err, data) => {
-        if (err)
-            next(err);
-        else
-            res.send(data);
-    });
+    dbService.updateFollowedSeries(req.body, callback(res, next));
 });
 
 router.post("/episode/watch", (req, res, next) => {
-    dbService.updateWatchedEpisode(req.body, (err, data) => {
-        if (err)
-            next(err);
-        else
-            res.send(data);
-    });
+    dbService.updateWatchedEpisode(req.body, callback(res, next));
 });
 
-router.get('/series/user/following', function (req, res) {
-    dbService.getAllFollowedSeriesByUserId(req.user, (err, data) => {
-        if (err)
-            next(err);
-        else
-            res.send(data);
-    });
+router.get('/series/following', (req, res) => {
+    dbService.getAllFollowedSeriesByUserId(req.user, callback(res, next));
 });
 
-router.get('/series/user/:_id/following/', function (req, res) {
-    dbService.getAllFollowedSeriesByUserId(req.params, (err, data) => {
-        if (err)
-            next(err);
-        else
-            res.send(data);
-    });
+router.get('/series/:_id/following', (req, res) => {
+    dbService.getAllFollowedSeriesByUserId(req.params, callback(res, next));
 });
 
-router.get('/series/user/watched/:series/season/:season', function (req, res) {
-    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
-        if (err)
-            next(err);
-        else
-            res.send(data);
-    })
+router.get('/series/watched/:series/season/:season', (req, res) => {
+    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, callback(res, next));
 });
 
-router.get("/series/search", (req, res, next) => {
-
-    let query = querystring.parse(req.baseUrl).query;
-
-    if (!query) {
-        next(new Error('The querystring parameter "query" is required'))
-    }
-    else {
-        apiService.request(`search/tv?query=${query}`, (err, data) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                res.send(data);
-            }
-        });
-    }
-});
 
 module.exports = router;

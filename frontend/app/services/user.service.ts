@@ -2,22 +2,17 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs';
 import { ServerError } from './server-error';
-
+import { User, Name} from '../models'
 const tokenKey = 'token';
 
-export class Name {
-  givenName: string;
-  middleName: string;
-  familyName: string;
-}
 
 @Injectable()
-export class UserService {
+export class UserService implements User {
 
-  private _name: Name;
-  private _email: string;
-  private _token: string;
   private _authenticated: boolean;
+  private _email: string;
+  private _name: Name;
+  private _token: string;
   private _id: string;
 
   constructor(private http: Http) {

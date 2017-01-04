@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { ApiService } from '../services';
-
-import { Series } from '../model/series';
+import { Series } from '../models';
 import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
