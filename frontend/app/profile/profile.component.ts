@@ -1,14 +1,14 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ApiService, UserService} from '../services';
 
 @Component({
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-
-export class ProfileComponent {
-
+export class ProfileComponent implements OnInit {
     name: String = "Michiel Zyde";
     followers: Number = 15;
     backgroundProfile: string = "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg";
@@ -56,7 +56,19 @@ export class ProfileComponent {
         }
     ];
 
-    constructor(private sanitizer: DomSanitizer){
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private user: UserService){
+    }
+
+    ngOnInit(){
+        this.route.params
+            .switchMap((params : Params) => {
+                var id = params['id'];
+                if(!id) id = this.user.id;
+                return this.api.getUserData(id);
+            })
+            .subscribe(user => {
+
+            });
     }
 
     transformHtml(html: string) {

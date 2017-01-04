@@ -37,6 +37,16 @@
             <ul *ngIf="user.authenticated" class="nav navbar-nav navbar-right">
                 <li><a routerLink="/profile">{{user.name.givenName}} {{user.name.familyName}}</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <ng-container *ngIf="!user.authenticated">
+                    <li><a routerLink="/login">Login</a></li>
+                    <li><a routerLink="/register">Register</a></li>
+                </ng-container>
+                <ng-container *ngIf="user.authenticated">
+                    <li><a routerLink="/profile">{{user.name.givenName}} {{user.name.familyName}}</a></li>
+                    <li><a href="#" (click)="$event.preventDefault();user.logout();">Logout</a></li>
+                </ng-container>
+            </ul>
         </div>
     </div>
 </nav>

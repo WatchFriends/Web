@@ -17,7 +17,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
 import {SeasonDetailComponent} from "./seasondetail/seasondetail.component";
 //services
-import {AuthService, ApiService, UserService, SeriesDetailService} from './services';
+import {ApiService, AuthGuard, UserService} from './services';
 
 @NgModule({
     declarations: [
@@ -45,6 +45,8 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
             {path: "explore", component: ExploreComponent},
             {path: "profile", component: ProfileComponent},
             {path: "search", component: SearchComponent},
+            {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}, //userprofile
+            {path: "profile/:id", component: ProfileComponent}, //friend profile
             {path: "series/:id", component: SeriesDetailComponent},
             {path: "series/:id/season/:seasonId", component: SeasonDetailComponent},
             {path: "**", redirectTo: "home"},
@@ -52,9 +54,8 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
     ],
     providers: [
         UserService,
-        AuthService,
-        ApiService,
-        SeriesDetailService
+        AuthGuard,
+        ApiService
     ],
     bootstrap: [AppComponent]
 })
