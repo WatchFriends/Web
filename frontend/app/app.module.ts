@@ -43,6 +43,7 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
             {path: "explore", component: ExploreComponent},
             {path: "profile", component: ProfileComponent},
             {path: "series/:id", component: SeriesDetailComponent},
+            {path: "search", component: SearchComponent},
             {path: "**", redirectTo: "home"},
         ])
     ],

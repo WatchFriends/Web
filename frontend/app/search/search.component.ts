@@ -7,19 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent {
 
-  imageSerieBigLeft: string = "http://fanaru.com/suits/image/6805-suits-suits.jpg";
-  imageSerieBigRight: string = "http://www.araspot.com/wp-content/uploads/2016/01/second-chance-season-1-wallpaper-desktop-background-j0md1g8q0w.jpg";
-  imageSerieRow: string = "http://wallpapersdsc.net/wp-content/uploads/2015/11/286.jpg";
-  imageSerieRowSecond: string =  "http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/10/Game-Of-Thrones-Emilia-Clarke-With-Dragon-on-Shoulder-Wallpaper-1920x1080.jpg";
-  imageSerieRowThird: string = "http://wallpapercave.com/wp/DXq0duZ.jpg";
-  imageSerieRowFourth: string = "http://wallpapercave.com/wp/U4sY2La.jpg";
-  imageSerieSecondRow: string = "https://wallpaperscraft.com/image/dexter_michael_c_hall_polyethylene_99093_1920x1080.jpg";
-  imageSerieSecondRowSecond: string = "http://www.thewallpapers.org/photo/77346/Silicon-Valley-002.jpg";
-  imageSerieSecondRowThird: string = "http://www.pixelstalk.net/wp-content/uploads/2016/07/The-100-TV-Series-Wallpapers-HD.jpg";
-  imageSerieSecondRowFourth: string = "http://eskipaper.com/images/breaking-bad-wallpaper-3.jpg";
-  //images: string[] = ["http://www.desktopimages.org/pictures/2014/0309/1/orig_60277.jpg", "http://www.araspot.com/wp-content/uploads/2016/01/second-chance-season-1-wallpaper-desktop-background-j0md1g8q0w.jpg"];
+  series = [
+    { image: "https://s-media-cache-ak0.pinimg.com/originals/e1/ed/00/e1ed00d0e786de281e1a2aceb8c70c3e.jpg", title: "The Walking Dead S01", id:0},
+    { image: "http://cdn.playbuzz.com/cdn/e4f331a0-770b-4c08-85bf-556c30e49f0a/7398c906-3e69-4418-9fa8-7169511c1ee2.jpg", title: "The Walking Dead S02", id:1 },
+    { image: "http://wallpaper.pickywallpapers.com/1920x1080/the-walking-dead-season-3.jpg", title: "The Walking Dead S03",  id:2 },
+    { image: "http://all4desktop.com/data_images/1920%20x%201080/4150672-the-walking-dead-season-4.jpg", title: "The Walking Dead S04",  id:3 },
+    { image: "http://freshwallpapers.net/download/5968/1920x1080/download/the-walking-dead-season-5-midseason.jpg", title: "The Walking Dead S05",  id:4 },
+    { image: "https://images2.alphacoders.com/634/634380.jpg", title: "The Walking Dead S06",  id:5 },
+    { image: "http://fandom.wikia.com/wp-content/uploads/2016/10/weekend-preview-walking-dead-negan-feature-hero.jpg", title: "The Walking Dead S07",  id:6 },
+    { image: "https://i.ytimg.com/vi/JkqyKiXEpt0/maxresdefault.jpg", title: "Fear The Walking Dead S01", id:0 },
+    { image: "http://gruesome.decadesofhorror.com/wp-content/uploads/sites/6/2016/04/FTWD-001.jpg", title: "Fear The Walking Dead S02", id:0 },
+    { image: "http://www.hdwallpapers.in/download/walking_with_dinosaurs_3d-1920x1080.jpg", title: "Walking With Dinosaurs", id:0 },
+  ];
 
-  //index: number = 0;
+  persons = [
+
+  ];
 
 
 }
