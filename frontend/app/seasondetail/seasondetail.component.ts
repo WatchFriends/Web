@@ -1,20 +1,22 @@
-import {Component, OnInit, Input} from "@angular/core";
-import {SeriesDetailService} from '../services/seriesdetail.service';
+import {Component, OnInit} from "@angular/core";
+import {ApiService} from "../services/api.service";
 
-import {Series} from '../model/series';
-import {Router, ActivatedRoute} from "@angular/router";
+import {Season} from '../model/season';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-    templateUrl: 'seasondetail.component.html'
+    templateUrl: './seasondetail.component.html'
 })
 
-export class SeriesDetailComponent implements OnInit {
-    series: Series;
+export class SeasonDetailComponent implements OnInit {
+    season: Season;
     id: number;
+    seasonId: number;
 
-    constructor(private seriesDetailService: SeriesDetailService, private router: Router, private route: ActivatedRoute) {
-        this.route.params.subscribe(params =>{
+    constructor(private svc: ApiService, private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
             this.id = +params['id'];
+            this.seasonId = +params['seasonid'];
         })
     }
 
@@ -23,12 +25,9 @@ export class SeriesDetailComponent implements OnInit {
     }
 
     loadSeries() {
-        this.seriesDetailService.getSeries(this.id)
+        this.svc.getSeason(this.id, this.seasonId)
             .subscribe(
-                (series: Series) => this.series = series,
-                err => {
-                    console.log(err);
-                }
+                (season: Season) => this.season = season, console.error
             );
     }
 }

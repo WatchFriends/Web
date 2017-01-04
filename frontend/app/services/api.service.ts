@@ -1,16 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable, Subscription } from "rxjs";
-import { ServerError } from "./server-error";
-import { UserService } from "./user.service"
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import {Observable, Subscription} from "rxjs";
+import {ServerError} from "./server-error";
+import {UserService} from "./user.service"
 
 @Injectable()
 export class ApiService {
 
-    private dataHeaders = new Headers({ 'Content-Type': 'application/vnd.api+json' });
-    private dataOptions = new RequestOptions({ headers: this.dataHeaders, withCredentials: true });
+    private dataHeaders = new Headers({'Content-Type': 'application/vnd.api+json'});
+    private dataOptions = new RequestOptions({headers: this.dataHeaders, withCredentials: true});
 
-    constructor(private http: Http, private user: UserService) { }
+    constructor(private http: Http, private user: UserService) {
+    }
+
+    get(url: string) {
+        return this.http.get(url)
+            .map(res => res.json())
+            .catch(this.catch);
+    }
 
     tokenfyPost = data => {
         var token = this.user.token;
@@ -37,5 +44,9 @@ export class ApiService {
     achievements() {
         return this.http.get(this.tokenfyGet(`api/series/achievement`))
             .catch(this.catch);
+    }
+
+    getSeason(id: number, seasonId: number) {
+        return this.get(`api/series/${id}/season/${seasonId}`);
     }
 }
