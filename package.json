@@ -4,7 +4,7 @@
   "angular-cli": {},
   "description": "Front-end and back-end project watchfriends",
   "scripts": {
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "start.bat",
     "build": "ng build --prod --aot",
     "lint": "tslint \"frontend/**/*.ts\"",
     "test": "ng test",
