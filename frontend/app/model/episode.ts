@@ -1,12 +1,11 @@
-import {Episode} from "./episode";
-export class Season {
+export class Episode {
     constructor(
         public id: number,
         public air_date: string,
-        public episodes: Episode[],
+        public episode_number: number,
         public name: string,
         public overview: string,
-        public poster_path: string,
+        public still_path: string,
         public season_number: number
     ){}
 }
