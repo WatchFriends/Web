@@ -15,6 +15,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
+import {SeasonDetailComponent} from "./seasondetail/seasondetail.component";
 //services
 import {ApiService, AuthGuard, UserService} from './services';
 
@@ -28,7 +29,8 @@ import {ApiService, AuthGuard, UserService} from './services';
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
-        SeriesDetailComponent
+        SeriesDetailComponent,
+        SeasonDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -44,6 +46,7 @@ import {ApiService, AuthGuard, UserService} from './services';
             {path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}, //userprofile
             {path: "profile/:id", component: ProfileComponent}, //friend profile
             {path: "series/:id", component: SeriesDetailComponent},
+            {path: "series/:id/season/:seasonId", component: SeasonDetailComponent},
             {path: "**", redirectTo: "home"},
         ])
     ],

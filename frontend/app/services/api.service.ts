@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable, Subscription } from "rxjs";
-import { ServerError } from "./server-error";
-import { UserService } from "./user.service"
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import {Observable, Subscription} from "rxjs";
+import {ServerError} from "./server-error";
+import {UserService} from "./user.service"
 
 @Injectable()
 export class ApiService {
@@ -42,5 +42,9 @@ export class ApiService {
 
     getSeries(id: number) {
         return this.get(`api/series/${id}`);
+    }
+
+    getSeason(id: number, seasonId: number) {
+        return this.get(`api/series/${id}/season/${seasonId}`);
     }
 }
