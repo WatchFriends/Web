@@ -44,11 +44,9 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
             {path: "register", component: RegisterComponent},
             {path: "explore", component: ExploreComponent},
             {path: "profile", component: ProfileComponent},
+            {path: "search", component: SearchComponent},
             {path: "series/:id", component: SeriesDetailComponent},
-
-
             {path: "series/:id/season/:seasonId", component: SeasonDetailComponent},
-
             {path: "**", redirectTo: "home"},
         ])
     ],

@@ -13,7 +13,12 @@
   <div class="row">
     <div *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
       <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
-        <img [src]="item.image" [alt]="item.title" class="image-responsive"/>
+        <div *ngIf="item.image == null">
+          <img [src]="imageNotFound" [alt]="item.title" class="image-responsive"/>
+        </div>
+        <div *ngIf="item.image != null">
+          <img [src]="item.image" [alt]="item.title" class="image-responsive"/>
+        </div>
       </a>
       <div class="seriescontainer_content">
         <h3 [class.big-title]>{{item.title}}</h3>
