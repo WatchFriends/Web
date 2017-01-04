@@ -5,6 +5,12 @@ import { ServerError } from './server-error';
 
 const tokenKey = 'token';
 
+export class Name {
+  givenName: string;
+  middleName: string;
+  familyName: string;
+}
+
 @Injectable()
 export class UserService {
 
@@ -14,10 +20,13 @@ export class UserService {
   private _authenticated: boolean;
   private _id: string;
 
-  constructor(private http: Http) { 
-    this._token = localStorage[tokenKey]
-    if(this._token){
-      http.get('/api/auth/login', {headers: new Headers({'Authorization': `Bearer ${this._token}`})})
+  constructor(private http: Http) {
+    if (typeof (Storage) !== "undefined")
+      this._token = localStorage[tokenKey]
+    //else TODO cookie
+    if (this._token) {
+      //request for user data (checks token validity)
+      http.get('/api/auth/login', { headers: new Headers({ 'Authorization': `Bearer ${this._token}` }) })
         .catch(res => Observable.throw(<ServerError>res.json()))
         .subscribe(res => this.handleResponse(res.json()));
     }
@@ -44,7 +53,9 @@ export class UserService {
     if (!this._email) console.error('user does not have an id');
 
     this._token = json.token;
-    localStorage.setItem(tokenKey, this._token);
+    if (typeof (Storage) !== "undefined")
+      localStorage.setItem(tokenKey, this._token);
+    //else use TODO cookie
   }
 
   post(url: string, data: any) {
@@ -58,21 +69,18 @@ export class UserService {
       .catch(res => Observable.throw(<ServerError>res.json()));
   }
 
+  //needs to be subscribed to work
   login(data) {
     return this.post('api/auth/login', data);
   }
 
+  //needs to be subscribed to work
   register(data) {
     return this.post('api/auth/register', data);
   }
 
+  //does not need to be subscribed
   logout() {
     return this.http.get('api/auth/logout').subscribe(res => this._authenticated = false);
   }
-}
-
-export class Name {
-  givenName: string;
-  middleName: string;
-  familyName: string;
 }

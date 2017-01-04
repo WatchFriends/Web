@@ -16,6 +16,7 @@ export class ApiService {
         const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
         return this.http.post(url, JSON.stringify(data), options)
+            .map(res => res.json())
             .catch(this.catch);
     }
 
