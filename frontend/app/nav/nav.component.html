@@ -29,11 +29,6 @@
                     </div>
                 </div>
             </form>
-            <ul *ngIf="!user.authenticated" class="nav navbar-nav navbar-right">
-                <li><a routerLink="/login">Login</a></li>
-                <li><a routerLink="/register">Register</a></li>
-                <li><a routerLink="/profile">Profile</a></li>
-            </ul>
             <ul *ngIf="user.authenticated" class="nav navbar-nav navbar-right">
                 <li><a routerLink="/profile">{{user.name.givenName}} {{user.name.familyName}}</a></li>
             </ul>
