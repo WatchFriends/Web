@@ -42,11 +42,11 @@ let existsWatchedEpisode = (body, cb) => {
             }
         });
     },
-    existsFollowedSeries = (body, cb) => {
+    existsFollowedSeries = (userId, seriesId, cb) => {
         followedSeries
             .count({
-                userId: body.userId,
-                seriesId: body.seriesId
+                user: userId,
+                seriesId
             })
             .exec(cb);
     },
@@ -73,9 +73,9 @@ let existsWatchedEpisode = (body, cb) => {
             }
         });
     },
-    getAllFollowedSeriesByUserId = (user, cb) => {
+    getAllFollowedSeriesByUserId = (userId, cb) => {
             followedSeries.find({
-                userId: user._id,
+                user: userId,
                 following: true
             }, {
                 userId: 0,
@@ -123,12 +123,12 @@ module.exports = {
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
     /* FOLLOWEDSERIE */
-    existsFollowedSeries: existsFollowedSeries,
-    updateFollowedSeries: updateFollowedSeries,
-    getAllFollowedSeriesByUserId: getAllFollowedSeriesByUserId,
+    existsFollowedSeries,
+    updateFollowedSeries,
+    getAllFollowedSeriesByUserId,
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
-    updateWatchedEpisode: updateWatchedEpisode,
-    getWatchedEpisodesBySeriesSeasonId: getWatchedEpisodesBySeriesSeasonId
+    updateWatchedEpisode,
+    getWatchedEpisodesBySeriesSeasonId
 };

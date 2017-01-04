@@ -26,9 +26,10 @@ router.get("/series/search", (req, res, next) => {
 
 });
 
-router.get("/series/:id", (req, res, next) => {
-    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));
+router.get("/series/popular", (req, res, next) => {
+    apiService.request(`tv/popular?language=en-us`, callback(res, next));
 });
+
 
 router.get("/series/:id/season/:season", (req, res, next) => {
 
@@ -41,29 +42,19 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
         callback(res, next));
 });
 
-router.get("/series/popular", (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, callback(res, next));
+router.get("/followed", (req, res, next) => {
+    dbService.getFollowedSeries(req.user._id, callback(res, next));
+});
+router.put("/followed/:id", (req, res, next) => {
+    dbService.updateFollowedSeries(req.user._id, params.id, req.query.following, req.query.rating, callback(res, next));
+});
+router.get('/followed/:id', (req, res) => {
+    dbService.getOneFollowedSeries(req.user._id, params.id, callback(res, next));
 });
 
-router.post("/series/follow", (req, res, next) => {
-    dbService.updateFollowedSeries(req.body, callback(res, next));
-});
 
-router.post("/episode/watch", (req, res, next) => {
-    dbService.updateWatchedEpisode(req.body, callback(res, next));
+router.get("/series/:id", (req, res, next) => {
+    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));
 });
-
-router.get('/series/following', (req, res) => {
-    dbService.getAllFollowedSeriesByUserId(req.user, callback(res, next));
-});
-
-router.get('/series/:_id/following', (req, res) => {
-    dbService.getAllFollowedSeriesByUserId(req.params, callback(res, next));
-});
-
-router.get('/series/watched/:series/season/:season', (req, res) => {
-    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, callback(res, next));
-});
-
 
 module.exports = router;
