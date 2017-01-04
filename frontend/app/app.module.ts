@@ -15,6 +15,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
+import {SeasonDetailComponent} from "./seasondetail/seasondetail.component";
 //services
 import {AuthService, ApiService, UserService, SeriesDetailService} from './services';
 
@@ -28,7 +29,8 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
-        SeriesDetailComponent
+        SeriesDetailComponent,
+        SeasonDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -43,6 +45,7 @@ import {AuthService, ApiService, UserService, SeriesDetailService} from './servi
             {path: "explore", component: ExploreComponent},
             {path: "profile", component: ProfileComponent},
             {path: "series/:id", component: SeriesDetailComponent},
+            {path: "series/:id/season/:seasonId", component: SeasonDetailComponent},
             {path: "**", redirectTo: "home"},
         ])
     ],
