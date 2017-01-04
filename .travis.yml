@@ -7,7 +7,7 @@ script:
   - gulp scss
   - gulp ts
   - gulp node
-  - npm build
+  - npm run build
 node_js:
   - "6.9"
 cache:
