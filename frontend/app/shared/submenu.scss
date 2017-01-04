@@ -34,18 +34,18 @@
     cursor: pointer;
 
     .shadow-submenu_counter {
-        display: inline-block;
-        padding: 2px 5px;
-        font-size: 0.9em;
-        font-weight: 600;
-        line-height: 1;
-        color: #666;
-        background-color: #eee;
-        border-radius: 20px;
+      display: inline-block;
+      padding: 2px 5px;
+      font-size: 0.9em;
+      font-weight: 600;
+      line-height: 1;
+      color: #666;
+      background-color: #eee;
+      border-radius: 20px;
 
-        @media (max-width: $screen-sm) {
-            font-size: 12px;
-        }
+      @media (max-width: $screen-sm) {
+        font-size: 12px;
+      }
     }
 
     &:not(.submenu-item_active),
@@ -71,4 +71,3 @@
     }
   }
 }
-
