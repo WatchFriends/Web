@@ -22,7 +22,7 @@ export class ApiService {
 
     //adds token to headers
     get(url: string) {
-        return this.http.get(url, { headers: new Headers({ 'Authorization ': `Bearer ${this.user.token}` }) })
+        return this.http.get(url, { headers: new Headers({ 'Authorization': `Bearer ${this.user.token}` }) })
             .map(res => res.json())
             .catch(this.catch);
     }
