@@ -1,11 +1,7 @@
-/**
- * Created by mickv on 2/01/2017.
- */
-
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var watchedEpisodeSchema = new Schema(
+let watchedEpisodeSchema = new Schema(
     {
         userId: String,
         seriesId: Number,

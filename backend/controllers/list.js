@@ -26,24 +26,26 @@ router.get("/list", (req, res, next) => {
     apiCallSeries = (listItem, cb) => {
 
         if (listItem.apiRequest !== null) {
-
             let requested = (err, data) => {
                 
                 if (err) {
                     next(err);
                 }
-
-                switch (listItem.name) {
-                    case "Popular":
-                        listItem.series = data.results.random(5);
-                        break;
-
-                    default: 
-                        // TODO: case "Today on TV": // check gebruikers favorite series.
-                        listItem.series = data.results;
-                        break;
+                else if (data === null) {
+                    next(new Error("Our service is temporaty unavaiable"));
                 }
+                else {
+                    switch (listItem.name) {
+                        case "Popular":
+                            listItem.series = data.results.random(5);
+                            break;
 
+                        default: 
+                            // TODO: case "Today on TV": // check gebruikers favorite series.
+                            listItem.series = data.results;
+                            break;
+                    }
+                }
                 cb();
             };
             apiService.request(listItem.apiRequest, requested);
@@ -56,8 +58,13 @@ router.get("/list", (req, res, next) => {
 
     genresData = (err, data) => {
 
-        // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
-        async.each(ListsData, apiCallSeries, everythingDone);
+        if (data === null) {
+           next(new Error("Our service is temporaty unavaiable"));
+        }
+        else {
+            // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
+            async.each(ListsData, apiCallSeries, everythingDone);
+        }
     };
 
     apiService.request("genre/tv/list",  genresData);

@@ -12,6 +12,9 @@ router.get("/series/:id", (req, res, next) => {
         if (err) {
             next(err);
         }
+        else if (data === null) {
+            next(new Error("Our service is temporaty unavaiable"));
+        }
         else {
             res.send(data);
         }
@@ -23,6 +26,9 @@ router.get("/series/:id/season/:season", (req, res, next) => {
     apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, (err, data) => {
         if (err) {
             next(err);
+        }
+        else if (data === null) {
+            next(new Error("Our service is temporaty unavaiable"));
         }
         else {
             res.send(data);
@@ -36,6 +42,9 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
         if (err) {
             next(err);
         }
+        else if (data === null) {
+            next(new Error("Our service is temporaty unavaiable"));
+        }
         else {
             res.send(data);
         }
@@ -47,6 +56,9 @@ router.get("/series/popular", (req, res, next) => {
         if (err) {
             next(err);
         }
+        else if (data === null) {
+            next(new Error("Our service is temporaty unavaiable"));
+        }
         else {
             res.send(data);
         }
@@ -55,10 +67,15 @@ router.get("/series/popular", (req, res, next) => {
 
 router.post("/series/follow", (req, res, next) => {
     dbService.updateFollowedSeries(req.body, (err, data) => {
-        if (err)
+        if (err) {
             next(err);
-        else
+        }
+        else if (data === null) {
+            next(new Error("Our service is temporaty unavaiable"));
+        }
+        else {
             res.send(data);
+        }
     });
 });
 
@@ -66,6 +83,8 @@ router.post("/episode/watch", (req, res, next) => {
     dbService.updateWatchedEpisode(req.body, (err, data) => {
         if (err)
             next(err);
+        else if (data === null)
+            next(new Error("Our service is temporaty unavaiable"));
         else
             res.send(data);
     });
@@ -75,6 +94,8 @@ router.get('/series/user/following', function (req, res) {
     dbService.getAllFollowedSeriesByUserId(req.user, (err, data) => {
         if (err)
             next(err);
+        else if (data === null)
+            next(new Error("Our service is temporaty unavaiable"));
         else
             res.send(data);
     });
@@ -84,6 +105,8 @@ router.get('/series/user/:_id/following/', function (req, res) {
     dbService.getAllFollowedSeriesByUserId(req.params, (err, data) => {
         if (err)
             next(err);
+        else if (data === null)
+            next(new Error("Our service is temporaty unavaiable"));
         else
             res.send(data);
     });
@@ -93,6 +116,8 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
         if (err)
             next(err);
+        else if (data === null)
+            next(new Error("Our service is temporaty unavaiable"));
         else
             res.send(data);
     })
@@ -103,12 +128,15 @@ router.get("/series/search", (req, res, next) => {
     let query = querystring.parse(req.baseUrl).query;
 
     if (!query) {
-        next(new Error('The querystring parameter "query" is required'))
+        next(new Error('The querystring parameter "query" is required'));
     }
     else {
         apiService.request(`search/tv?query=${query}`, (err, data) => {
             if (err) {
                 next(err);
+            }
+            else if (data === null) {
+                next(new Error("Our service is temporaty unavaiable"));
             }
             else {
                 res.send(data);
