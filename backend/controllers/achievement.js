@@ -8,7 +8,7 @@ router.get("/achievement", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporaty unavaiable"));
+            next(new Error("Our service is temporarily unavaiable"));
         }
         else {
             res.json(data);
