@@ -47,4 +47,10 @@ export class ApiService {
     getSeason(id: number, seasonId: number) {
         return this.get(`api/series/${id}/season/${seasonId}`);
     }
+
+    getFollowed(user: string = null){
+        if(user)
+            return this.get(`api/followed?user=${user}`);
+        return this.get(`api/followed`);
+    }
 }

@@ -43,13 +43,14 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
 });
 
 router.get("/followed", (req, res, next) => {
-    dbService.getFollowedSeries(req.user._id, callback(res, next));
+    //user in querystring voor andere user, niets voor ingelogde user.
+    dbService.getFollowedSeries(req.params.user || req.user._id, callback(res, next));
 });
 router.put("/followed/:series", (req, res, next) => {
-    dbService.updateFollowedSeries(req.user._id, params.series, req.query.following, req.query.rating, callback(res, next));
+    dbService.updateFollowedSeries(req.params.user || req.user._id, req.params.series, req.query.following, req.query.rating, callback(res, next));
 });
-router.get('/followed/:series', (req, res) => {
-    dbService.findFollowedSeries(req.user._id, params.series, callback(res, next));
+router.get('/followed/:series', (req, res, next) => {
+    dbService.findFollowedSeries(req.params.user || req.user._id, req.params.series, callback(res, next));
 });
 
 router.get("/series/:id", (req, res, next) => {
