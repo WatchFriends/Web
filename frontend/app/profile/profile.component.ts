@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ApiService, UserService } from '../services';
-import { User, Series, FollowedSeries } from '../models';
+import { User, Series, FollowedSeries, Follower } from '../models';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -10,8 +10,12 @@ import { User, Series, FollowedSeries } from '../models';
     encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
-    name: String = 'Michiel Zyde';
-    followers: Number = 15;
+    user: User;
+    series = new Array<{ followed: FollowedSeries, series: Series }>();
+    followers: Follower[];
+    myProfile: boolean;
+    following: boolean = true;
+
     backgroundProfile: string = 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
 
@@ -57,25 +61,35 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    series: Array<{ followed: FollowedSeries, series: Series }>
+    updateFollowing(following: boolean){
+        this.following = following;
+        this.api.updateFollowing(this.user.id, following).subscribe();
+    }
 
-    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private user: UserService) { }
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) { }
 
     ngOnInit() {
         this.route.params
-            .switchMap((params: Params): string => params['id'])
+            .map((params: Params): string => {
+                var id = params['id'];
+                this.myProfile = id === undefined;
+                return id;
+            })
             .subscribe(id => {
-                this.api.getFollowed(id).subscribe(values => {
-                    values.forEach(value =>
-                        this.api.getSeries(value.seriesId).subscribe(series =>
-                            this.series.push({ followed: value, series })
-                        ));
-                }, console.error);
+                if (this.myProfile) {
+                    this.user = this.userService;
+                }
+                else {
+                    this.api.getUser(id).subscribe(user => this.user = user, console.warn);
+                }
+                this.api.getFollowedSeries(id).subscribe(values =>
+                    values.forEach(followed =>
+                        this.api.getSeries(followed.seriesId).subscribe(series =>
+                            this.series.push({ followed, series })
+                        ))
+                );
+                this.api.getFollowers(id).subscribe(values => this.followers = values);
             });
-    }
-
-    setUser(user: User) {
-
     }
 
     transformHtml(html: string) {

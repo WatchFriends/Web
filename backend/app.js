@@ -31,7 +31,7 @@ app.use(['/data', '/api'], [
     require('./controllers/list'),
     (req, res, next) => { //geen route beschikbaar
         res.status(404);
-        res.json({ message: 'Api route not found', status: 404 });
+        res.json({ message: `Api route ${req.url} not found`, status: 404 });
     },
     (err, req, res, next) => {
         if (typeof err == 'string') err = new Error(err);

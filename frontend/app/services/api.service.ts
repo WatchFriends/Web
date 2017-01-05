@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs';
 import { ServerError } from './server-error';
 import { UserService } from './user.service';
-import { FollowedSeries } from '../models';
+import { FollowedSeries, Follower, Season, Series, User } from '../models';
 
 @Injectable()
 export class ApiService {
@@ -13,26 +13,26 @@ export class ApiService {
     private catch = res => Observable.throw(<ServerError>res.json());
 
     // adds token to headers
-    post(url: string, data: any) {
+    post<type>(url: string, data: any): Observable<type> {
         const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
         return this.http.post(url, JSON.stringify(data), options)
-            .map(res => res.json())
+            .map(res => <type>res.json())
             .catch(this.catch);
     }
 
     // adds token to headers
-    get(url: string) {
+    get<type>(url: string): Observable<type> {
         return this.http.get(url, { headers: new Headers({ 'Authorization': `Bearer ${this.user.token}` }) })
-            .map(res => res.json())
+            .map(res => <type>res.json())
             .catch(this.catch);
     }
 
-    put(url: string, data: any) {
+    put<type>(url: string, data: any): Observable<type> {
         const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
         return this.http.put(url, JSON.stringify(data), options)
-            .map(res => res.json())
+            .map(res => <type>res.json())
             .catch(this.catch);
     }
 
@@ -45,23 +45,31 @@ export class ApiService {
         return this.http.get(`api/series/achievement`);
     }
 
-    getUserData(id: string) {
-        return this.get(`api/users/${id}`);
+    getUser(id: string) {
+        return this.get<User>(`api/user/${id}`);
     }
 
     getSeries(id: number) {
-        return this.get(`api/series/${id}`);
+        return this.get<Series>(`api/series/${id}`);
     }
 
     getSeason(id: number, seasonId: number) {
-        return this.get(`api/series/${id}/season/${seasonId}`);
+        return this.get<Season>(`api/series/${id}/season/${seasonId}`);
     }
 
-    getFollowed(user: string = null) {
-        return <Observable<FollowedSeries[]>>this.get(user ? `api/followed?user=${user}` : 'api/followed');
+    getFollowedSeries(user: string = null) {
+        return this.get<FollowedSeries[]>(user ? `api/followed?user=${user}` : 'api/followed');
+    }
+
+    getFollowers(user: string = null) {
+        return this.get<Follower[]>(user ? `api/user/followers?user=${user}` : 'api/user/followers');
     }
 
     updateFollowed(series: number, data: { following: boolean, rating?: number, user?: string }) {
-        return this.put(`api/followed/${series}`, null);
+        return this.put(`api/followed/${series}`, data);
+    }
+
+    updateFollowing(user:string, following:boolean){
+        return this.put(`api/following/${user}`, {following});
     }
 }

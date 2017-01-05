@@ -6,7 +6,7 @@ var followerSchema = new Schema({
         type: Schema.ObjectId,
         ref: "User"
     },
-    followed: {
+    follows: {
         type: Schema.ObjectId,
         ref: "User"
     },
