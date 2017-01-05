@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {ApiService} from "../services";
+import {Component, OnInit} from '@angular/core';
+import {ApiService} from '../services';
 import {Season} from '../models';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     templateUrl: './seasondetail.component.html'

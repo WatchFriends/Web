@@ -15,9 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({ secret: config.sessionSecret }));
+//app.use(session({ secret: config.sessionSecret }));
 app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.session());
 
 //wwwroot
 app.use(express.static(path.join(__dirname, '../wwwroot')));

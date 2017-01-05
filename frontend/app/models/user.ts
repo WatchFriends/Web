@@ -1,7 +1,9 @@
 export class Name {
-  givenName: string;
-  middleName: string;
-  familyName: string;
+  constructor(
+    public givenName: string,
+    public middleName: string,
+    public familyName: string
+  ) { }
 }
 
 export interface User {

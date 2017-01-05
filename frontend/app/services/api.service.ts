@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable, Subscription } from "rxjs";
-import { ServerError } from "./server-error";
-import { UserService } from "./user.service"
+import { Observable, Subscription } from 'rxjs';
+import { ServerError } from './server-error';
+import { UserService } from './user.service';
+import { FollowedSeries } from '../models';
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http, private user: UserService) { 
-        this.updateFollowed(300, {following:true}).subscribe();
-    }
+    constructor(private http: Http, private user: UserService) { }
 
     private catch = res => Observable.throw(<ServerError>res.json());
 
-    //adds token to headers
+    // adds token to headers
     post(url: string, data: any) {
         const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
@@ -22,7 +21,7 @@ export class ApiService {
             .catch(this.catch);
     }
 
-    //adds token to headers
+    // adds token to headers
     get(url: string) {
         return this.http.get(url, { headers: new Headers({ 'Authorization': `Bearer ${this.user.token}` }) })
             .map(res => res.json())
@@ -37,7 +36,7 @@ export class ApiService {
             .catch(this.catch);
     }
 
-    //routes
+    // routes
     search(query) {
         return this.get(`api/series/search?query=${query}`);
     }
@@ -59,12 +58,10 @@ export class ApiService {
     }
 
     getFollowed(user: string = null) {
-        if (user)
-            return this.get(`api/followed?user=${user}`);
-        return this.get(`api/followed`);
+        return <Observable<FollowedSeries[]>>this.get(user ? `api/followed?user=${user}` : 'api/followed');
     }
 
     updateFollowed(series: number, data: { following: boolean, rating?: number, user?: string }) {
-        return this.put(`api/followed/${series}`, data);
+        return this.put(`api/followed/${series}`, null);
     }
 }

@@ -1,9 +1,9 @@
 const config = require("./config.json"),
-      mongoose = require('mongoose'),
-      achievement = require("./../models/achievement"),
-      users = require("./../models/user"),
-      followedSeries = require('./../models/followedSeries'),
-      watchedEpisode = require('./../models/watchedEpisode');
+    mongoose = require('mongoose'),
+    achievement = require("./../models/achievement"),
+    users = require("./../models/user"),
+    followedSeries = require('./../models/followedSeries'),
+    watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
     watchedEpisode
@@ -123,10 +123,14 @@ module.exports = {
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
     /* FOLLOWEDSERIES */
-    getFollowedSeries: (user, cb) => followedSeries.find({ user }).exec(cb),
-    updateFollowedSeries: (user, seriesId, following, rating, cb) =>
-        followedSeries.update({ user, seriesId }, { following, rating }, { upsert:true, setDefaultsOnInsert:true }).exec(cb),
-    findFollowedSeries: (user, seriesId, cb) => followedSeries.findOne({ user, seriesId }).exec(cb),
+    getFollowedSeries: (user, cb) => 
+        followedSeries.find({ user }, { _id: 0, user: 0 }).exec(cb),
+
+    updateFollowedSeries: (user, seriesId, data, cb) =>
+        followedSeries.update({ user, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
+        
+    findFollowedSeries: (user, seriesId, cb) => 
+        followedSeries.findOne({ user, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,

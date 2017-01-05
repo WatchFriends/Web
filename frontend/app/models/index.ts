@@ -6,3 +6,4 @@ export * from './production-company';
 export * from './season';
 export * from './series';
 export * from './user';
+export * from './followed-series';

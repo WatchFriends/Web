@@ -30,7 +30,7 @@ export class NavComponent implements OnInit {
   loadPhotos(){
 
     // service aanmaken
-    this.errorMessage = console.log("hello");
+    this.errorMessage = console.log('hello');
 
   }
 

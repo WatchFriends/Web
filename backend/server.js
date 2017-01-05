@@ -1,8 +1,8 @@
 const app = require("./app"),
-      mongoose = require("mongoose"),
-      config = require("./data/config.json"),
-      http = require("http"),
-      passportconf = require("./data/passport");
+    mongoose = require("mongoose"),
+    config = require("./data/config.json"),
+    http = require("http"),
+    passportconf = require("./data/passport");
 
 //db
 mongoose.Promise = global.Promise;
@@ -20,9 +20,7 @@ db.on("error", () => {
     console.error.bind(console, "connection error");
 });
 
-db.once("open", ()=> {
-    console.log("hahaha");
-});
+db.once("open", () => { });
 
 //auth
 passportconf(config);

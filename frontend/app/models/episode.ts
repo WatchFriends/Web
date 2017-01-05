@@ -7,5 +7,5 @@ export class Episode {
         public overview: string,
         public still_path: string,
         public season_number: number
-    ){}
+    ) { }
 }
