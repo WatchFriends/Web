@@ -32,7 +32,7 @@ router.get("/list", (req, res, next) => {
                     next(err);
                 }
                 else if (data === null) {
-                    next(new Error("Our service is temporarily unavaiable"));
+                    next(new Error("Our service is temporarily unavailable"));
                 }
                 else {
                     switch (listItem.name) {
@@ -59,7 +59,7 @@ router.get("/list", (req, res, next) => {
     genresData = (err, data) => {
 
         if (data === null) {
-           next(new Error("Our service is temporarily unavaiable"));
+           next(new Error("Our service is temporarily unavailable"));
         }
         else {
             // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.

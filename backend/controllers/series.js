@@ -13,7 +13,7 @@ router.get("/series/:id", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         }
         else {
             res.send(data);
@@ -28,7 +28,7 @@ router.get("/series/:id/season/:season", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         }
         else {
             res.send(data);
@@ -43,7 +43,7 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         }
         else {
             res.send(data);
@@ -57,7 +57,7 @@ router.get("/series/popular", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         }
         else {
             res.send(data);
@@ -71,7 +71,7 @@ router.post("/series/follow", (req, res, next) => {
             next(err);
         }
         else if (data === null) {
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         }
         else {
             res.send(data);
@@ -84,7 +84,7 @@ router.post("/episode/watch", (req, res, next) => {
         if (err)
             next(err);
         else if (data === null)
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         else
             res.send(data);
     });
@@ -95,7 +95,7 @@ router.get('/series/user/following', function (req, res) {
         if (err)
             next(err);
         else if (data === null)
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         else
             res.send(data);
     });
@@ -106,7 +106,7 @@ router.get('/series/user/:_id/following/', function (req, res) {
         if (err)
             next(err);
         else if (data === null)
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         else
             res.send(data);
     });
@@ -117,7 +117,7 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
         if (err)
             next(err);
         else if (data === null)
-            next(new Error("Our service is temporarily unavaiable"));
+            next(new Error("Our service is temporarily unavailable"));
         else
             res.send(data);
     })
@@ -136,7 +136,7 @@ router.get("/series/search", (req, res, next) => {
                 next(err);
             }
             else if (data === null) {
-                next(new Error("Our service is temporarily unavaiable"));
+                next(new Error("Our service is temporarily unavailable"));
             }
             else {
                 res.send(data);
