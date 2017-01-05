@@ -1,7 +1,7 @@
-var mongoose = require("mongoose"),
+const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
-var tokenSchema = new Schema({
+let tokenSchema = new Schema({
     created: {
         type: Date,
         default: Date.now

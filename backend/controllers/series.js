@@ -10,11 +10,13 @@ var callback = (res, next) =>
         if (err) {
             return next(err);
         }
+        if (data === null) {
+            return next(new Error("Our service is temporarily unavailable"));
+        }
         res.json(data);
     }
 
 router.get("/series/search", (req, res, next) => {
-
     let query = req.query.query;
 
     if (!query) {
@@ -32,12 +34,10 @@ router.get("/series/popular", (req, res, next) => {
 
 
 router.get("/series/:id/season/:season", (req, res, next) => {
-
     apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, callback(res, next));
 });
 
 router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
-
     apiService.request(`tv/${req.params.id}/season/${req.params.season}/episode/${req.params.episode}?append_to_response=images,similar`,
         callback(res, next));
 });
@@ -52,6 +52,7 @@ router.put("/followed/:series", (req, res, next) => {
 router.get('/followed/:series', (req, res, next) => {
     dbService.findFollowedSeries(req.params.user || req.user._id, req.params.series, callback(res, next));
 });
+
 
 router.get("/series/:id", (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));

@@ -20,33 +20,8 @@
     border-bottom: 3px solid $button-color-default;
   }
 
+
   a {
-    padding: 10px 0;
-    position: relative;
-    display: inline-block;
-    margin: 15px 25px;
-    color: $text-color;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 2em;
-    text-align: center;
-    cursor: pointer;
-
-    .shadow-submenu_counter {
-        display: inline-block;
-        padding: 2px 5px;
-        font-size: 0.9em;
-        font-weight: 600;
-        line-height: 1;
-        color: #666;
-        background-color: #eee;
-        border-radius: 20px;
-
-        @media (max-width: $screen-sm) {
-            font-size: 12px;
-        }
-    }
 
     &:not(.submenu-item_active),
     &:not(.active) {
@@ -65,10 +40,39 @@
         pointer-events: none;
       }
       &:hover::after, &:focus::after {
+
         opacity: 1;
         transform: translateY(0px);
       }
     }
+
+    padding: 10px 0;
+    position: relative;
+    display: inline-block;
+    margin: 15px 25px;
+    color: $text-color;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 2em;
+    text-align: center;
+    cursor: pointer;
+
+    .shadow-submenu_counter {
+      display: inline-block;
+      padding: 2px 5px;
+      font-size: 0.9em;
+      font-weight: 600;
+      line-height: 1;
+      color: #666;
+      background-color: #eee;
+      border-radius: 20px;
+
+      @media (max-width: $screen-sm) {
+        font-size: 12px;
+      }
+    }
+
+
   }
 }
-

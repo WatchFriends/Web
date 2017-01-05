@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
+const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
-var watchedEpisodeSchema = new Schema({
+let watchedEpisodeSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: "User"

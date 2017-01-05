@@ -1,0 +1,103 @@
+@import "../../_variables";
+
+body {
+  background: url(../../assets/images/bg1.png);
+  font-family: "Century Gothic", Arial, Helvetica, sans-serif;
+}
+
+.content p {
+  margin: 18px 0px 45px 0px;
+  font-family: $font;
+  font-size: 2em;
+  color: $text-color;
+  text-align: center;
+  span {
+    color: #e54040;
+  }
+}
+
+.content {
+  text-align: center;
+  padding: 115px 0px 0px 0px;
+  a {
+    color: $text-color;
+    font-family: $font;
+    background: #445878;
+    padding: 15px 20px;
+    border-radius: 1em;
+    &:hover {
+      opacity: 0.8;
+      text-decoration: none;
+    }
+  }
+}
+
+.logo {
+  text-align: center;
+  box-shadow: 0 8px 6px -6px rgb(97, 97, 97);
+  h1 {
+    font-size: 2em;
+    font-family: $font;
+    background: #666666;
+    padding: 10px 10px 18px 10px;
+    a {
+      font-size: 1em;
+    }
+  }
+}
+
+
+/*------responive-design--------*/
+@media screen and (max-width: 1366px) {
+  .content {
+    padding: 58px 0px 0px 0px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .content {
+    padding: 58px 0px 0px 0px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    padding: 58px 0px 0px 0px;
+    p {
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .content {
+    padding: 58px 0px 0px 0px;
+    p {
+      font-size: 1.3em;
+    }
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .content {
+    padding: 20px 0px 0px 0px;
+    margin: 0px 12px;
+    p {
+      font-size: 0.9em;
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .content {
+    padding: 30px 0px 0px 0px;
+    margin: 0px 12px;
+    a {
+      padding: 10px 15px;
+      font-size: 0.8em;
+    }
+    p {
+      margin: 18px 0px 22px 0px;
+    }
+  }
+}
