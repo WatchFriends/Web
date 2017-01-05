@@ -1,23 +1,20 @@
-/*jslint node: true */
-'use strict';
-
-var mongoose = require('mongoose'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
-    FacebookStrategy = require('passport-facebook').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy, //of OAuthStrategy
-    BearerStrategy = require('passport-http-bearer').Strategy,
-    User = require('../models/user'),
-    AccessToken = require('../models/accessToken');
+const mongoose = require('mongoose'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local').Strategy,
+      FacebookStrategy = require('passport-facebook').Strategy,
+      GoogleStrategy = require('passport-google-oauth').OAuth2Strategy, //of OAuthStrategy
+      BearerStrategy = require('passport-http-bearer').Strategy,
+      User = require('../models/user'),
+      AccessToken = require('../models/accessToken');
 
 // http://passportjs.org/docs/profile
-var authify = (accessToken, refreshToken, profile, cb) => {
-    var email = profile.emails[0].value;
+let authify = (accessToken, refreshToken, profile, cb) => {
+    let email = profile.emails[0].value;
     User.findOne({ email }, (err, user) => {
         if (err) return cb(err);
         if (user) {
             if (!user.providers) user.providers = [];
-            var provider = user.providers.find(provider => provider.name == profile.provider);
+            let provider = user.providers.find(provider => provider.name == profile.provider);
             if (!provider) { //nieuwe provider voor dit account, user moet al ingelogd zijn om dit te mogen doen.
                 user.providers.push({
                     name: profile.provider,

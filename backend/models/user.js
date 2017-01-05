@@ -1,12 +1,12 @@
 /*jslint node: true */
 'use strict';
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    bcrypt = require('bcrypt-nodejs'),
-    authTypes = ['facebook', 'google'];
+const mongoose = require('mongoose'),
+      Schema = mongoose.Schema,
+      bcrypt = require('bcrypt-nodejs'),
+      authTypes = ['facebook', 'google'];
 
-var userSchema = new Schema({
+let userSchema = new Schema({
     name: {
         familyName: {type: String, required: true},
         givenName: {type: String, required: true},
@@ -17,9 +17,9 @@ var userSchema = new Schema({
     password: String,
     //oauth
     providers: [{name: String, id: String, token: String}], //provider name, user id and accestoken
-});
+}),
 
-var isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
+isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
