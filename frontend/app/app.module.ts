@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
 // services
 import { ApiService, AuthGuard, UserService } from './services';
+import { SeriesImagePipe } from './pipes';
 // components
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -32,7 +33,8 @@ import { ErrorComponent } from './error/error.component';
         ProfileComponent,
         SeriesDetailComponent,
         SeasonDetailComponent,
-        ErrorComponent
+        ErrorComponent,
+        SeriesImagePipe
     ],
     imports: [
         BrowserModule,

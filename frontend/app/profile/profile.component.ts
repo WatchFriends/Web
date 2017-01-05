@@ -14,24 +14,13 @@ export class ProfileComponent implements OnInit {
     series = new Array<{ followed: FollowedSeries, series: Series }>();
     followers: Follower[];
     myProfile: boolean;
-    following: boolean = true;
+    following: boolean;
 
     backgroundProfile: string = 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
 
     watchlistDisplay: String = 'block';
     achievementDisplay: String = 'none';
-
-    watchlist = [
-        { image: 'http://wallpapersqq.net/wp-content/uploads/2015/11/Zoo-tv-series-6.jpg', title: 'Zoo', id: 0, episodes: 3 },
-        { image: 'https://wallpaperscraft.com/image/vikings_tv_series_historical_drama_katheryn_winnick_lagertha_sword_shield_nature_94816_1920x1080.jpg', title: 'Vikings', id: 0, episodes: 5 },
-        { image: 'http://wallpapersdsc.net/wp-content/uploads/2016/08/Salem-Wallpapers.jpg', title: 'Salem', id: 0, episodes: 2 },
-        { image: 'http://wallpapersinsider.com/wp-content/uploads/2016/04/Preacher-TV-Series-Wallpapers.jpg', title: 'Lucifer', id: 0, episodes: 1 },
-        { image: 'http://www.wallpapermade.com/images/wallpapers/originals/gotham-characters-in-a-dark-street-wallpaper-3476.jpg', title: 'Gotham', id: 0, episodes: 10 },
-        { image: 'http://cdn.wallpapersafari.com/87/70/jywP9k.jpg', title: 'Suits', id: 0, episodes: 5 },
-        { image: 'https://image.tmdb.org/t/p/w533_and_h300_bestv2/tZjVVIYXACV4IIIhXeIM59ytqwS.jpg', title: 'Rogue One: A Star Wars Story', id: 330459, episodes: 5 },
-        { image: 'https://image.tmdb.org/t/p/w533_and_h300_bestv2/eSzpy96DwBujGFj0xMbXBcGcfxX.jpg', title: 'Breaking Bad', id: 1396, episodes: 5 }
-    ];
 
     achievements = [
         {
@@ -61,11 +50,6 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    updateFollowing(following: boolean){
-        this.following = following;
-        this.api.updateFollowing(this.user.id, following).subscribe();
-    }
-
     constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) { }
 
     ngOnInit() {
@@ -90,6 +74,12 @@ export class ProfileComponent implements OnInit {
                 );
                 this.api.getFollowers(id).subscribe(values => this.followers = values);
             });
+    }
+
+    updateFollowing(following: boolean){
+        console.log(following);
+        this.following = following;
+        this.api.updateFollowing(this.user.id, following).subscribe();
     }
 
     transformHtml(html: string) {
