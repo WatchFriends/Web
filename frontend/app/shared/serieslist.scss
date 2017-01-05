@@ -19,6 +19,7 @@
   }
 
   &.seriescontainer-big {
+
     width: 50%;
 
     @media (max-width: $screen-sm) {
@@ -51,10 +52,12 @@
     }
 
     h3 {
+      font-size: 1.5em;
       text-align: center;
       text-transform: uppercase;
       width: 70%;
       float: left;
+
     }
 
     p {

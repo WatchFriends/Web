@@ -1,5 +1,9 @@
 @import "../../_variables";
 
+body, html{
+  overflow-x: hidden;
+}
+
 .imagecontainer, 
 .contentcontainer {
   position: relative;
