@@ -7,17 +7,6 @@
 }
 
 .seriescontainer .seriescontainer_wrapper {
-
-  .bgImage{
-    transform: none;
-    transition: none;
-    filter: blur(0);
-
-    &:hover{
-      transform: none;
-    }
-  }
-
   .container-profile{
     text-align: center;
     position: absolute;
@@ -28,24 +17,25 @@
     z-index: 1;
     overflow: hidden;
 
-    .pfImage {
+    .bgImage{
       border: 5px solid $button-color-default;
       border-radius: 50%;
       width: 30%;
       height: 30%;
-
-      transform: none;
-      transition: none;
-      filter: blur(0);
-
-      &:hover{
-        transform: none;
-        opacity: 0.9;
-      }
     }
+  }
+  img{
+    transform: none;
+    transition: none;
+    filter: blur(0);
+
+    &:hover {
+      transform: none;
+      opacity: 1;
+    }
+  }
+  .image-responsive:hover{
+    cursor: default;
   }
 }
 
-.borderContainer{
-  border: solid 0.5px #EEEFF7;
-}

@@ -38,11 +38,11 @@
             <p class="h4">No users where found matching your description.</p>
         </div>
         <div *ngIf="users.length !=0">
-            <div *ngFor="let item of users; let i=index" class="seriescontainer borderContainer">
+            <div *ngFor="let item of users; let i=index" class="seriescontainer">
                 <a [routerLink]="['/profile', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.bgimage" [alt]="item.name" class="image-responsive bgImage"/>
+                    <img [src]="item.bgimage" [alt]="item.name" class="image-responsive"/>
                     <div class="container-profile">
-                        <img [src]="item.profileImage || userNotFound" [alt]="item.name" class="pfImage"/>
+                        <img [src]="item.profileImage || userNotFound" [alt]="item.name" class="bgImage"/>
                     </div>
                 </a>
                 <div class="seriescontainer_content">

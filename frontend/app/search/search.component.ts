@@ -83,38 +83,38 @@ export class SearchComponent {
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/15590294_10211835490869313_8136982269238255413_n.jpg?oh=92ed2d78686f05625bb38866031f26e0&oe=58D75F7C",
-            name: "Tiziano Walkaert",
+            profileImage: null,
+            name: "Johan Walkanova",
             id: 6
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
             profileImage: null,
-            name: "Jeffrey Walkscan",
+            name: "Johan Walkanova",
             id: 7
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
             profileImage: null,
-            name: "Cedric Déwalker",
+            name: "Johan Walkanova",
             id: 8
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/14962696_1121567744579730_5797069381015325117_n.jpg?oh=8aadc6df1b8fc841ac5d26d3551a6953&oe=58DBD583",
-            name: "Walking Samoy",
+            profileImage: null,
+            name: "Johan Walkanova",
             id: 9
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
             profileImage: null,
-            name: "Adriaan Walkertje",
+            name: "Johan Walkanova",
             id: 10
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/13434802_1006213446160868_5039911884103601512_n.jpg?oh=6c0faabb90e00e9cf0cb38bbbb332058&oe=58DD07AD",
-            name: "Walk Muylle",
+            profileImage: null,
+            name: "Johan Walkanova",
             id: 11
         },
     ];
