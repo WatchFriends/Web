@@ -1,12 +1,24 @@
-
 <div class="container-fluid">
-  <div class="wrap">
-    <div class="content">
-      <img src="../../assets/images/error-img.png" title="error" />
-      <p><span>Ohh..... </span>Something went wrong!</p>
-      <a routerLink="./home">Back To Home</a>
+    <div class="background">
+        <img [src]="bgImage"/>
+        <div class="container">
+            <div class="wrap">
+                <div class="main">
+                    <h1>Ooops you've got error 404 </h1>
+                    <h2>This is not the web page you are looking for</h2>
+                    <img src="../../assets/WatchFriends_Logo_Blue.png" class="logoImage"/>
+                    <p>Don't worry, send us an email and we'll take care of it!</p>
+                    <div class="search">
+                        <form>
+                            <input type="text" onfocus="this.value = '';"
+                                   onblur="if (this.value == '') {this.value = 'Enter ur email';}"
+                                   value="Enter ur email"/>
+                            <input type="submit" value="Submit"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
 
