@@ -10,7 +10,6 @@
     img {
       width: 1522px;
       height: 826px;
-      opacity: 0.7;
     }
 
     .logoImage {
@@ -40,17 +39,21 @@
           font-weight: bold;
           border: 1px solid rgba(102, 102, 102, 0.31);
           border-radius: 5px;
-          h3 {
-            font-size: 16px;
-            text-align: left;
-            padding: 30px 30px;
-          }
+          padding: 10px;
           h1 {
-            font-size: 60px;
+            font-size: 4em;
             margin-top: 15px;
             color: $button-color-default;
             text-transform: uppercase;
             font-family: $font;
+
+            @media (max-width: $screen-md) {
+              font-size: 3em;
+            }
+            @media (max-width: $screen-sm) {
+              font-size: 2em;
+            }
+
           }
           p {
             font-size: 20px;
@@ -68,29 +71,47 @@
 
           .search {
             border: 1px solid rgba(173, 173, 173, 0.79);
-            width: 35%;
+            width: 45%;
             background: rgba(156, 156, 156, 0.12);
             box-shadow: inset 0px -1px 5px rgba(94, 94, 94, 0.19);
             border-radius: 5px;
             display: block;
             margin: 15px auto;
+            @media (max-width: $screen-md){
+              width: 80%;
+            }
+            @media (max-width: $screen-sm){
+              width: 90%;
+            }
 
             form input {
               &[type="text"] {
                 border: none;
                 outline: none;
-                width: 75%;
+                width: 69%;
                 padding: 8px;
                 font-size: 12px;
                 background: rgba(0, 0, 0, 0.45);
                 color: $text-color;
+
+                @media (max-width: $screen-md){
+                  padding: 9px;
+                  width: 60%;
+                }
+                @media (max-width: $screen-sm){
+                  padding: 9px 10px;
+                  font-size: 11px;
+                  width: 60%;
+                }
+
               }
               &[type="submit"] {
                 border: none;
                 background: none;
                 cursor: pointer;
-                padding: 8px 25px;
+                padding: 8px 20px;
                 font-size: 13px;
+                width: 29%;
                 color: #EEE;
                 box-shadow: inset 1px -2px 8px rgba(0, 0, 0, 0.33);
                 margin: 0;
@@ -100,6 +121,14 @@
                 &:hover {
                   box-shadow: inset 0px 0px 4px #222;
                   color: #FFF;
+                }
+
+                @media (max-width: $screen-md){
+                  padding: 9px 15px;
+                }
+                @media (max-width: $screen-sm){
+                  padding: 9px 10px;
+                  font-size: 11px;
                 }
               }
             }
