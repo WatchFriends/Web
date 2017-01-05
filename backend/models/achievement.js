@@ -1,10 +1,7 @@
-/*jslint node: true */
-"use strict";
-
-var mongoose = require("mongoose"),
+const mongoose = require("mongoose"),
     Schema = mongoose.Schema;
 
-var achievementSchema = new Schema({
+let achievementSchema = new Schema({
     _id: Number,
     name: String,
     description: String,

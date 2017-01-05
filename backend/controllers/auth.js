@@ -1,19 +1,19 @@
-var express = require('express'),
-    passport = require('passport'),
-    router = express.Router(),
-    utils = require('./../helpers/utils'),
-    AccessToken = require('../models/accessToken');
+const express = require('express'),
+      passport = require('passport'),
+      router = express.Router(),
+      utils = require('./../helpers/utils'),
+      AccessToken = require('../models/accessToken');
 
-var userResult = (token, user) => ({
+let userResult = (token, user) => ({
     token,
     user: {
         email: user.email,
         name: user.name,
         id: user._id
     }
-});
+}),
 
-var successful = (req, res, next) => {
+successful = (req, res, next) => {
     AccessToken.findOne({ user: req.user._id }, (err, token) => {
         if (err) return next(err);
         if (token)
@@ -27,9 +27,9 @@ var successful = (req, res, next) => {
             return res.json(userResult(product.token, req.user));
         });
     });
-};
+},
 
-var authenticate = strategy =>  //stringname strategy voor passport.authenticate
+authenticate = strategy =>  //stringname strategy voor passport.authenticate
     (req, res, next) =>  //we hebben next nodig
         passport.authenticate(strategy, (err, user, info) => { //custom authenicatie functie om errors als json te versturen
             if (err) return next(err);

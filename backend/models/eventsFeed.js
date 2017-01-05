@@ -1,7 +1,7 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+const mongoose = require('mongoose'),
+      Schema = mongoose.Schema;
 
-var eventsFeedSchema = new Schema({
+let eventsFeedSchema = new Schema({
         userId: String,
         userName: String,
         //follow, unfollow, watch
