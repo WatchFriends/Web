@@ -47,47 +47,82 @@ export class SearchComponent {
     users = [
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Michiel Zyde",
+            profileImage: "https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019",
+            name: "Walking Zyde",
             id: 0
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Jasper De Sutter",
+            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/13669143_10208452039593036_5304103475273177345_n.jpg?oh=8491f29f569abc9cc00c893e65d2fddf&oe=58E4993F",
+            name: "Jasper De Walker",
             id: 1
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Michiel Vermeersch",
+            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/11039195_10203824854083815_2557549902659964070_n.jpg?oh=457660b7b09f23754e24625e56da4abb&oe=58D612F5",
+            name: "Michiel Walker",
             id: 2
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Hein Pauwelyn",
+            profileImage: "https://avatars0.githubusercontent.com/u/16222780?v=3&s=400",
+            name: "Hein Walkerino",
             id: 3
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Niels Bril",
+            profileImage: "https://scontent-bru2-1.xx.fbcdn.net/v/t1.0-9/11836866_10206094665699493_6572247882328430829_n.jpg?oh=675b607a032e28da8c56a3d46433fa71&oe=58E029DA",
+            name: "Walking Bril",
             id: 4
         },
         {
             bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
-            profileImage: "",
-            name: "Johan Casanova",
+            profileImage: null,
+            name: "Johan Walkanova",
             id: 5
         },
-
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 6
+        },
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 7
+        },
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 8
+        },
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 9
+        },
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 10
+        },
+        {
+            bgimage: "http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg",
+            profileImage: null,
+            name: "Johan Walkanova",
+            id: 11
+        },
     ];
 
     //indien image niet gevonden wordt op tmdb API, deze gebruiken
 
     imageNotFound: string = "http://orig10.deviantart.net/ac68/f/2011/061/f/3/404_by_edenpulse-d3arr9q.png";
-
+    userNotFound: string = "https://bitslog.files.wordpress.com/2013/01/unknown-person1.gif";
 
     changeContent(menu: Number) {
 
