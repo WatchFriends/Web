@@ -1,13 +1,15 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
-import {Observable, Subscription} from "rxjs";
-import {ServerError} from "./server-error";
-import {UserService} from "./user.service"
+import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Observable, Subscription } from "rxjs";
+import { ServerError } from "./server-error";
+import { UserService } from "./user.service"
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http, private user: UserService) { }
+    constructor(private http: Http, private user: UserService) { 
+        this.updateFollowed(300, {following:true}).subscribe();
+    }
 
     private catch = res => Observable.throw(<ServerError>res.json());
 
@@ -23,6 +25,14 @@ export class ApiService {
     //adds token to headers
     get(url: string) {
         return this.http.get(url, { headers: new Headers({ 'Authorization': `Bearer ${this.user.token}` }) })
+            .map(res => res.json())
+            .catch(this.catch);
+    }
+
+    put(url: string, data: any) {
+        const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
+        options.headers.set('Authorization', `Bearer ${this.user.token}`);
+        return this.http.put(url, JSON.stringify(data), options)
             .map(res => res.json())
             .catch(this.catch);
     }
@@ -48,9 +58,13 @@ export class ApiService {
         return this.get(`api/series/${id}/season/${seasonId}`);
     }
 
-    getFollowed(user: string = null){
-        if(user)
+    getFollowed(user: string = null) {
+        if (user)
             return this.get(`api/followed?user=${user}`);
         return this.get(`api/followed`);
+    }
+
+    updateFollowed(series: number, data: { following: boolean, rating?: number, user?: string }) {
+        return this.put(`api/followed/${series}`, data);
     }
 }

@@ -125,7 +125,7 @@ module.exports = {
     /* FOLLOWEDSERIES */
     getFollowedSeries: (user, cb) => followedSeries.find({ user }).exec(cb),
     updateFollowedSeries: (user, seriesId, following, rating, cb) =>
-        followedSeries.update({ user, seriesId }, { following, rating }, { upsert=true, setDefaultsOnInsert=true }).exec(cb),
+        followedSeries.update({ user, seriesId }, { following, rating }, { upsert:true, setDefaultsOnInsert:true }).exec(cb),
     findFollowedSeries: (user, seriesId, cb) => followedSeries.findOne({ user, seriesId }).exec(cb),
 
     /* WATCHEDEPISODE */

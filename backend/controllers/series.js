@@ -47,7 +47,7 @@ router.get("/followed", (req, res, next) => {
     dbService.getFollowedSeries(req.params.user || req.user._id, callback(res, next));
 });
 router.put("/followed/:series", (req, res, next) => {
-    dbService.updateFollowedSeries(req.params.user || req.user._id, req.params.series, req.query.following, req.query.rating, callback(res, next));
+    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body.following, req.body.rating, callback(res, next));
 });
 router.get('/followed/:series', (req, res, next) => {
     dbService.findFollowedSeries(req.params.user || req.user._id, req.params.series, callback(res, next));
