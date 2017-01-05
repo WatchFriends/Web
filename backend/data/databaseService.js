@@ -1,9 +1,9 @@
 const config = require("./config.json"),
-    mongoose = require('mongoose'),
-    achievement = require("./../models/achievement"),
-    users = require("./../models/user"),
-    followedSeries = require('./../models/followedSeries'),
-    watchedEpisode = require('./../models/watchedEpisode');
+      mongoose = require('mongoose'),
+      achievement = require("./../models/achievement"),
+      users = require("./../models/user"),
+      followedSeries = require('./../models/followedSeries'),
+      watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
     watchedEpisode

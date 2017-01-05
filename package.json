@@ -9,7 +9,8 @@
     "lint": "tslint \"frontend/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
-    "e2e": "protractor"
+    "e2e": "protractor",
+    "frontend": "frontend.bat"
   },
   "repository": {
     "type": "git",

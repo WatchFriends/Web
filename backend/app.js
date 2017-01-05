@@ -1,13 +1,14 @@
 const express = require('express'),
-    app = express(),
-    path = require('path'),
-    logger = require('morgan'),
-    passport = require('passport'),
-    session = require('express-session'),
-    bodyParser = require('body-parser'), //om request body te gebruiken
-    cookieParser = require('cookie-parser'),
-    methodOverride = require('method-override'), //om http verbs te gebruiken
-    config = require('./data/config.json');
+      app = express(),
+      path = require('path'),
+      logger = require('morgan'),
+      passport = require('passport'),
+      session = require('express-session'),
+      bodyParser = require('body-parser'), //om request body te gebruiken
+      cookieParser = require('cookie-parser'),
+      methodOverride = require('method-override'), //om http verbs te gebruiken
+      config = require('./data/config.json');
+
 
 //middleware
 app.use(logger('dev'));

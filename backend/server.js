@@ -1,25 +1,37 @@
 const app = require("./app"),
-    mongoose = require("mongoose"),
-    config = require("./data/config.json"),
-    http = require("http"),
-    passportconf = require("./data/passport"),
-    jwt = require("jsonwebtoken");
+      mongoose = require("mongoose"),
+      config = require("./data/config.json"),
+      http = require("http"),
+      passportconf = require("./data/passport");
 
 //db
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db.development);
-let db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", ()=>{});
+mongoose.connect(config.db.development, (error) => {
+    if (error) {
+        console.error.bind(console, error.message);
+    }
+});
+
+let db = mongoose.connection,
+    port = process.env.PORT || "3000",
+    server;
+
+db.on("error", () => {
+    console.error.bind(console, "connection error");
+});
+
+db.once("open", ()=> {
+    console.log("hahaha");
+});
 
 //auth
 passportconf(config);
 
 //server
-let port = process.env.PORT || "3000";
 app.set("port", port);
 
-let server = http.createServer(app);
+server = http.createServer(app);
+
 server.listen(port);
 server.on("error", console.log);
 
