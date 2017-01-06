@@ -11,7 +11,7 @@ import { SeriesImagePipe } from '../pipes/series-image.pipe';
 export class ExploreComponent  {
 
     lists: List[];
-    activeList: String;
+    activeList: string;
 
     constructor(private api: ApiService) { } 
 
@@ -22,7 +22,15 @@ export class ExploreComponent  {
     loadLists() {
         this.api.getLists().subscribe((lists: List[]) => {
             this.lists = lists;
-            this.activeList = this.lists[0].name;
+            this.activeList = this.lists[0].name.toString();
         });
+    }
+
+    changeTab(tabName: string) {
+
+        document.getElementById(this.activeList).style.display = "none";
+        document.getElementById(tabName).style.display = "block";
+        
+        this.activeList = tabName;
     }
 }

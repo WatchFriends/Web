@@ -2,13 +2,13 @@
     <div class="container">
         <nav class="submenu">
             <div class="col-md-4" *ngFor="let list of lists; let i=index"> 
-                <a routerlink="list.name" data-hover="list.name" [class.active]="list.name === activeList">{{list.name}}</a>
+                <a routerlink="list.name" data-hover="list.name" [class.active]="list.name === activeList" (click)="changeTab(list.name)">{{list.name}}</a>
             </div>
         </nav>
     </div>
 
     <div *ngFor="let list of lists; let i=index" > 
-        <div class="row" [style.display.none]="list.name !== activeList">
+        <div class="row" [style.display]="list.name !== activeList ? 'none' : 'block'" [id]="list.name">
             <div *ngFor="let item of list.series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
                 <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
                     <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
