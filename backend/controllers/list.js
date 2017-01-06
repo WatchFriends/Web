@@ -36,9 +36,9 @@ router.get("/list", (req, res, next) => {
                 }
                 else {
                     switch (listItem.name) {
-                        case "Popular":
-                            listItem.series = data.results.random(5);
-                            break;
+                        // case "Popular":
+                        //     listItem.series = data.results.random(5);
+                        //     break;
 
                         default: 
                             // TODO: case "Today on TV": // check gebruikers favorite series.
