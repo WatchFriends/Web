@@ -14,14 +14,14 @@
                     <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
                 </a>
                 <div class="seriescontainer_content">
-                    <h3>{{item.name}}<span *ngIf="item.name !== item.original_name"> ({{item.original_name}})</span></h3>
+                    <h3>{{item.name}}</h3>
                     <p>
                         <span class="glyphicon glyphicon-eye-open"></span>
                         <span class="glyphicon glyphicon-list"></span>
                     </p>
                 </div>
             </section>
-            <div class="loadmore" (click)="loadmore(list.name)">
+            <div class="loadmore" (click)="loadmore(list.apiRequest)">
                 <p>Load more <span class="glyphicon glyphicon-chevron-right"></span></p>
             </div>
         </div>

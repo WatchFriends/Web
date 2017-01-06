@@ -51,11 +51,11 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
     });
 });
 
-router.get("/series/popular/:page", (req, res, next) => {
+router.get("/series/get/:page/:pageNumber", (req, res, next) => {
 
-    let page = req.params.page;
+    let page = req.params.pageNumber;
     
-    apiService.request(`tv/popular?language=en-us&page=${page}`, (err, data) => {
+    apiService.request(`tv/${req.params.page}?language=en-us&page=${req.params.pageNumber}`, (err, data) => {
         if (err) {
             next(err);
         }

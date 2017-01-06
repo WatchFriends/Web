@@ -11,14 +11,23 @@ router.get("/list", (req, res, next) => {
           TODAY_ON_TV = "Today on TV";
 
     let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      },
-                     { name: FRIENDS,     series: [], apiRequest: null              },
-                     { name: TODAY_ON_TV, Series: [], apiRequest: "tv/airing_today" }],
+                     // { name: FRIENDS,     series: [], apiRequest: ""                },
+                     { name: TODAY_ON_TV, series: [], apiRequest: "tv/airing_today" }],
 
     everythingDone = (err) => {
         if (err) {
             next(err);
         }
         else {
+
+            for (let i = ListsData.length; i--;) {
+                let url = ListsData[i].apiRequest;
+                
+                if (url != null) {
+                    ListsData[i].apiRequest = url.replace("tv", "series/get");
+                }
+            }
+
             res.send(ListsData);
         }
     },

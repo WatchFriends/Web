@@ -36,13 +36,13 @@ export class ExploreComponent  {
         this.activeList = tabName;
     }
 
-    loadmore(tabName: string) {
+    loadmore(url: string) {
 
         this.page += 1;
-        this.api.getPopular(this.page).subscribe((lists: Page) => {
+        this.api.getUrl(`api/${url}/${this.page}`).subscribe((lists: Page) => {
 
             for (var i = this.lists.length; i--;) {
-                if (this.lists[i].name === "Popular") {
+                if (this.lists[i].apiRequest === url) {
 
                     for (var s = lists.results.length; s--;) {                    
                         this.lists[i].series.push(lists.results[s]);

@@ -55,4 +55,8 @@ export class ApiService {
     getPopular(page: number) {
         return this.get(`api/series/popular/${page}`);
     }
+
+    getUrl(url: string) {
+        return this.get(url);
+    }
 }
