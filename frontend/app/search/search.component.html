@@ -19,10 +19,10 @@
         <div *ngIf="series.length !=0">
             <div *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
                 <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.image || imageNotFound" [alt]="item.title" class="image-responsive"/>
+                    <img [src]="item.backdrop_path | imageNotFound" [alt]="item.name" class="image-responsive" />
                 </a>
                 <div class="seriescontainer_content">
-                    <h3 [class.big-title]>{{item.title}}</h3>
+                    <h3>{{item.name}}<span *ngIf="item.name !== item.original_name"> ({{item.original_name}})</span></h3>
                     <!-- <p>
                        <span class="glyphicon glyphicon-eye-open"></span>
                        <span class="glyphicon glyphicon-list"></span>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, NavigationEnd, Router } from '@angular/router';
-import { UserService, ApiService } from '../services'
+import { UserService, ApiService } from '../services';
+
 
 @Component({
   selector: 'app-nav',
@@ -8,11 +9,15 @@ import { UserService, ApiService } from '../services'
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+
+
   
   loading = false;
 
-  constructor(router: Router, public user: UserService, public api: ApiService) {
+  constructor(public router: Router, public user: UserService, public api: ApiService) {
     router.events.subscribe(this.routerEvent);
+
+
   }
 
   routerEvent(event) {
@@ -27,10 +32,14 @@ export class NavComponent implements OnInit {
 
   errorMessage: any;
 
-  loadPhotos(){
+  makeUrl(){
 
-    // service aanmaken
-    this.errorMessage = console.log("hello");
+
+    let searchValue = (<HTMLInputElement>document.getElementById("searchinputfield")).value;
+    let searchForm =  <HTMLInputElement>document.getElementById("searchForm");
+
+
+    this.router.navigateByUrl(`/search?query=${searchValue}`);
 
   }
 

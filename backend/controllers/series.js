@@ -135,9 +135,6 @@ router.get("/series/search", (req, res, next) => {
             if (err) {
                 next(err);
             }
-            else if (data === null) {
-                next(new Error("Our service is temporarily unavailable"));
-            }
             else {
                 res.send(data);
             }
