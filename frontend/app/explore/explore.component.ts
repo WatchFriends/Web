@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { ApiService } from '../services';
 import { Series } from '../model/series';
+import { Page } from '../model/page';
 import { List } from '../model/list';
 import { SeriesImagePipe } from '../pipes/series-image.pipe';
 
@@ -12,6 +13,7 @@ export class ExploreComponent  {
 
     lists: List[];
     activeList: string;
+    page: number = 1;
 
     constructor(private api: ApiService) { } 
 
@@ -32,5 +34,21 @@ export class ExploreComponent  {
         document.getElementById(tabName).style.display = "block";
         
         this.activeList = tabName;
+    }
+
+    loadmore(tabName: string) {
+
+        this.page += 1;
+        this.api.getPopular(this.page).subscribe((lists: Page) => {
+
+            for (var i = this.lists.length; i--;) {
+                if (this.lists[i].name === "Popular") {
+
+                    for (var s = lists.results.length; s--;) {                    
+                        this.lists[i].series.push(lists.results[s]);
+                    }
+                }
+            }
+        });
     }
 }

@@ -51,8 +51,11 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
     });
 });
 
-router.get("/series/popular", (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, (err, data) => {
+router.get("/series/popular/:page", (req, res, next) => {
+
+    let page = req.params.page;
+    
+    apiService.request(`tv/popular?language=en-us&page=${page}`, (err, data) => {
         if (err) {
             next(err);
         }
@@ -134,9 +137,6 @@ router.get("/series/search", (req, res, next) => {
         apiService.request(`search/tv?query=${query}`, (err, data) => {
             if (err) {
                 next(err);
-            }
-            else if (data === null) {
-                next(new Error("Our service is temporarily unavailable"));
             }
             else {
                 res.send(data);

@@ -51,4 +51,8 @@ export class ApiService {
     getLists() {
         return this.get(`api/list`);
     }
+
+    getPopular(page: number) {
+        return this.get(`api/series/popular/${page}`);
+    }
 }

@@ -72,3 +72,23 @@
     }
   }
 }
+
+.loadmore {
+  padding: 25px;
+  display: flex;
+  height: 250px;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover p {
+    font-size: 1.7em;
+  }
+
+  p {
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-size: 1.5em;
+    transition: .3s ease-in-out;
+  }
+}

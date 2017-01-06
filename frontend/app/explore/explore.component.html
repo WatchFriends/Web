@@ -9,7 +9,7 @@
 
     <div *ngFor="let list of lists; let i=index" > 
         <div class="row" [style.display]="list.name !== activeList ? 'none' : 'block'" [id]="list.name">
-            <div *ngFor="let item of list.series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
+            <section *ngFor="let item of list.series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
                 <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
                     <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
                 </a>
@@ -20,6 +20,9 @@
                         <span class="glyphicon glyphicon-list"></span>
                     </p>
                 </div>
+            </section>
+            <div class="loadmore" (click)="loadmore(list.name)">
+                <p>Load more <span class="glyphicon glyphicon-chevron-right"></span></p>
             </div>
         </div>
     </div>
