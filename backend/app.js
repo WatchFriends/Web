@@ -1,13 +1,15 @@
 const express = require('express'),
-      app = express(),
-      path = require('path'),
-      logger = require('morgan'),
-      passport = require('passport'),
-      session = require('express-session'),
-      bodyParser = require('body-parser'), //om request body te gebruiken
-      cookieParser = require('cookie-parser'),
-      methodOverride = require('method-override'), //om http verbs te gebruiken
-      config = require('./data/config.json');
+    app = express(),
+    path = require('path'),
+    logger = require('morgan'),
+    passport = require('passport'),
+    session = require('express-session'),
+    bodyParser = require('body-parser'), //om request body te gebruiken
+    cookieParser = require('cookie-parser'),
+    methodOverride = require('method-override'), //om http verbs te gebruiken
+    errors = require('./helpers/errors'),
+    ServerError = errors.ServerError,
+    config = require('./data/config.json');
 
 //middleware
 app.use(logger('dev'));
@@ -30,14 +32,12 @@ app.use(['/data', '/api'], [
     require('./controllers/series'),
     require('./controllers/list'),
     (req, res, next) => { //geen route beschikbaar
-        res.status(404);
-        res.json({ message: `Api route ${req.url} not found`, status: 404 });
+        next(new ServerError(`Api route ${req.url} not found`, errors.notFound));
     },
     (err, req, res, next) => {
-        if (typeof err == 'string') err = new Error(err);
-        err.status = err.status || 500;
-        res.status(err.status);
-        res.json({ message: err.message || 'Server error', status: err.status });
+        const status = err.status || 500;
+        res.status(status);
+        res.json({ message: err.message || err || 'Server error', status});
     }
 ]);
 

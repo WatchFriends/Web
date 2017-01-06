@@ -3,15 +3,14 @@ const apiService = require('./../data/apiService'),
     express = require('express'),
     router = express.Router(),
     request = require('request'),
+    errors = require('../helpers/errors'),
+    ServerError = errors.ServerError,
     followedSeries = require('../models/followedSeries');
 
 var callback = (res, next) =>
     (err, data) => {
         if (err) {
             return next(err);
-        }
-        if (data === null) {
-            //return next(new Error('Our service is temporarily unavailable'));
         }
         res.json(data);
     }
@@ -20,9 +19,7 @@ router.get('/series/search', (req, res, next) => {
     let query = req.query.query;
 
     if (!query) {
-        var err = new Error('The querystring parameter "query" is required');
-        err.status = 400;
-        return next(err);
+        return next(new ServerError('The querystring parameter "query" is required', errors.badRequest));
     }
     apiService.request(`search/tv?query=${query}`, callback(res, next));
 
@@ -51,9 +48,7 @@ router.put('/followed/:series', (req, res, next) => {
     if (req.body.following) data.following = req.body.following;
     if (req.body.rating) data.rating = req.body.rating;
     if (data === {}) {
-        var err = new Error('one of these body values are required: following, rating');
-        err.status = 400;
-        return next(err);
+        return next(new ServerError('At least one of these body values are required: following, rating', errors.badRequest));
     }
     dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, data, callback(res, next));
 });
