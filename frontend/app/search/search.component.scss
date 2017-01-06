@@ -21,12 +21,11 @@
   .container-profile{
     text-align: center;
     position: absolute;
-    top: 35px;
+    top: 30px;
     margin: 0 auto;
     width: 100%;
     left: 0;
     z-index: 1;
-    overflow: hidden;
 
     .pfImage {
       border: 5px solid $button-color-default;
@@ -34,14 +33,10 @@
       width: 30%;
       height: 30%;
 
-      transform: none;
-      transition: none;
-      filter: blur(0);
-
-      &:hover{
-        transform: none;
-        opacity: 0.9;
+      @media (max-width: $screen-xs){
+        width: 25%;
       }
+
     }
   }
 }
