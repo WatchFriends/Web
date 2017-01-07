@@ -7,29 +7,7 @@ const apiService = require("./../data/apiService"),
 
 
 
-router.get("/series/search", (req, res, next) => {
 
-    let query = req.query.query;
-
-
-
-
-if (!query) {
-    next(new Error('The querystring parameter "query" is required'));
-}
-else {
-    apiService.request(`search/tv?query=${query}`, (err, data) => {
-
-
-    if (err) {
-        next(err);
-    }
-    else {
-        res.send(data);
-    }
-});
-}
-});
 
 router.get("/series/:id", (req, res, next) => {
 
@@ -152,14 +130,15 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
 });
 
 
-router.get("/series/search/:query", (req, res, next) => {
+router.get("/series/search/:query/:page", (req, res, next) => {
 
-    apiService.request(`search/tv?query=${req.params.query}`, (err, data) => {
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
         if (err) {
             next(err);
         }
         else {
             res.send(data);
+
         }
     });
 });

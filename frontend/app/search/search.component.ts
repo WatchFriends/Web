@@ -1,10 +1,8 @@
-import {Component, ViewEncapsulation, OnInit, Input} from '@angular/core';
+import {Component, ViewEncapsulation, Input} from '@angular/core';
 import {ApiService} from '../services';
 import {Series} from '../model/series';
-import { ActivatedRoute, Params } from '@angular/router';
-
-
-
+import {ActivatedRoute, Params} from '@angular/router';
+import {Page} from '../model/page';
 
 @Component({
 
@@ -12,30 +10,42 @@ import { ActivatedRoute, Params } from '@angular/router';
     styleUrls: ['./search.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class SearchComponent implements OnInit{
+export class SearchComponent {
 
     seriesListDisplay: String = "block";
     usersDisplay: String = "none";
 
     @Input() series: Series[];
+    page = new Page(0, null, 0, 0);
+    query: string;
 
-    constructor( private route: ActivatedRoute, private api: ApiService){
-    }
-    ngOnInit() {
-       this.showResults();
+
+    constructor(private route: ActivatedRoute, private api: ApiService) {
+        route.params.subscribe(params => {
+            this.query = params['query'];
+            this.showResults();
+        });
+
     }
 
-    showResults(){
-        this.route.params
-            .map((params : Params) => {
-                var query = params['query'];
-                return query;
-            })
-            .subscribe(query => {
-                   this.api.search(query).subscribe((value: any) =>{
-                       this.series = value.results;
-            })});
-    };
+    showResults() {
+
+        this.api.search(this.query, 1).subscribe((value: Page) => {
+
+            this.series = value.results;
+            this.page = value;
+        })
+    }
+
+    loadmore() {
+        this.page.page += 1;
+        this.api.search(this.query, this.page.page +1).subscribe((value: Page) => {
+            for (let i = value.results.length; i--;) {
+
+                this.page.results.push(value.results[i]);
+            }
+        });
+    }
 
     users = [
         {
