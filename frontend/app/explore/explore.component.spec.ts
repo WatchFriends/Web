@@ -25,4 +25,8 @@ describe('ExploreComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('sould be 3 lists', () => {
+  //   expect(component).list.toBeEqual(3);
+  // });
 });

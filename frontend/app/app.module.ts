@@ -5,6 +5,8 @@ import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {DropdownModule, CollapseModule} from 'ng2-bootstrap';
+//services
+import { SeriesImagePipe } from './pipes/series-image.pipe';
 //components
 import {AppComponent} from './app.component';
 import {NavComponent} from './nav/nav.component';
@@ -32,7 +34,8 @@ import { ErrorComponent } from './error/error.component';
         ProfileComponent,
         SeriesDetailComponent,
         SeasonDetailComponent,
-        ErrorComponent
+        ErrorComponent,
+        SeriesImagePipe
     ],
     imports: [
         BrowserModule,
