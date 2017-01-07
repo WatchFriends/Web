@@ -17,35 +17,28 @@
       height: 40%;
       margin-top: 25px;
 
-<<<<<<< HEAD
-=======
       @media (max-width: $screen-md) {
         width: 50%;
         height: 50%;
       }
 
->>>>>>> refs/remotes/origin/master
+
       @media (max-width: $screen-sm) {
         width: 60%;
         height: 60%;
       }
-<<<<<<< HEAD
-=======
+
       @media (max-width: $screen-xs) {
         width: 100%;
         height: 100%;
       }
->>>>>>> refs/remotes/origin/master
     }
 
     .container {
       .wrap {
         position: absolute;
-<<<<<<< HEAD
-        top: 100px;
-=======
+
         top: 70px;
->>>>>>> refs/remotes/origin/master
         left: 0;
         right: 0;
         width: 75%;
@@ -74,8 +67,6 @@
             }
 
           }
-<<<<<<< HEAD
-=======
           h2{
             @media (max-width: $screen-sm) {
               font-size: 2em;
@@ -84,7 +75,6 @@
               font-size: 1.5em;
             }
           }
->>>>>>> refs/remotes/origin/master
           p {
             font-size: 20px;
             margin-top: 120px;
@@ -96,8 +86,6 @@
             @media (max-width: $screen-sm) {
               margin-top: 60px;
             }
-
-<<<<<<< HEAD
           }
 
           .search {
@@ -115,7 +103,6 @@
               width: 90%;
             }
 
-=======
             @media (max-width: $screen-xs) {
               font-size: 16px;
             }
@@ -139,16 +126,11 @@
               width: 90%;
             }
 
->>>>>>> refs/remotes/origin/master
             form input {
               &[type="text"] {
                 border: none;
                 outline: none;
-<<<<<<< HEAD
-                width: 69%;
-=======
                 width: 70%;
->>>>>>> refs/remotes/origin/master
                 padding: 8px;
                 font-size: 12px;
                 background: rgba(0, 0, 0, 0.45);
@@ -156,14 +138,6 @@
 
                 @media (max-width: $screen-md){
                   padding: 9px;
-<<<<<<< HEAD
-                  width: 60%;
-                }
-                @media (max-width: $screen-sm){
-                  padding: 9px 10px;
-                  font-size: 11px;
-                  width: 60%;
-=======
                   width: 71%;
                 }
                 @media (max-width: $screen-sm){
@@ -173,7 +147,6 @@
                 @media (max-width: $screen-xs){
                   font-size: 11px;
                   width: 70%;
->>>>>>> refs/remotes/origin/master
                 }
 
               }
@@ -183,11 +156,7 @@
                 cursor: pointer;
                 padding: 8px 20px;
                 font-size: 13px;
-<<<<<<< HEAD
-                width: 29%;
-=======
                 width: 28%;
->>>>>>> refs/remotes/origin/master
                 color: #EEE;
                 box-shadow: inset 1px -2px 8px rgba(0, 0, 0, 0.33);
                 margin: 0;
@@ -201,22 +170,15 @@
 
                 @media (max-width: $screen-md){
                   padding: 9px 15px;
-<<<<<<< HEAD
-=======
                   width: 27%;
->>>>>>> refs/remotes/origin/master
                 }
                 @media (max-width: $screen-sm){
                   padding: 9px 10px;
-                  font-size: 11px;
-<<<<<<< HEAD
-=======
                   width: 27%;
                 }
                 @media (max-width: $screen-xs){
                   padding: 9px 8px;
                   width: 27%;
->>>>>>> refs/remotes/origin/master
                 }
               }
             }
