@@ -13,7 +13,6 @@ export class ExploreComponent  {
 
     lists: List[];
     activeList: string;
-    page: number = 1;
 
     constructor(private api: ApiService) { } 
 
@@ -24,7 +23,7 @@ export class ExploreComponent  {
     loadLists() {
         this.api.getLists().subscribe((lists: List[]) => {
             this.lists = lists;
-            this.activeList = this.lists[0].name.toString();
+            this.activeList = this.lists[0].name;
         });
     }
 
@@ -38,17 +37,23 @@ export class ExploreComponent  {
 
     loadmore(url: string) {
 
-        this.page += 1;
-        this.api.getUrl(`api/${url}/${this.page}`).subscribe((lists: Page) => {
+        for (let i = this.lists.length; i--;) {
+            
+            let list: List = this.lists[i];
 
-            for (var i = this.lists.length; i--;) {
-                if (this.lists[i].apiRequest === url) {
+            console.log(`${list.name}: ${list.page} of ${list.totalPages}`);
 
-                    for (var s = lists.results.length; s--;) {                    
+            if (list.apiRequest === url) {
+
+                this.lists[i].page += 1;
+
+                this.api.getUrl(`api/${url}/${list.page}`).subscribe((lists: Page) => {
+
+                    for (let s = lists.results.length; s--;) {                    
                         this.lists[i].series.push(lists.results[s]);
                     }
-                }
+                }); 
             }
-        });
+        }
     }
 }
