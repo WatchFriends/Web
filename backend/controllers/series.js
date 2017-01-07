@@ -125,25 +125,7 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     })
 });
 
-<<<<<<< HEAD
-router.get("/series/search", (req, res, next) => {
 
-    let query = querystring.parse(req.baseUrl).query;
-
-    if (!query) {
-        next(new Error('The querystring parameter "query" is required'));
-    }
-    else {
-        apiService.request(`search/tv?query=${query}`, (err, data) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                res.send(data);
-            }
-        });
-    }
-=======
 router.get("/series/search/:query", (req, res, next) => {
 
     apiService.request(`search/tv?query=${req.params.query}`, (err, data) => {
@@ -154,7 +136,6 @@ router.get("/series/search/:query", (req, res, next) => {
             res.send(data);
         }
     });
->>>>>>> refs/remotes/origin/master
 });
 
 module.exports = router;
