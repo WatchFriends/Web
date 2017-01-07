@@ -1,4 +1,4 @@
-import {Episode} from "./episode";
+import { Episode } from './episode';
 export class Season {
     constructor(
         public id: number,
@@ -8,5 +8,5 @@ export class Season {
         public overview: string,
         public poster_path: string,
         public season_number: number
-    ){}
+    ) { }
 }

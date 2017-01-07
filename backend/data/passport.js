@@ -1,11 +1,11 @@
 const mongoose = require('mongoose'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy,
-      FacebookStrategy = require('passport-facebook').Strategy,
-      GoogleStrategy = require('passport-google-oauth').OAuth2Strategy, //of OAuthStrategy
-      BearerStrategy = require('passport-http-bearer').Strategy,
-      User = require('../models/user'),
-      AccessToken = require('../models/accessToken');
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    FacebookStrategy = require('passport-facebook').Strategy,
+    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy, //of OAuthStrategy
+    BearerStrategy = require('passport-http-bearer').Strategy,
+    User = require('../models/user'),
+    AccessToken = require('../models/accessToken');
 
 // http://passportjs.org/docs/profile
 let authify = (accessToken, refreshToken, profile, cb) => {
@@ -47,7 +47,11 @@ module.exports = config => {
     });
 
     //https://github.com/jaredhanson/passport-local
-    passport.use('register', new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, cb) =>
+    passport.use('register', new LocalStrategy({
+        usernameField: 'email',
+        passReqToCallback: true,
+        session: false
+    }, (req, email, password, cb) =>
         //todo first- and last name
         User.findOne({ email }, (err, user) => {
             if (err) return cb(err);
@@ -66,7 +70,10 @@ module.exports = config => {
             });
         })
     ));
-    passport.use('login', new LocalStrategy({ usernameField: 'email' }, (email, password, cb) => {
+    passport.use('login', new LocalStrategy({ 
+        usernameField: 'email', 
+        session: false
+    }, (email, password, cb) => {
         User.findOne({ email }, (err, user) => {
             if (err) return cb(err);
             if (!user) return cb(null, false, { message: 'Incorrect e-mail.' });

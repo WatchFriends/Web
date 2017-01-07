@@ -1,6 +1,6 @@
 export class ProductionCompany {
     constructor(
-        public  id: number,
+        public id: number,
         public name: string
-    ){}
+    ) { }
 }
