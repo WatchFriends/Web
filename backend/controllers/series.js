@@ -3,8 +3,7 @@ const apiService = require("./../data/apiService"),
     express = require("express"),
     router = express.Router(),
     request = require("request"),
-    followedSeries = require("../models/followedSeries"),
-    querystring = require('querystring');
+    followedSeries = require("../models/followedSeries");
 
 router.get("/series/:id", (req, res, next) => {
 
@@ -51,8 +50,11 @@ router.get("/series/:id/season/:season/episode/:episode", (req, res, next) => {
     });
 });
 
-router.get("/series/popular", (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, (err, data) => {
+router.get("/series/get/:page/:pageNumber", (req, res, next) => {
+
+    let page = req.params.pageNumber;
+    
+    apiService.request(`tv/${req.params.page}?language=en-us&page=${req.params.pageNumber}`, (err, data) => {
         if (err) {
             next(err);
         }
@@ -123,6 +125,7 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     })
 });
 
+<<<<<<< HEAD
 router.get("/series/search", (req, res, next) => {
 
     let query = querystring.parse(req.baseUrl).query;
@@ -140,6 +143,18 @@ router.get("/series/search", (req, res, next) => {
             }
         });
     }
+=======
+router.get("/series/search/:query", (req, res, next) => {
+
+    apiService.request(`search/tv?query=${req.params.query}`, (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.send(data);
+        }
+    });
+>>>>>>> refs/remotes/origin/master
 });
 
 module.exports = router;

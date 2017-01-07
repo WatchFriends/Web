@@ -10,15 +10,24 @@ router.get("/list", (req, res, next) => {
           FRIENDS = "Recommend by friends",
           TODAY_ON_TV = "Today on TV";
 
-    let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      },
-                     { name: FRIENDS,     series: [], apiRequest: null              },
-                     { name: TODAY_ON_TV, Series: [], apiRequest: "tv/airing_today" }],
+    let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      , page: 1, totalPages: 0 },
+                     // { name: FRIENDS,     series: [], apiRequest: ""                , page: 1, totalPages: 0 },
+                     { name: TODAY_ON_TV, series: [], apiRequest: "tv/airing_today" , page: 1, totalPages: 0 }],
 
     everythingDone = (err) => {
         if (err) {
             next(err);
         }
         else {
+
+            for (let i = ListsData.length; i--;) {
+                let url = ListsData[i].apiRequest;
+                
+                if (url != null) {
+                    ListsData[i].apiRequest = url.replace("tv", "series/get");
+                }
+            }
+
             res.send(ListsData);
         }
     },
@@ -43,6 +52,7 @@ router.get("/list", (req, res, next) => {
                         default:
                             // TODO: case "Today on TV": // check gebruikers favorite series.
                             listItem.series = data.results;
+                            listItem.totalPages = data.total_pages;
                             break;
                     }
                 }
