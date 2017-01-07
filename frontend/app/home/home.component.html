@@ -1,46 +1,33 @@
-<div class="imagecontainer" [style.height.px]="innerHeight">
-    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
-        <img class="img-home" [src]="imageWelcome" alt="WatchFriends Welcome!" />
-    </div>
-    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageWelcome+')'">
+    <div class="imagecontainer_content">
         <div class="container">
             <img class="logo" [src]="logoPng" alt="Logo Watchfriends" />
             <h1>Welcome to WatchFriends</h1>
             <p class="text-big">Track your series and follow your friends</p>
             <p class="text-big">
-
                 <a routerLink="/register" class="btn-signUp">Join WatchFriends</a>
                 <a routerLink="/login" class="btn-signUp">Already a member? Log in</a>
             </p>
-            <!--  <button class="btnLogin">Already a member? Log in</button> -->
         </div>
     </div>
 </div>
 
-
-<div class="imagecontainer" [style.height.px]="innerHeight">
-    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
-        <img class="img-home" [src]="imageSeries" alt="WatchFriends Welcome!" />
-    </div>
-    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageSeries+')'">
+    <div class="imagecontainer_content">
         <div class="container">
-
-
             <h2>Explore thousands of series &amp; keep track of them</h2>
-            <p class="text-big"><a routerLink="/register" class="btn-signUp">Explore new series</a></p>
-
-            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+            <p class="text-big"><a routerLink="/explore" class="btn-signUp">Explore new series</a></p>
         </div>
     </div>
 </div>
 
 <div class="contentcontainer" [style.height.px]="innerHeight">
     <div class="contentcontainer_row">
-        <div class="col-md-6 col-xs-12 col-sm-12">
+        <div class="col-md-6">
             <h2>Find &amp; track your series</h2>
             <p class="text-big">Track your series and see what episode is next.</p>
         </div>
-        <div class="col-md-6 col-xs-12 col-sm-12">
+        <div class="col-md-6">
 
             <div id="carousel-poster" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -86,40 +73,38 @@
     </div>
 </div>
 
-<div class="imagecontainer" [style.height.px]="innerHeight">
-    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
-        <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
-    </div>
-    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageFollowers+')'">
+    <div class="imagecontainer_content">
         <div class="container">
             <h2>Follow people and see their watchlist</h2>
-            <p class="text-big"><a routerLink="/register" class="btn-signUp">Expand your network</a></p>
-            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+            <p class="text-big">
+                <a routerLink="/register" class="btn-signUp">Expand your network</a>
+            </p>
         </div>
     </div>
 </div>
 
-<div class="imagecontainer" [style.height.px]="innerHeight">
-    <div class="imagecontainer_wrapper" [style.height.px]="innerHeight">
-        <img class="img-home" [src]="imageFollowers" alt="WatchFriends Welcome!" />
-    </div>
-    <div class="imagecontainer_content" [style.height.px]="innerHeight">
+<div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageFollowers+')'">
+    <div class="imagecontainer_content">
         <div class="container">
             <h2>Download the app for Android</h2>
-            <p class="text-big"><a routerLink="/download" class="btn-signUp" target="_blank">Download now</a></p>
-            <!--  <button class="btnLogin">Already a member? Log in</button> -->
+            <p class="text-big">
+                <a routerLink="/download" class="btn-signUp" target="_blank">Download now</a>
+            </p>
         </div>
     </div>
 </div>
 
 <div class="contentcontainer" [style.height.px]="innerHeight">
     <div class="contentcontainer_row">
-        <div class="col-md-6 col-xs-12 col-sm-12">
+        <div class="col-md-6">
             <h2>Download the app for Android</h2>
             <p class="text-big">Get a better experience.</p>
-            <a href="#" target="_blank" class="googleplay"><img [src]="playStoreButton" alt="Go to Google play store" /></a>
+            <a href="#" target="_blank" class="googleplay">
+                <img [src]="playStoreButton" alt="Go to Google play store" />
+            </a>
         </div>
-        <div class="col-md-6 col-xs-12 col-sm-12">
+        <div class="col-md-6">
             <img [src]="androidApp" alt="Track your series" class="apppicture" />
         </div>
     </div>
