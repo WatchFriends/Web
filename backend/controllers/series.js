@@ -151,9 +151,7 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     })
 });
 
-<<<<<<< HEAD
 
-=======
 router.get("/series/search/:query", (req, res, next) => {
 
     apiService.request(`search/tv?query=${req.params.query}`, (err, data) => {
@@ -165,6 +163,6 @@ router.get("/series/search/:query", (req, res, next) => {
         }
     });
 });
->>>>>>> refs/remotes/origin/master
+
 
 module.exports = router;
