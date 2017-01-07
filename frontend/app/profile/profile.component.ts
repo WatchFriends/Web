@@ -11,10 +11,10 @@ import { User, Series, FollowedSeries, Follower } from '../models';
 })
 export class ProfileComponent implements OnInit {
     user: User;
-    series = new Array<{ followed: FollowedSeries, series: Series }>();
+    series = new Array<FollowedSeries>();
     followers: Follower[];
-    myProfile: boolean;
     following: boolean;
+    id: string;
 
     backgroundProfile: string = 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
@@ -50,33 +50,24 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) { }
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) {
+        route.params.subscribe((params: Params) => {
+            this.id = params['id'];
 
-    ngOnInit() {
-        this.route.params
-            .map((params: Params): string => {
-                var id = params['id'];
-                this.myProfile = id === undefined;
-                return id;
-            })
-            .subscribe(id => {
-                if (this.myProfile) {
-                    this.user = this.userService;
-                }
-                else {
-                    this.api.getUser(id).subscribe(user => this.user = user, console.warn);
-                }
-                this.api.getFollowedSeries(id).subscribe(values =>
-                    values.forEach(followed =>
-                        this.api.getSeries(followed.seriesId).subscribe(series =>
-                            this.series.push({ followed, series })
-                        ))
-                );
-                this.api.getFollowers(id).subscribe(values => this.followers = values);
-            });
+            if (this.id) {
+                this.api.getUser(this.id).subscribe(user => this.user = user, console.warn);
+            }
+            else {
+                this.user = this.userService;
+            }
+            this.api.getFollowedSeries(this.id).subscribe(values => this.series = values);
+            this.api.getFollowers(this.id).subscribe(values => this.followers = values);
+        });
     }
 
-    updateFollowing(following: boolean){
+    ngOnInit() {  }
+
+    updateFollowing(following: boolean) {
         console.log(following);
         this.following = following;
         this.api.updateFollowing(this.user.id, following).subscribe();

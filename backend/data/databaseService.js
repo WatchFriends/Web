@@ -132,6 +132,19 @@ module.exports = {
     findFollowedSeries: (user, seriesId, cb) => 
         followedSeries.findOne({ user, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
 
+    addFollowedSeries: (user, series, cb) => 
+        followedSeries.findOne({ user, seriesId: series.id }, { following: 1, rating: 1 })
+            .exec((err, followed) => {
+                if(err){
+                    return cb(err);
+                }
+                cb (null, {
+                    series,
+                    following: followed ? followed.following : false,
+                    rating: followed ?  followed.rating : -1
+                });
+            }),
+
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
     updateWatchedEpisode,

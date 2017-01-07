@@ -1,7 +1,8 @@
+import { Series } from './series';
+
 export class FollowedSeries {
     constructor(
-        public user: string,
-        public seriesId: number,
+        public series: Series,
         public following: boolean,
         public rating: number,
     ) { }

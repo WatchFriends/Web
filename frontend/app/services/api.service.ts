@@ -41,7 +41,7 @@ export class ApiService {
         return this.get(`api/series/search?query=${query}`);
     }
 
-    achievements() {
+    getAchievements() {
         return this.http.get(`api/series/achievement`);
     }
 
@@ -50,7 +50,7 @@ export class ApiService {
     }
 
     getSeries(id: number) {
-        return this.get<Series>(`api/series/${id}`);
+        return this.get<FollowedSeries>(`api/series/${id}`);
     }
 
     getSeason(id: number, seasonId: number) {
@@ -69,7 +69,7 @@ export class ApiService {
         return this.put(`api/followed/${series}`, data);
     }
 
-    updateFollowing(user:string, following:boolean){
-        return this.put(`api/following/${user}`, {following});
+    updateFollowing(user: string, following: boolean) {
+        return this.put(`api/following/${user}`, { following });
     }
 }

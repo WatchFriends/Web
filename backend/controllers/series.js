@@ -5,15 +5,16 @@ const apiService = require('./../data/apiService'),
     request = require('request'),
     errors = require('../helpers/errors'),
     ServerError = errors.ServerError,
+    async = require('async'),
     followedSeries = require('../models/followedSeries');
 
-var callback = (res, next) =>
+const callback = (res, next) =>
     (err, data) => {
         if (err) {
             return next(err);
         }
         res.json(data);
-    }
+    };
 
 router.get('/series/search', (req, res, next) => {
     let query = req.query.query;
@@ -40,9 +41,28 @@ router.get('/series/:id/season/:season/episode/:episode', (req, res, next) => {
 });
 
 router.get('/followed', (req, res, next) => {
-    //user in querystring voor andere user, niets voor ingelogde user.
-    dbService.getFollowedSeries(req.params.user || req.user._id, callback(res, next));
+    //user in querystring voor andere user, niets voor ingelogde user.    
+    dbService.getFollowedSeries(req.params.user || req.user._id, (err, data) => {
+        if(err) return next(err);
+        let results = [];
+        // voor ieder followed object een series opvragen
+        async.each(data, (item, cb) => {
+            apiService.request(`tv/${item.seriesId}?append_to_response=images,similar`, (err, series) => {
+                if(err) return cb(err);
+                results.push({
+                    series,
+                    following: item.following,
+                    rating: item.rating
+                });
+                cb();
+            });
+        }, err => {
+            if(err) return next(err);
+            res.json(results);
+        });
+    });
 });
+
 router.put('/followed/:series', (req, res, next) => {
     var data = {};
     if (req.body.following) data.following = req.body.following;
@@ -52,13 +72,12 @@ router.put('/followed/:series', (req, res, next) => {
     }
     dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, data, callback(res, next));
 });
-router.get('/followed/:series', (req, res, next) => {
-    dbService.findFollowedSeries(req.params.user || req.user._id, req.params.series, callback(res, next));
-});
-
 
 router.get('/series/:id', (req, res, next) => {
-    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, callback(res, next));
+    apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, series) => {
+        if(err) return next(err);
+        dbService.addFollowedSeries(req.user.id, series, callback(res, next));
+    });
 });
 
 module.exports = router;
