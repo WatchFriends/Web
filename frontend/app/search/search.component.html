@@ -3,42 +3,51 @@
         <nav class="submenu">
             <div class="col-md-6">
                 <a data-hover="Series" class="submenu-item active" (click)="changeContent(0)">Series <span
-                        class="shadow-submenu_counter">{{this.series.length}}</span></a>
+                        class="shadow-submenu_counter">{{totalResults}}</span></a>
             </div>
             <div class="col-md-6">
                 <a data-hover="Users" class="submenu-item" (click)="changeContent(1)">Users <span
-                        class="shadow-submenu_counter">{{this.users.length}}</span></a>
+                        class="shadow-submenu_counter">{{users?.length || 0}}</span></a>
             </div>
         </nav>
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <div *ngIf="series.length == 0">
+        <div *ngIf="series.length === 0">
             <p class="h4">No series where found matching your description.</p>
         </div>
-        <div *ngIf="series.length !=0">
-            <div *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
-                <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.image || imageNotFound" [alt]="item.title" class="image-responsive"/>
+        <div *ngIf="series.length > 0">
+            <section *ngFor="let fs of series; let i=index;" class="seriescontainer" [class.seriescontainer-big]="i<2">
+                <a [routerLink]="['/series', fs.series.id]" class="seriescontainer_wrapper">
+                    <img [src]="fs.series.backdrop_path | seriesImage" [alt]="fs.series.name" class="image-responsive" />
                 </a>
                 <div class="seriescontainer_content">
-                    <h3 [class.big-title]>{{item.title}}</h3>
-                    <!-- <p>
+                    <h3>{{fs.series.name}}<span *ngIf="fs.series.name !== fs.series.original_name"> ({{fs.series.original_name}})</span></h3>
+                    <p>
                        <span class="glyphicon glyphicon-eye-open"></span>
                        <span class="glyphicon glyphicon-list"></span>
-                     Voegen we hier deze icoontjes toe om te markeren als gezien en toevoegen aan watchlist of niet?
-                     </p>
-                     -->
+                     </p>                     
                 </div>
-            </div>
+            </section>
         </div>
+        <section *ngIf="page !== totalPages" class="seriescontainer">
+            <a (click)="loadmore()" class="seriescontainer_wrapper">
+                <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
+            </a>
+            <div class="seriescontainer_content">
+                <h3>Load more</h3>
+                <p><span class="glyphicon glyphicon-chevron-right"></span></p>
+            </div>
+        </section>
     </div>
+
+
     <div class="row" [style.display]="usersDisplay">
-        <div *ngIf="users.length == 0">
+        <div *ngIf="!users">
             <p class="h4">No users where found matching your description.</p>
         </div>
-        <div *ngIf="users.length !=0">
-            <div *ngFor="let item of users; let i=index" class="seriescontainer borderContainer">
+        <div *ngIf="users">
+            <div *ngFor="let item of users; let i=index" class="seriescontainer">
                 <a [routerLink]="['/profile', item.id]" class="seriescontainer_wrapper">
                     <img [src]="item.bgimage" [alt]="item.name" class="image-responsive bgImage"/>
                     <div class="container-profile">

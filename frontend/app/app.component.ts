@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'wf-app',
+  selector: 'app-watchfriends',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

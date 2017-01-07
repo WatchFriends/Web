@@ -1,4 +1,6 @@
 import { Component} from '@angular/core';
+import { ApiService } from '../services';
+import { Page, List, Series } from '../models';
 
 @Component({
     templateUrl: './explore.component.html',
@@ -6,18 +8,49 @@ import { Component} from '@angular/core';
 })
 export class ExploreComponent  {
 
-    series = [
-        { image: "http://fanaru.com/suits/image/6805-suits-suits.jpg", title: "Suits", id:0},
-        { image: "http://www.araspot.com/wp-content/uploads/2016/01/second-chance-season-1-wallpaper-desktop-background-j0md1g8q0w.jpg", title: "Chance", id:1 },
-        { image: "http://wallpapersdsc.net/wp-content/uploads/2015/11/286.jpg", title: "The Flash", id:2 },
-        { image: "http://hdwallpaperbackgrounds.net/wp-content/uploads/2015/10/Game-Of-Thrones-Emilia-Clarke-With-Dragon-on-Shoulder-Wallpaper-1920x1080.jpg", title: "Game of Thrones", id:0 },
-        { image: "http://wallpapercave.com/wp/DXq0duZ.jpg", title: "Hannibal", id:0 },
-        { image: "http://wallpapercave.com/wp/U4sY2La.jpg", title: "The walking dead", id:0 },
-        { image: "https://wallpaperscraft.com/image/dexter_michael_c_hall_polyethylene_99093_1920x1080.jpg", title: "Dexter", id:0 },
-        { image: "http://www.thewallpapers.org/photo/77346/Silicon-Valley-002.jpg", title: "Silicon valley", id:0 },
-        { image: "http://www.pixelstalk.net/wp-content/uploads/2016/07/The-100-TV-Series-Wallpapers-HD.jpg", title: "The 100", id:0 },
-        { image: "http://eskipaper.com/images/breaking-bad-wallpaper-3.jpg", title: "Breaking Bad", id:0 },
-    ];
-    //"http://www.desktopimages.org/pictures/2014/0309/1/orig_60277.jpg", "http://www.araspot.com/wp-content/uploads/2016/01/second-chance-season-1-wallpaper-desktop-background-j0md1g8q0w.jpg"];
-    //index: number = 0;
+    lists: List[];
+    activeList: string;
+
+    constructor(private api: ApiService) { } 
+
+    ngOnInit() {
+        this.loadLists();
+    }
+
+    loadLists() {
+        this.api.getLists().subscribe((lists: List[]) => {
+            this.lists = lists;
+            this.activeList = this.lists[0].name;
+        });
+    }
+
+    changeTab(tabName: string) {
+
+        document.getElementById(this.activeList).style.display = "none";
+        document.getElementById(tabName).style.display = "block";
+        
+        this.activeList = tabName;
+    }
+
+    loadmore(url: string) {
+
+        for (let i = this.lists.length; i--;) {
+            
+            let list: List = this.lists[i];
+
+            console.log(`${list.name}: ${list.page} of ${list.totalPages}`);
+
+            if (list.apiRequest === url) {
+
+                this.lists[i].page += 1;
+
+                this.api.get<Page>(`api/${url}/${list.page}`).subscribe((lists: Page) => {
+
+                    for (let s = lists.results.length; s--;) {                    
+                        this.lists[i].series.push(lists.results[s]);
+                    }
+                }); 
+            }
+        }
+    }
 }
