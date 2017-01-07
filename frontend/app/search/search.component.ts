@@ -1,11 +1,9 @@
-import {Component, ViewEncapsulation, Input} from '@angular/core';
-import {ApiService} from '../services';
-import {Series} from '../model/series';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Page} from '../model/page';
+import { Component, ViewEncapsulation, Input } from '@angular/core';
+import { ApiService } from '../services';
+import { Series, Page, FollowedSeries } from '../models';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
-
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss'],
     encapsulation: ViewEncapsulation.None
@@ -15,33 +13,28 @@ export class SearchComponent {
     seriesListDisplay: String = 'block';
     usersDisplay: String = 'none';
 
-    @Input() series: Series[];
-    page = new Page(0, null, 0, 0);
+    @Input() series: FollowedSeries[];
+    page = 0;
+    totalPages = 1;
+    totalResults = 0;
     query: string;
-
 
     constructor(private route: ActivatedRoute, private api: ApiService) {
         route.params.subscribe(params => {
             this.query = params['query'];
-            this.showResults();
+            this.series = new Array<FollowedSeries>();
+            this.loadmore();
         });
-    }
-
-    showResults() {
-        this.api.search(this.query, 1).subscribe((value: Page) => {
-            this.series = value.results;
-            this.page = value;
-        })
     }
 
     loadmore() {
-        this.page.page += 1;
-        this.api.search(this.query, this.page.page +1).subscribe((value: Page) => {
-            for (let i = value.results.length; i--;) {
-
-                this.page.results.push(value.results[i]);
-            }
-        });
+        if (this.page < this.totalPages) {
+            this.api.search(this.query, ++this.page).subscribe(value => {
+                this.series = this.series.concat(value.results);
+                this.totalPages = value.total_pages;
+                this.totalResults = value.total_results;
+            });
+        }
     }
 
     users = [

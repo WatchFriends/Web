@@ -37,7 +37,7 @@ export class ApiService {
     }
 
     // routes
-    search(query) {
+    search(query, page) {
         return this.get<Page>(`api/series/search/${query}/${page}`);
     }
 

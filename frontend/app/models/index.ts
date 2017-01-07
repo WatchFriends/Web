@@ -8,3 +8,5 @@ export * from './series';
 export * from './user';
 export * from './followed-series';
 export * from './follower';
+export * from './page';
+export * from './list';

@@ -24,15 +24,10 @@ const pagesCallback = (req, res, next) =>
             page.results = series;
             res.json(page)
         });
-    }
+    };
 
-router.get('/series/search', (req, res, next) => {
-    let query = req.query.query;
-
-    if (!query) {
-        return next(new ServerError('The querystring parameter "query" is required', errors.badRequest));
-    }
-    apiService.request(`search/tv?query=${query}`, pagesCallback(req, res, next));
+router.get('/series/search/:query/:page', (req, res, next) => {
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, pagesCallback(req, res, next));
 });
 
 router.get('/series/popular', (req, res, next) => {
@@ -42,6 +37,7 @@ router.get('/series/popular', (req, res, next) => {
 
 router.get('/series/:id/season/:season', (req, res, next) => {
     apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, callback(res, next));
+});
 
 router.get("/series/get/:page/:pageNumber", (req, res, next) => {
 
