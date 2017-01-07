@@ -22,10 +22,12 @@
         height: 50%;
       }
 
+
       @media (max-width: $screen-sm) {
         width: 60%;
         height: 60%;
       }
+
       @media (max-width: $screen-xs) {
         width: 100%;
         height: 100%;
@@ -35,6 +37,7 @@
     .container {
       .wrap {
         position: absolute;
+
         top: 70px;
         left: 0;
         right: 0;
@@ -82,6 +85,22 @@
             }
             @media (max-width: $screen-sm) {
               margin-top: 60px;
+            }
+          }
+
+          .search {
+            border: 1px solid rgba(173, 173, 173, 0.79);
+            width: 45%;
+            background: rgba(156, 156, 156, 0.12);
+            box-shadow: inset 0px -1px 5px rgba(94, 94, 94, 0.19);
+            border-radius: 5px;
+            display: block;
+            margin: 15px auto;
+            @media (max-width: $screen-md){
+              width: 80%;
+            }
+            @media (max-width: $screen-sm){
+              width: 90%;
             }
 
             @media (max-width: $screen-xs) {
@@ -155,7 +174,6 @@
                 }
                 @media (max-width: $screen-sm){
                   padding: 9px 10px;
-                  font-size: 11px;
                   width: 27%;
                 }
                 @media (max-width: $screen-xs){

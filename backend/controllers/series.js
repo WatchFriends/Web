@@ -5,6 +5,10 @@ const apiService = require("./../data/apiService"),
     request = require("request"),
     followedSeries = require("../models/followedSeries");
 
+
+
+
+
 router.get("/series/:id", (req, res, next) => {
 
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, data) => {
@@ -125,16 +129,19 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     })
 });
 
-router.get("/series/search/:query", (req, res, next) => {
 
-    apiService.request(`search/tv?query=${req.params.query}`, (err, data) => {
+router.get("/series/search/:query/:page", (req, res, next) => {
+
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
         if (err) {
             next(err);
         }
         else {
             res.send(data);
+
         }
     });
 });
+
 
 module.exports = router;

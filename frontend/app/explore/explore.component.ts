@@ -3,7 +3,6 @@ import { ApiService } from '../services';
 import { Series } from '../model/series';
 import { Page } from '../model/page';
 import { List } from '../model/list';
-import { SeriesImagePipe } from '../pipes/series-image.pipe';
 
 @Component({
     templateUrl: './explore.component.html',

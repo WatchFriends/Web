@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationStart, NavigationEnd, Router } from '@angular/router';
-import { UserService, ApiService } from '../services'
+import { UserService, ApiService } from '../services';
+
 
 @Component({
   selector: 'app-nav',
@@ -8,11 +9,17 @@ import { UserService, ApiService } from '../services'
   styleUrls: ['./nav.component.scss']
 })
 export class NavComponent implements OnInit {
+
   
   loading = false;
 
-  constructor(router: Router, public user: UserService, public api: ApiService) {
+  constructor(public router: Router, public user: UserService, public api: ApiService) {
     router.events.subscribe(this.routerEvent);
+
+
+  }
+  ngOnInit() {
+
   }
 
   routerEvent(event) {
@@ -22,16 +29,13 @@ export class NavComponent implements OnInit {
       this.loading = true;
   }
 
-  ngOnInit() {
+  goToSearch(query: string){
+    this.router.navigate(['./search',query])
   }
+
 
   errorMessage: any;
 
-  loadPhotos(){
 
-    // service aanmaken
-    this.errorMessage = console.log("hello");
-
-  }
 
 }
