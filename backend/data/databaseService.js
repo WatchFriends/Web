@@ -2,6 +2,7 @@ const config = require("./config.json"),
     mongoose = require('mongoose'),
     achievement = require("./../models/achievement"),
     users = require("./../models/user"),
+    async = require('async'),
     followedSeries = require('./../models/followedSeries'),
     watchedEpisode = require('./../models/watchedEpisode');
 
@@ -118,6 +119,18 @@ let existsWatchedEpisode = (body, cb) => {
     });
 };*/
 
+function addFollowedSeries  (user, series, cb) {
+    followedSeries.findOne({ user, seriesId: series.id }, { following: 1, rating: 1 })
+        .exec((err, followed) => {
+            if(err) return cb(err);
+            cb (null, {
+                series,
+                following: followed ? followed.following : false,
+                rating: followed ?  followed.rating : -1
+            });
+        });
+}
+
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
@@ -132,18 +145,21 @@ module.exports = {
     findFollowedSeries: (user, seriesId, cb) => 
         followedSeries.findOne({ user, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
 
-    addFollowedSeries: (user, series, cb) => 
-        followedSeries.findOne({ user, seriesId: series.id }, { following: 1, rating: 1 })
-            .exec((err, followed) => {
-                if(err){
-                    return cb(err);
-                }
-                cb (null, {
-                    series,
-                    following: followed ? followed.following : false,
-                    rating: followed ?  followed.rating : -1
-                });
-            }),
+    addFollowedSeries,
+
+    addFollowedSeriesList: (user, seriesList, cb) => {
+        var results = [];
+        async.each(seriesList, (item, cb) => 
+            addFollowedSeries(user, item, (err, series) => {
+                if(err) return cb(err);
+                results.push(series);
+                cb();
+            }), err => {
+                if(err) return cb(err);
+                cb(null, results);
+            });
+    },
+
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,

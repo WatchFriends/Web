@@ -16,20 +16,28 @@ const callback = (res, next) =>
         res.json(data);
     };
 
+const pagesCallback = (req, res, next) => 
+    (err, page) => {
+        if(err) return next(err);
+        dbService.addFollowedSeriesList(req.user._id, page.results, (err, series) => {
+            if(err) return next(err);
+            page.results = series;
+            res.json(page)
+        });
+    }
+
 router.get('/series/search', (req, res, next) => {
     let query = req.query.query;
 
     if (!query) {
         return next(new ServerError('The querystring parameter "query" is required', errors.badRequest));
     }
-    apiService.request(`search/tv?query=${query}`, callback(res, next));
-
+    apiService.request(`search/tv?query=${query}`, pagesCallback(req, res, next));
 });
 
 router.get('/series/popular', (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, callback(res, next));
+    apiService.request(`tv/popular?language=en-us`, pagesCallback(req, res, next));
 });
-
 
 router.get('/series/:id/season/:season', (req, res, next) => {
     apiService.request(`tv/${req.params.id}/season/${req.params.season}?append_to_response=images,similar`, callback(res, next));
