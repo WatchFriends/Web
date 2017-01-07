@@ -16,13 +16,13 @@
                 <li><a href="#"><span class="glyphicon glyphicon-pushpin"></span> Following</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> To Watch</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" id="searchForm">
                 <div class="form-group">
                     <label for="searchinputfield" class="sr-only">Search</label>
                     <div class="input-group">
-                        <input id="searchinputfield" type="text" class="form-control" placeholder="Search" />
+                        <input id="searchinputfield" #searchinputfield type="text" class="form-control" placeholder="Search" />
                         <span class="input-group-btn">
-                            <button (click)="loadPhotos()" type="submit" routerLink="/search" class="btn btn-default">
+                            <button (click)="goToSearch(searchinputfield.value)" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
                         </button>
                         </span>

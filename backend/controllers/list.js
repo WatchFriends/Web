@@ -6,8 +6,8 @@ const apiService = require("./../data/apiService"),
 
 router.get("/list", (req, res, next) => {
 
-    const POPULAR = "Popular", 
-          FRIENDS = "Recommend by friends", 
+    const POPULAR = "Popular",
+          FRIENDS = "Recommend by friends",
           TODAY_ON_TV = "Today on TV";
 
     let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      , page: 1, totalPages: 0 },
@@ -36,7 +36,7 @@ router.get("/list", (req, res, next) => {
 
         if (listItem.apiRequest !== null) {
             let requested = (err, data) => {
-                
+
                 if (err) {
                     next(err);
                 }
@@ -49,7 +49,7 @@ router.get("/list", (req, res, next) => {
                         //     listItem.series = data.results.random(5);
                         //     break;
 
-                        default: 
+                        default:
                             // TODO: case "Today on TV": // check gebruikers favorite series.
                             listItem.series = data.results;
                             listItem.totalPages = data.total_pages;

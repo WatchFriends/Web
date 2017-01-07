@@ -28,8 +28,8 @@ export class ApiService {
     }
 
     //routes
-    search(query) {
-        return this.get(`api/series/search?query=${query}`);
+    search(query: string, page: number) {
+        return this.get(`api/series/search/${query}/${page}`);
     }
 
     achievements() {
