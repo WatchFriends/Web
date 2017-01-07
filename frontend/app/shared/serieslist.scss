@@ -5,6 +5,7 @@
   overflow: hidden;
   float: left;
   position: relative;
+  cursor: pointer;
 
   @media (min-width: $screen-sm) {
     width: 50%;
