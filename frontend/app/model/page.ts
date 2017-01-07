@@ -1,4 +1,4 @@
-import { Series } from "./Series";
+import { Series } from "./series";
 
 export class Page {
     constructor(
