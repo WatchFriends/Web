@@ -6,6 +6,32 @@ const apiService = require("./../data/apiService"),
     followedSeries = require("../models/followedSeries"),
     querystring = require('querystring');
 
+
+
+router.get("/series/search", (req, res, next) => {
+
+    let query = req.query.query;
+
+    console.log(query);
+
+
+if (!query) {
+    next(new Error('The querystring parameter "query" is required'));
+}
+else {
+    apiService.request(`search/tv?query=${query}`, (err, data) => {
+        console.log(err);
+
+    if (err) {
+        next(err);
+    }
+    else {
+        res.send(data);
+    }
+});
+}
+});
+
 router.get("/series/:id", (req, res, next) => {
 
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, data) => {
@@ -123,23 +149,6 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
     })
 });
 
-router.get("/series/search", (req, res, next) => {
 
-    let query = querystring.parse(req.baseUrl).query;
-
-    if (!query) {
-        next(new Error('The querystring parameter "query" is required'));
-    }
-    else {
-        apiService.request(`search/tv?query=${query}`, (err, data) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                res.send(data);
-            }
-        });
-    }
-});
 
 module.exports = router;

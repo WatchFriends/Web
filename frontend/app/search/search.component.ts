@@ -1,8 +1,9 @@
-import {Component, ViewEncapsulation, Inject} from '@angular/core';
+import {Component, ViewEncapsulation, OnInit, Input} from '@angular/core';
 import {ApiService} from '../services';
 import {Series} from '../model/series';
-import {SeriesImagePipe} from '../pipes/series-image.pipe';
-import {DOCUMENT} from '@angular/platform-browser'
+import { ActivatedRoute, Params } from '@angular/router';
+
+
 
 
 @Component({
@@ -11,27 +12,32 @@ import {DOCUMENT} from '@angular/platform-browser'
     styleUrls: ['./search.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit{
 
     seriesListDisplay: String = "block";
     usersDisplay: String = "none";
 
-    series: Series[];
+    @Input() series: Series[];
 
-    constructor(@Inject(DOCUMENT) private document: any, private api: ApiService) {
-
+    constructor( private route: ActivatedRoute, private api: ApiService){
     }
-
     ngOnInit() {
-        let queryString = this.document.location.href.split("?")[1];
-        let value = queryString.split("=")[1];
-
-       this.api.search(value).subscribe((result: any)=>{
-
-           this.series = result.results;
-           console.log(this.series);
-       });
+       this.showResults();
     }
+
+    showResults(){
+        this.route.params
+            .map((params : Params) => {
+                var query = params['query'];
+                return query;
+            })
+            .subscribe(query => {
+                   this.api.search(query).subscribe((value: any) =>{
+                       console.log(value);
+                       this.series = value.results;
+                       console.log(this.series);
+            })});
+    };
 
     users = [
         {
@@ -108,9 +114,7 @@ export class SearchComponent {
         },
     ];
 
-    //indien image niet gevonden wordt op tmdb API, deze gebruiken
 
-    imageNotFound: string = "../../assets/Serie_Not_Found.png";
     userNotFound: string = "https://bitslog.files.wordpress.com/2013/01/unknown-person1.gif";
 
 

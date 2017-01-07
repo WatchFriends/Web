@@ -10,7 +10,6 @@ import { UserService, ApiService } from '../services';
 })
 export class NavComponent implements OnInit {
 
-
   
   loading = false;
 
@@ -19,28 +18,32 @@ export class NavComponent implements OnInit {
 
 
   }
+  ngOnInit() {
+
+  }
 
   routerEvent(event) {
+    console.log(event);
     if (event instanceof NavigationStart)
       this.loading = true;
     else if (event instanceof NavigationEnd)
       this.loading = true;
   }
 
-  ngOnInit() {
+  goToSearch(query: string){
+    this.router.navigate(['./search',query])
   }
+
 
   errorMessage: any;
 
-  makeUrl(){
+ /* makeUrl(){
 
 
     let searchValue = (<HTMLInputElement>document.getElementById("searchinputfield")).value;
-    let searchForm =  <HTMLInputElement>document.getElementById("searchForm");
-
 
     this.router.navigateByUrl(`/search?query=${searchValue}`);
 
-  }
+  }*/
 
 }
