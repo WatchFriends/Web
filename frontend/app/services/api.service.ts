@@ -47,4 +47,8 @@ export class ApiService {
     getSeason(id: number, seasonId: number) {
         return this.get(`api/series/${id}/season/${seasonId}`);
     }
+
+    getLists() {
+        return this.get(`api/list`);
+    }
 }
