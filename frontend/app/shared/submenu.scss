@@ -11,9 +11,6 @@
     flex-direction: column;
   }
 
-  @media (max-width: $screen-sm) {
-    font-size: 0.6em;
-  }
 
   .submenu-item_active,
   .active {
@@ -22,6 +19,15 @@
 
 
   a {
+
+    @media (max-width: $screen-md){
+      font-size: 1.4em;
+    }
+
+    @media (max-width: $screen-sm) {
+      font-size: 0.75em;
+    }
+
 
     &:not(.submenu-item_active),
     &:not(.active) {

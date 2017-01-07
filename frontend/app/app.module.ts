@@ -48,7 +48,7 @@ import { ErrorComponent } from './error/error.component';
             { path: 'register', component: RegisterComponent },
             { path: 'explore', component: ExploreComponent },
             { path: 'profile', component: ProfileComponent },
-            { path: 'search', component: SearchComponent },
+            { path: 'search/:query', component: SearchComponent },
             { path: 'error', component: ErrorComponent },
             { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, // userprofile
             { path: 'profile/:id', component: ProfileComponent }, // friend profile
