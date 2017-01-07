@@ -23,7 +23,6 @@ export class NavComponent implements OnInit {
   }
 
   routerEvent(event) {
-    console.log(event);
     if (event instanceof NavigationStart)
       this.loading = true;
     else if (event instanceof NavigationEnd)
@@ -37,13 +36,6 @@ export class NavComponent implements OnInit {
 
   errorMessage: any;
 
- /* makeUrl(){
 
-
-    let searchValue = (<HTMLInputElement>document.getElementById("searchinputfield")).value;
-
-    this.router.navigateByUrl(`/search?query=${searchValue}`);
-
-  }*/
 
 }

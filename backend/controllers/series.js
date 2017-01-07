@@ -12,7 +12,7 @@ router.get("/series/search", (req, res, next) => {
 
     let query = req.query.query;
 
-    console.log(query);
+
 
 
 if (!query) {
@@ -20,7 +20,7 @@ if (!query) {
 }
 else {
     apiService.request(`search/tv?query=${query}`, (err, data) => {
-        console.log(err);
+
 
     if (err) {
         next(err);

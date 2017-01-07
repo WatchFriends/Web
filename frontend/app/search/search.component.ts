@@ -33,9 +33,7 @@ export class SearchComponent implements OnInit{
             })
             .subscribe(query => {
                    this.api.search(query).subscribe((value: any) =>{
-                       console.log(value);
                        this.series = value.results;
-                       console.log(this.series);
             })});
     };
 
