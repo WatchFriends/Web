@@ -3,21 +3,21 @@
         <nav class="submenu">
             <div class="col-md-6">
                 <a data-hover="Series" class="submenu-item active" (click)="changeContent(0)">Series <span
-                        class="shadow-submenu_counter">{{this.series.length}}</span></a>
+                        class="shadow-submenu_counter">{{page.total_results}}</span></a>
             </div>
             <div class="col-md-6">
                 <a data-hover="Users" class="submenu-item" (click)="changeContent(1)">Users <span
-                        class="shadow-submenu_counter">{{this.users.length}}</span></a>
+                        class="shadow-submenu_counter">{{users?.length || 0}}</span></a>
             </div>
         </nav>
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <div *ngIf="series.length == 0">
+        <div *ngIf="!series">
             <p class="h4">No series where found matching your description.</p>
         </div>
-        <div *ngIf="series.length !=0">
-            <div *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
+        <div *ngIf="series">
+            <section *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
                 <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
                     <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
                 </a>
@@ -30,14 +30,25 @@
                      </p>
                      -->
                 </div>
-            </div>
+            </section>
         </div>
+        <section class="seriescontainer" [style.display]="page.page === page.total_pages ? 'none' : 'block'">
+            <a (click)="loadmore()" class="seriescontainer_wrapper">
+                <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
+            </a>
+            <div class="seriescontainer_content">
+                <h3>Load more</h3>
+                <p><span class="glyphicon glyphicon-chevron-right"></span></p>
+            </div>
+        </section>
     </div>
+
+
     <div class="row" [style.display]="usersDisplay">
-        <div *ngIf="users.length == 0">
+        <div *ngIf="!users">
             <p class="h4">No users where found matching your description.</p>
         </div>
-        <div *ngIf="users.length !=0">
+        <div *ngIf="users">
             <div *ngFor="let item of users; let i=index" class="seriescontainer">
                 <a [routerLink]="['/profile', item.id]" class="seriescontainer_wrapper">
                     <img [src]="item.bgimage" [alt]="item.name" class="image-responsive bgImage"/>

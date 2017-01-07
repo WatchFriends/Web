@@ -10,13 +10,15 @@ import { UserService, ApiService } from '../services';
 })
 export class NavComponent implements OnInit {
 
-
   
   loading = false;
 
   constructor(public router: Router, public user: UserService, public api: ApiService) {
     router.events.subscribe(this.routerEvent);
 
+
+  }
+  ngOnInit() {
 
   }
 
@@ -27,20 +29,13 @@ export class NavComponent implements OnInit {
       this.loading = true;
   }
 
-  ngOnInit() {
+  goToSearch(query: string){
+    this.router.navigate(['./search',query])
   }
+
 
   errorMessage: any;
 
-  makeUrl(){
 
-
-    let searchValue = (<HTMLInputElement>document.getElementById("searchinputfield")).value;
-    let searchForm =  <HTMLInputElement>document.getElementById("searchForm");
-
-
-    this.router.navigateByUrl(`/search?query=${searchValue}`);
-
-  }
 
 }

@@ -1,9 +1,8 @@
-import {Component, ViewEncapsulation, Inject} from '@angular/core';
+import {Component, ViewEncapsulation, Input} from '@angular/core';
 import {ApiService} from '../services';
 import {Series} from '../model/series';
-import {SeriesImagePipe} from '../pipes/series-image.pipe';
-import {DOCUMENT} from '@angular/platform-browser'
-
+import {ActivatedRoute, Params} from '@angular/router';
+import {Page} from '../model/page';
 
 @Component({
 
@@ -16,21 +15,36 @@ export class SearchComponent {
     seriesListDisplay: String = "block";
     usersDisplay: String = "none";
 
-    series: Series[];
+    @Input() series: Series[];
+    page = new Page(0, null, 0, 0);
+    query: string;
 
-    constructor(@Inject(DOCUMENT) private document: any, private api: ApiService) {
+
+    constructor(private route: ActivatedRoute, private api: ApiService) {
+        route.params.subscribe(params => {
+            this.query = params['query'];
+            this.showResults();
+        });
 
     }
 
-    ngOnInit() {
-        let queryString = this.document.location.href.split("?")[1];
-        let value = queryString.split("=")[1];
+    showResults() {
 
-       this.api.search(value).subscribe((result: any)=>{
+        this.api.search(this.query, 1).subscribe((value: Page) => {
 
-           this.series = result.results;
-           console.log(this.series);
-       });
+            this.series = value.results;
+            this.page = value;
+        })
+    }
+
+    loadmore() {
+        this.page.page += 1;
+        this.api.search(this.query, this.page.page +1).subscribe((value: Page) => {
+            for (let i = value.results.length; i--;) {
+
+                this.page.results.push(value.results[i]);
+            }
+        });
     }
 
     users = [
@@ -108,9 +122,7 @@ export class SearchComponent {
         },
     ];
 
-    //indien image niet gevonden wordt op tmdb API, deze gebruiken
 
-    imageNotFound: string = "../../assets/Serie_Not_Found.png";
     userNotFound: string = "https://bitslog.files.wordpress.com/2013/01/unknown-person1.gif";
 
 
