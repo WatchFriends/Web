@@ -5,7 +5,6 @@ const express = require('express'),
     passport = require('passport'),
     session = require('express-session'),
     bodyParser = require('body-parser'), //om request body te gebruiken
-    cookieParser = require('cookie-parser'),
     methodOverride = require('method-override'), //om http verbs te gebruiken
     errors = require('./helpers/errors'),
     ServerError = errors.ServerError,
@@ -15,11 +14,8 @@ const express = require('express'),
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(cookieParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-//app.use(session({ secret: config.sessionSecret }));
 app.use(passport.initialize());
-//app.use(passport.session());
 
 //wwwroot
 app.use(express.static(path.join(__dirname, '../wwwroot')));
