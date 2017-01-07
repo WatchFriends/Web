@@ -110,7 +110,7 @@ export class SearchComponent {
 
     //indien image niet gevonden wordt op tmdb API, deze gebruiken
 
-    imageNotFound: string = "http://orig10.deviantart.net/ac68/f/2011/061/f/3/404_by_edenpulse-d3arr9q.png";
+    imageNotFound: string = "../../assets/Serie_Not_Found.png";
     userNotFound: string = "https://bitslog.files.wordpress.com/2013/01/unknown-person1.gif";
 
 
