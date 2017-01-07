@@ -1,0 +1,9 @@
+section.seriescontainer(*ngFor="let item of list.series; let i=index", [class.seriescontainer-big]="i<2")
+    a.seriescontainer_wrapper([routerLink]="['/series', item.id]")
+        img.image-responsive([src]="item.backdrop_path | seriesImage", [alt]="item.name")
+    .seriescontainer_content
+        h3= item.name
+        p
+            span.glyphicon.glyphicon-eye-open
+            span.glyphicon.glyphicon-list
+
