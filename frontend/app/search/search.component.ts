@@ -13,17 +13,20 @@ export class SearchComponent {
     seriesListDisplay: String = 'block';
     usersDisplay: String = 'none';
 
-    @Input() series: FollowedSeries[];
+    @Input() series: Series[];
     page = 0;
     totalPages = 1;
     totalResults = 0;
     query: string;
+    searchUrl: string;
 
     constructor(private route: ActivatedRoute, private api: ApiService) {
         route.params.subscribe(params => {
             this.query = params['query'];
-            this.series = new Array<FollowedSeries>();
+            this.series = new Array<Series>();
             this.loadmore();
+
+            this.searchUrl = `series/search/${this.query}`;
         });
     }
 

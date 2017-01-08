@@ -1,25 +1,28 @@
-// packages
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
-// services
-import { ApiService, AuthGuard, UserService } from './services';
+//packages
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
+import {DropdownModule, CollapseModule} from 'ng2-bootstrap';
+//services
 import { SeriesImagePipe } from './pipes';
-// components
-import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './home/home.component';
-import { ExploreComponent } from './explore/explore.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile.component';
-import { SeriesDetailComponent } from './seriesdetail/seriesdetail.component';
-import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
+import { ApiService, AuthGuard, UserService } from './services';
+//components
+import {AppComponent} from './app.component';
+import {NavComponent} from './nav/nav.component';
+import {SearchComponent} from './search/search.component';
+import {HomeComponent} from './home/home.component';
+import {ExploreComponent} from './explore/explore.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {ProfileComponent} from './profile/profile.component';
+import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
+import {SeasonDetailComponent} from "./seasondetail/seasondetail.component";
 import { ErrorComponent } from './error/error.component';
+//selectors
+import {Wfseries} from "./components/series/series.component";
+
 
 @NgModule({
     declarations: [
@@ -34,7 +37,8 @@ import { ErrorComponent } from './error/error.component';
         SeriesDetailComponent,
         SeasonDetailComponent,
         ErrorComponent,
-        SeriesImagePipe
+        SeriesImagePipe,
+        Wfseries
     ],
     imports: [
         BrowserModule,
