@@ -123,11 +123,15 @@ function addFollowedSeries  (user, series, cb) {
     followedSeries.findOne({ user, seriesId: series.id }, { following: 1, rating: 1 })
         .exec((err, followed) => {
             if(err) return cb(err);
-            cb (null, {
-                series,
-                following: followed ? followed.following : false,
-                rating: followed ?  followed.rating : -1
-            });
+
+            series["following"] = followed ? followed.following : false;
+            series["rating"] = followed ? followed.rating : -1;
+
+            cb (null, series); // {
+            //     series,
+            //     following: followed ? followed.following : false,
+            //     rating: followed ?  followed.rating : -1
+            // });
         });
 }
 
