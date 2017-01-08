@@ -22,12 +22,14 @@ export class SearchComponent {
     constructor(private route: ActivatedRoute, private api: ApiService) {
         route.params.subscribe(params => {
             this.query = params['query'];
-            this.series = new Array<FollowedSeries>();
+            this.series = new Array<FollowedSeries>();    
+            this.page = 0;
             this.loadmore();
         });
     }
 
     loadmore() {
+        console.log(this);
         if (this.page < this.totalPages) {
             this.api.search(this.query, ++this.page).subscribe(value => {
                 this.series = this.series.concat(value.results);

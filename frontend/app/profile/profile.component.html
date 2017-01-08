@@ -6,7 +6,7 @@
     <div class="container">
         <div class="container-profile">
             <img [src]="profilePicture" alt="Profile" />
-            <h1><b>{{user.name.givenName}}</b> {{user.name.middleName}} {{user.name.familyName}}</h1>
+            <h1><span class="bold">{{user.name.givenName}}</span> {{user.name.middleName}} {{user.name.familyName}}</h1>
             <p *ngIf="followers" class="h4">{{followers.length}} followers</p>
             <a *ngIf="id" class="btn btn-lg" [class.btn-success]="!following" [class.btn-warning]="following" 
             (click)="updateFollowing(!following)"><span class="glyphicon glyphicon-user"></span> Follow</a>
@@ -34,7 +34,7 @@
         </div>
         <div *ngIf="series.length != 0">
             <div *ngFor="let item of series; let i = index" class="seriescontainer">
-                <a routerLink="['/series', item.followed.seriesId]" class="seriescontainer_wrapper">
+                <a [routerLink]="['/series', item.series.id]" class="seriescontainer_wrapper">
                     <img [src]="item.series.backdrop_path | seriesImage" [alt]="item.series.name" />
                 </a>
                 <div class="seriescontainer_content">
