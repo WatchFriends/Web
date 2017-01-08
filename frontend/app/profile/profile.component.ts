@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit {
             else {
                 this.user = this.userService;
             }
-            this.api.getFollowedSeries(this.id).subscribe(values => this.series = values);
+            this.api.getFollowedSeries(this.id).subscribe(values => console.log(this.series = values));
             this.api.getFollowers(this.id).subscribe(values => this.followers = values);
         });
     }

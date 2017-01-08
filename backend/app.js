@@ -27,6 +27,7 @@ app.use(['/data', '/api'], [
     require('./controllers/achievement'),
     require('./controllers/series'),
     require('./controllers/list'),
+    require('./controllers/user'),
     (req, res, next) => { //geen route beschikbaar
         next(new ServerError(`Api route ${req.url} not found`, errors.notFound));
     },

@@ -21,6 +21,9 @@ let userSchema = new Schema({
 
 isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
 
+//search fields
+userSchema.index({email: 'text', 'name.familyName': 'text', 'name.givenName': 'text'});
+
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
         bcrypt.hash(this.password, null, null, (err, hash) => {
