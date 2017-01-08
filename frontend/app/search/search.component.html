@@ -13,34 +13,10 @@
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <div *ngIf="!series">
-            <p class="h4">No series where found matching your description.</p>
+        <wfseries [series]="page.results" [loadmore]="false"></wfseries>
+        <div (click)="loadmore()">
+            <wfseries [loadmore]="true" [style.display]="page.page === page.total_pages ? 'none' : 'block'"></wfseries>
         </div>
-        <div *ngIf="series">
-            <section *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
-                <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
-                </a>
-                <div class="seriescontainer_content">
-                    <h3>{{item.name}}<span *ngIf="item.name !== item.original_name"> ({{item.original_name}})</span></h3>
-                    <!-- <p>
-                       <span class="glyphicon glyphicon-eye-open"></span>
-                       <span class="glyphicon glyphicon-list"></span>
-                     Voegen we hier deze icoontjes toe om te markeren als gezien en toevoegen aan watchlist of niet?
-                     </p>
-                     -->
-                </div>
-            </section>
-        </div>
-        <section class="seriescontainer" [style.display]="page.page === page.total_pages ? 'none' : 'block'">
-            <a (click)="loadmore()" class="seriescontainer_wrapper">
-                <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
-            </a>
-            <div class="seriescontainer_content">
-                <h3>Load more</h3>
-                <p><span class="glyphicon glyphicon-chevron-right"></span></p>
-            </div>
-        </section>
     </div>
 
 

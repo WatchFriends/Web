@@ -26,19 +26,7 @@
     </div>
 
     <div class="row" [style.display]="watchlistDisplay">
-        <div *ngIf="watchlist.length == 0">
-            <p class="h4">No series tracked</p>
-        </div>
-        <div *ngIf="watchlist.length != 0">
-            <div *ngFor="let item of watchlist; let i = index" class="seriescontainer">
-                <a routerLink="['/series', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.image" [alt]="item.title"/>
-                </a>
-                <div class="seriescontainer_content">
-                    <h3>{{item.title}}</h3>
-                </div>
-            </div>
-        </div>
+        <wfseries [series]="watchlist" [loadmore]="false"></wfseries>
     </div>
     <div class="row bodybackground" [style.display]="achievementDisplay">
         <div *ngIf="achievements.length == 0">

@@ -18,6 +18,8 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from "./seriesdetail/seriesdetail.component";
 import {SeasonDetailComponent} from "./seasondetail/seasondetail.component";
+//selectors
+import {Wfseries} from "./components/series/series.component";
 //services
 import {ApiService, AuthGuard, UserService} from './services';
 import { ErrorComponent } from './error/error.component';
@@ -35,7 +37,8 @@ import { ErrorComponent } from './error/error.component';
         SeriesDetailComponent,
         SeasonDetailComponent,
         ErrorComponent,
-        SeriesImagePipe
+        SeriesImagePipe,
+        Wfseries
     ],
     imports: [
         BrowserModule,
