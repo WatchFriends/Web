@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Series } from '../../model/series';
+import { Series } from '../../models/series';
 
 @Component({
     templateUrl: './series.component.html',
