@@ -33,16 +33,20 @@ body, html{
 
 .imagecontainer { 
   height: 1200px;
-  overflow: none;
+  overflow: hidden;
   z-index: 1;
+
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
 
   .imagecontainer_wrapper {
     position: absolute;
     z-index: -1;
-    overflow: hidden;
     display: flex;
     align-items: center;
     overflow: hidden;
+    width: 100%;
   }
 
   .imagecontainer_content {
@@ -50,6 +54,7 @@ body, html{
     z-index: 100;
     display: flex;
     align-items: center;
+    height: 100%;
 
     .container {
       padding: 100px 0;

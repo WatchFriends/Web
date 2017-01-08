@@ -17,4 +17,4 @@ tokenSchema.statics = {
     load: (id, cb) => this.findOne({_id: id}).exec(cb)
 };
 
-module.exports = mongoose.model("AccessToken", tokenSchema);
+module.exports = mongoose.model("accessTokens", tokenSchema);

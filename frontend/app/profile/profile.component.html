@@ -1,14 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="user">
     <div class="row bg-splice">
-        <img [src]="backgroundProfile" alt="Profile Background"/>
+        <img [src]="backgroundProfile" alt="Profile Background" />
     </div>
 
     <div class="container">
         <div class="container-profile">
-            <img [src]="profilePicture" alt="Profile"/>
-            <h1>{{this.name}}</h1>
-            <p class="h4">{{this.followers}} followers</p>
-            <a class="btn btn-success btn-lg"><span class="glyphicon glyphicon-user"></span> Follow</a>
+            <img [src]="profilePicture" alt="Profile" />
+            <h1><b>{{user.name.givenName}}</b> {{user.name.middleName}} {{user.name.familyName}}</h1>
+            <p *ngIf="followers" class="h4">{{followers.length}} followers</p>
+            <a *ngIf="id" class="btn btn-lg" [class.btn-success]="!following" [class.btn-warning]="following" 
+            (click)="updateFollowing(!following)"><span class="glyphicon glyphicon-user"></span> Follow</a>
         </div>
     </div>
 
@@ -16,10 +17,12 @@
         <div class="container">
             <nav class="submenu">
                 <div class="col-md-6">
-                    <a data-hover="My Watchlist" class="submenu-item active" (click)="changeContent(0)">My Watchlist <span class="shadow-submenu_counter">{{this.watchlist.length}}</span></a>
+                    <a data-hover="My Watchlist" class="submenu-item active" 
+                    (click)="changeContent(0)">My Watchlist <span class="shadow-submenu_counter">{{series.length}}</span></a>
                 </div>
                 <div class="col-md-6">
-                    <a data-hover="Achievements" class="submenu-item" (click)="changeContent(1)">Achievements <span class="shadow-submenu_counter">{{this.achievements.length}}</span></a>
+                    <a data-hover="Achievements" class="submenu-item" 
+                    (click)="changeContent(1)">Achievements <span class="shadow-submenu_counter">{{achievements.length}}</span></a>
                 </div>
             </nav>
         </div>
@@ -28,6 +31,7 @@
     <div class="row" [style.display]="watchlistDisplay">
         <wfseries [series]="watchlist" [loadmore]="false"></wfseries>
     </div>
+    
     <div class="row bodybackground" [style.display]="achievementDisplay">
         <div *ngIf="achievements.length == 0">
             <p class="h4">Track or follow your series to collect achievements.</p>
