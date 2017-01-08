@@ -15,8 +15,8 @@
         </div>
     </section>
     
-    <div *ngIf="page === totalPages ? 'none' : 'block'">
-        <section  class="seriescontainer" >
+    <div *ngIf="page !== totalPages">
+        <section  class="seriescontainer">
             <a class="seriescontainer_wrapper" (click)="loadmore()">
                 <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
             </a>
