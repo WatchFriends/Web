@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {DropdownModule, CollapseModule} from 'ng2-bootstrap';
 //services
-import { SeriesImagePipe } from './pipes/series-image.pipe';
+import { SeriesImagePipe } from './pipes';
 import { ApiService, AuthGuard, UserService } from './services';
 //components
 import {AppComponent} from './app.component';

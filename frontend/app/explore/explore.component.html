@@ -9,12 +9,7 @@
 
     <div *ngFor="let list of lists; let i=index" > 
         <div class="row" [style.display]="list.name !== activeList ? 'none' : 'block'" [id]="list.name">
-            
-            <wfseries [series]="list.series" [loadmore]="false"></wfseries>
-
-            <div (click)="loadmore(list.apiRequest)">
-                <wfseries [loadmore]="true" [style.display]="list.page === list.totalPages ? 'none' : 'block'"></wfseries>
-            </div>
+            <wfseries [(series)]="list.series" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wfseries>
         </div>
     </div>
 </div>

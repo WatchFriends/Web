@@ -13,10 +13,7 @@
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <wfseries [series]="series" [loadmore]="false"></wfseries>
-        <div (click)="loadmore()" *ngIf="page !== totalPages" >
-            <wfseries [loadmore]="true"></wfseries>
-        </div>
+        <wfseries [(series)]="series" [apiUrl]="searchUrl" [(page)]="page" [(totalPages)]="totalPages"></wfseries>
     </div>
 
 
