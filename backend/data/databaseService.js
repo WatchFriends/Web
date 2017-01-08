@@ -1,30 +1,31 @@
 const config = require("./config.json"),
-      mongoose = require('mongoose'),
-      achievement = require("./../models/achievement"),
-      users = require("./../models/user"),
-      followedSeries = require('./../models/followedSeries'),
-      watchedEpisode = require('./../models/watchedEpisode');
+    mongoose = require('mongoose'),
+    achievement = require("./../models/achievement"),
+    users = require("./../models/user"),
+    async = require('async'),
+    followedSeries = require('./../models/followedSeries'),
+    watchedEpisode = require('./../models/watchedEpisode');
 
 let existsWatchedEpisode = (body, cb) => {
-        watchedEpisode
-            .count({
-                userId: body.userId,
-                seriesId: body.seriesId,
-                seasonId: body.seasonId,
-                episodeId: body.episodeId
-            })
-            .exec(cb);
-    },
+    watchedEpisode
+        .count({
+            userId: body.userId,
+            seriesId: body.seriesId,
+            seasonId: body.seasonId,
+            episodeId: body.episodeId
+        })
+        .exec(cb);
+},
     updateWatchedEpisode = (body, cb) => {
         existsWatchedEpisode(body, (err, count) => {
             if (count > 0) {
                 watchedEpisode.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId,
-                        seasonId: body.seasonId,
-                        episodeId: body.episodeId
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    seasonId: body.seasonId,
+                    episodeId: body.episodeId
 
-                    }, {
+                }, {
                         "$set": {
                             watched: body.watched
                         }
@@ -42,11 +43,11 @@ let existsWatchedEpisode = (body, cb) => {
             }
         });
     },
-    existsFollowedSeries = (body, cb) => {
+    existsFollowedSeries = (userId, seriesId, cb) => {
         followedSeries
             .count({
-                userId: body.userId,
-                seriesId: body.seriesId
+                user: userId,
+                seriesId
             })
             .exec(cb);
     },
@@ -54,10 +55,10 @@ let existsWatchedEpisode = (body, cb) => {
         existsFollowedSeries(body, (err, count) => {
             if (count > 0) {
                 followedSeries.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId
+                    userId: body.userId,
+                    seriesId: body.seriesId
 
-                    }, {
+                }, {
                         "$set": {
                             following: body.following
                         }
@@ -73,11 +74,11 @@ let existsWatchedEpisode = (body, cb) => {
             }
         });
     },
-    getAllFollowedSeriesByUserId = (user, cb) => {
-            followedSeries.find({
-                userId: user._id,
-                following: true
-            }, {
+    getAllFollowedSeriesByUserId = (userId, cb) => {
+        followedSeries.find({
+            user: userId,
+            following: true
+        }, {
                 userId: 0,
                 following: 0,
                 __v: 0,
@@ -89,46 +90,79 @@ let existsWatchedEpisode = (body, cb) => {
             seriesId: params.series,
             seasonId: params.season
         }, {
-            userId: 0,
-            watched: 0,
-            __v: 0,
-        }).exec(cb);
+                userId: 0,
+                watched: 0,
+                __v: 0,
+            }).exec(cb);
     };
-    /*, updateFollowUser = (params, user, cb) =>{
-        existsFollowedUser(body, (err, count) => {
-            if (count > 0) {
-                followedSerie.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId
-
-                    }, {
-                        "$set": {
-                            following: body.following
-                        }
-                    }
-                )
-                    .exec(cb);
-            } else {
-                new followedSerie({
+/*, updateFollowUser = (params, user, cb) =>{
+    existsFollowedUser(body, (err, count) => {
+        if (count > 0) {
+            followedSerie.update({
                     userId: body.userId,
-                    seriesId: body.seriesId,
-                    following: body.following
-                }).save(cb);
-            }
+                    seriesId: body.seriesId
+
+                }, {
+                    "$set": {
+                        following: body.following
+                    }
+                }
+            )
+                .exec(cb);
+        } else {
+            new followedSerie({
+                userId: body.userId,
+                seriesId: body.seriesId,
+                following: body.following
+            }).save(cb);
+        }
+    });
+};*/
+
+function addFollowedSeries  (user, series, cb) {
+    followedSeries.findOne({ user, seriesId: series.id }, { following: 1, rating: 1 })
+        .exec((err, followed) => {
+            if(err) return cb(err);
+            cb (null, {
+                series,
+                following: followed ? followed.following : false,
+                rating: followed ?  followed.rating : -1
+            });
         });
-    };*/
+}
 
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
-    /* FOLLOWEDSERIE */
-    existsFollowedSeries: existsFollowedSeries,
-    updateFollowedSeries: updateFollowedSeries,
-    getAllFollowedSeriesByUserId: getAllFollowedSeriesByUserId,
+    /* FOLLOWEDSERIES */
+    getFollowedSeries: (user, cb) => 
+        followedSeries.find({ user }, { _id: 0, user: 0 }).exec(cb),
+
+    updateFollowedSeries: (user, seriesId, data, cb) =>
+        followedSeries.update({ user, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
+        
+    findFollowedSeries: (user, seriesId, cb) => 
+        followedSeries.findOne({ user, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
+
+    addFollowedSeries,
+
+    addFollowedSeriesList: (user, seriesList, cb) => {
+        var results = [];
+        async.each(seriesList, (item, cb) => 
+            addFollowedSeries(user, item, (err, series) => {
+                if(err) return cb(err);
+                results.push(series);
+                cb();
+            }), err => {
+                if(err) return cb(err);
+                cb(null, results);
+            });
+    },
+
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
-    updateWatchedEpisode: updateWatchedEpisode,
-    getWatchedEpisodesBySeriesSeasonId: getWatchedEpisodesBySeriesSeasonId
+    updateWatchedEpisode,
+    getWatchedEpisodesBySeriesSeasonId
 };

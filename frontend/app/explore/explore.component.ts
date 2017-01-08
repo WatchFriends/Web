@@ -1,8 +1,6 @@
 import { Component} from '@angular/core';
 import { ApiService } from '../services';
-import { Series } from '../model/series';
-import { Page } from '../model/page';
-import { List } from '../model/list';
+import { Page, List, Series } from '../models';
 
 @Component({
     templateUrl: './explore.component.html',
@@ -46,7 +44,7 @@ export class ExploreComponent  {
 
                 this.lists[i].page += 1;
 
-                this.api.getUrl(`api/${url}/${list.page}`).subscribe((lists: Page) => {
+                this.api.get<Page>(`api/${url}/${list.page}`).subscribe((lists: Page) => {
 
                     for (let s = lists.results.length; s--;) {                    
                         this.lists[i].series.push(lists.results[s]);

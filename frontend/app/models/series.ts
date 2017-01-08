@@ -1,8 +1,4 @@
-import {Creator} from './creator';
-import {Genre} from './genre';
-import {Network} from './network';
-import {ProductionCompany} from './productionCompany';
-import {Season} from './season';
+import { Creator, Genre, Network, ProductionCompany, Season } from './';
 
 export class Series {
     constructor(
@@ -32,6 +28,6 @@ export class Series {
         public type: string,
         public vote_average: number,
         public vote_count: number
-        //public similar: Similar[]
-    ) {}
+        // public similar: Similar[]
+    ) { }
 }

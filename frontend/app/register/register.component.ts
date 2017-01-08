@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  model = { email: "", password: "", password2: "", firstname: "", lastname: "" };
+  model = { email: '', password: '', password2: '', firstname: '', lastname: '' };
   submitted = false;
   error;
   constructor(private user: UserService) { }
