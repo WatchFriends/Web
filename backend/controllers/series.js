@@ -94,7 +94,7 @@ router.put('/followed/:series', (req, res, next) => {
     dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, data, callback(res, next));
 });
 
-<<<<<<< HEAD
+
 router.get('/series/user/watched/:series/season/:season', function (req, res) {
     dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
         if (err)
@@ -112,19 +112,20 @@ router.get("/series/search/:query/:page", (req, res, next) => {
 
     apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
 
-        if (err) {
-            next(err);
-        }
-        else {
-            res.send(data);
+    if (err) {
+        next(err);
+    }
+    else {
+        res.send(data);
 
         }
-=======
+    });
+});
 router.get('/series/:id', (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, series) => {
         if(err) return next(err);
         dbService.addFollowedSeries(req.user.id, series, callback(res, next));
->>>>>>> refs/remotes/origin/master
+
     });
 });
 
