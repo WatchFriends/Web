@@ -13,6 +13,7 @@ let userSchema = new Schema({
         middleName: {type: String}
     },
     email: {type: String, required: true, index: {unique: true}},
+    picture: String,
     //local
     password: String,
     //oauth

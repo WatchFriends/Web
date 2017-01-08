@@ -49,13 +49,13 @@
         <div *ngIf="users">
             <div *ngFor="let item of users; let i=index" class="seriescontainer">
                 <a [routerLink]="['/profile', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.bgimage" [alt]="item.name" class="image-responsive bgImage"/>
+                    <img src="http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg" [alt]="item.name.givenName + ' ' + item.name.familyName" class="image-responsive bgImage"/>
                     <div class="container-profile">
-                        <img [src]="item.profileImage || userNotFound" [alt]="item.name" class="pfImage"/>
+                        <img [src]="item.picture" [alt]="item.name.givenName + ' ' + item.name.familyName" class="pfImage"/>
                     </div>
                 </a>
                 <div class="seriescontainer_content">
-                    <h3 [class.big-title]>{{item.name}}</h3>
+                    <h3 [class.big-title]>{{item.name.givenName}} {{item.name.familyName}}</h3>
                 </div>
             </div>
         </div>

@@ -37,7 +37,7 @@ export class ApiService {
     }
 
     // routes
-    search(query, page) {
+    searchSeries(query, page) {
         return this.get<Page>(`api/series/search/${query}/${page}`);
     }
 
@@ -47,6 +47,10 @@ export class ApiService {
 
     getUser(id: string) {
         return this.get<User>(`api/user/${id}`);
+    }
+
+    searchUsers(query/*, page*/) {
+        return this.get<User[]>(`api/user/search/${query}`);
     }
 
     getSeries(id: number) {

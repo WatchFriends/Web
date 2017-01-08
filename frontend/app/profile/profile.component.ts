@@ -53,19 +53,22 @@ export class ProfileComponent implements OnInit {
     constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) {
         route.params.subscribe((params: Params) => {
             this.id = params['id'];
-
-            if (this.id) {
-                this.api.getUser(this.id).subscribe(user => this.user = user, console.warn);
-            }
-            else {
-                this.user = this.userService;
-            }
-            this.api.getFollowedSeries(this.id).subscribe(values => console.log(this.series = values));
-            this.api.getFollowers(this.id).subscribe(values => this.followers = values);
+            this.loadData();
         });
     }
 
     ngOnInit() {  }
+
+    loadData(){
+        if (this.id) {
+            this.api.getUser(this.id).subscribe(user => this.user = user, console.warn);
+        }
+        else {
+            this.user = this.userService;
+        }
+        this.api.getFollowedSeries(this.id).subscribe(values => console.log( this.series = values));
+        this.api.getFollowers(this.id).subscribe(values => this.followers = values);
+    }
 
     updateFollowing(following: boolean) {
         console.log(following);
