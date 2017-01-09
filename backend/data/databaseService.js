@@ -98,30 +98,6 @@ let existsWatchedEpisode = (body, cb) => {
         }).exec(cb);
     };
 
-/*, updateFollowUser = (params, user, cb) =>{
- existsFollowedUser(body, (err, count) => {
- if (count > 0) {
- followedSerie.update({
- userId: body.userId,
- seriesId: body.seriesId
-
- }, {
- "$set": {
- following: body.following
- }
- }
- )
- .exec(cb);
- } else {
- new followedSerie({
- userId: body.userId,
- seriesId: body.seriesId,
- following: body.following
- }).save(cb);
- }
- });
- };*/
-
 function addFollowedSeries(user, series, cb) {
     followedSeries.findOne({user, seriesId: series.id}, {following: 1, rating: 1})
         .exec((err, followed) => {
