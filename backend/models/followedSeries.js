@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 let followedSeriesSchema = new Schema({
-    user: {
+    userId: {
         type: Schema.ObjectId,
         ref: "User"
     },
