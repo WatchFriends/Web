@@ -1,5 +1,4 @@
 const apiService = require("./../data/apiService"),
-      utils = require("./../helpers/utils"),
       express = require("express"),
       async = require("async"),
       router = express.Router();
