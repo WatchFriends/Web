@@ -98,15 +98,16 @@ let existsWatchedEpisode = (body, cb) => {
         }).exec(cb);
     };
 
-function addFollowedSeries(user, series, cb) {
-    followedSeries.findOne({user, seriesId: series.id}, {following: 1, rating: 1})
+function addFollowedSeries(userId, series, cb) {
+    followedSeries.findOne({userId, seriesId: series.id}, {following: 1, rating: 1})
         .exec((err, followed) => {
-            if (err) return cb(err);
-            cb(null, {
-                series,
-                following: followed ? followed.following : false,
-                rating: followed ? followed.rating : -1
-            });
+
+            if(err) return cb(err);
+
+            series["following"] = followed ? followed.following : false;
+            series["rating"] = followed ? followed.rating : -1;
+
+            cb (null, series);
         });
 }
 
@@ -133,21 +134,21 @@ module.exports = {
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
     /* FOLLOWEDSERIES */
-    getFollowedSeries: (user, cb) =>
-        followedSeries.find({user}, {_id: 0, user: 0}).exec(cb),
+    getFollowedSeries: (userId, cb) => 
+        followedSeries.find({ userId }, { _id: 0, user: 0 }).exec(cb),
 
-    updateFollowedSeries: (user, seriesId, data, cb) =>
-        followedSeries.update({user, seriesId}, data, {upsert: true, setDefaultsOnInsert: true}).exec(cb),
+    updateFollowedSeries: (userId, seriesId, data, cb) =>
+        followedSeries.update({userId, seriesId}, data, {upsert: true, setDefaultsOnInsert: true}).exec(cb),
 
-    findFollowedSeries: (user, seriesId, cb) =>
-        followedSeries.findOne({user, seriesId}, {_id: 0, user: 0, seriesId: 0}).exec(cb),
+    findFollowedSeries: (userId, seriesId, cb) =>
+        followedSeries.findOne({userId, seriesId}, {_id: 0, user: 0, seriesId: 0}).exec(cb),
 
     addFollowedSeries,
 
-    addFollowedSeriesList: (user, seriesList, cb) => {
+    addFollowedSeriesList: (userId, seriesList, cb) => {
         let results = [];
         async.each(seriesList, (item, cb) =>
-            addFollowedSeries(user, item, (err, series) => {
+            addFollowedSeries(userId, item, (err, series) => {
                 if (err) return cb(err);
                 results.push(series);
                 cb();

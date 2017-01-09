@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ApiService, UserService } from '../services';
-import { User, Series, FollowedSeries, Follower } from '../models';
+import { User, Series, Follower } from '../models';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -11,15 +11,16 @@ import { User, Series, FollowedSeries, Follower } from '../models';
 })
 export class ProfileComponent implements OnInit {
     user: User;
+    series = new Array<Series>();
+    followers: Follower[];
+    following: boolean;
+    id: string;
     watchlist: Series[];
-    followers: Follower[]; // this user is followed by 'followers'
     follows: Follower[]; // this user follows 'follows'
     isFollowing: boolean; // is logged-in user following this user?
     myProfile: boolean; // is this the profile of logged-in user?
-
     backgroundProfile: string = 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
-
     watchlistDisplay: String = 'block';
     achievementDisplay: String = 'none';
 

@@ -68,13 +68,14 @@ router.get('/followed', (req, res, next) => {
         let results = [];
         // voor ieder followed object een series opvragen
         async.each(data, (item, cb) => {
+
             apiService.request(`tv/${item.seriesId}?append_to_response=images,similar`, (err, series) => {
-                if(err) return cb(err);
-                results.push({
-                    series,
-                    following: item.following,
-                    rating: item.rating
-                });
+                if (err) return cb(err);
+
+                series["following"] = item.following;
+                series["rating"] = item.rating;
+
+                results.push(series);
                 cb();
             });
         }, err => {

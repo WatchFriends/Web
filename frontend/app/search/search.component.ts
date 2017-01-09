@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { ApiService } from '../services';
-import { Series, Page, FollowedSeries, User, Name } from '../models';
+import { Series, Page, User, Name } from '../models';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
