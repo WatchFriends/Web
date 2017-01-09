@@ -170,13 +170,16 @@ module.exports = {
     /* FOLLOWER */
 
     getFollowers: (userId, cb) => 
-        follower.find({userId}, { date: 1}).exec(cb),
+        follower.find({userId}).exec(cb),
 
     getFollows: (userId, cb) => 
-        follower.find({ followerId: userId}, { date: 1}).exec(cb),
+        follower.find({ followerId: userId}).exec(cb),
 
     getFollower: (userId, followerId, cb) => 
-        follower.findOne({ userId, followerId}, { date: 1}).exec(cb),
+        follower.findOne({ userId, followerId}, {since}).exec((err, data) =>{
+            if(err) return cb(err);
+            cb(null, data ? data.since : null);
+        }),
 
     updateFollower: (userId, followerId, since, cb) => {
         if(since) {

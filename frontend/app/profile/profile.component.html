@@ -7,9 +7,10 @@
         <div class="container-profile">
             <img [src]="profilePicture" alt="Profile" />
             <h1><span class="bold">{{user.name.givenName}}</span> {{user.name.middleName}} {{user.name.familyName}}</h1>
-            <p *ngIf="followers" class="h4">{{followers.length}} followers</p>
-            <a *ngIf="id" class="btn btn-lg" [class.btn-success]="!following" [class.btn-warning]="following" 
-            (click)="updateFollowing(!following)"><span class="glyphicon glyphicon-user"></span> Follow</a>
+            <p class="h4">Followed by {{followers.length}} people</p>
+            <p class="h4">Follows {{follows.length}} people</p>
+            <a *ngIf="!myProfile" class="btn btn-lg" [class.btn-success]="!isFollowing" [class.btn-warning]="isFollowing" 
+            (click)="updateFollowing(!isFollowing)"><span class="glyphicon glyphicon-user"></span> Follow</a>
         </div>
     </div>
 
