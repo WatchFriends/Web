@@ -52,7 +52,6 @@ import {Wfseries} from "./components/series/series.component";
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },
             { path: 'explore', component: ExploreComponent },
-            { path: 'explore/:user', component: ExploreComponent },
             { path: 'profile', component: ProfileComponent },
             { path: 'search/:query', component: SearchComponent },
             { path: 'error', component: ErrorComponent },

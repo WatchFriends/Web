@@ -5,7 +5,7 @@ const apiService = require("./../data/apiService"),
       async = require("async"),
       router = express.Router();
 
-router.get("/list(/:user)?", (req, res, next) => {
+router.get("/list", (req, res, next) => {
     getLists(req, res, next);
 });
 
