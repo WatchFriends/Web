@@ -3,6 +3,7 @@ const config = require('./config.json'),
     async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
+    follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
     watchedEpisode = require('../models/watchedEpisode');
 
@@ -165,6 +166,26 @@ module.exports = {
 
     searchUsers: (query, cb) => 
         user.find({$text: {$search: query}}).exec(cb),
+
+    /* FOLLOWER */
+
+    getFollowers: (userId, cb) => 
+        follower.find({userId}, { date: 1}).exec(cb),
+
+    getFollows: (userId, cb) => 
+        follower.find({ followerId: userId}, { date: 1}).exec(cb),
+
+    getFollower: (userId, followerId, cb) => 
+        follower.findOne({ userId, followerId}, { date: 1}).exec(cb),
+
+    updateFollower: (userId, followerId, since, cb) => {
+        if(since) {
+            // update or create
+            return follower.update({userId, followerId}, {since}, { upsert: true, setDefaultsOnInsert: true }).exec(cb);
+        }
+        // remove
+        follower.find({userId: followsId, followedId: userId}).remove().exec(cb);
+    },
 
     /* WATCHEDEPISODE */
     findWatchedEpisode: existsWatchedEpisode,
