@@ -101,25 +101,13 @@ let existsWatchedEpisode = (body, cb) => {
 function addFollowedSeries(user, series, cb) {
     followedSeries.findOne({user, seriesId: series.id}, {following: 1, rating: 1})
         .exec((err, followed) => {
-<<<<<<< HEAD
+
             if(err) return cb(err);
 
             series["following"] = followed ? followed.following : false;
             series["rating"] = followed ? followed.rating : -1;
 
-            cb (null, series); // {
-            //     series,
-            //     following: followed ? followed.following : false,
-            //     rating: followed ?  followed.rating : -1
-            // });
-=======
-            if (err) return cb(err);
-            cb(null, {
-                series,
-                following: followed ? followed.following : false,
-                rating: followed ? followed.rating : -1
-            });
->>>>>>> refs/remotes/origin/master
+            cb (null, series);
         });
 }
 
@@ -146,13 +134,8 @@ module.exports = {
     getAchievements: (cb) => achievement.find({}).exec(cb),
 
     /* FOLLOWEDSERIES */
-<<<<<<< HEAD
     getFollowedSeries: (userId, cb) => 
         followedSeries.find({ userId }, { _id: 0, user: 0 }).exec(cb),
-=======
-    getFollowedSeries: (user, cb) =>
-        followedSeries.find({user}, {_id: 0, user: 0}).exec(cb),
->>>>>>> refs/remotes/origin/master
 
     updateFollowedSeries: (user, seriesId, data, cb) =>
         followedSeries.update({user, seriesId}, data, {upsert: true, setDefaultsOnInsert: true}).exec(cb),

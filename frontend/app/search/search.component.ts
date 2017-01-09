@@ -1,10 +1,6 @@
 import { Component, ViewEncapsulation, Input } from '@angular/core';
 import { ApiService } from '../services';
-<<<<<<< HEAD
-import { Series, Page } from '../models';
-=======
-import { Series, Page, FollowedSeries, User, Name } from '../models';
->>>>>>> refs/remotes/origin/master
+import { Series, Page, User, Name } from '../models';
 import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
