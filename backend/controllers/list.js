@@ -6,11 +6,6 @@ const apiService = require("./../data/apiService"),
       router = express.Router();
 
 router.get("/list(/:user)?", (req, res, next) => {
-    getLists(req, res, next);
-});
-
-
-let getLists = (req, res, next) => {
 
     const POPULAR = "Popular",
           YOU = "Recommend for you"
@@ -76,15 +71,15 @@ let getLists = (req, res, next) => {
             };
             apiService.request(listItem.apiRequest, requested);
         }
-        else {
+        else if (user !== null){
             
             let getsimilarseries = (series, similarCB) => {
-                apiService.request(`tv/${series.id}/similar`, (err, data) => {
+                apiService.request(`tv/${series._doc.seriesId}/similar`, (err, data) => {
                     if (err) {
                         next(err);
                     }
                     else {
-                        listItem.series.concat(series.results);
+                        listItem.series.push.apply(listItem.series, data.results);
                     }                    
                     similarCB();
                 });
@@ -115,6 +110,6 @@ let getLists = (req, res, next) => {
     };
 
     async.each(ListsData, apiCallSeries, everythingDone);
-};
+});
 
 module.exports = router;
