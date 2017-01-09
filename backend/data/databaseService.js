@@ -134,76 +134,21 @@ function addFollowedSeries(user, series, cb) {
 }
 
 function addEvent(data, user, cb) {
-    if (data.follow !== undefined) {
-        //follow friend
-        if (data.friendId !== undefined) {
-            new userEvent({
-                userId: user._id,
-                userName: user.name,
-                params: [{
-                    follow: data.follow,
-                    friendId: data.friendId,
-                    friendName: data.friendName
-                }]
-            }).save(cb);
-        }
-        //follow series
-        else if (data.seriesId !== undefined) {
-            new userEvent({
-                userId: user._id,
-                userName: user.name,
-                params: [{
-                    follow: data.follow,
-                    seriesId: data.seriesId
-                }]
-            }).save(cb);
-        }
-    }
-    else if (data.watch !== undefined) {
-        //watch episode
-        if ((data.seriesId && data.seasonId && data.episodeId) !== undefined) {
-            new userEvent({
-                userId: user._id,
-                userName: user.name,
-                params: [{
-                    watch: data.watch,
-                    seriesId: data.seriesId,
-                    seasonId: data.seasonId,
-                    episodeId: data.episodeId
-                }]
-            }).save(cb);
-        }
-    }
-    else if (data.rating !== undefined) {
-        if (data.seriesId !== undefined) {
-            //rate episode
-            if ((data.seasonId && data.episodeId) !== undefined) {
-                new userEvent({
-                    userId: user._id,
-                    userName: user.name,
-                    params: [{
-                        seriesId: data.seriesId,
-                        seasonId: data.seasonId,
-                        episodeId: data.episodeId,
-                        rating: data.rating
-                    }]
-                }).save(cb);
-            }
-            //rate series
-            else {
-                new userEvent({
-                    userId: user._id,
-                    userName: user.name,
-                    params: [{
-                        seriesId: data.seriesId,
-                        rating: data.rating
-                    }]
-                }).save(cb);
-            }
-        }
-    } else {
-        cb(new Error("The provided options didn't form a correct event!"))
-    }
+    let newEvent = new userEvent({
+        userId: user._id,
+        userName: user.name,
+        params: [{}]
+    });
+
+    if (data.follow !== undefined) newEvent.params[0].follow = data.follow;
+    if (data.watch !== undefined) newEvent.params[0].watch = data.watch;
+    if (data.friendId !== undefined) newEvent.params[0].friendId = data.friendId;
+    if (data.seriesId !== undefined) newEvent.params[0].seriesId = data.seriesId;
+    if (data.seasonId !== undefined) newEvent.params[0].seasonId = data.seasonId;
+    if (data.episodeId !== undefined) newEvent.params[0].episodeId = data.episodeId;
+    if (data.rating !== undefined) newEvent.params[0].rating = data.rating;
+
+    newEvent.save(cb);
 }
 
 module.exports = {
