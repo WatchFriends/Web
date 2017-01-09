@@ -2,11 +2,11 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var followerSchema = new Schema({
-    user: {
+    userId: {
         type: Schema.ObjectId,
         ref: "User"
     },
-    follows: {
+    followerId: {
         type: Schema.ObjectId,
         ref: "User"
     },
@@ -14,6 +14,6 @@ var followerSchema = new Schema({
         type: Date,
         default: Date.now
     }
-}, { autoIndex=false });
+}, { autoIndex:false });
 
 module.exports = mongoose.model('followers', followerSchema);
