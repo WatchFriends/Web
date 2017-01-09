@@ -5,11 +5,6 @@ const apiService = require("./../data/apiService"),
       async = require("async"),
       router = express.Router();
 
-router.get("/list", (req, res, next) => {
-    getLists(req, res, next);
-});
-
-
 let getLists = (req, res, next) => {
 
     const POPULAR = "Popular",
@@ -116,5 +111,7 @@ let getLists = (req, res, next) => {
 
     async.each(ListsData, apiCallSeries, everythingDone);
 };
+
+router.get("/list", getLists);
 
 module.exports = router;
