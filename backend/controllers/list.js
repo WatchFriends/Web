@@ -22,7 +22,7 @@ let getLists = (req, res, next) => {
                   // { name: FRIENDS,     series: [], apiRequest: ""                , page: 1, totalPages: 0 },
                      { name: TODAY_ON_TV, series: [], apiRequest: "tv/airing_today" , page: 1, totalPages: 0 }],
 
-    user = req.params.user || req.user._id,
+    user = req.user._id,
 
     everythingDone = (err) => {
         if (err) {
