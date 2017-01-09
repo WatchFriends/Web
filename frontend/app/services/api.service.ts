@@ -62,7 +62,7 @@ export class ApiService {
     }
 
     getFollowedSeries(user: string = null) {
-        return this.get<FollowedSeries[]>(user ? `api/followed?user=${user}` : 'api/followed');
+        return this.get<Series[]>(user ? `api/followed?user=${user}` : 'api/followed');
     }
 
     getFollowedUsers(user: string) {

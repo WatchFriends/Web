@@ -20,6 +20,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SeriesDetailComponent } from './seriesdetail/seriesdetail.component';
 import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
 import { ErrorComponent } from './error/error.component';
+//selectors
+import {Wfseries} from "./components/series/series.component";
+
 
 @NgModule({
     declarations: [
@@ -35,7 +38,8 @@ import { ErrorComponent } from './error/error.component';
         SeasonDetailComponent,
         ErrorComponent,
         SeriesImagePipe,
-        UserImagePipe
+        UserImagePipe,
+        Wfseries
     ],
     imports: [
         BrowserModule,

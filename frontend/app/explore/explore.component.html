@@ -9,30 +9,7 @@
 
     <div *ngFor="let list of lists; let i=index" > 
         <div class="row" [style.display]="list.name !== activeList ? 'none' : 'block'" [id]="list.name">
-            <section *ngFor="let item of list.series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
-                <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
-                    <img [src]="item.backdrop_path | seriesImage" [alt]="item.name" class="image-responsive" />
-                </a>
-                <div class="seriescontainer_content">
-                    <h3>{{item.name}}</h3>
-                    <p>
-                        <span class="glyphicon glyphicon-eye-open"></span>
-                        <span class="glyphicon glyphicon-list"></span>
-                    </p>
-                </div>
-            </section>
-            <section class="seriescontainer" [style.display]="list.page === list.totalPages ? 'none' : 'block'">
-                <a (click)="loadmore(list.apiRequest)" class="seriescontainer_wrapper">
-                    <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
-                </a>
-                <div class="seriescontainer_content">
-                    <h3>Load more</h3>
-                    <p><span class="glyphicon glyphicon-chevron-right"></span></p>
-                </div>
-            </section>
-            <!--<div class="loadmore" (click)="loadmore(list.apiRequest)" [style.display]="list.page === list.totalPages ? 'none' : 'flex'">
-                <p>Load more <span class="glyphicon glyphicon-chevron-right"></span></p>
-            </div>-->
+            <wfseries [(series)]="list.series" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wfseries>
         </div>
     </div>
 </div>

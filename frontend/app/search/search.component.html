@@ -13,32 +13,7 @@
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <div *ngIf="series.length === 0">
-            <p class="h4">No series where found matching your description.</p>
-        </div>
-        <div *ngIf="series.length > 0">
-            <section *ngFor="let fs of series; let i=index;" class="seriescontainer" [class.seriescontainer-big]="i<2">
-                <a [routerLink]="['/series', fs.series.id]" class="seriescontainer_wrapper">
-                    <img [src]="fs.series.backdrop_path | seriesImage" [alt]="fs.series.name" class="image-responsive" />
-                </a>
-                <div class="seriescontainer_content">
-                    <h3>{{fs.series.name}}<span *ngIf="fs.series.name !== fs.series.original_name"> ({{fs.series.original_name}})</span></h3>
-                    <p>
-                       <span class="glyphicon glyphicon-eye-open"></span>
-                       <span class="glyphicon glyphicon-list"></span>
-                     </p>                     
-                </div>
-            </section>
-        </div>
-        <section *ngIf="page !== totalPages" class="seriescontainer">
-            <a (click)="loadmore()" class="seriescontainer_wrapper">
-                <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
-            </a>
-            <div class="seriescontainer_content">
-                <h3>Load more</h3>
-                <p><span class="glyphicon glyphicon-chevron-right"></span></p>
-            </div>
-        </section>
+        <wfseries [(series)]="series" [apiUrl]="searchUrl" [(page)]="page" [(totalPages)]="totalPages"></wfseries>
     </div>
 
 

@@ -11,7 +11,7 @@ import { User, Series, FollowedSeries, Follower } from '../models';
 })
 export class ProfileComponent implements OnInit {
     user: User;
-    series: FollowedSeries[];
+    watchlist: Series[];
     followers: Follower[]; // this user is followed by 'followers'
     follows: Follower[]; // this user follows 'follows'
     isFollowing: boolean; // is logged-in user following this user?
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
 
     constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) {
         route.params.subscribe((params: Params) => {
-            this.series = [];
+            this.watchlist = [];
             this.followers = [];
             this.follows = [];
             
@@ -76,7 +76,7 @@ export class ProfileComponent implements OnInit {
         }
         this.api.getFollowedUsers(id).subscribe(values => this.followers = values);
         this.api.getFollowsUsers(id).subscribe(values => this.follows = values);
-        this.api.getFollowedSeries(id).subscribe(values => this.series = values);
+        this.api.getFollowedSeries(id).subscribe(values => this.watchlist = values);
     }
 
     updateFollowing(following: boolean) {
