@@ -9,8 +9,8 @@
         <div class="seriescontainer_content">
             <h3>{{item.name}}</h3>
             <p>
-                <span class="glyphicon" [class.glyphicon-eye-open]="!item.following" [class.glyphicon-eye-open-close]="item.following"></span>
-                <span class="glyphicon glyphicon-list"></span>
+                <span class="glyphicon glyphicon-eye-open"></span>
+                <span class="glyphicon" [class.glyphicon-plus]="!item.following" [class.glyphicon-ok]="item.following"></span>
             </p>
         </div>
     </section>
