@@ -3,7 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable, Subscription } from 'rxjs';
 import { ServerError } from './server-error';
 import { UserService } from './user.service';
-import { FollowedSeries, Follower, Season, Series, User, Page } from '../models';
+import { Follower, Season, Series, User, Page } from '../models';
 
 @Injectable()
 export class ApiService {
@@ -50,7 +50,7 @@ export class ApiService {
     }
 
     getSeries(id: number) {
-        return this.get<FollowedSeries>(`api/series/${id}`);
+        return this.get<Series>(`api/series/${id}`);
     }
 
     getSeason(id: number, seasonId: number) {
@@ -58,7 +58,7 @@ export class ApiService {
     }
 
     getFollowedSeries(user: string = null) {
-        return this.get<FollowedSeries[]>(user ? `api/followed?user=${user}` : 'api/followed');
+        return this.get<Series[]>(user ? `api/followed?user=${user}` : 'api/followed');
     }
 
     getFollowers(user: string = null) {

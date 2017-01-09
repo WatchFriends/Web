@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ApiService, UserService } from '../services';
-import { User, Series, FollowedSeries, Follower } from '../models';
+import { User, Series, Follower } from '../models';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -11,7 +11,7 @@ import { User, Series, FollowedSeries, Follower } from '../models';
 })
 export class ProfileComponent implements OnInit {
     user: User;
-    series = new Array<FollowedSeries>();
+    series = new Array<Series>();
     followers: Follower[];
     following: boolean;
     id: string;
