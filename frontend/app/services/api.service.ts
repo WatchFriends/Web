@@ -89,7 +89,15 @@ export class ApiService {
         return this.get(`api/list`);
     }
 
-    getPopular(page: number) {
+    getPopularSeries(page: number) {
         return this.get<Page>(`api/series/popular/${page}`);
+    }
+
+    getRecommendedSeries(page: number) {
+        return this.get<Page>(`api/series/recommended`);
+    }
+
+    getAiringToday(page: number) {
+        return this.get<Page>(`api/series/today/${page}`);
     }
 }

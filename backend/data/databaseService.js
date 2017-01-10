@@ -5,8 +5,8 @@ const config = require('./config.json'),
     user = require('../models/user'),
     follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
-    watchedEpisode = require('../models/watchedEpisode');
-userEvent = require('../models/userEvent');
+    watchedEpisode = require('../models/watchedEpisode'),
+    userEvent = require('../models/userEvent');
 
 let existsWatchedEpisode = (body, cb) => {
     watchedEpisode
@@ -44,47 +44,6 @@ let existsWatchedEpisode = (body, cb) => {
                 }).save(cb);
             }
         });
-    },
-    existsFollowedSeries = (userId, seriesId, cb) => {
-        followedSeries
-            .count({
-                user: userId,
-                seriesId
-            })
-            .exec(cb);
-    },
-    updateFollowedSeries = (body, cb) => {
-        existsFollowedSeries(body, (err, count) => {
-            if (count > 0) {
-                followedSeries.update({
-                    userId: body.userId,
-                    seriesId: body.seriesId
-
-                }, {
-                        "$set": {
-                            following: body.following
-                        }
-                    }
-                )
-                    .exec(cb);
-            } else {
-                new followedSeries({
-                    userId: body.userId,
-                    seriesId: body.seriesId,
-                    following: body.following
-                }).save(cb);
-            }
-        });
-    },
-    getAllFollowedSeriesByUserId = (userId, cb) => {
-        followedSeries.find({
-            user: userId,
-            following: true
-        }, {
-                userId: 0,
-                following: 0,
-                __v: 0,
-            }).exec(cb);
     },
     getWatchedEpisodesBySeriesSeasonId = (params, user, cb) => {
         watchedEpisode.find({
