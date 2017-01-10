@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
+import { DropdownModule, CollapseModule, TooltipModule } from 'ng2-bootstrap';
 // services
 import { ApiService, AuthGuard, UserService } from './services';
 import { SeriesImagePipe, UserImagePipe } from './pipes';
@@ -47,6 +47,7 @@ import {Wfseries} from "./components/series/series.component";
         HttpModule,
         DropdownModule.forRoot(),
         CollapseModule.forRoot(),
+        TooltipModule.forRoot(),
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'login', component: LoginComponent },

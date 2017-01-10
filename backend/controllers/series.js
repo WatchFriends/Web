@@ -86,13 +86,7 @@ router.get('/followed', (req, res, next) => {
 });
 
 router.put('/followed/:series', (req, res, next) => {
-    var data = {};
-    if (req.body.following) data.following = req.body.following;
-    if (req.body.rating) data.rating = req.body.rating;
-    if (data === {}) {
-        return next(new ServerError('At least one of these body values are required: following, rating', errors.badRequest));
-    }
-    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, data, callback(res, next));
+    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body, callback(res, next));
 });
 
 router.get('/series/:id', (req, res, next) => {
