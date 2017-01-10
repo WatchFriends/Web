@@ -1,5 +1,5 @@
-const apiService = require('./../data/apiService'),
-    dbService = require('./../data/databaseService'),
+const apiService = require('../data/apiService'),
+    dbService = require('../data/databaseService'),
     express = require('express'),
     router = express.Router(),
     request = require('request'),
@@ -30,8 +30,36 @@ router.get('/series/search/:query/:page', (req, res, next) => {
     apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, pagesCallback(req, res, next));
 });
 
-router.get('/series/popular', (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us`, pagesCallback(req, res, next));
+router.get('/series/popular/:page', (req, res, next) => {
+    apiService.request(`tv/popular?language=en-us?page=${req.params.page}`, pagesCallback(req, res, next));
+});
+
+router.get('/series/today/:page', (req, res, next) => {
+    apiService.request(`tv/airing_today?language=en-us?page=${req.params.page}`, pagesCallback(req, res, next));
+});
+
+router.get('/series/recommended', (req, res, next) => {
+    let series = [];
+    let getsimilarseries = (followed, cb) => {
+        apiService.request(`tv/${followed.seriesId}/similar`, (err, data) => {
+            if (err) return cb(err);
+            series = Array.prototype.push.apply(series, data.results);
+            cb();
+        });
+    };
+
+    dbService.getFollowedSeries(user, (err, data) => {
+        if (err) return cb(err);
+        if (data === null || !data.length) return cb();
+        async.each(data, getsimilarseries, err => {
+            if (err) return cb(err);
+            dbService.addFollowedSeriesList(user, series, (err, data) => {
+                if (err) return cb(err);
+                results.push({ series: data, page: 1, total_pages: 1, total_results: data.length  })
+                cb();
+            });
+        });
+    });
 });
 
 
@@ -86,13 +114,7 @@ router.get('/followed', (req, res, next) => {
 });
 
 router.put('/followed/:series', (req, res, next) => {
-    var data = {};
-    if (req.body.following) data.following = req.body.following;
-    if (req.body.rating) data.rating = req.body.rating;
-    if (data === {}) {
-        return next(new ServerError('At least one of these body values are required: following, rating', errors.badRequest));
-    }
-    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, data, callback(res, next));
+    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body, callback(res, next));
 });
 
 router.get('/series/:id', (req, res, next) => {
