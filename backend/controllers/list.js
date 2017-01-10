@@ -16,7 +16,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, series) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages });
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular'});
                     cb();
                 });
             });
@@ -28,7 +28,7 @@ let getLists = (req, res, next) => {
             let getsimilarseries = (followed, cb) => {
                 apiService.request(`tv/${followed.seriesId}/similar`, (err, data) => {
                     if (err) return cb(err);
-                    series = Array.prototype.push.apply(series, data.results);
+                    Array.prototype.push.apply(series, data.results);
 
                     cb();
                 });
@@ -41,7 +41,7 @@ let getLists = (req, res, next) => {
                     if (err) return cb(err);
                     dbService.addFollowedSeriesList(user, series, (err, data) => {
                         if (err) return cb(err);
-                        results.push({ series: data, page: 1, totalPages: 1 })
+                        results.push({ series: data, page: 1, totalPages: 1, name: 'recommended' })
                         cb();
                     });
                 });
@@ -55,7 +55,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, series) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages });
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today' });
                     cb();
                 });
             });
