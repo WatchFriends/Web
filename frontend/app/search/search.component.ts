@@ -29,7 +29,7 @@ export class SearchComponent {
 
     loadmore() {
         if (this.page < this.totalPages) {
-            this.api.search(this.query, ++this.page).subscribe(value => {
+            this.api.search(this.query, ++this.page).subscribe(value =>  {
                 this.series = this.series.concat(value.results);
                 this.totalPages = value.total_pages;
                 this.totalResults = value.total_results;
