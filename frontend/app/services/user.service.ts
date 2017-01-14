@@ -5,6 +5,10 @@ import { ServerError } from './server-error';
 import { User, Name } from '../models';
 const tokenKey = 'token';
 
+export interface AuthResult {
+  token: string;
+  user: User;
+}
 
 @Injectable()
 export class UserService implements User {
@@ -14,6 +18,7 @@ export class UserService implements User {
   private _name: Name;
   private _token: string;
   private _id: string;
+  private _picture: string;
 
   constructor(private http: Http) {
     if (typeof (Storage) !== 'undefined') {
@@ -33,39 +38,31 @@ export class UserService implements User {
   get id() { return this._id; };
   get token() { return this._token; };
   get authenticated() { return this._authenticated; };
+  get picture() { return this._picture; };
 
   // api calls  
-
-  handleResponse(json) {
-    const user = json.user;
+  handleResponse(authResult: AuthResult) {
+    const user = authResult.user;
     this._authenticated = true;
     this._name = user.name;
-    if (!this._name) {
-      console.error('user does not have a name');
-    }
     this._email = user.email;
-    if (!this._email) {
-      console.error('user does not have an e-mail');
-    }
     this._id = user.id;
-    if (!this._email) {
-      console.error('user does not have an id');
-    }
+    this._picture = user.picture;
 
-    this._token = json.token;
+    this._token = authResult.token;
     if (typeof (Storage) !== 'undefined') {
       localStorage.setItem(tokenKey, this._token);
     }
     // else TODO cookie
   }
 
-  post(url: string, data: any) {
+  post(url: string, data: any): Observable<AuthResult> {
     const headers = new Headers({ 'Content-Type': 'application/vnd.api+json' });
     return this.http.post(url, JSON.stringify(data), { headers })
       .map(res => {
-        const json = res.json();
-        this.handleResponse(json);
-        return json;
+        const authResult = <AuthResult>res.json();
+        this.handleResponse(authResult);
+        return authResult;
       })
       .catch(res => Observable.throw(<ServerError>res.json()));
   }

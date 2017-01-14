@@ -27,7 +27,9 @@ export class Series {
         public status: string,
         public type: string,
         public vote_average: number,
-        public vote_count: number
-        // public similar: Similar[]
+        public vote_count: number,
+        // public similar: Similar[],
+        public following: boolean,
+        public rating: number
     ) { }
 }

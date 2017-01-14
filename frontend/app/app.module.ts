@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule } from 'ng2-bootstrap';
+import { DropdownModule, CollapseModule, TooltipModule } from 'ng2-bootstrap';
 // services
 import { ApiService, AuthGuard, UserService } from './services';
-import { SeriesImagePipe } from './pipes';
+import { SeriesImagePipe, UserImagePipe } from './pipes';
 // components
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -20,6 +20,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { SeriesDetailComponent } from './seriesdetail/seriesdetail.component';
 import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
 import { ErrorComponent } from './error/error.component';
+//selectors
+import {Wfseries} from "./components/series/series.component";
+
 
 @NgModule({
     declarations: [
@@ -34,7 +37,9 @@ import { ErrorComponent } from './error/error.component';
         SeriesDetailComponent,
         SeasonDetailComponent,
         ErrorComponent,
-        SeriesImagePipe
+        SeriesImagePipe,
+        UserImagePipe,
+        Wfseries
     ],
     imports: [
         BrowserModule,
@@ -42,6 +47,7 @@ import { ErrorComponent } from './error/error.component';
         HttpModule,
         DropdownModule.forRoot(),
         CollapseModule.forRoot(),
+        TooltipModule.forRoot(),
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'login', component: LoginComponent },
