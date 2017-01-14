@@ -1,7 +1,7 @@
 export class Follower {
     constructor(
-        public user: string,
-        public follows: string,
+        public userId: string,
+        public followerId: string,
         public since: Date
     ) { }
 }

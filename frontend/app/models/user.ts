@@ -10,4 +10,5 @@ export interface User {
   email: string;
   name: Name;
   id: string;
+  picture: string;
 }

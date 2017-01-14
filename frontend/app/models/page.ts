@@ -1,9 +1,9 @@
-import { FollowedSeries } from './followed-series';
+import { Series } from './series';
 
 export class Page {
     constructor(
         public page: number,
-        public results: FollowedSeries[],
+        public results: Series[],
         public total_results: number,
         public total_pages: number
     ) { }

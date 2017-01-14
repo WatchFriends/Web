@@ -1,83 +1,73 @@
 const apiService = require("./../data/apiService"),
-      utils = require("./../helpers/utils"),
-      express = require("express"),
-      async = require("async"),
-      router = express.Router();
+    dbService = require("./../data/databaseService"),
+    utils = require("./../helpers/utils"),
+    express = require("express"),
+    async = require("async"),
+    router = express.Router();
 
-router.get("/list", (req, res, next) => {
+let getLists = (req, res, next) => {
+    const user = req.user._id;
+    let results = [];
 
-    const POPULAR = "Popular",
-          FRIENDS = "Recommend by friends",
-          TODAY_ON_TV = "Today on TV";
+    let functions = [
+        //popular
+        cb => {
+            apiService.request("tv/popular", (err, data) => {
+                if (err) return cb(err);
+                dbService.addFollowedSeriesList(user, data.results, (err, series) => {
+                    if (err) return cb(err);
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular'});
+                    cb();
+                });
+            });
+        },
+        // recommended for you
+        cb => {
+            let series = [];
 
-    let ListsData = [{ name: POPULAR,     series: [], apiRequest: "tv/popular"      , page: 1, totalPages: 0 },
-                     // { name: FRIENDS,     series: [], apiRequest: ""                , page: 1, totalPages: 0 },
-                     { name: TODAY_ON_TV, series: [], apiRequest: "tv/airing_today" , page: 1, totalPages: 0 }],
+            let getsimilarseries = (followed, cb) => {
+                apiService.request(`tv/${followed.seriesId}/similar`, (err, data) => {
+                    if (err) return cb(err);
+                    Array.prototype.push.apply(series, data.results);
 
-    everythingDone = (err) => {
-        if (err) {
-            next(err);
-        }
-        else {
-
-            for (let i = ListsData.length; i--;) {
-                let url = ListsData[i].apiRequest;
-                
-                if (url != null) {
-                    ListsData[i].apiRequest = url.replace("tv", "series/get");
-                }
-            }
-
-            res.send(ListsData);
-        }
-    },
-
-    apiCallSeries = (listItem, cb) => {
-
-        if (listItem.apiRequest !== null) {
-            let requested = (err, data) => {
-
-                if (err) {
-                    next(err);
-                }
-                else if (data === null) {
-                    next(new Error("Our service is temporarily unavailable"));
-                }
-                else {
-                    switch (listItem.name) {
-                        // case "Popular":
-                        //     listItem.series = data.results.random(5);
-                        //     break;
-
-                        default:
-                            // TODO: case "Today on TV": // check gebruikers favorite series.
-                            listItem.series = data.results;
-                            listItem.totalPages = data.total_pages;
-                            break;
-                    }
-                }
-                cb();
+                    cb();
+                });
             };
-            apiService.request(listItem.apiRequest, requested);
-        }
-        else {
-            // TODO: verder uit te werken
-            cb();
-        }
-    },
 
-    genresData = (err, data) => {
+            dbService.getFollowedSeries(user, (err, data) => {
+                if (err) return cb(err);
+                if (data === null || !data.length) return cb();
+                async.each(data, getsimilarseries, err => {
+                    if (err) return cb(err);
+                    dbService.addFollowedSeriesList(user, series, (err, data) => {
+                        if (err) return cb(err);
+                        results.push({ series: data, page: 1, totalPages: 1, name: 'recommended' })
+                        cb();
+                    });
+                });
+            });
+        },
+        // recommended by friends
 
-        if (data === null) {
-           next(new Error("Our service is temporarily unavailable"));
-        }
-        else {
-            // TODO: Check favorite genre van gebruiker en voeg dit toe aan `ListsData`.
-            async.each(ListsData, apiCallSeries, everythingDone);
-        }
-    };
+        // today on tv
+        cb => {
+            apiService.request("tv/airing_today", (err, data) => {
+                if (err) return cb(err);
+                dbService.addFollowedSeriesList(user, data.results, (err, series) => {
+                    if (err) return cb(err);
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today' });
+                    cb();
+                });
+            });
+        },
+    ];
 
-    apiService.request("genre/tv/list",  genresData);
-});
+    async.each(functions, (f, cb) => f(cb), err => {
+        if (err) return next(err);
+        res.json(results);
+    })
+};
+
+router.get("/list", getLists);
 
 module.exports = router;
