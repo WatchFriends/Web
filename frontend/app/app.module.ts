@@ -22,6 +22,7 @@ import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
 import { ErrorComponent } from './error/error.component';
 //selectors
 import {Wfseries} from "./components/series/series.component";
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import {Wfseries} from "./components/series/series.component";
         ErrorComponent,
         SeriesImagePipe,
         UserImagePipe,
-        Wfseries
+        Wfseries,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
@@ -53,9 +55,9 @@ import {Wfseries} from "./components/series/series.component";
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },
             { path: 'explore', component: ExploreComponent },
-            { path: 'profile', component: ProfileComponent },
             { path: 'search/:query', component: SearchComponent },
             { path: 'error', component: ErrorComponent },
+            { path: 'settings', component:SettingsComponent},
             { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, // userprofile
             { path: 'profile/:id', component: ProfileComponent }, // friend profile
             { path: 'series/:id', component: SeriesDetailComponent },
