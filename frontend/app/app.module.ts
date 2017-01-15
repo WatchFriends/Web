@@ -23,6 +23,7 @@ import { ErrorComponent } from './error/error.component';
 //selectors
 import {Wfseries} from "./components/series/series.component";
 import { SettingsComponent } from './settings/settings.component';
+import { WfShadow } from './components/shadow/shadow.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { SettingsComponent } from './settings/settings.component';
         SeriesImagePipe,
         UserImagePipe,
         Wfseries,
-        SettingsComponent
+        SettingsComponent,
+        WfShadow
     ],
     imports: [
         BrowserModule,
