@@ -10,11 +10,15 @@ let tokenSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: "User"
+    },
+    device: {
+        osname: String,
+        browsername: String
     }
 });
 
 tokenSchema.statics = {
-    load: (id, cb) => this.findOne({_id: id}).exec(cb)
+    load: (id, cb) => this.findOne({ _id: id }).exec(cb)
 };
 
 module.exports = mongoose.model("accessTokens", tokenSchema);

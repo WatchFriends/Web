@@ -4,7 +4,8 @@ const express = require('express'),
     utils = require('../helpers/utils'),
     errors = require('../helpers/errors'),
     ServerError = errors.ServerError,
-    AccessToken = require('../models/accessToken');
+    AccessToken = require('../models/accessToken'),
+    UAParser = require('ua-parser-js');
 
 let userResult = (token, user) => ({
     token,
@@ -17,6 +18,12 @@ let userResult = (token, user) => ({
 
     successful = (req, res, next) => {
         AccessToken.findOne({ user: req.user._id }, (err, token) => {
+
+            let parser = new UAParser(),
+                ua = req.headers['user-agent'];
+
+            parser.setUA(ua);
+
             if (err) return next(err);
             if (token)
                 return res.json(userResult(token.token, req.user));
@@ -24,6 +31,10 @@ let userResult = (token, user) => ({
             token = new AccessToken();
             token.user = req.user._id;
             token.token = utils.uid(200);
+            token.device = {
+                browsername: parser.getBrowser().name,
+                osname: `${parser.getOS().name} ${parser.getOS().version}`
+            };
             token.save((err, product) => {
                 if (err) return next(err);
                 return res.json(userResult(product.token, req.user));
