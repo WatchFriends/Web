@@ -1,0 +1,100 @@
+@import "../../_variables";
+@import "../shared/submenu";
+
+body, html {
+  overflow-x: visible;
+}
+
+.row {
+  margin: 0;
+
+  &.bodybackground {
+    background-color: $body-color;
+  }
+}
+
+.container-fluid {
+  padding: 0;
+
+  .bg-splice {
+    height: 450px;
+
+    img {
+      width: 100%;
+      height: 542px;
+      position: absolute;
+      z-index: -1;
+
+      @media (max-width: $screen-md) {
+        height: 480px;
+      }
+      @media (max-width: $screen-sm) {
+        height: 466px;
+      }
+      @media (max-width: $screen-xs) {
+        height: 466px;
+      }
+
+    }
+    @media (max-width: $screen-lg) {
+      height: 400px;
+    }
+  }
+}
+
+.shadow {
+  background-color: $imagecontainer_content-backgroundcolor;
+  margin-bottom: 20px;
+}
+
+.container-profile {
+  text-align: center;
+  position: absolute;
+  top: 140px;
+  margin: 0 auto;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  overflow: hidden;
+
+  h1 {
+    margin-bottom: 15px;
+    font-size: 4em;
+
+    @media (max-width: $screen-xs) {
+      font-size: 3em;
+    }
+
+  }
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  img {
+    border: 5px solid $button-color-default;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+  }
+
+  .fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+
+    input.upload {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+    }
+  }
+
+}
+
