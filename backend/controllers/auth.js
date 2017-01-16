@@ -15,6 +15,24 @@ let userResult = (token, user) => ({
         id: user._id
     }
 }),
+    logOffOnAll = (res, req, next) => {
+        AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
+            require('async').each(currentTokens, (token, cb) => {
+                token.blocked = true;
+                currentTokens[i].update(token, (err, raw) => {
+                    if (err) next(err);
+                    cb();
+                });
+            }, err => {
+                if (err)
+                    next(err);
+                else {
+                    req.logout();
+                    return req.json({ message: "All tokens are blocked." });
+                }
+            });
+        });
+    },
 
     successful = (req, res, next) => {
         AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
@@ -47,9 +65,9 @@ let userResult = (token, user) => ({
                         else {
                             iToken.created = currentDate.toISOString();
 
-                            functions.push(currentTokens[i].update(iToken, (err, raw) => {
+                            currentTokens[i].update(iToken, (err, raw) => {
                                 if (err) next(err);
-                            }));
+                            });
 
                             return res.json(userResult(iToken.token, req.user));
                         }
@@ -98,6 +116,7 @@ router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out successfully' });
 });
+router.get('/logoffonall', logOffOnAll);
 
 //facebook
 router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));
