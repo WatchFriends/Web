@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../services';
-import { FollowedSeries, Series } from '../models';
+import { Series } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,7 +24,7 @@ export class SeriesDetailComponent implements OnInit {
     loadSeries() {
         this.api.getSeries(this.id)
             .subscribe(
-            value => this.series = value.series,
+            value => this.series = value,
             console.error
             );
     }

@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable, Subscription } from 'rxjs';
-import { ServerError } from './server-error';
-import { UserService } from './user.service';
-import { FollowedSeries, Follower, Season, Series, User, Page } from '../models';
+import {Injectable} from '@angular/core';
+import {Http, Headers, RequestOptions, Response} from '@angular/http';
+import {Observable, Subscription} from 'rxjs';
+import {ServerError} from './server-error';
+import {UserService} from './user.service';
+import {Follower, Season, Series, User, Page} from '../models';
 import {UserEvent} from "../models/userEvent";
+
 
 @Injectable()
 export class ApiService {
 
-    constructor(private http: Http, private user: UserService) { }
+    constructor(private http: Http, private user: UserService) {
+    }
 
     private catch = res => Observable.throw(<ServerError>res.json());
 
     // adds token to headers
     post<type>(url: string, data: any): Observable<type> {
-        const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
+        const options = new RequestOptions({headers: new Headers({'Content-Type': 'application/vnd.api+json'})});
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
         return this.http.post(url, JSON.stringify(data), options)
             .map(res => <type>res.json())
@@ -24,13 +26,13 @@ export class ApiService {
 
     // adds token to headers
     get<type>(url: string): Observable<type> {
-        return this.http.get(url, { headers: new Headers({ 'Authorization': `Bearer ${this.user.token}` }) })
+        return this.http.get(url, {headers: new Headers({'Authorization': `Bearer ${this.user.token}`})})
             .map(res => <type>res.json())
             .catch(this.catch);
     }
 
     put<type>(url: string, data: any): Observable<type> {
-        const options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/vnd.api+json' }) });
+        const options = new RequestOptions({headers: new Headers({'Content-Type': 'application/vnd.api+json'})});
         options.headers.set('Authorization', `Bearer ${this.user.token}`);
         return this.http.put(url, JSON.stringify(data), options)
             .map(res => <type>res.json())
@@ -38,7 +40,7 @@ export class ApiService {
     }
 
     // routes
-    search(query, page) {
+    searchSeries(query, page) {
         return this.get<Page>(`api/series/search/${query}/${page}`);
     }
 
@@ -50,8 +52,12 @@ export class ApiService {
         return this.get<User>(`api/user/${id}`);
     }
 
+    searchUsers(query/*, page*/) {
+        return this.get<User[]>(`api/user/search/${query}`);
+    }
+
     getSeries(id: number) {
-        return this.get<FollowedSeries>(`api/series/${id}`);
+        return this.get<Series>(`api/series/${id}`);
     }
 
     getSeason(id: number, seasonId: number) {
@@ -59,30 +65,46 @@ export class ApiService {
     }
 
     getFollowedSeries(user: string = null) {
-        return this.get<FollowedSeries[]>(user ? `api/followed?user=${user}` : 'api/followed');
+        return this.get<Series[]>(user ? `api/followed?user=${user}` : 'api/followed');
     }
 
-    getFollowers(user: string = null) {
-        return this.get<Follower[]>(user ? `api/user/followers?user=${user}` : 'api/user/followers');
+    getFollowedUsers(user: string) {
+        return this.get<Follower[]>(`api/user/${user}/followers`);
     }
 
-    updateFollowed(series: number, data: { following: boolean, rating?: number, user?: string }) {
+    getFollowsUsers(user: string) {
+        return this.get<Follower[]>(`api/user/${user}/follows`);
+    }
+
+    getFollower(user: string, follower: string) {
+        return this.get<Date>(`api/user/${follower}/follows/${user}`);
+    }
+
+    updateFollowing(user: string, follower: string, follows: boolean) {
+        return this.put(`api/user/${follower}/follows/${user}`, {follows});
+    }
+
+    updateFollowedSeries(series: number, data: {following: boolean, rating?: number, user?: string}) {
         return this.put(`api/followed/${series}`, data);
-    }
-
-    updateFollowing(user: string, following: boolean) {
-        return this.put(`api/following/${user}`, { following });
     }
 
     getLists() {
         return this.get(`api/list`);
     }
 
-    getPopular(page: number) {
+    getPopularSeries(page: number) {
         return this.get<Page>(`api/series/popular/${page}`);
     }
 
-    getFeed(){
+    getRecommendedSeries(page: number) {
+        return this.get<Page>(`api/series/recommended`);
+    }
+
+    getAiringToday(page: number) {
+        return this.get<Page>(`api/series/today/${page}`);
+    }
+
+    getFeed() {
         return this.get<UserEvent>(`api/feed`);
     }
 }

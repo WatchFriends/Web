@@ -13,6 +13,7 @@ let userSchema = new Schema({
         middleName: {type: String}
     },
     email: {type: String, required: true, index: {unique: true}},
+    picture: String,
     //local
     password: String,
     //oauth
@@ -20,6 +21,9 @@ let userSchema = new Schema({
 }),
 
 isprovider = providers => providers.some(provider => authTypes.indexof(provider) !== -1);
+
+//search fields
+userSchema.index({email: 'text', 'name.familyName': 'text', 'name.givenName': 'text'});
 
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
