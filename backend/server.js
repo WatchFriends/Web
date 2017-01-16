@@ -14,7 +14,8 @@ mongoose.connect(config.db.development, (error) => {
 
 let db = mongoose.connection,
     port = process.env.PORT || "3000",
-    server;
+    server = http.createServer(app),
+    io = require('socket.io')(server);
 
 db.on("error", () => {
     console.error.bind(console, "connection error");
@@ -27,8 +28,6 @@ passportconf(config);
 
 //server
 app.set("port", port);
-
-server = http.createServer(app);
 
 server.listen(port);
 server.on("error", console.log);

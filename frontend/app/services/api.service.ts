@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ServerError } from './server-error';
 import { UserService } from './user.service';
 import { FollowedSeries, Follower, Season, Series, User, Page } from '../models';
+import {UserEvent} from "../models/userEvent";
 
 @Injectable()
 export class ApiService {
@@ -79,5 +80,9 @@ export class ApiService {
 
     getPopular(page: number) {
         return this.get<Page>(`api/series/popular/${page}`);
+    }
+
+    getFeed(){
+        return this.get<UserEvent>(`api/feed`);
     }
 }

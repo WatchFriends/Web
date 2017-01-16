@@ -151,6 +151,10 @@ function addEvent(data, user, cb) {
     newEvent.save(cb);
 }
 
+function getFeedEventsByUserId(userId) {
+    userEvent.find({userId: userId}).exec(cb);
+}
+
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
@@ -185,5 +189,6 @@ module.exports = {
     findWatchedEpisode: existsWatchedEpisode,
     updateWatchedEpisode,
     getWatchedEpisodesBySeriesSeasonId,
-    addEvent
+    addEvent,
+    getFeedEventsByUserId
 };
