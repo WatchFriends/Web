@@ -17,25 +17,56 @@ let userResult = (token, user) => ({
 }),
 
     successful = (req, res, next) => {
-        AccessToken.findOne({ user: req.user._id }, (err, token) => {
-
-            let parser = new UAParser(),
-                ua = req.headers['user-agent'];
-
-            parser.setUA(ua);
+        AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
 
             if (err) return next(err);
-            if (token)
-                return res.json(userResult(token.token, req.user));
 
-            token = new AccessToken();
-            token.user = req.user._id;
-            token.token = utils.uid(200);
-            token.device = {
-                browsername: parser.getBrowser().name,
-                osname: `${parser.getOS().name} ${parser.getOS().version}`
+            let parser = new UAParser().setUA(req.headers['user-agent']),
+                browsername = parser.getBrowser().name,
+                osname = `${parser.getOS().name} ${parser.getOS().version}`,
+                lenght = currentTokens.length,
+                currentDate = new Date(),
+                functions = [];
+
+            if (currentTokens && lenght !== 0) {
+                for (let i = lenght; i--;) {
+
+                    let iToken = currentTokens[i]._doc;
+
+                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked) {
+
+                        let temp = new Date();
+                        temp.setMonth(temp.getMonth() - 6);
+                        if (iToken.created <= temp) {
+                            // nieuwe token nodig.
+                            iToken.blocked = true;
+                            currentTokens[i].update(iToken, (err, raw) => {
+                                if (err) next(err);
+                            });
+                        }
+                        else {
+                            iToken.created = currentDate.toISOString();
+
+                            functions.push(currentTokens[i].update(iToken, (err, raw) => {
+                                if (err) next(err);
+                            }));
+
+                            return res.json(userResult(iToken.token, req.user));
+                        }
+                    }
+                }
+            }
+
+            currentTokens = new AccessToken();
+            currentTokens.created = currentDate.toISOString();
+            currentTokens.user = req.user._id;
+            currentTokens.device = {
+                browsername,
+                osname
             };
-            token.save((err, product) => {
+            currentTokens.token = utils.uid(200);
+
+            currentTokens.save((err, product) => {
                 if (err) return next(err);
                 return res.json(userResult(product.token, req.user));
             });

@@ -14,11 +14,15 @@ let tokenSchema = new Schema({
     device: {
         osname: String,
         browsername: String
+    },
+    blocked: {
+        type: Boolean,
+        default: false
     }
 });
 
 tokenSchema.statics = {
-    load: (id, cb) => this.findOne({ _id: id }).exec(cb)
+    load: (id, cb) => this.find({ _id: id }).exec(cb)
 };
 
 module.exports = mongoose.model("accessTokens", tokenSchema);
