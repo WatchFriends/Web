@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ApiService, UserService} from '../../services';
 import {Page, Series} from '../../models';
+import * as io from "socket.io-client";
 
 @Component({
     templateUrl: './series.component.html',
@@ -12,16 +13,19 @@ export class Wfseries {
     @Input() page: number;
     @Input() totalPages: number;
     @Input() apiUrl: string;
+    socket: any = null;
 
     constructor(private api: ApiService) {
+        this.socket = io('http://localhost:3000');
     }
 
     changeFollowed(series) {
         if (!series.following_change_active) {
-            series.following = !series.following
+            series.following = !series.following;
             series.following_change_active = 1;
+            this.api.addEvent({seriesId: series.id, follow: series.following}).subscribe();
+            this.socket.emit('event');
             this.api.updateFollowedSeries(series.id, {following: series.following}).subscribe(ok => series.following_change_active = undefined);
-            this.api.addEvent({follow: series.following});
         }
     }
 

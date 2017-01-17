@@ -6,8 +6,7 @@ const apiService = require('../data/apiService'),
     errors = require('../helpers/errors'),
     async = require('async'),
     followedSeries = require('../models/followedSeries'),
-    seriesService = require('../service/series'),
-    socket = require("socket.io-client")(this);
+    seriesService = require('../service/series');
 
 const callback = (res, next) =>
     (err, data) => {
@@ -25,17 +24,6 @@ const pagesCallback = (req, res, next) =>
             page.results = series;
             res.json(page)
         });
-    };
-
-const socketCallback = (req, res, next) =>
-    (err, data) => {
-        if (err)
-            next(err);
-        else {
-            res.json(data);
-            //send socket
-            socket.emit('event');
-        }
     };
 
 router.get('/series/search/:query/:page', (req, res, next) => {

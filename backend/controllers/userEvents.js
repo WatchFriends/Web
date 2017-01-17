@@ -14,7 +14,7 @@ const callback = (res, next) =>
         res.json(data);
     };
 
-router.post('/event', (req, res, next) => {
+router.put('/event', (req, res, next) => {
     dbService.addEvent(req.body, req.user, callback(res, next));
 });
 

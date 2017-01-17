@@ -18,7 +18,6 @@ config.json
 
 #Visual Studio
 .vs
-typings
 bin
 obj
 
