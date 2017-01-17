@@ -20,7 +20,7 @@ router.post('/event', (req, res, next) => {
 
 router.get('/feed', (req, res, next) => {
     //Get all users friends
-    dbService.request(`/api/user/${req.user._id}/follows`, (err, user) => {
+    dbService.getFollows(req.user._id, (err, user) => {
         if (err) return next(err);
         let feed = [];
         //Get all activity by those friends

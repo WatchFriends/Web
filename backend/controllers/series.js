@@ -4,10 +4,10 @@ const apiService = require('../data/apiService'),
     router = express.Router(),
     request = require('request'),
     errors = require('../helpers/errors'),
-    ServerError = errors.ServerError,
     async = require('async'),
     followedSeries = require('../models/followedSeries'),
-    seriesService = require('../service/series');
+    seriesService = require('../service/series'),
+    socket = require("socket.io-client")(this);
 
 const callback = (res, next) =>
     (err, data) => {
@@ -25,6 +25,17 @@ const pagesCallback = (req, res, next) =>
             page.results = series;
             res.json(page)
         });
+    };
+
+const socketCallback = (req, res, next) =>
+    (err, data) => {
+        if (err)
+            next(err);
+        else {
+            res.json(data);
+            //send socket
+            socket.emit('event');
+        }
     };
 
 router.get('/series/search/:query/:page', (req, res, next) => {
@@ -56,7 +67,7 @@ router.get('/series/recommended', (req, res, next) => {
             if (err) return cb(err);
             dbService.addFollowedSeriesList(user, series, (err, data) => {
                 if (err) return cb(err);
-                results.push({ series: data, page: 1, total_pages: 1, total_results: data.length })
+                results.push({series: data, page: 1, total_pages: 1, total_results: data.length})
                 cb();
             });
         });

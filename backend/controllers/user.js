@@ -13,29 +13,29 @@ const callback = (res, next) =>
     };
 
 router.get('/user/search/:query', (req, res, next) => {
-    dbService.searchUsers(req.param('query'), callback(res, next));
+    dbService.searchUsers(req.params('query'), callback(res, next));
 });
 
 router.get('/user/:id/followers', (req, res, next) => {
-    dbService.getFollowers(req.param('id'), callback(res, next));
+    dbService.getFollowers(req.params('id'), callback(res, next));
 });
 
 router.get('/user/:id/follows', (req, res, next) => {
-    dbService.getFollows(req.param('id'), callback(res, next));
+    dbService.getFollows(req.params('id'), callback(res, next));
 });
 
 router.get('/user/:follower/follows/:followed', (req, res, next) => {
-    dbService.getFollower(req.param('followed'), req.param('follower'), callback(res, next));
+    dbService.getFollower(req.params('followed'), req.params('follower'), callback(res, next));
 });
 
 router.put('/user/:follower/follows/:followed', (req, res, next) => {
-    dbService.update(req.param('followed'), req.param('follower'), req.param('follows') ? Date.now() : null, callback(res, next));
+    dbService.update(req.params('followed'), req.params('follower'), req.params('follows') ? Date.now() : null, callback(res, next));
 });
 
 router.get('/user/:id', (req, res, next) => {
 
     let user = {
-        id: req.param('id'),
+        id: req.params('id'),
         friends: {
             followers: [],
             follows: []

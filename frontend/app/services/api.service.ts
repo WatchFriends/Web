@@ -5,6 +5,7 @@ import {ServerError} from './server-error';
 import {UserService} from './user.service';
 import {Follower, Season, Series, User, Page} from '../models';
 import {UserEvent} from "../models/userEvent";
+import {fdatasyncSync} from "fs";
 
 
 @Injectable()
@@ -106,5 +107,9 @@ export class ApiService {
 
     getFeed() {
         return this.get<UserEvent>(`api/feed`);
+    }
+
+    addEvent(data: {follow?: boolean, watch?: boolean, friendId?: string, seriesId?: number, seasonId?: number, episodeId?: number, rating?: number}) {
+        return this.put(`api/event`, data);
     }
 }

@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { ApiService, UserService } from '../../services';
-import { Page, Series } from '../../models';
+import {Component, Input} from '@angular/core';
+import {ApiService, UserService} from '../../services';
+import {Page, Series} from '../../models';
 
 @Component({
     templateUrl: './series.component.html',
@@ -13,13 +13,15 @@ export class Wfseries {
     @Input() totalPages: number;
     @Input() apiUrl: string;
 
-    constructor(private api: ApiService) { }
+    constructor(private api: ApiService) {
+    }
 
     changeFollowed(series) {
         if (!series.following_change_active) {
             series.following = !series.following
             series.following_change_active = 1;
-            this.api.updateFollowedSeries(series.id, { following: series.following }).subscribe(ok => series.following_change_active = undefined);
+            this.api.updateFollowedSeries(series.id, {following: series.following}).subscribe(ok => series.following_change_active = undefined);
+            this.api.addEvent({follow: series.following});
         }
     }
 
