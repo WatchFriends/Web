@@ -98,10 +98,38 @@ router.put('/followed/:series', (req, res, next) => {
     dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body, callback(res, next));
 });
 
+
+router.get('/series/user/watched/:series/season/:season', function (req, res) {
+    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
+        if (err)
+            next(err);
+        else if (data === null)
+            next(new Error("Our service is temporarily unavailable"));
+        else
+            res.send(data);
+    })
+});
+
+
+
+router.get("/series/search/:query/:page", (req, res, next) => {
+
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
+
+    if (err) {
+        next(err);
+    }
+    else {
+        res.send(data);
+
+        }
+    });
+});
 router.get('/series/:id', (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, series) => {
         if (err) return next(err);
         dbService.addFollowedSeries(req.user.id, series, callback(res, next));
+
     });
 });
 

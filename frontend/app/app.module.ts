@@ -21,8 +21,11 @@ import {SeriesDetailComponent} from './seriesdetail/seriesdetail.component';
 import {SeasonDetailComponent} from './seasondetail/seasondetail.component';
 import {ErrorComponent} from './error/error.component';
 import {FeedComponent} from "./feed/feed.component";
+
 //selectors
 import {Wfseries} from "./components/series/series.component";
+import {SettingsComponent} from './settings/settings.component';
+import {WfShadow} from './components/shadow/shadow.component';
 
 
 @NgModule({
@@ -31,7 +34,7 @@ import {Wfseries} from "./components/series/series.component";
         HomeComponent,
         NavComponent,
         LoginComponent,
-        RegisterComponent,
+        WfLogin,
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
@@ -41,7 +44,9 @@ import {Wfseries} from "./components/series/series.component";
         FeedComponent,
         SeriesImagePipe,
         UserImagePipe,
-        Wfseries
+        Wfseries,
+        SettingsComponent,
+        WfShadow
     ],
     imports: [
         BrowserModule,
@@ -58,6 +63,7 @@ import {Wfseries} from "./components/series/series.component";
             {path: 'profile', component: ProfileComponent},
             {path: 'search/:query', component: SearchComponent},
             {path: 'error', component: ErrorComponent},
+            {path: 'settings', component: SettingsComponent},
             {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // userprofile
             {path: 'profile/:id', component: ProfileComponent}, // friend profile
             {path: 'series/:id', component: SeriesDetailComponent},
