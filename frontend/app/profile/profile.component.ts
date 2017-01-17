@@ -87,7 +87,7 @@ export class ProfileComponent implements OnInit {
     updateFollowing(following: boolean) {
         console.log(following);
         this.isFollowing = following;
-        this.api.addEvent({friendId: this.user.id, follow: this.following}).subscribe();
+        this.api.addEvent({friend: {id: this.user.id, familyName: this.user.name.familyName, givenName: this.user.name.givenName}, following: this.following}).subscribe();
         this.socket.emit('event', {userId: this.user.id});
         this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
     }
