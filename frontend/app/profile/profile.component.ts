@@ -54,12 +54,11 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService) {
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, public userService: UserService) {
         route.params.subscribe((params: Params) => {
             this.watchlist = [];
             this.followers = [];
             this.follows = [];
-
             let id = params['id'];
             if (!id) id = userService.id; // user's own profile
             this.myProfile = id === userService.id;
@@ -87,7 +86,13 @@ export class ProfileComponent implements OnInit {
     updateFollowing(following: boolean) {
         console.log(following);
         this.isFollowing = following;
-        this.api.addEvent({friend: {id: this.user.id, familyName: this.user.name.familyName, givenName: this.user.name.givenName}, following: this.following}).subscribe();
+        this.api.addEvent({
+            friend: {
+                friendId: this.user.id,
+                familyName: this.user.name.familyName,
+                givenName: this.user.name.givenName
+            }, following: this.following
+        }).subscribe();
         this.socket.emit('event', {userId: this.user.id});
         this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
     }

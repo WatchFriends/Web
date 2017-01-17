@@ -108,7 +108,7 @@ export class ApiService {
         return this.get<WFEvent[]>(`api/feed`);
     }
 
-    addEvent(data: {following?: boolean, watched?: boolean, friendId?: string, friend?: {id: string, givenName: string, familyName: string}, seriesId?: number, seriesName?: string, seasonId?: number, episodeId?: number, rating?: number}) {
+    addEvent(data: {following?: boolean, watched?: boolean, friend?: {friendId: string, givenName: string, familyName: string}, seriesId?: number, seriesName?: string, seasonId?: number, episodeId?: number, rating?: number}) {
         return this.put(`api/event`, data);
     }
 }
