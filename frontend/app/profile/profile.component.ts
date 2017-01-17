@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { ActivatedRoute, Params } from '@angular/router';
-import { ApiService, UserService } from '../services';
-import { User, Series, Follower } from '../models';
+import {Component, ViewEncapsulation, OnInit} from '@angular/core';
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {ActivatedRoute, Params} from '@angular/router';
+import {ApiService, UserService} from '../services';
+import {User, Series, Follower} from '../models';
+import * as io from 'socket.io-client';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -23,6 +24,7 @@ export class ProfileComponent implements OnInit {
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
     watchlistDisplay: String = 'block';
     achievementDisplay: String = 'none';
+    socket: any = null;
 
     achievements = [
         {
@@ -57,7 +59,7 @@ export class ProfileComponent implements OnInit {
             this.watchlist = [];
             this.followers = [];
             this.follows = [];
-            
+
             let id = params['id'];
             if (!id) id = userService.id; // user's own profile
             this.myProfile = id === userService.id;
@@ -65,7 +67,9 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.socket = io.connect('http://localhost:3000');
+    }
 
     loadData(id: string) {
         if (this.myProfile) {
@@ -83,6 +87,8 @@ export class ProfileComponent implements OnInit {
     updateFollowing(following: boolean) {
         console.log(following);
         this.isFollowing = following;
+        this.api.addEvent({friendId: this.user.id, follow: this.following}).subscribe();
+        this.socket.emit('event', {userId: this.user.id});
         this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
     }
 
