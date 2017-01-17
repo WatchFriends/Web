@@ -106,10 +106,10 @@ export class ApiService {
     }
 
     getFeed() {
-        return this.get<UserEvent>(`api/feed`);
+        return this.get<UserEvent[]>(`api/feed`);
     }
 
-    addEvent(data: {follow?: boolean, watch?: boolean, friendId?: string, seriesId?: number, seasonId?: number, episodeId?: number, rating?: number}) {
+    addEvent(data: {following?: boolean, watched?: boolean, friendId?: string, friendName?:string, seriesId?: number, seasonId?: number, episodeId?: number, rating?: number}) {
         return this.put(`api/event`, data);
     }
 }
