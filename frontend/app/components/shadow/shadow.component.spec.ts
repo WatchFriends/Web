@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { WfLogin } from './register.component';
+import { ShadowComponent } from './shadow.component';
 
-describe('WfLogin', () => {
-  let component: WfLogin;
-  let fixture: ComponentFixture<WfLogin>;
+describe('ShadowComponent', () => {
+  let component: ShadowComponent;
+  let fixture: ComponentFixture<ShadowComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WfLogin ]
+      declarations: [ ShadowComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WfLogin);
+    fixture = TestBed.createComponent(ShadowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

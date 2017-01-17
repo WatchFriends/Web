@@ -3,10 +3,11 @@ import { UserService } from '../services';
 import { NgForm } from '@angular/forms';
 
 @Component({
+  selector: 'wflogin',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class WfLogin implements OnInit {
 
   model = { email: '', password: '', password2: '', firstname: '', lastname: '' };
   submitted = false;

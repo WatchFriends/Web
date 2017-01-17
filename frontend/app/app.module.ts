@@ -15,13 +15,15 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { WfLogin } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SeriesDetailComponent } from './seriesdetail/seriesdetail.component';
 import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
 import { ErrorComponent } from './error/error.component';
 //selectors
 import {Wfseries} from "./components/series/series.component";
+import { SettingsComponent } from './settings/settings.component';
+import { WfShadow } from './components/shadow/shadow.component';
 
 
 @NgModule({
@@ -30,7 +32,7 @@ import {Wfseries} from "./components/series/series.component";
         HomeComponent,
         NavComponent,
         LoginComponent,
-        RegisterComponent,
+        WfLogin,
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
@@ -39,7 +41,9 @@ import {Wfseries} from "./components/series/series.component";
         ErrorComponent,
         SeriesImagePipe,
         UserImagePipe,
-        Wfseries
+        Wfseries,
+        SettingsComponent,
+        WfShadow
     ],
     imports: [
         BrowserModule,
@@ -51,11 +55,11 @@ import {Wfseries} from "./components/series/series.component";
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
+            { path: 'register', component: WfLogin },
             { path: 'explore', component: ExploreComponent },
-            { path: 'profile', component: ProfileComponent },
             { path: 'search/:query', component: SearchComponent },
             { path: 'error', component: ErrorComponent },
+            { path: 'settings', component:SettingsComponent},
             { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, // userprofile
             { path: 'profile/:id', component: ProfileComponent }, // friend profile
             { path: 'series/:id', component: SeriesDetailComponent },

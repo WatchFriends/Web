@@ -1,58 +1,71 @@
-<div class="container">
-  <h1>Register Form</h1>
-  <form role="form" #form="ngForm" (ngSubmit)="submit($event, form)" novalidate>
 
-    <div *ngIf="error" class="alert alert-warning">
-      {{error.message}}
+    <div class="loginpanel">
+        <h1>Register</h1>
+        <form role="form" #form="ngForm" (ngSubmit)="submit($event, form)" novalidate>
+
+            <div class="txt" [class.has-error]="email.invalid && email.touched">
+                <label class="sr-only" for="user">E-mail</label>
+                <input id="user" class="form-control" type="email" placeholder="email@something.com" required
+                       [(ngModel)]="model.email" name="email" #email="ngModel"/>
+                <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
+                    E-mail is required.
+                </div>
+
+            </div>
+            <div class="txt" [class.has-error]="firstname.invalid && firstname.touched">
+                <label class="sr-only" for="fn">First name</label>
+                <input class="form-control" type="text" id="fn" placeholder="Firstname" required
+                       [(ngModel)]="model.firstname" name="firstname" #firstname="ngModel"/>
+                <div *ngIf="firstname.invalid && firstname.touched" class="alert alert-danger">
+                    First name is required.
+                </div>
+            </div>
+            <div class="txt" [class.has-error]="lastname.invalid && lastname.touched">
+                <label class="sr-only" for="ln">Last name</label>
+                <input class="form-control" type="text" id="ln" placeholder="Lastname" required
+                       [(ngModel)]="model.lastname" name="lastname" #lastname="ngModel"/>
+                <div *ngIf="lastname.invalid && lastname.touched" class="alert alert-danger">
+                    Last name is required.
+                </div>
+            </div>
+            <div class="txt" [class.has-error]="password.invalid && password.touched">
+                <label class="sr-only" for="pwd">Password</label>
+                <input id="pwd" type="password" placeholder="Password" class="form-control" required
+                       [(ngModel)]="model.password" name="password" #password="ngModel" maxlength="55"/>
+                <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
+                    Password is required.
+                </div>
+            </div>
+            <div class="txt" [class.has-error]="password2.invalid && password2.touched">
+                <label class="control-label sr-only" for="pw2">Repeat password</label>
+                <input class="form-control" type="password" id="pw2" placeholder="Repeat Password" required
+                       [(ngModel)]="model.password2" name="password2" #password2="ngModel" maxlength="55"/>
+                <div *ngIf="password2.invalid && password2.touched" class="alert alert-danger">
+                    Passwords do not match.
+                </div>
+            </div>
+            <div class="buttons">
+                <input type="submit" routerLink="/settings" value="Register" [disabled]="form.invalid || submitted"/>
+                <span>
+      <a routerLink="/login" class="entypo-login register">Login</a>
+    </span>
+            </div>
+
+            <div class="hr">
+                <div></div>
+                <div>OR</div>
+                <div></div>
+            </div>
+
+            <div class="social">
+                <a class="facebook" (click)="openAuthWindow('Facebook')" md-raised-button
+                   color="primary"></a>
+                <a class="googleplus" (click)="openAuthWindow('google')" md-raised-button
+                   color="primary"></a>
+            </div>
+        </form>
+
     </div>
 
-    <div class="form-group" [class.has-error]="email.invalid && email.touched">
-      <label class="control-label" for="em">E-mail</label>
-      <input class="form-control" type="email" id="em" placeholder="abc@email.com" required 
-      [(ngModel)]="model.email" name="email" #email="ngModel" />
-      <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
-        E-mail is required.
-      </div>
-    </div>
+    <span class="resp-info"></span>
 
-    <div class="form-group" [class.has-error]="firstname.invalid && firstname.touched">
-      <label class="control-label" for="fn">First name</label>
-      <input class="form-control" type="firstname" id="fn" placeholder="first name" required 
-      [(ngModel)]="model.firstname" name="firstname" #firstname="ngModel" />
-      <div *ngIf="firstname.invalid && firstname.touched" class="alert alert-danger">
-        First name is required.
-      </div>
-    </div>
-
-    <div class="form-group" [class.has-error]="lastname.invalid && lastname.touched">
-      <label class="control-label" for="ln">Last name</label>
-      <input class="form-control" type="lastname" id="ln" placeholder="first name" required 
-      [(ngModel)]="model.lastname" name="lastname" #lastname="ngModel" />
-      <div *ngIf="lastname.invalid && lastname.touched" class="alert alert-danger">
-        Last name is required.
-      </div>
-    </div>
-
-    <div class="form-group" [class.has-error]="password.invalid && password.touched">
-      <label class="control-label" for="pw">Password</label>
-      <input class="form-control" type="password" id="pw" placeholder="password" required 
-      [(ngModel)]="model.password" name="password" #password="ngModel" maxlength="55"/>
-      <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
-        Password is required.
-      </div>
-    </div>
-
-    <div class="form-group" [class.has-error]="password2.invalid && password2.touched">
-      <label class="control-label" for="pw2">Repeat password</label>
-      <input class="form-control" type="password" id="pw2" placeholder="password" required 
-      [(ngModel)]="model.password2" name="password2" #password2="ngModel" maxlength="55"/>
-      <div *ngIf="password2.invalid && password2.touched" class="alert alert-danger">
-        Password is required.
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-default" [disabled]="form.invalid || submitted">Register</button>
-    <button class="btn btn-warning" (click)="openAuthWindow('google')" md-raised-button color="primary" disabled>Google</button>
-    <button class="btn btn-primary" (click)="openAuthWindow('Facebook')" md-raised-button color="primary" disabled>Facebook</button>
-  </form>
-</div>
