@@ -4,7 +4,6 @@ const apiService = require('../data/apiService'),
     router = express.Router(),
     request = require('request'),
     errors = require('../helpers/errors'),
-    ServerError = errors.ServerError,
     async = require('async'),
     followedSeries = require('../models/followedSeries'),
     seriesService = require('../service/series');
@@ -56,7 +55,7 @@ router.get('/series/recommended', (req, res, next) => {
             if (err) return cb(err);
             dbService.addFollowedSeriesList(user, series, (err, data) => {
                 if (err) return cb(err);
-                results.push({ series: data, page: 1, total_pages: 1, total_results: data.length })
+                results.push({series: data, page: 1, total_pages: 1, total_results: data.length})
                 cb();
             });
         });
