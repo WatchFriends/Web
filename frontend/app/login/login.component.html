@@ -6,11 +6,13 @@
         <form role="form" #form="ngForm" (ngSubmit)="submit($event, form)" novalidate>
 
             <div class="txt" [class.has-error]="email.invalid && email.touched">
+                <label class="sr-only" for="user">E-mail</label>
                 <input id="user" class="form-control" type="email" placeholder="abc@email.com" required
                        [(ngModel)]="model.email" name="email" #email="ngModel" />
 
             </div>
             <div class="txt" [class.has-error]="password.invalid && password.touched">
+                <label class="sr-only" for="pwd">Password</label>
                 <input id="pwd" type="password" placeholder="Password" class="form-control" required
                        [(ngModel)]="model.password" name="password" #password="ngModel" maxlength="55"/>
                 <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
