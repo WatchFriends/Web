@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions, Response} from '@angular/http';
-import {Observable, Subscription} from 'rxjs';
+import {Http, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs';
 import {ServerError} from './server-error';
 import {UserService} from './user.service';
 import {Follower, Season, Series, User, Page} from '../models';
-import {UserEvent} from "../models/userEvent";
-import {fdatasyncSync} from "fs";
+import {WFEvent} from "../models/wfevent";
 
 
 @Injectable()
@@ -106,10 +105,10 @@ export class ApiService {
     }
 
     getFeed() {
-        return this.get<UserEvent[]>(`api/feed`);
+        return this.get<WFEvent[]>(`api/feed`);
     }
 
-    addEvent(data: {following?: boolean, watched?: boolean, friendId?: string, friendName?:string, seriesId?: number, seasonId?: number, episodeId?: number, rating?: number}) {
+    addEvent(data: {following?: boolean, watched?: boolean, friendId?: string, friend?: {id: string, givenName: string, familyName: string}, seriesId?: number, seriesName?: string, seasonId?: number, episodeId?: number, rating?: number}) {
         return this.put(`api/event`, data);
     }
 }

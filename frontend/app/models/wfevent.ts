@@ -1,4 +1,4 @@
-export class Event {
+export class WFEvent {
     constructor(
         public userId: string,
         public userName: string,

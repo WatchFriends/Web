@@ -6,7 +6,6 @@ const config = require('./config.json'),
     follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
     watchedEpisode = require('../models/watchedEpisode'),
-    userEvent = require('../models/userEvent'),
     wfevent = require('../models/wfevent');
 
 let existsWatchedEpisode = (body, cb) => {
@@ -71,26 +70,12 @@ function addFollowedSeries(userId, series, cb) {
         });
 }
 
-function addEvent(data, user, cb) {
-    let newEvent = new userEvent({
-        userId: user._id,
-        userName: user.name,
-        params: [{}]
-    });
-
-    if (data.follow !== undefined) newEvent.params[0].follow = data.follow;
-    if (data.watch !== undefined) newEvent.params[0].watch = data.watch;
-    if (data.friendId !== undefined) newEvent.params[0].friendId = data.friendId;
-    if (data.seriesId !== undefined) newEvent.params[0].seriesId = data.seriesId;
-    if (data.seasonId !== undefined) newEvent.params[0].seasonId = data.seasonId;
-    if (data.episodeId !== undefined) newEvent.params[0].episodeId = data.episodeId;
-    if (data.rating !== undefined) newEvent.params[0].rating = data.rating;
-
-    newEvent.save(cb);
-}
-
 function addWFEvent(body, user, cb) {
     let username = user.name.givenName + ' ' + user.name.familyName;
+    let friendname;
+    if (body.friend !== undefined) {
+        friendname = body.friend.name.givenName + ' ' + body.friend.name.familyName;
+    }
     let newEvent = new wfevent({
         userId: user._id,
         userName: username,
@@ -99,30 +84,30 @@ function addWFEvent(body, user, cb) {
     });
     let err = new Error('Provided parameters do not form a correct event!');
 
-    if (body.friendId !== undefined && body.friendName !== undefined) {
+    if (body.friendId !== undefined && body.friend !== undefined) {
         if (body.following !== undefined) {
             switch (body.following.toString()) {
                 case 'true' || true:
-                    newEvent.message = ' is now following ' + body.friendName + '.';
+                    newEvent.message = ' is now following ' + friendname + '.';
                     break;
                 case 'false' || false:
-                    newEvent.message = ' is no longer following ' + body.friendName + '.';
+                    newEvent.message = ' is no longer following ' + friendname + '.';
                     break;
             }
-            newEvent.url = '/profile/' + body.friendId;
+            newEvent.url = '/profile/' + body.friend.id;
             newEvent.save(cb);
         } else {
             cb(err);
         }
-    } else if (body.seriesId !== undefined) {
+    } else if (body.seriesId !== undefined && body.seriesName) {
         if (body.seasonId !== undefined && body.watched !== undefined) {
             if (body.episodeId !== undefined) {
                 switch (body.watched.toString()) {
                     case 'true' || true:
-                        newEvent.message = ' has marked ' + body.seriesId + ' season ' + body.seasonId + ' episode ' + body.episodeId + ' as watched.';
+                        newEvent.message = ' has marked ' + body.seriesName + ' season ' + body.seasonId + ' episode ' + body.episodeId + ' as watched.';
                         break;
                     case 'false' || false:
-                        newEvent.message = ' has marked ' + body.seriesId + ' season ' + body.seasonId + ' episode ' + body.episodeId + ' as not longer watched.';
+                        newEvent.message = ' has marked ' + body.seriesName + ' season ' + body.seasonId + ' episode ' + body.episodeId + ' as not longer watched.';
                         break;
                 }
                 newEvent.url = '/series/' + body.seriesId + '/season/' + body.seasonId + '/episode/' + body.episodeId;
@@ -130,10 +115,10 @@ function addWFEvent(body, user, cb) {
             } else {
                 switch (body.watched.toString()) {
                     case 'true' || true:
-                        newEvent.message = ' has marked ' + body.seriesId + ' season ' + body.seasonId + ' as watched.';
+                        newEvent.message = ' has marked ' + body.seriesName + ' season ' + body.seasonId + ' as watched.';
                         break;
                     case 'false' || false:
-                        newEvent.message = ' has marked ' + body.seriesId + ' season ' + body.seasonId + ' as no longer watched.';
+                        newEvent.message = ' has marked ' + body.seriesName + ' season ' + body.seasonId + ' as no longer watched.';
                         break;
                 }
                 newEvent.url = '/series/' + body.seriesId;
@@ -142,10 +127,10 @@ function addWFEvent(body, user, cb) {
         } else if (body.following !== undefined) {
             switch (body.following.toString()) {
                 case 'true':
-                    newEvent.message = ' is now following ' + body.seriesId + '.';
+                    newEvent.message = ' is now following ' + body.seriesName + '.';
                     break;
                 case 'false':
-                    newEvent.message = ' is no longer following ' + body.seriesId + '.';
+                    newEvent.message = ' is no longer following ' + body.seriesName + '.';
                     break;
             }
             newEvent.url = '/series/' + body.seriesId;
@@ -158,12 +143,8 @@ function addWFEvent(body, user, cb) {
     }
 }
 
-function getWFEventsByUserId(userId) {
+function getWFEventsByUserId(userId, cb) {
     wfevent.find({userId: userId}).exec(cb);
-}
-
-function getFeedEventsByUserId(userId) {
-    userEvent.find({userId: userId}).exec(cb);
 }
 
 module.exports = {
