@@ -102,8 +102,16 @@ module.exports = {
     getUser: (id, cb) =>
         user.findById(id, {name: 1, email: 1, _id: 1}).exec(cb),
 
-    searchUsers: (query, cb) =>
-        user.find({$text: {$search: query}}).exec(cb),
+    searchUsers: (query, cb) => {
+        let regexStr = query.split(/ /).join('|');
+        console.log(regexStr);
+        user.find({
+            '$or': [
+                {'name.givenName': {'$regex': regexStr, '$options': 'i'}},
+                {'name.familyName': {'$regex': regexStr, '$options': 'i'}}
+            ]
+        }).exec(cb);
+    },
 
     /* FOLLOWER */
     getFollowers: (userId, cb) =>

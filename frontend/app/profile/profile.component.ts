@@ -84,7 +84,6 @@ export class ProfileComponent implements OnInit {
     }
 
     updateFollowing(following: boolean) {
-        console.log(following);
         this.isFollowing = following;
         this.api.addEvent({
             friend: {
