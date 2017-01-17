@@ -1,4 +1,3 @@
-/// <reference path="./../../typings/globals/socket.io-client/index.d.ts" />
 import { Component } from '@angular/core';
 
 @Component({
