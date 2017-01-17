@@ -15,7 +15,7 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { ExploreComponent } from './explore/explore.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { WfLogin } from './register/register.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SeriesDetailComponent } from './seriesdetail/seriesdetail.component';
 import { SeasonDetailComponent } from './seasondetail/seasondetail.component';
@@ -32,7 +32,7 @@ import { WfShadow } from './components/shadow/shadow.component';
         HomeComponent,
         NavComponent,
         LoginComponent,
-        RegisterComponent,
+        WfLogin,
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
@@ -55,7 +55,7 @@ import { WfShadow } from './components/shadow/shadow.component';
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent },
+            { path: 'register', component: WfLogin },
             { path: 'explore', component: ExploreComponent },
             { path: 'search/:query', component: SearchComponent },
             { path: 'error', component: ErrorComponent },

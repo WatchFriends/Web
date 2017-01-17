@@ -1,5 +1,3 @@
-<div class="container">
-
 
     <div class="loginpanel">
         <h1>Sign In</h1>
@@ -9,6 +7,9 @@
                 <label class="sr-only" for="user">E-mail</label>
                 <input id="user" class="form-control" type="email" placeholder="abc@email.com" required
                        [(ngModel)]="model.email" name="email" #email="ngModel" />
+                <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
+                    E-mail is required.
+                </div>
 
             </div>
             <div class="txt" [class.has-error]="password.invalid && password.touched">
@@ -44,4 +45,3 @@
 
     <span class="resp-info"></span>
 
-</div>
