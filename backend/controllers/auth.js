@@ -21,8 +21,7 @@ let userResult = (token, user) => ({
             require('async').each(currentTokens, (token, cb) => {
                 token.blocked = true;
                 currentTokens[i].update(token, (err, raw) => {
-                    if (err) next(err);
-                    cb();
+                    cb(err);
                 });
             }, err => {
                 if (err)
