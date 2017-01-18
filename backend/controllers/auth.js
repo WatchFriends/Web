@@ -5,7 +5,8 @@ const express = require('express'),
     errors = require('../helpers/errors'),
     ServerError = errors.ServerError,
     AccessToken = require('../models/accessToken'),
-    UAParser = require('ua-parser-js');
+    UAParser = require('ua-parser-js'),
+    hash = require('password-hash');
 
 let userResult = (token, user) => ({
     token,
@@ -44,14 +45,14 @@ let userResult = (token, user) => ({
                 osname = `${parser.getOS().name} ${parser.getOS().version}`,
                 lenght = currentTokens.length,
                 currentDate = new Date(),
-                headerToken = req.headers.authorization;//.substring(6);
+                headerToken = req.headers.authorization != null ? req.headers.authorization.substring(6) : "";//.substring(6);
 
             if (currentTokens && lenght !== 0) {
                 for (let i = lenght; i--;) {
 
                     let iToken = currentTokens[i]._doc;
 
-                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked && iToken.token === headerToken) {
+                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked && hash.verify(headerToken, iToken)) {
 
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
@@ -83,11 +84,14 @@ let userResult = (token, user) => ({
                 browsername,
                 osname
             };
-            currentTokens.token = utils.uid(200);
+
+            let t = utils.uid(200);
+
+            currentTokens.token = hash.generate(t);
 
             currentTokens.save((err, product) => {
                 if (err) return next(err);
-                return res.json(userResult(product.token, req.user));
+                return res.json(userResult(t, req.user));
             });
         });
     },
