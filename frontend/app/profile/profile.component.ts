@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
                 givenName: this.user.name.givenName
             }, following: this.following
         }).subscribe();
-        this.socketsvc.sendEventSocket(this.user.id);
+        this.socketsvc.sendEventSocket();
         this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
     }
 

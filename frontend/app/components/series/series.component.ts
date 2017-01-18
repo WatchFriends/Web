@@ -24,7 +24,7 @@ export class Wfseries implements OnInit{
             series.following = !series.following;
             series.following_change_active = 1;
             this.api.addEvent({seriesId: series.id, seriesName: series.name, following: series.following}).subscribe();
-            this.socketsvc.sendEventSocket(this.user.id);
+            this.socketsvc.sendEventSocket();
             this.api.updateFollowedSeries(series.id, {following: series.following}).subscribe(ok => series.following_change_active = undefined);
         }
     }

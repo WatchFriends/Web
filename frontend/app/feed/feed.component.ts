@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService, SocketService} from '../services';
-import * as io from 'socket.io-client'
 import {WFEventsPage} from "../models/wfeventspage";
+import {UserService} from "../services/user.service";
+import {Follower} from "../models/follower";
 
 @Component({
     templateUrl: './feed.component.html'
@@ -9,30 +10,36 @@ import {WFEventsPage} from "../models/wfeventspage";
 
 export class FeedComponent implements OnInit {
     events: WFEventsPage;
-    socket: any = null;
     alertDisplay: String = 'none';
     count: number = 0;
     page: number = 1;
 
-    constructor(private api: ApiService, private socketsvc: SocketService) {
+    constructor(private api: ApiService, private socketsvc: SocketService, private usersvc: UserService) {
     }
 
     ngOnInit() {
-        this.loadFeed(this.page);
-        this.socket = io.connect('http://localhost:3000');
-        this.socket.on('message', function (data) {
-            this.updateNotification();
+        this.loadFeed();
+        this.socketsvc.socket.on('message', function (data) {
+            //check if user is friend
+            let friends: Follower[] = [];
+            this.api.getFollowsUsers(this.usersvc.id).subscribe(users => friends = users, console.error);
+            let friend = friends.filter(function (friend) {
+                return friend.followerId === data.userId;
+            })[0];
+
+            if (friend)
+                this.updateNotification();
         }.bind(this));
     }
 
-    private loadFeed(page) {
-        if (page === 1) {
-            this.api.getFeed(page)
+    private loadFeed() {
+        if (this.page === 1) {
+            this.api.getFeed(this.page)
                 .subscribe(feed =>
                     this.events = feed, console.error
                 );
         } else {
-            this.api.getFeed(page)
+            this.api.getFeed(this.page)
                 .subscribe(feed =>
                     this.events.docs = this.events.docs.concat(feed.docs), console.error
                 );
@@ -42,7 +49,7 @@ export class FeedComponent implements OnInit {
     loadMore() {
         if (this.page < this.events.pages) {
             this.page++;
-            this.loadFeed(this.page);
+            this.loadFeed();
         }
     }
 
@@ -57,6 +64,6 @@ export class FeedComponent implements OnInit {
         this.alertDisplay = 'none';
         this.count = 0;
         this.page = 1;
-        this.loadFeed(this.page);
+        this.loadFeed();
     }
 }

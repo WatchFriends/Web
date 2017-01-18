@@ -209,19 +209,14 @@ module.exports = {
             cb(err)
         }
     },
-    getWFEventsByUserId: (userId, page, cb) => {
+    getWFEventsByUserIds: (userIds, page, cb) => {
         let options = {
             sort: {time: -1},
             page: page,
             limit: 25
         };
-        wfevent.paginate({userId: userId}, options, function (err, data) {
+        wfevent.paginate({userId: {$in: userIds}}, options, function (err, data) {
             cb(err, data);
         });
     }
-    /*
-     getWFEventsByUserId: (userId, cb) => {
-     wfevent.find({userId: userId}).exec(cb);
-     }
-     */
 };
