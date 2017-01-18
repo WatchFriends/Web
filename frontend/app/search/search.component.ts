@@ -27,7 +27,7 @@ export class SearchComponent {
             this.query = params['query'];
             this.api.searchUsers(this.query).subscribe(value => this.users = value, console.warn);
             this.api.searchSeries(this.query, 1).subscribe(value => {
-                this.series = this.series.concat(value.results);
+                this.series = value.results;
                 this.totalPages = value.total_pages;
                 this.totalResults = value.total_results;
             });

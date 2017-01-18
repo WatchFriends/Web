@@ -53,8 +53,7 @@ router.get('/user/:id?', (req, res, next) => {
             id: data._id,
             name: data.name,
             email: data.email,
-            picture: data.picture,
-            
+            picture: data.picture,            
         };
 
         let functions = [
@@ -90,11 +89,10 @@ router.get('/user/:id?', (req, res, next) => {
             res.json(user);
         });
     });
+});
 
-
-    // dbService.getUser(req.params.id, () => {
-    //     callback(res, next);
-    // });
+router.put('/user', (req, res, next) => {
+    dbService.updateUser(req.user.id, req.body, callback(res, next));
 });
 
 module.exports = router;

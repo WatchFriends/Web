@@ -103,6 +103,15 @@ module.exports = {
     getUser: (id, cb) =>
         user.findById(id, {password:0, providers:0}).exec(cb),
 
+    updateUser: (id, data, cb) => {
+        var update = {};
+        if(data.name)update.name = data.name;
+        if(data.email)update.email = data.email;
+        if(data.password)update.name = data.password;
+        if(data.picture)update.picture = data.picture;        
+        user.findByIdAndUpdate(id, update, cb);
+    },
+
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
         user.find({

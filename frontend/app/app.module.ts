@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
 import {HttpModule} from '@angular/http';
-import {RouterModule,Route} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {DropdownModule, CollapseModule, TooltipModule} from 'ng2-bootstrap';
 // services
 import {ApiService, AuthGuard, UnAuthGuard, UserService, SocketService} from './services';

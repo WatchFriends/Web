@@ -40,7 +40,7 @@ export class ApiService {
 
     // routes
     searchSeries(query, page) {
-        return this.get<Page>(`api/series/search/${query}/${page}`);
+        return this.get<Page<Series>>(`api/series/search/${query}/${page}`);
     }
 
     getAchievements() {
@@ -92,15 +92,15 @@ export class ApiService {
     }
 
     getPopularSeries(page: number) {
-        return this.get<Page>(`api/series/popular/${page}`);
+        return this.get<Page<Series>>(`api/series/popular/${page}`);
     }
 
     getRecommendedSeries(page: number) {
-        return this.get<Page>(`api/series/recommended`);
+        return this.get<Page<Series>>(`api/series/recommended`);
     }
 
     getAiringToday(page: number) {
-        return this.get<Page>(`api/series/today/${page}`);
+        return this.get<Page<Series>>(`api/series/today/${page}`);
     }
 
     getFeed(page: number) {
@@ -109,5 +109,9 @@ export class ApiService {
 
     addEvent(data: {following?: boolean, watched?: boolean, friend?: {friendId: string, givenName: string, familyName: string}, seriesId?: number, seriesName?: string, seasonId?: number, episodeId?: number, rating?: number}) {
         return this.put(`api/event`, data);
+    }
+
+    updateUserData(data){
+        return this.put('api/user', data);
     }
 }
