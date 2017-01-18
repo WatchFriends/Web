@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import {DropdownModule, CollapseModule, TooltipModule} from 'ng2-bootstrap';
+import {DropdownModule, CollapseModule, TooltipModule, AccordionModule} from 'ng2-bootstrap';
 // services
 import {ApiService, AuthGuard, UserService} from './services';
 import {SeriesImagePipe, UserImagePipe} from './pipes';
@@ -21,7 +21,6 @@ import {SeriesDetailComponent} from './seriesdetail/seriesdetail.component';
 import {SeasonDetailComponent} from './seasondetail/seasondetail.component';
 import {ErrorComponent} from './error/error.component';
 import {FeedComponent} from "./feed/feed.component";
-
 //selectors
 import {Wfseries} from "./components/series/series.component";
 import {SettingsComponent} from './settings/settings.component';
@@ -56,6 +55,7 @@ import {SocketService} from "./services/socket.service";
         DropdownModule.forRoot(),
         CollapseModule.forRoot(),
         TooltipModule.forRoot(),
+        AccordionModule.forRoot(),
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
             {path: 'login', component: LoginComponent},

@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-7">
                 <div class="row">
-                    <p>{{series.name}}</p>
+                    <h1>{{series.name}}</h1>
                     <p>Released on: {{series.first_air_date}}</p>
                     <p ng-show="!series.last_air_date">Ended on: {{series.last_air_date}}</p>
                     <p>{{series.overview}}</p>
@@ -30,7 +30,7 @@
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-success">Seasons</li>
                         <li class="list-group-item" *ngFor="let season of series.seasons">
-                            <a routerLink="/series/{{series.id}}/season{{season.season_number}}">Season
+                            <a routerLink="/series/{{series.id}}/season/{{season.season_number}}">Season
                                 {{season.season_number}} - {{season.episode_count}} episodes</a>
                         </li>
                     </ul>
