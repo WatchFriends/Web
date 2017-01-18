@@ -16,4 +16,4 @@ var followerSchema = new Schema({
     }
 }, { autoIndex:false });
 
-module.exports = mongoose.model('followers', followerSchema);
+module.exports = mongoose.model('follower', followerSchema);

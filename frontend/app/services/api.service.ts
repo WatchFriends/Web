@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {ServerError} from './server-error';
 import {UserService} from './user.service';
 import {Follower, Season, Series, User, Page} from '../models';
-import {WFEvent} from "../models/wfevent";
+import {WFEventsPage} from "../models/wfeventspage";
 
 
 @Injectable()
@@ -104,8 +104,8 @@ export class ApiService {
         return this.get<Page>(`api/series/today/${page}`);
     }
 
-    getFeed() {
-        return this.get<WFEvent[]>(`api/feed`);
+    getFeed(page: number) {
+        return this.get<WFEventsPage>(`api/feed/${page}`);
     }
 
     addEvent(data: {following?: boolean, watched?: boolean, friend?: {friendId: string, givenName: string, familyName: string}, seriesId?: number, seriesName?: string, seasonId?: number, episodeId?: number, rating?: number}) {

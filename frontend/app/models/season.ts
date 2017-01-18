@@ -7,6 +7,7 @@ export class Season {
         public name: string,
         public overview: string,
         public poster_path: string,
-        public season_number: number
+        public season_number: number,
+        public episode_count: number
     ) { }
 }
