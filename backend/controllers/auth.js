@@ -4,7 +4,9 @@ const express = require('express'),
     utils = require('../helpers/utils'),
     errors = require('../helpers/errors'),
     ServerError = errors.ServerError,
-    AccessToken = require('../models/accessToken');
+    AccessToken = require('../models/accessToken'),
+    UAParser = require('ua-parser-js'),
+    bcrypt = require('bcrypt-nodejs');
 
 let userResult = (token, user) => ({
     token,
@@ -14,19 +16,78 @@ let userResult = (token, user) => ({
         id: user._id
     }
 }),
+    logOffOnAll = (res, req, next) => {
+        AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
+            require('async').each(currentTokens, (token, cb) => {
+                token.blocked = true;
+                currentTokens[i].update(token, (err, raw) => {
+                    cb(err);
+                });
+            }, err => {
+                if (err)
+                    next(err);
+                else {
+                    req.logout();
+                    return req.json({ message: "All tokens are blocked." });
+                }
+            });
+        });
+    },
 
     successful = (req, res, next) => {
-        AccessToken.findOne({ user: req.user._id }, (err, token) => {
-            if (err) return next(err);
-            if (token)
-                return res.json(userResult(token.token, req.user));
+        AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
 
-            token = new AccessToken();
-            token.user = req.user._id;
-            token.token = utils.uid(24);
-            token.save((err, product) => {
+            if (err) return next(err);
+
+            let parser = new UAParser().setUA(req.headers['user-agent']),
+                browsername = parser.getBrowser().name,
+                osname = `${parser.getOS().name} ${parser.getOS().version}`,
+                lenght = currentTokens.length,
+                currentDate = new Date(),
+                headerToken = req.headers.authorization != null ? req.headers.authorization.substring(6) : "";//.substring(6);
+
+            if (currentTokens && lenght !== 0) {
+                for (let i = lenght; i--;) {
+                    let iToken = currentTokens[i]._doc;
+
+                    if (bcrypt.compareSync(headerToken, iToken) && !iToken.blocked) {
+                        let temp = new Date();
+                        temp.setMonth(temp.getMonth() - 6);
+                        if (iToken.created <= temp) {
+                            // nieuwe token nodig.
+                            iToken.blocked = true;
+                            currentTokens[i].update(iToken, (err, raw) => {
+                                if (err) next(err);
+                            });
+                            return res.logout();
+                        } else {
+                            iToken.created = currentDate.toISOString();
+
+                            currentTokens[i].update(iToken, (err, raw) => {
+                                if (err) next(err);
+                            });
+
+                            return res.json(userResult(iToken.token, req.user));
+                        }
+                    }
+                }
+            }
+
+            currentTokens = new AccessToken();
+            currentTokens.created = currentDate.toISOString();
+            currentTokens.user = req.user._id;
+            currentTokens.device = {
+                browsername,
+                osname
+            };
+
+            let t = utils.uid(200);
+
+            currentTokens.token = bcrypt.hashSync(t, 250);
+
+            currentTokens.save((err, product) => {
                 if (err) return next(err);
-                return res.json(userResult(product.token, req.user));
+                return res.json(userResult(t, req.user));
             });
         });
     },
@@ -56,6 +117,7 @@ router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out successfully' });
 });
+router.get('/logoffonall', logOffOnAll);
 
 //facebook
 router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));

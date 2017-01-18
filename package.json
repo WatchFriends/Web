@@ -49,12 +49,14 @@
     "passport-google-oauth": "^1.0.0",
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
+    "password-hash": "^1.2.2",
     "request": "^2.79.0",
     "rxjs": "5.0.3",
     "socket.io": "^1.7.2",
     "socket.io-client": "^1.7.2",
     "ts-helpers": "^1.1.2",
-    "zone.js": "^0.7.6"
+    "zone.js": "^0.7.6",
+    "ua-parser-js": "^0.7.12"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.4.3",
