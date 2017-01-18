@@ -16,7 +16,7 @@
             <a (click)="loadMore()" class="btn btn-primary" role="button">Load More</a>
         </div>
     </div>
-    <div *ngIf="events && events != {}" class="alert alert-info" role="alert">
+    <div *ngIf="events && events.docs.length === 0" class="alert alert-info" role="alert">
         <p>No friend activity found.</p>
     </div>
 </div>
