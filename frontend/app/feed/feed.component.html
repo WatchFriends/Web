@@ -1,4 +1,7 @@
 <div class="container">
+    <div class="alert alert-info" role="alert" [style.display]="alertDisplay">
+        <a (click)="updateFeed()" class="alert-link"></a>
+    </div>
     <div *ngFor="let event of events; let i=index" >
         <div class="panel panel-default">
             <div class="panel-heading">{{event.time}}</div>
