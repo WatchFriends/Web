@@ -1,25 +1,41 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-5">
-            <img [src]="series?.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series?.poster_path :''" />
+<div class="container" *ngIf="series">
+    <div class="detail">
+        <div class="row">
+            <div class="col-md-5">
+                <img class="poster"
+                     [src]="series.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series.poster_path :''"/>
+                <button type="button" class="btn" [class.btn-default]="!series.following"
+                        [class.btn-info]="series.following" (click)="changeFollowed()">
+                <span class="glyphicon" [class.glyphicon-plus]="!series.following"
+                      [class.glyphicon-ok]="series.following"
+                      aria-hidden="true"></span> Follow {{series.name}}
+                </button>
+            </div>
+            <div class="col-md-7">
+                <div class="row">
+                    <p>{{series.name}}</p>
+                    <p>Released on: {{series.first_air_date}}</p>
+                    <p ng-show="!series.last_air_date">Ended on: {{series.last_air_date}}</p>
+                    <p>{{series.overview}}</p>
+
+                    <p>Genres
+                    </p>
+                    <ul class="list-inline">
+                        <li *ngFor="let genres of series.genres"><span
+                                class="label label-primary">{{genres.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-success">Seasons</li>
+                        <li class="list-group-item" *ngFor="let season of series.seasons">
+                            <a routerLink="/series/{{series.id}}/season{{season.season_number}}">Season
+                                {{season.season_number}} - {{season.episode_count}} episodes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="col-md-7">
-            <p>{{series?.name}}</p>
-            <p>Released on: {{series?.first_air_date}}</p>
-            <p ng-show="!series?.last_air_date">Ended on: {{series?.last_air_date}}</p>
-            <p>{{series?.overview}}</p>
-
-            <p>Genres
-            </p>
-            <ul class="list-inline">
-                <li *ngFor="let genres of series?.genres"><span class="label label-primary">{{genres.name}}</span></li>
-            </ul>
-        </div>
-
-        <!--todo: check if user is following series: true -> show unfollow button; false -> show follow button; not logged in -> no button; add follow/unfollow method -->
-
-        <button type="button" class="btn btn-default btn-lg">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
     </div>
 </div>

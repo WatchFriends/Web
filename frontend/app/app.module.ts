@@ -26,6 +26,7 @@ import {SettingsComponent} from './settings/settings.component';
 //selectors
 import {Wfseries} from './components/series/series.component';
 import {WfShadow} from './components/shadow/shadow.component';
+import {SocketService} from "./services/socket.service";
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import {WfShadow} from './components/shadow/shadow.component';
     providers: [
         UserService,
         AuthGuard,
-        ApiService
+        ApiService,
+        SocketService
     ],
     bootstrap: [AppComponent]
 })

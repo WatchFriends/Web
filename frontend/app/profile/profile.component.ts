@@ -1,9 +1,8 @@
 import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {ActivatedRoute, Params} from '@angular/router';
-import {ApiService, UserService} from '../services';
+import {ApiService, UserService, SocketService} from '../services';
 import {UserData, Series, Follower} from '../models';
-import * as io from 'socket.io-client';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -51,7 +50,7 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, public userService: UserService) {
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService, private socketsvc: SocketService) {
         route.params.subscribe((params: Params) => {
             let id = params['id'];
             if (!id) id = userService.id; // user's own profile            
@@ -61,7 +60,6 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.socket = io.connect('http://localhost:3000');
     }
 
     loadData(id: string) {
@@ -80,7 +78,7 @@ export class ProfileComponent implements OnInit {
                 givenName: this.user.name.givenName
             }, following: this.following
         }).subscribe();
-        this.socket.emit('event', {userId: this.user.id});
+        this.socketsvc.sendEventSocket();
         this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
     }
 
