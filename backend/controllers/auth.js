@@ -50,7 +50,7 @@ let userResult = (token, user) => ({
                 for (let i = lenght; i--;) {
                     let iToken = currentTokens[i]._doc;
 
-                    if (bcrypt.compareSync(headerToken, iToken)) {
+                    if (bcrypt.compareSync(headerToken, iToken) && !iToken.blocked) {
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
                         if (iToken.created <= temp) {
