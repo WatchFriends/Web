@@ -1,6 +1,7 @@
 const config = require('./config.json'),
     mongoose = require('mongoose'),
-    async = require('async'),
+    mongoosePaginate = require('mongoose-paginate');
+async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
     follower = require('../models/follower'),
@@ -208,7 +209,19 @@ module.exports = {
             cb(err)
         }
     },
-    getWFEventsByUserId: (userId, cb) => {
-        wfevent.find({userId: userId}).exec(cb);
+    getWFEventsByUserId: (userId, page, cb) => {
+        let options = {
+            sort: {time: -1},
+            page: page,
+            limit: 25
+        };
+        wfevent.paginate({userId: userId}, options, function (err, data) {
+            cb(err, data);
+        });
     }
+    /*
+     getWFEventsByUserId: (userId, cb) => {
+     wfevent.find({userId: userId}).exec(cb);
+     }
+     */
 };

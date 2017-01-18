@@ -16,8 +16,8 @@ router.put('/event', (req, res, next) => {
     dbService.addWFEvent(req.body, req.user, callback(res, next));
 });
 
-router.get('/feed', (req, res, next) => {
-    dbService.getWFEventsByUserId(req.user._id, callback(res, next));
+router.get('/feed/:page', (req, res, next) => {
+    dbService.getWFEventsByUserId(req.user._id, req.params.page, callback(res, next));
     /*
     //Get all users friends
     dbService.getFollows(req.user._id, (err, user) => {

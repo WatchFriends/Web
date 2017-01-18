@@ -1,13 +1,16 @@
-<div class="container">
+<div class="container feed" *ngIf="events">
     <div class="alert alert-info" role="alert" [style.display]="alertDisplay">
         <a (click)="updateFeed()" class="alert-link"></a>
     </div>
-    <div *ngFor="let event of events; let i=index" >
+    <div *ngFor="let event of events.docs; let i=index" >
         <div class="panel panel-default">
             <div class="panel-heading">{{event.time}}</div>
             <div class="panel-body">
                 <p><a routerLink="/profile/{{event.userId}}">{{event.userName}}</a><a routerLink="{{event.url}}">{{event.message}}</a></p>
             </div>
         </div>
+    </div>
+    <div *ngIf="page !== events.pages">
+        <a (click)="loadMore()" class="btn btn-primary" role="button">Load More</a>
     </div>
 </div>
