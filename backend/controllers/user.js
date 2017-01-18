@@ -2,7 +2,7 @@ const dbService = require('../data/databaseService.js'),
     express = require('express'),
     router = express.Router(),
     each = require('async').each,
-    seriesService = require('../service/series');
+    seriesService = require('../data/seriesService');
 
 const callback = (res, next) =>
     (err, data) => {
@@ -13,7 +13,21 @@ const callback = (res, next) =>
     };
 
 router.get('/user/search/:query', (req, res, next) => {
-    dbService.searchUsers(req.params.query, callback(res, next));
+    dbService.searchUsers(req.params.query, (err, data) => {
+        if(err) return next(err);
+        var results = [];
+        var i = data.length;
+        while(i--){
+            var u = data[i];
+            results.push({
+                id:u._id,
+                picture:u.picture,
+                name:u.name,
+                email:u.email
+            });
+        }
+        res.json(results);
+    });
 });
 
 router.get('/user/:id/followers', (req, res, next) => {
