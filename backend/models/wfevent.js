@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+    mongoosePaginate = require('mongoose-paginate'),
     Schema = mongoose.Schema;
 
 let eventsSchema = new Schema({
@@ -9,6 +10,8 @@ let eventsSchema = new Schema({
         time: {type: Date, default: Date.now}
     }, {versionKey: false}
 );
+
+eventsSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('wfevent', eventsSchema);
 
