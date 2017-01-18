@@ -52,7 +52,7 @@ let userResult = (token, user) => ({
 
                     let iToken = currentTokens[i]._doc;
 
-                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked && hash.verify(headerToken, iToken)) {
+                    if (hash.verify(headerToken, iToken)) {
 
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
