@@ -23,7 +23,7 @@ let userResult = (token, user) => ({
 
             token = new AccessToken();
             token.user = req.user._id;
-            token.token = utils.uid(24);
+            token.token = utils.uid(200);
             token.save((err, product) => {
                 if (err) return next(err);
                 return res.json(userResult(product.token, req.user));
