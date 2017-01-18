@@ -41,6 +41,7 @@ export class UserService implements User {
           this.subject.next(false);
         });
     }
+    else this._authenticated = false;
   }
 
   get name() { return this._name; };
@@ -51,7 +52,7 @@ export class UserService implements User {
   get picture() { return this._picture; };
 
   get authenticated$(): Observable<boolean>{
-    if(this._authenticated) return Observable.of(true);
+    if(this._authenticated !== undefined) return Observable.of(this._authenticated);
     return this.subject.asObservable();
   }
 

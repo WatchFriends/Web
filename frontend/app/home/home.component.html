@@ -6,7 +6,7 @@
                 <img class="logo" [src]="logoPng" alt="Logo Watchfriends"/>
                 <h1>Welcome to WatchFriends</h1>
                 <p class="text-big">Track your series and follow your friends</p>
-                <wfregister></wfregister>
+                <wfregister *ngIf="!user.authenticated"></wfregister>
             </div>
         </div>
 

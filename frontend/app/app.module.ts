@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {RouterModule,Route} from '@angular/router';
 import {DropdownModule, CollapseModule, TooltipModule} from 'ng2-bootstrap';
 // services
-import {ApiService, AuthGuard, UserService} from './services';
+import {ApiService, AuthGuard, UnAuthGuard, UserService, SocketService} from './services';
 import {SeriesImagePipe, UserImagePipe} from './pipes';
 // components
 import {AppComponent} from './app.component';
@@ -26,7 +26,6 @@ import {SettingsComponent} from './settings/settings.component';
 //selectors
 import {Wfseries} from './components/series/series.component';
 import {WfShadow} from './components/shadow/shadow.component';
-import {SocketService} from "./services/socket.service";
 
 
 @NgModule({
@@ -58,8 +57,8 @@ import {SocketService} from "./services/socket.service";
         TooltipModule.forRoot(),
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
-            {path: 'login', component: LoginComponent},
-            {path: 'register', component: RegisterComponent},
+            {path: 'login', component: LoginComponent, canActivate: [UnAuthGuard]},
+            {path: 'register', component: RegisterComponent, canActivate: [UnAuthGuard]},
             {path: 'explore', component: ExploreComponent},
             {path: 'search/:query', component: SearchComponent},
             {path: 'error', component: ErrorComponent},
@@ -75,6 +74,7 @@ import {SocketService} from "./services/socket.service";
     providers: [
         UserService,
         AuthGuard,
+        UnAuthGuard,
         ApiService,
         SocketService
     ],

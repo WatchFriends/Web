@@ -19,7 +19,7 @@ export class ExploreComponent  {
 
     loadLists() {
         this.api.getLists().subscribe((lists: List[]) => {
-            this.lists = lists;
+            this.lists = lists.sort((a,b) => a.name.localeCompare(b.name));
             this.activeList = this.lists[0].name;
         });
     }
@@ -30,27 +30,5 @@ export class ExploreComponent  {
         document.getElementById(tabName).style.display = "block";
         
         this.activeList = tabName;
-    }
-
-    loadmore(url: string) {
-
-        for (let i = this.lists.length; i--;) {
-            
-            let list: List = this.lists[i];
-
-            console.log(`${list.name}: ${list.page} of ${list.totalPages}`);
-
-            if (list.apiRequest === url) {
-
-                this.lists[i].page += 1;
-
-                this.api.get<Page>(`api/${url}/${list.page}`).subscribe((lists: Page) => {
-
-                    for (let s = lists.results.length; s--;) {                    
-                        this.lists[i].series.push(lists.results[s]);
-                    }
-                }); 
-            }
-        }
     }
 }

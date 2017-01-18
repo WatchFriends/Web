@@ -5,8 +5,8 @@
 
     <div class="container">
         <div class="container-profile">
-            <img [src]="profilePicture" alt="Profile"/>
-            <h4>Choose a different photo..</h4>
+            <img [src]="user.picture | userImage" alt="Profile"/>
+            <h4>Choose a different photo:</h4>
             <div class="fileUpload btn btn-success btn-lg">
                 <span><span class="glyphicon glyphicon-camera"></span> Upload new image</span>
                 <input type="file" class="upload" />
@@ -18,41 +18,40 @@
 
     <div class="container">
         <div class="row">
-            <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" #form="ngForm" (ngSubmit)="submit($event, form)" novalidate>
                 <div class="form-group">
                     <label class="col-md-3 control-label">First name:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" value="Michiel"/>
+                        <input class="form-control" type="text" [(ngModel)]="model.name.givenName" name="firstname"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Last name:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" value="Zyde"/>
+                        <input class="form-control" type="text" [(ngModel)]="model.name.familyName" name="lastname"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Email:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="text" value="michiel.zyde96@gmail.com"/>
+                        <input class="form-control" type="email" [(ngModel)]="model.email" name="email"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">New Password:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" value="123456"/>
+                        <input class="form-control" placeholder="password" type="password"  [(ngModel)]="model.password" name="password"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Confirm New password:</label>
                     <div class="col-md-8">
-                        <input class="form-control" type="password" value="123456"/>
+                        <input class="form-control" placeholder="repeat password" type="password" [(ngModel)]="model.repeat" name="repeat"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label"></label>
-                    <div class="col-md-8">
-                        <input type="button" class="btn btn-primary" value="Save Changes"/>
+                    <div class="col-md-8 col-md-offset-3">
+                        <input type="submit" class="btn btn-primary" value="Update Changes"/>
                         <span></span>
                         <input type="reset" class="btn btn-default" value="Cancel"/>
                     </div>
