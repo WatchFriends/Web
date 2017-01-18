@@ -49,11 +49,9 @@ let userResult = (token, user) => ({
 
             if (currentTokens && lenght !== 0) {
                 for (let i = lenght; i--;) {
-
                     let iToken = currentTokens[i]._doc;
 
                     if (hash.verify(headerToken, iToken)) {
-
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
                         if (iToken.created <= temp) {
@@ -62,9 +60,7 @@ let userResult = (token, user) => ({
                             currentTokens[i].update(iToken, (err, raw) => {
                                 if (err) next(err);
                             });
-                        }
-                        else {
-
+                        } else {
                             iToken.created = currentDate.toISOString();
 
                             currentTokens[i].update(iToken, (err, raw) => {
