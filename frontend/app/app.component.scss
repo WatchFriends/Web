@@ -2,11 +2,10 @@
 
 
 footer {
-  margin-top: -$footer-size;
+  margin: -$footer-size 0 0 0;
   background-color: $footer-color;
   width: 100%;
   padding: 15px 0;
-  margin: 0;
   height: $footer-size;
   
   p {

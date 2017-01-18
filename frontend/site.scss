@@ -42,7 +42,11 @@ header {
   text-align: center;
 }
 
-.feed {
+.detail{
   margin-top: $footer-header-margin;
   margin-bottom: $footer-header-margin;
+}
+
+.poster {
+  margin-bottom: $footer-header-margin / 2;
 }

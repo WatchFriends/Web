@@ -1,22 +1,25 @@
-<div class="container feed">
-    <div *ngIf="events">
-        <div class="alert alert-info" role="alert" [style.display]="alertDisplay">
-            <a (click)="updateFeed()" class="alert-link"></a>
-        </div>
-        <div *ngFor="let event of events.docs; let i=index">
-            <div class="panel panel-default">
-                <div class="panel-heading">{{event.time}}</div>
-                <div class="panel-body">
-                    <p><a routerLink="/profile/{{event.userId}}">{{event.userName}}</a><a routerLink="{{event.url}}">{{event.message}}</a>
-                    </p>
+<div class="container">
+    <div class="detail">
+        <div *ngIf="events">
+            <div class="alert alert-info" role="alert" [style.display]="alertDisplay">
+                <a (click)="updateFeed()" class="alert-link"></a>
+            </div>
+            <div *ngFor="let event of events.docs; let i=index">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{event.time}}</div>
+                    <div class="panel-body">
+                        <p><a routerLink="/profile/{{event.userId}}">{{event.userName}}</a><a
+                                routerLink="{{event.url}}">{{event.message}}</a>
+                        </p>
+                    </div>
                 </div>
             </div>
+            <div *ngIf="page !== events.pages">
+                <a (click)="loadMore()" class="btn btn-primary" role="button">Load More</a>
+            </div>
         </div>
-        <div *ngIf="page !== events.pages">
-            <a (click)="loadMore()" class="btn btn-primary" role="button">Load More</a>
+        <div *ngIf="events && events.docs.length === 0" class="alert alert-info" role="alert">
+            <p>No friend activity found.</p>
         </div>
-    </div>
-    <div *ngIf="events && events.docs.length === 0" class="alert alert-info" role="alert">
-        <p>No friend activity found.</p>
     </div>
 </div>
