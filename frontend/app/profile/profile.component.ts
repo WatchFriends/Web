@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
 
     changeContent(menu: Number) {
 
-        let actievementsMenu = document.querySelector('a[data-hover="My Watchlist"]'),
+        let achievementsMenu = document.querySelector('a[data-hover="My Watchlist"]'),
             watchlistMenu = document.querySelector('a[data-hover="Achievements"]');
 
         switch (menu) {
@@ -112,21 +112,21 @@ export class ProfileComponent implements OnInit {
                 this.watchlistDisplay = 'block';
                 this.achievementDisplay = 'none';
 
-                actievementsMenu.classList.add('active');
+                achievementsMenu.classList.add('active');
                 watchlistMenu.classList.remove('active');
                 break;
             case 1:
                 this.watchlistDisplay = 'none';
                 this.achievementDisplay = 'block';
 
-                actievementsMenu.classList.remove('active');
+                achievementsMenu.classList.remove('active');
                 watchlistMenu.classList.add('active');
                 break;
             default:
                 this.watchlistDisplay = 'block';
                 this.achievementDisplay = 'none';
 
-                actievementsMenu.classList.add('active');
+                achievementsMenu.classList.add('active');
                 watchlistMenu.classList.remove('active');
                 break;
         }
