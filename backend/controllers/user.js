@@ -32,59 +32,51 @@ router.put('/user/:follower/follows/:followed', (req, res, next) => {
     dbService.update(req.params.followed, req.params.follower, req.params.follows ? Date.now() : null, callback(res, next));
 });
 
-router.get('/user/:id', (req, res, next) => {
+router.get('/user/:id?', (req, res, next) => {    
+    dbService.getUser(req.params.id || req.user.id, (err, data) => {
+        if (err) return next(err);        
+        let user = {
+            id: data._id,
+            name: data.name,
+            email: data.email,
+            picture: data.picture,
+            
+        };
 
-    let user = {
-        id: req.params.id,
-        friends: {
-            followers: [],
-            follows: []
-        }
-    };
-
-    let functions = [
-        cb => dbService.getUser(user.id, (err, data) => {
-            if (err) return cb(err);
-
-            user["email"] = data._doc.email;
-            user["name"] = data._doc.name;
-            cb();
-        }),
-        cb => {
-            dbService.getFollows(user.id, (err, data) => {
-                if (err) return cb(err);
-
-                user.friends.follows = data;
+        let functions = [
+            cb => {
+                dbService.getFollows(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.follows = data;
+                    cb();
+                });
+            },
+            cb => {
+                dbService.getFollowers(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.followers = data;
+                    cb();
+                });
+            },
+            cb => {
+                user.achievements = [];
                 cb();
-            });
-        },
-        cb => {
-            dbService.getFollowers(user.id, (err, data) => {
-                if (err) return cb(err);
+            },
+            cb => {
+                seriesService.watchlist(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.watchlist = data;
+                    cb();
+                });
+            }
+        ];
 
-                user.friends.followers = data;
-                cb();
-            });
-        },
-        cb => {
-
-            user["achievements"] = [];
-            cb();
-        },
-        cb => {
-
-            seriesService.watchlist(user.id, (err, data) => {
-                if (err) cb(err);
-                user["watchlist"] = data;
-                cb();
-            });
-        }
-    ];
-
-    each(functions, (f, cb) => f(cb), err => {
-        if (err) next(err);
-        res.json(user);
+        each(functions, (f, cb) => f(cb), err => {
+            if (err) return next(err);
+            res.json(user);
+        });
     });
+
 
     // dbService.getUser(req.params.id, () => {
     //     callback(res, next);

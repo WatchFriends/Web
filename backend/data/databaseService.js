@@ -100,7 +100,7 @@ module.exports = {
 
     /* USER */
     getUser: (id, cb) =>
-        user.findById(id, {name: 1, email: 1, _id: 1}).exec(cb),
+        user.findById(id, {password:0, providers:0}).exec(cb),
 
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
@@ -110,7 +110,7 @@ module.exports = {
                 {'name.givenName': {'$regex': regexStr, '$options': 'i'}},
                 {'name.familyName': {'$regex': regexStr, '$options': 'i'}}
             ]
-        }).exec(cb);
+        }, {password:0, providers:0}).exec(cb);
     },
 
     /* FOLLOWER */

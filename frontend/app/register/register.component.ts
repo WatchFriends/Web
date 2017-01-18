@@ -3,11 +3,11 @@ import { UserService } from '../services';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'wflogin',
+  selector: 'wfregister',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class WfLogin implements OnInit {
+export class RegisterComponent {
 
   model = { email: '', password: '', password2: '', firstname: '', lastname: '' };
   submitted = false;
@@ -18,17 +18,13 @@ export class WfLogin implements OnInit {
     event.preventDefault();
     this.submitted = true;
     this.user.register(this.model).subscribe(
-      res => {//no error
+      res => { // no error
         this.error = null;
         this.submitted = false;
       },
-      err => {//error      
+      err => { // error      
         this.error = err;
         this.submitted = false;
       });
   }
-
-
-  ngOnInit() { }
-
 }

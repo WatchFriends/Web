@@ -3,7 +3,7 @@ import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import {ServerError} from './server-error';
 import {UserService} from './user.service';
-import {Follower, Season, Series, User, Page} from '../models';
+import {Follower, Season, Series, User, UserData, Page} from '../models';
 import {WFEvent} from "../models/wfevent";
 
 
@@ -49,7 +49,7 @@ export class ApiService {
     }
 
     getUser(id: string) {
-        return this.get<User>(`api/user/${id}`);
+        return this.get<UserData>(`api/user/${id}`);
     }
 
     searchUsers(query/*, page*/) {
