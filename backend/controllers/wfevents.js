@@ -2,9 +2,7 @@ const apiService = require('./../data/apiService'),
     dbService = require('./../data/databaseService'),
     express = require('express'),
     router = express.Router(),
-    errors = require('../helpers/errors'),
-    async = require('async'),
-    followedSeries = require('../models/followedSeries');
+    async = require('async');
 
 const callback = (res, next) =>
     (err, data) => {
@@ -14,18 +12,20 @@ const callback = (res, next) =>
         res.json(data);
     };
 
-router.post('/event', (req, res, next) => {
-    dbService.addEvent(req.body, req.user, callback(res, next));
+router.put('/event', (req, res, next) => {
+    dbService.addWFEvent(req.body, req.user, callback(res, next));
 });
 
 router.get('/feed', (req, res, next) => {
+    dbService.getWFEventsByUserId(req.user._id, callback(res, next));
+    /*
     //Get all users friends
-    apiService.request(`user/${req.user._id}/follows`, (err, user) => {
+    dbService.getFollows(req.user._id, (err, user) => {
         if (err) return next(err);
         let feed = [];
         //Get all activity by those friends
         async.each(user, (item, cb) => {
-            apiService.request(`user/${item._id}/events`, (err, events) => {
+            dbService.getWFEventsByUserId(req.user._id, (err, events) => {
                 if (err) return cb(err);
                 feed.push(events);
             });
@@ -37,9 +37,10 @@ router.get('/feed', (req, res, next) => {
                 b = new Date(b.time);
                 return a > b ? -1 : a < b ? 1 : 0;
             });
-            res.json(feed);
         });
+        res.json(feed);
     });
+    */
 });
 
 module.exports = router;

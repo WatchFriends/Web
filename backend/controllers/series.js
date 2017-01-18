@@ -4,7 +4,6 @@ const apiService = require('../data/apiService'),
     router = express.Router(),
     request = require('request'),
     errors = require('../helpers/errors'),
-    ServerError = errors.ServerError,
     async = require('async'),
     followedSeries = require('../models/followedSeries'),
     seriesService = require('../service/series');
@@ -56,7 +55,7 @@ router.get('/series/recommended', (req, res, next) => {
             if (err) return cb(err);
             dbService.addFollowedSeriesList(user, series, (err, data) => {
                 if (err) return cb(err);
-                results.push({ series: data, page: 1, total_pages: 1, total_results: data.length })
+                results.push({series: data, page: 1, total_pages: 1, total_results: data.length})
                 cb();
             });
         });
@@ -99,10 +98,38 @@ router.put('/followed/:series', (req, res, next) => {
     dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body, callback(res, next));
 });
 
+
+router.get('/series/user/watched/:series/season/:season', function (req, res) {
+    dbService.getWatchedEpisodesBySeriesSeasonId(req.params, req.user, (err, data) => {
+        if (err)
+            next(err);
+        else if (data === null)
+            next(new Error("Our service is temporarily unavailable"));
+        else
+            res.send(data);
+    })
+});
+
+
+
+router.get("/series/search/:query/:page", (req, res, next) => {
+
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
+
+    if (err) {
+        next(err);
+    }
+    else {
+        res.send(data);
+
+        }
+    });
+});
 router.get('/series/:id', (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, series) => {
         if (err) return next(err);
         dbService.addFollowedSeries(req.user.id, series, callback(res, next));
+
     });
 });
 

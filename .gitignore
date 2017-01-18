@@ -18,7 +18,6 @@ config.json
 
 #Visual Studio
 .vs
-typings
 bin
 obj
 
@@ -71,4 +70,3 @@ bower_components
 
 # wwwroot
 wwwroot
-/frontend/assets/lib/

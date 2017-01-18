@@ -4,20 +4,13 @@ const mongoose = require('mongoose'),
 let eventsSchema = new Schema({
         userId: String,
         userName: String,
-        params: [{
-            follow: {type: Boolean, default: false},
-            watch: {type: Boolean, default: false},
-            friendId: {type: String, default: ''},
-            seriesId: {type: Number, default: 0},
-            seasonId: {type: Number, default: 0},
-            episodeId: {type: Number, default: 0},
-            rating: {type: Number, default: 0}
-        }],
+        message: String,
+        url: String,
         time: {type: Date, default: Date.now}
     }, {versionKey: false}
 );
 
-module.exports = mongoose.model('userEvent', eventsSchema);
+module.exports = mongoose.model('wfevent', eventsSchema);
 
 /*
  * Beginning of feed

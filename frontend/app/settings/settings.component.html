@@ -1,0 +1,65 @@
+<div class="container-fluid">
+    <div class="row bg-splice">
+        <img [src]="backgroundProfile" alt="Profile Background"/>
+    </div>
+
+    <div class="container">
+        <div class="container-profile">
+            <img [src]="profilePicture" alt="Profile"/>
+            <h4>Choose a different photo..</h4>
+            <div class="fileUpload btn btn-success btn-lg">
+                <span><span class="glyphicon glyphicon-camera"></span> Upload new image</span>
+                <input type="file" class="upload" />
+            </div>
+        </div>
+    </div>
+
+   <wfshadow></wfshadow>
+
+    <div class="container">
+        <div class="row">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">First name:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" value="Michiel"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Last name:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" value="Zyde"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Email:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="text" value="michiel.zyde96@gmail.com"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">New Password:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="password" value="123456"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Confirm New password:</label>
+                    <div class="col-md-8">
+                        <input class="form-control" type="password" value="123456"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"></label>
+                    <div class="col-md-8">
+                        <input type="button" class="btn btn-primary" value="Save Changes"/>
+                        <span></span>
+                        <input type="reset" class="btn btn-default" value="Cancel"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
