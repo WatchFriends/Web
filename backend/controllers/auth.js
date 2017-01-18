@@ -59,6 +59,7 @@ let userResult = (token, user) => ({
                             currentTokens[i].update(iToken, (err, raw) => {
                                 if (err) next(err);
                             });
+                            return res.logout();
                         } else {
                             iToken.created = currentDate.toISOString();
 
