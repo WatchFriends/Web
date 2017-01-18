@@ -8,7 +8,8 @@ const express = require('express'),
     methodOverride = require('method-override'), //om http verbs te gebruiken
     errors = require('./helpers/errors'),
     ServerError = errors.ServerError,
-    config = require('./data/config.json');
+    config = require('./data/config.json'),
+    cookieParser = require('cookie-parser');
 
 //middleware
 app.use(logger('dev'));
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(passport.initialize());
+app.use(cookieParser());
 
 //wwwroot
 app.use(express.static(path.join(__dirname, '../wwwroot')));
@@ -35,7 +37,7 @@ app.use(['/data', '/api'], [
     (err, req, res, next) => {
         const status = err.status || 500;
         res.status(status);
-        res.json({ message: err.message || err || 'Server error', status});
+        res.json({ message: err.message || err || 'Server error', status });
     }
 ]);
 

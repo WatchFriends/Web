@@ -44,14 +44,14 @@ let userResult = (token, user) => ({
                 osname = `${parser.getOS().name} ${parser.getOS().version}`,
                 lenght = currentTokens.length,
                 currentDate = new Date(),
-                functions = [];
+                headerToken = req.headers.authorization;//.substring(6);
 
             if (currentTokens && lenght !== 0) {
                 for (let i = lenght; i--;) {
 
                     let iToken = currentTokens[i]._doc;
 
-                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked) {
+                    if (iToken.device.browsername === browsername && iToken.device.osname === osname && !iToken.blocked && iToken.token === headerToken) {
 
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
@@ -63,6 +63,7 @@ let userResult = (token, user) => ({
                             });
                         }
                         else {
+
                             iToken.created = currentDate.toISOString();
 
                             currentTokens[i].update(iToken, (err, raw) => {
