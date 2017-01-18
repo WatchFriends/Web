@@ -6,7 +6,7 @@ const express = require('express'),
     ServerError = errors.ServerError,
     AccessToken = require('../models/accessToken'),
     UAParser = require('ua-parser-js'),
-    hash = require('password-hash');
+    bcrypt = require('bcrypt-nodejs');
 
 let userResult = (token, user) => ({
     token,
@@ -50,7 +50,7 @@ let userResult = (token, user) => ({
                 for (let i = lenght; i--;) {
                     let iToken = currentTokens[i]._doc;
 
-                    if (hash.verify(headerToken, iToken)) {
+                    if (bcrypt.compareSync(headerToken, iToken)) {
                         let temp = new Date();
                         temp.setMonth(temp.getMonth() - 6);
                         if (iToken.created <= temp) {
@@ -83,7 +83,7 @@ let userResult = (token, user) => ({
 
             let t = utils.uid(200);
 
-            currentTokens.token = hash.generate(t);
+            currentTokens.token = bcrypt.hashSync(t, 250);
 
             currentTokens.save((err, product) => {
                 if (err) return next(err);
