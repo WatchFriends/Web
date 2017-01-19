@@ -38,7 +38,7 @@ export class UserService implements User {
           if (err.status === 401) // authentication failed -> token is invalid
             this.clearSavedToken();
           else console.error(err);
-          this.subject.next(false);
+          this.subject.next(this._authenticated = false);
         });
     }
     else this._authenticated = false;

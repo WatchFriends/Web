@@ -4,6 +4,7 @@ const config = require('./config.json'),
     async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
+    accessToken = require('../models/accessToken'),
     follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
     watchedEpisode = require('../models/watchedEpisode'),
@@ -97,6 +98,18 @@ module.exports = {
             watched: 0,
             __v: 0,
         }).exec(cb);
+    },
+    
+    /* TOKEN */
+    getTokenbyUser: (user, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 6);
+        accessToken.findOne({ user, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
+    },
+    getToken: (token, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 7);
+        accessToken.findOne({token, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
     },
 
     /* USER */

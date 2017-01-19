@@ -3,7 +3,7 @@
         <nav class="submenu">
             <div class="col-md-6">
                 <a data-hover="Series" class="submenu-item active" (click)="changeContent(0)">Series <span
-                        class="shadow-submenu_counter">{{totalResults}}</span></a>
+                        class="shadow-submenu_counter">{{page.totalResults}}</span></a>
             </div>
             <div class="col-md-6">
                 <a data-hover="Users" class="submenu-item" (click)="changeContent(1)">Users <span
@@ -13,7 +13,7 @@
     </div>
 
     <div class="row" [style.display]="seriesListDisplay">
-        <wfseries [(series)]="series" [apiUrl]="searchUrl" [(page)]="page" [(totalPages)]="totalPages"></wfseries>
+        <wfseries [(series)]="page.results" [apiUrl]="'series/search/' + query" [(page)]="page.page" [(totalPages)]="page.totalPages"></wfseries>
     </div>
 
 

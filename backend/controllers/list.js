@@ -16,7 +16,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, series) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular'});
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular', totalResults: data.total_results});
                     cb();
                 });
             });
@@ -41,7 +41,7 @@ let getLists = (req, res, next) => {
                     if (err) return cb(err);
                     dbService.addFollowedSeriesList(user, series, (err, data) => {
                         if (err) return cb(err);
-                        results.push({ series: data, page: 1, totalPages: 1, name: 'recommended' })
+                        results.push({ series: data, page: 1, totalPages: 1, name: 'recommended', totalResults: data.length });
                         cb();
                     });
                 });
@@ -55,7 +55,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, series) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today' });
+                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today', totalResults: data.total_results });
                     cb();
                 });
             });

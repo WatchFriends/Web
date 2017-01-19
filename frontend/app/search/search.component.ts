@@ -15,9 +15,7 @@ export class SearchComponent {
 
     series= new Array<Series>();
     @Input() users: User[];
-    page = 1;
-    totalPages;
-    totalResults;
+    page: Page<Series>;
     query: string;
     bgimage: 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     searchUrl: string;
@@ -25,12 +23,8 @@ export class SearchComponent {
     constructor(private route: ActivatedRoute, private api: ApiService) {
         route.params.subscribe(params => {
             this.query = params['query'];
-            this.api.searchUsers(this.query).subscribe(value => this.users = value, console.warn);
-            this.api.searchSeries(this.query, 1).subscribe(value => {
-                this.series = value.results;
-                this.totalPages = value.total_pages;
-                this.totalResults = value.total_results;
-            });
+            this.api.searchUsers(this.query).subscribe(value => this.users = value);
+            this.api.searchSeries(this.query, 1).subscribe(value => this.page = value);
             this.searchUrl = `series/search/${this.query}`;
         });
     }
