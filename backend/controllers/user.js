@@ -2,7 +2,8 @@ const dbService = require('../data/databaseService.js'),
     express = require('express'),
     router = express.Router(),
     each = require('async').each,
-    seriesService = require('../service/series');
+    seriesService = require('../service/series'),
+    achievementService = require('../service/achievement');
 
 const callback = (res, next) =>
     (err, data) => {
@@ -30,6 +31,17 @@ router.get('/user/:follower/follows/:followed', (req, res, next) => {
 
 router.put('/user/:follower/follows/:followed', (req, res, next) => {
     dbService.update(req.params.followed, req.params.follower, req.params.follows ? Date.now() : null, callback(res, next));
+});
+
+router.get('user/:id/achievements', (req, res, next) => {
+    achievementService.checkAchievements(req.user.id, (err, data) => {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.json(data);
+        }
+    });
 });
 
 router.get('/user/:id', (req, res, next) => {
@@ -67,12 +79,17 @@ router.get('/user/:id', (req, res, next) => {
             });
         },
         cb => {
-
-            user["achievements"] = [];
-            cb();
+            achievementService.checkAchievements(user.id, (err, data) => {
+                if (err) {
+                    cb(err);
+                }
+                else {
+                    user["achievements"] = data;
+                    cb();
+                }
+            });
         },
         cb => {
-
             seriesService.watchlist(user.id, (err, data) => {
                 if (err) cb(err);
                 user["watchlist"] = data;
