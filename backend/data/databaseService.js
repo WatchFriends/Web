@@ -1,5 +1,6 @@
 const config = require('./config.json'),
     mongoose = require('mongoose'),
+    mongoosePaginate = require('mongoose-paginate'),
     async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
@@ -105,7 +106,6 @@ module.exports = {
 
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
-        console.log(regexStr);
         user.find({
             '$or': [
                 { 'name.givenName': { '$regex': regexStr, '$options': 'i' } },
@@ -210,7 +210,15 @@ module.exports = {
             cb(err)
         }
     },
-    getWFEventsByUserId: (userId, cb) => {
-        wfevent.find({ userId: userId }).exec(cb);
+    getWFEventsByUserIds: (userIds, page, cb) => {
+        let options = {
+            sort: { time: -1 },
+            page: page,
+            limit: 25
+        };
+        wfevent.paginate({ userId: { $in: userIds } }, options, function (err, data) {
+            cb(err, data);
+        });
     }
+}
 };
