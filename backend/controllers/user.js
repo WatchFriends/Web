@@ -89,7 +89,6 @@ router.get('/user/:id?', (req, res, next) => {
                     user["achievements"] = data;
                     cb();                    
                 });
-                cb();
             },
             cb => {
                 seriesService.watchlist(user.id, (err, data) => {
