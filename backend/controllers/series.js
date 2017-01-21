@@ -6,7 +6,7 @@ const apiService = require('../data/apiService'),
     errors = require('../helpers/errors'),
     async = require('async'),
     followedSeries = require('../models/followedSeries'),
-    seriesService = require('../data/seriesService');
+    seriesService = require('../service/series');
 
 const callback = (res, next) =>
     (err, data) => {
