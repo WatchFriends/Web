@@ -7,7 +7,7 @@ module.exports = (function () {
 
     const _status = [
         {
-            name: 'Brons',
+            name: 'Bronze',
             color: '#D1A684'
         }, {
             name: 'Silver',
