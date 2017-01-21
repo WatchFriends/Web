@@ -14,7 +14,21 @@ const callback = (res, next) =>
     };
 
 router.get('/user/search/:query', (req, res, next) => {
-    dbService.searchUsers(req.params.query, callback(res, next));
+    dbService.searchUsers(req.params.query, (err, data) => {
+        if(err) return next(err);
+        var results = [];
+        var i = data.length;
+        while(i--){
+            var u = data[i];
+            results.push({
+                id:u._id,
+                picture:u.picture,
+                name:u.name,
+                email:u.email
+            });
+        }
+        res.json(results);
+    });
 });
 
 router.get('/user/:id/followers', (req, res, next) => {
@@ -44,68 +58,56 @@ router.get('user/:id/achievements', (req, res, next) => {
     });
 });
 
-router.get('/user/:id', (req, res, next) => {
+router.get('/user/:id?', (req, res, next) => {    
+    dbService.getUser(req.params.id || req.user.id, (err, data) => {
+        if (err) return next(err);        
+        let user = {
+            id: data._id,
+            name: data.name,
+            email: data.email,
+            picture: data.picture,            
+        };
 
-    let user = {
-        id: req.params.id,
-        friends: {
-            followers: [],
-            follows: []
-        }
-    };
-
-    let functions = [
-        cb => dbService.getUser(user.id, (err, data) => {
-            if (err) return cb(err);
-
-            user["email"] = data._doc.email;
-            user["name"] = data._doc.name;
-            cb();
-        }),
-        cb => {
-            dbService.getFollows(user.id, (err, data) => {
-                if (err) return cb(err);
-
-                user.friends.follows = data;
-                cb();
-            });
-        },
-        cb => {
-            dbService.getFollowers(user.id, (err, data) => {
-                if (err) return cb(err);
-
-                user.friends.followers = data;
-                cb();
-            });
-        },
-        cb => {
-            achievementService.checkAchievements(user.id, (err, data) => {
-                if (err) {
-                    cb(err);
-                }
-                else {
-                    user["achievements"] = data;
+        let functions = [
+            cb => {
+                dbService.getFollows(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.follows = data;
                     cb();
-                }
-            });
-        },
-        cb => {
-            seriesService.watchlist(user.id, (err, data) => {
-                if (err) cb(err);
-                user["watchlist"] = data;
-                cb();
-            });
-        }
-    ];
+                });
+            },
+            cb => {
+                dbService.getFollowers(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.followers = data;
+                    cb();
+                });
+            },
+            cb => {
+                achievementService.checkAchievements(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user["achievements"] = data;
+                    cb();                    
+                });
+            },
+            cb => {
+                seriesService.watchlist(user.id, (err, data) => {
+                    if (err) return cb(err);
+                    user.watchlist = data;
+                    cb();
+                });
+            }
+        ];
 
-    each(functions, (f, cb) => f(cb), err => {
-        if (err) next(err);
-        res.json(user);
+        each(functions, (f, cb) => f(cb), err => {
+            if (err) return next(err);
+            res.json(user);
+        });
     });
+});
 
-    // dbService.getUser(req.params.id, () => {
-    //     callback(res, next);
-    // });
+router.put('/user', (req, res, next) => {
+    dbService.updateUser(req.user.id, req.body, callback(res, next));
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@ const express = require('express'),
     ServerError = errors.ServerError,
     AccessToken = require('../models/accessToken'),
     UAParser = require('ua-parser-js'),
+    dbService = require('../data/databaseService'),
     bcrypt = require('bcrypt-nodejs');
 
 let userResult = (token, user) => ({
@@ -28,67 +29,52 @@ let userResult = (token, user) => ({
                     next(err);
                 else {
                     req.logout();
-                    return req.json({ message: "All tokens are blocked." });
+                    return req.json({ message: 'All tokens are blocked.' });
                 }
             });
         });
     },
 
     successful = (req, res, next) => {
-        AccessToken.find({ user: req.user._id }, (err, currentTokens) => {
+        const parser = new UAParser().setUA(req.headers['user-agent']),
+            browsername = parser.getBrowser().name,
+            os = parser.getOS(),
+            osname = `${os.name} ${os.version}`;
 
+        dbService.getTokenbyUser(req.user._id, osname, browsername, (err, result) => {
             if (err) return next(err);
-
-            let parser = new UAParser().setUA(req.headers['user-agent']),
-                browsername = parser.getBrowser().name,
-                osname = `${parser.getOS().name} ${parser.getOS().version}`,
-                lenght = currentTokens.length,
-                currentDate = new Date(),
-                headerToken = req.headers.authorization != null ? req.headers.authorization.substring(6) : "";//.substring(6);
-
-            if (currentTokens && lenght !== 0) {
-                for (let i = lenght; i--;) {
-                    let iToken = currentTokens[i]._doc;
-
-                    if (bcrypt.compareSync(headerToken, iToken) && !iToken.blocked) {
-                        let temp = new Date();
-                        temp.setMonth(temp.getMonth() - 6);
-                        if (iToken.created <= temp) {
-                            // nieuwe token nodig.
-                            iToken.blocked = true;
-                            currentTokens[i].update(iToken, (err, raw) => {
-                                if (err) next(err);
-                            });
-                            return res.logout();
-                        } else {
-                            iToken.created = currentDate.toISOString();
-
-                            currentTokens[i].update(iToken, (err, raw) => {
-                                if (err) next(err);
-                            });
-
-                            return res.json(userResult(iToken.token, req.user));
-                        }
-                    }
+            if (result) {
+                let temp = new Date();
+                temp.setMonth(temp.getMonth() - 6);
+                if (result.created > temp) { // token is valid
+                    return res.json(userResult(result.token, req.user));
                 }
+                result.blocked = true;
+                result.save(console.error);
             }
-
-            currentTokens = new AccessToken();
-            currentTokens.created = currentDate.toISOString();
-            currentTokens.user = req.user._id;
-            currentTokens.device = {
-                browsername,
-                osname
-            };
-
-            let t = utils.uid(200);
-
-            currentTokens.token = bcrypt.hashSync(t, 250);
-
-            currentTokens.save((err, product) => {
-                if (err) return next(err);
-                return res.json(userResult(t, req.user));
+            // nieuwe token
+            const token = utils.uid(200);
+            let accessToken = new AccessToken({
+                user: req.user._id,
+                device: {
+                    browsername,
+                    osname
+                },
+                token
             });
+            accessToken.save((err) => {
+                if(err) return next(err);
+                res.json(userResult(token, req.user))
+            })
+
+            /*bcrypt.hash(token, null, (err, hash) => {
+                if(err) return next(err);
+                accessToken.token = hash;
+                accessToken.save((err) => {
+                    if(err) return next(err);
+                    res.json(userResult(token, req.user))
+                })
+            });*/
         });
     },
 

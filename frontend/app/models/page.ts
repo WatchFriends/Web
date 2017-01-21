@@ -1,10 +1,10 @@
 import { Series } from './series';
 
-export class Page {
+export class Page<T> {
     constructor(
         public page: number,
-        public results: Series[],
-        public total_results: number,
-        public total_pages: number
+        public results: T[],
+        public totalResults: number,
+        public totalPages: number
     ) { }
 }

@@ -1,11 +1,14 @@
-import { Series } from './';
+import { Series, Page } from './';
 
-export class List {
+export class List extends Page<Series> {
     constructor(
+        results: Series[],
+        page: number,
+        totalPages: number,
+        totalResults: number,
         public name: string,
-        public series: Series[],
-        public apiRequest: string,
-        public page: number,
-        public totalPages: number
-    ) { }
+        public apiRequest: string
+    ) {
+        super(page, results, totalResults, totalPages)
+    }
 }

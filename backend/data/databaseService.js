@@ -4,6 +4,7 @@ const config = require('./config.json'),
     async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
+    accessToken = require('../models/accessToken'),
     follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
     watchedEpisode = require('../models/watchedEpisode'),
@@ -97,10 +98,31 @@ module.exports = {
                 __v: 0,
             }).exec(cb);
     },
+    
+    /* TOKEN */
+    getTokenbyUser: (user, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 6);
+        accessToken.findOne({ user, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
+    },
+    getToken: (token, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 7);
+        accessToken.findOne({token, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
+    },
 
     /* USER */
     getUser: (id, cb) =>
-        user.findById(id, { name: 1, email: 1, _id: 1 }).exec(cb),
+        user.findById(id, {password:0, providers:0}).exec(cb),
+
+    updateUser: (id, data, cb) => {
+        var update = {};
+        if(data.name)update.name = data.name;
+        if(data.email)update.email = data.email;
+        if(data.password)update.name = data.password;
+        if(data.picture)update.picture = data.picture;        
+        user.findByIdAndUpdate(id, update, cb);
+    },
 
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
@@ -109,7 +131,7 @@ module.exports = {
                 { 'name.givenName': { '$regex': regexStr, '$options': 'i' } },
                 { 'name.familyName': { '$regex': regexStr, '$options': 'i' } }
             ]
-        }).exec(cb);
+        }, {password:0, providers:0}).exec(cb);
     },
 
     /* FOLLOWER */
