@@ -136,3 +136,26 @@ p.text-big {
 
 }
 
+.wfregister {
+    width: 75%;
+    margin: auto;
+}
+
+.calltoaction {
+  border: 3px solid white;
+  width: 250px;
+  margin: 100px auto 0 auto;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.75s, color 0.75s; 
+  padding-top: 10px;
+}
+
+.calltoaction:hover {
+  background-color: white;
+  color: black;
+}
+
+.apppicture{
+  z-index: -9999;
+}

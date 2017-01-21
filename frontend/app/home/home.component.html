@@ -1,15 +1,29 @@
-
 <div class="detail">
     <div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageWelcome+')'">
         <div class="imagecontainer_content">
             <div class="container">
-                <img class="logo" [src]="logoPng" alt="Logo Watchfriends"/>
+                <img class="logo" [src]="logoPng" alt="Logo Watchfriends" />
                 <h1>Welcome to WatchFriends</h1>
                 <p class="text-big">Track your series and follow your friends</p>
-                <wfregister *ngIf="!user.authenticated"></wfregister>
+                <div *ngIf="!user.authenticated" class="calltoaction">
+                    <p class="text-big">Register now!</p>
+                    <p class="text-big"><span class="glyphicon glyphicon-chevron-down"></span></p>
+                </div>
             </div>
         </div>
 
+    </div>
+
+    <div *ngIf="!user.authenticated" class="contentcontainer" [style.height.px]="innerHeight" id="register">
+        <div class="contentcontainer_row">
+            <div class="col-md-6">
+                <h2 class="text-big">Registration is for free</h2>
+                <p class="text-big">And stays for free</p>
+            </div>
+            <div class="col-md-6">
+                <wfregister class="wfregister"></wfregister>
+            </div>
+        </div>
     </div>
 
     <div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageSeries+')'">
@@ -40,22 +54,19 @@
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <div class="item shadow-submenu_active">
-                            <img src="https://image.tmdb.org/t/p/w500/b8BgPfjNjSZHpX75TyWaj5GHZT1.jpg"
-                                 alt="The walking dead"/>
+                            <img src="https://image.tmdb.org/t/p/w500/b8BgPfjNjSZHpX75TyWaj5GHZT1.jpg" alt="The walking dead" />
                             <div class="carousel-caption">
                                 <p class="text-big"><a href="#">The walking dead</a></p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="https://image.tmdb.org/t/p/w500/1Dmrgwv8VcTWQOaoyWm71KOeFEE.jpg"
-                                 alt="Eastlanders"/>
+                            <img src="https://image.tmdb.org/t/p/w500/1Dmrgwv8VcTWQOaoyWm71KOeFEE.jpg" alt="Eastlanders" />
                             <div class="carousel-caption">
                                 <p class="text-big"><a href="#">Eastlanders</a></p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="https://image.tmdb.org/t/p/w500/igDhbYQTvact1SbNDbzoeiFBGda.jpg"
-                                 alt="Doctor who"/>
+                            <img src="https://image.tmdb.org/t/p/w500/igDhbYQTvact1SbNDbzoeiFBGda.jpg" alt="Doctor who" />
                             <div class="carousel-caption">
                                 <p class="text-big"><a href="#">Doctor Who</a></p>
                             </div>
@@ -93,11 +104,11 @@
                 <h2>Download the app for Android</h2>
                 <p class="text-big">Experience WatchFriends on mobile!</p>
                 <a href="#" target="_blank" class="googleplay">
-                    <img [src]="playStoreButton" alt="Go to Google play store"/>
+                    <img [src]="playStoreButton" alt="Go to Google play store" />
                 </a>
             </div>
             <div class="col-md-6">
-                <img [src]="androidApp" alt="Track your series" class="apppicture"/>
+                <img [src]="androidApp" alt="Track your series" class="apppicture" />
             </div>
         </div>
     </div>
