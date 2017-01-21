@@ -1,4 +1,7 @@
 const mongoose = require('mongoose'),
+    UAParser = require('ua-parser-js'),
+    bcrypt = require('bcrypt-nodejs'),
+    dbService = require('../data/databaseService'),
     passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
@@ -101,8 +104,12 @@ module.exports = config => {
         callbackURL: '/api/auth/google/callback',
     }, authify));
 
-    passport.use(new BearerStrategy((token, cb) =>
-        AccessToken.findOne({ token }, (err, accessToken) => {
+    passport.use(new BearerStrategy({ passReqToCallback: true }, (req, token, cb) => {
+        const parser = new UAParser().setUA(req.headers['user-agent']),
+            browsername = parser.getBrowser().name,
+            os = parser.getOS(),
+            osname = `${os.name} ${os.version}`;
+        dbService.getToken(token, osname, browsername, (err, accessToken) => {
             if (err) return cb(err);
             if (!accessToken) return cb(null, false);
             User.findById(accessToken.user, (err, user) => {
@@ -110,6 +117,6 @@ module.exports = config => {
                 if (!user) return cb(new Error('No user was found for this access token user id.'));
                 cb(null, user);
             });
-        })
-    ));
+        });
+    }));
 };

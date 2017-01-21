@@ -1,3 +1,4 @@
+
 <div class="detail">
     <div class="imagecontainer" [style.height.px]="innerHeight" [style.background-image]="'url('+imageWelcome+')'">
         <div class="imagecontainer_content">
@@ -5,7 +6,7 @@
                 <img class="logo" [src]="logoPng" alt="Logo Watchfriends"/>
                 <h1>Welcome to WatchFriends</h1>
                 <p class="text-big">Track your series and follow your friends</p>
-                <wflogin></wflogin>
+                <wfregister *ngIf="!user.authenticated"></wfregister>
             </div>
         </div>
 

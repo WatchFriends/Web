@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
 import {DropdownModule, CollapseModule, TooltipModule} from 'ng2-bootstrap';
 // services
-import {ApiService, AuthGuard, UserService} from './services';
+import {ApiService, AuthGuard, UnAuthGuard, UserService, SocketService} from './services';
 import {SeriesImagePipe, UserImagePipe} from './pipes';
 // components
 import {AppComponent} from './app.component';
@@ -15,18 +15,17 @@ import {SearchComponent} from './search/search.component';
 import {HomeComponent} from './home/home.component';
 import {ExploreComponent} from './explore/explore.component';
 import {LoginComponent} from './login/login.component';
-import {WfLogin} from './register/register.component';
+import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {SeriesDetailComponent} from './seriesdetail/seriesdetail.component';
 import {SeasonDetailComponent} from './seasondetail/seasondetail.component';
 import {ErrorComponent} from './error/error.component';
-import {FeedComponent} from "./feed/feed.component";
+import {FeedComponent} from './feed/feed.component';
+import {SettingsComponent} from './settings/settings.component';
 
 //selectors
-import {Wfseries} from "./components/series/series.component";
-import {SettingsComponent} from './settings/settings.component';
+import {Wfseries} from './components/series/series.component';
 import {WfShadow} from './components/shadow/shadow.component';
-import {SocketService} from "./services/socket.service";
 
 
 @NgModule({
@@ -35,7 +34,7 @@ import {SocketService} from "./services/socket.service";
         HomeComponent,
         NavComponent,
         LoginComponent,
-        WfLogin,
+        RegisterComponent,
         ExploreComponent,
         SearchComponent,
         ProfileComponent,
@@ -58,13 +57,12 @@ import {SocketService} from "./services/socket.service";
         TooltipModule.forRoot(),
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
-            {path: 'login', component: LoginComponent},
-            {path: 'register', component: WfLogin},
+            {path: 'login', component: LoginComponent, canActivate: [UnAuthGuard]},
+            {path: 'register', component: RegisterComponent, canActivate: [UnAuthGuard]},
             {path: 'explore', component: ExploreComponent},
-            {path: 'profile', component: ProfileComponent},
             {path: 'search/:query', component: SearchComponent},
             {path: 'error', component: ErrorComponent},
-            {path: 'settings', component: SettingsComponent},
+            {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]},
             {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}, // userprofile
             {path: 'profile/:id', component: ProfileComponent}, // friend profile
             {path: 'series/:id', component: SeriesDetailComponent},
@@ -76,6 +74,7 @@ import {SocketService} from "./services/socket.service";
     providers: [
         UserService,
         AuthGuard,
+        UnAuthGuard,
         ApiService,
         SocketService
     ],

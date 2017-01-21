@@ -21,8 +21,12 @@ const pagesCallback = (req, res, next) =>
         if (err) return next(err);
         dbService.addFollowedSeriesList(req.user._id, page.results, (err, series) => {
             if (err) return next(err);
-            page.results = series;
-            res.json(page)
+            res.json({
+                results: series,
+                page: page.page,
+                totalPages: page.total_pages,
+                totalResults: page.total_results
+            })
         });
     };
 
@@ -31,11 +35,11 @@ router.get('/series/search/:query/:page', (req, res, next) => {
 });
 
 router.get('/series/popular/:page', (req, res, next) => {
-    apiService.request(`tv/popular?language=en-us?page=${req.params.page}`, pagesCallback(req, res, next));
+    apiService.request(`tv/popular?language=en-us&page=${req.params.page}`, pagesCallback(req, res, next));
 });
 
 router.get('/series/today/:page', (req, res, next) => {
-    apiService.request(`tv/airing_today?language=en-us?page=${req.params.page}`, pagesCallback(req, res, next));
+    apiService.request(`tv/airing_today?language=en-us&page=${req.params.page}`, pagesCallback(req, res, next));
 });
 
 router.get('/series/recommended', (req, res, next) => {
