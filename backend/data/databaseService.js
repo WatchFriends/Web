@@ -11,12 +11,12 @@ const config = require('./config.json'),
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
-    getAchievementsByName: (name, cb) => achievement.find({ name }).exec(cb),
+    getAchievementsByName: (name, cb) => achievement.find({ name }, { _id: 0, achievement: 0 }).exec(cb),
 
     /* FOLLOWEDSERIES */
-    getFollowedSeries: (userId, cb) =>
-        followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb),
-
+    getFollowedSeries: (userId, cb) => {
+        followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb);
+    },
     updateFollowedSeries: (userId, seriesId, data, cb) =>
         followedSeries.update({ userId, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
 
@@ -115,8 +115,9 @@ module.exports = {
     },
 
     /* FOLLOWER */
-    getFollowers: (userId, cb) =>
-        follower.find({ userId }).exec(cb),
+    getFollowers: (userId, cb) => {
+        follower.find({ userId }).exec(cb);
+    },
 
     getFollows: (userId, cb) =>
         follower.find({ followerId: userId }).exec(cb),
