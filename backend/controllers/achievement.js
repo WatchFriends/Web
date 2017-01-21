@@ -1,4 +1,4 @@
-const service = require('../data/databaseService.js'),
+const service = require('../service/achievement'),
     express = require('express'),
     router = express.Router();
 

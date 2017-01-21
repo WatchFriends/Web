@@ -67,9 +67,14 @@ router.get('/user/:id', (req, res, next) => {
             });
         },
         cb => {
-
-            user["achievements"] = [];
-            cb();
+            require('../service/achievement').checkAchievements((err, data) => {
+                if (err) {
+                    cb(err);
+                }
+                else {
+                    user["achievements"] = data;
+                }
+            });
         },
         cb => {
 

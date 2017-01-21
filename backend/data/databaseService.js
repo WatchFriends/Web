@@ -11,19 +11,20 @@ const config = require('./config.json'),
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
+    getAchievementsByName: (name, cb) => achievement.find({ name }).exec(cb),
 
     /* FOLLOWEDSERIES */
     getFollowedSeries: (userId, cb) =>
-        followedSeries.find({userId, following: true}, {_id: 0, user: 0}).exec(cb),
+        followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb),
 
     updateFollowedSeries: (userId, seriesId, data, cb) =>
-        followedSeries.update({userId, seriesId}, data, {upsert: true, setDefaultsOnInsert: true}).exec(cb),
+        followedSeries.update({ userId, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
 
     findFollowedSeries: (userId, seriesId, cb) =>
-        followedSeries.findOne({userId, seriesId}, {_id: 0, user: 0, seriesId: 0}).exec(cb),
+        followedSeries.findOne({ userId, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
 
     addFollowedSeries: (userId, series, cb) => {
-        followedSeries.findOne({userId, seriesId: series.id}, {following: 1, rating: 1})
+        followedSeries.findOne({ userId, seriesId: series.id }, { following: 1, rating: 1 })
             .exec((err, followed) => {
 
                 if (err) return cb(err);
@@ -43,9 +44,9 @@ module.exports = {
                 results.push(series);
                 cb();
             }), err => {
-            if (err) return cb(err);
-            cb(null, results);
-        });
+                if (err) return cb(err);
+                cb(null, results);
+            });
     },
 
     /* EPISODE */
@@ -63,12 +64,12 @@ module.exports = {
         module.exports.existsWatchedEpisode(body, (err, count) => {
             if (count > 0) {
                 watchedEpisode.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId,
-                        seasonId: body.seasonId,
-                        episodeId: body.episodeId
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    seasonId: body.seasonId,
+                    episodeId: body.episodeId
 
-                    }, {
+                }, {
                         "$set": {
                             watched: body.watched
                         }
@@ -92,36 +93,36 @@ module.exports = {
             seriesId: params.series,
             seasonId: params.season
         }, {
-            userId: 0,
-            watched: 0,
-            __v: 0,
-        }).exec(cb);
+                userId: 0,
+                watched: 0,
+                __v: 0,
+            }).exec(cb);
     },
 
     /* USER */
     getUser: (id, cb) =>
-        user.findById(id, {name: 1, email: 1, _id: 1}).exec(cb),
+        user.findById(id, { name: 1, email: 1, _id: 1 }).exec(cb),
 
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
         console.log(regexStr);
         user.find({
             '$or': [
-                {'name.givenName': {'$regex': regexStr, '$options': 'i'}},
-                {'name.familyName': {'$regex': regexStr, '$options': 'i'}}
+                { 'name.givenName': { '$regex': regexStr, '$options': 'i' } },
+                { 'name.familyName': { '$regex': regexStr, '$options': 'i' } }
             ]
         }).exec(cb);
     },
 
     /* FOLLOWER */
     getFollowers: (userId, cb) =>
-        follower.find({userId}).exec(cb),
+        follower.find({ userId }).exec(cb),
 
     getFollows: (userId, cb) =>
-        follower.find({followerId: userId}).exec(cb),
+        follower.find({ followerId: userId }).exec(cb),
 
     getFollower: (userId, followerId, cb) =>
-        follower.findOne({userId, followerId}, {since}).exec((err, data) => {
+        follower.findOne({ userId, followerId }, { since }).exec((err, data) => {
             if (err) return cb(err);
             cb(null, data ? data.since : null);
         }),
@@ -129,10 +130,10 @@ module.exports = {
     updateFollower: (userId, followerId, since, cb) => {
         if (since) {
             // update or create
-            return follower.update({userId, followerId}, {since}, {upsert: true, setDefaultsOnInsert: true}).exec(cb);
+            return follower.update({ userId, followerId }, { since }, { upsert: true, setDefaultsOnInsert: true }).exec(cb);
         }
         // remove
-        follower.find({userId: followsId, followedId: userId}).remove().exec(cb);
+        follower.find({ userId: followsId, followedId: userId }).remove().exec(cb);
     },
 
     /* FEED */
@@ -209,6 +210,6 @@ module.exports = {
         }
     },
     getWFEventsByUserId: (userId, cb) => {
-        wfevent.find({userId: userId}).exec(cb);
+        wfevent.find({ userId: userId }).exec(cb);
     }
 };
