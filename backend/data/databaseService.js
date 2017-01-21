@@ -15,9 +15,7 @@ module.exports = {
     getAchievementsByName: (name, cb) => achievement.find({ name }, { _id: 0, achievement: 0 }).exec(cb),
 
     /* FOLLOWEDSERIES */
-    getFollowedSeries: (userId, cb) => {
-        followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb);
-    },
+    getFollowedSeries: (userId, cb) => followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb),
     updateFollowedSeries: (userId, seriesId, data, cb) =>
         followedSeries.update({ userId, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
 
