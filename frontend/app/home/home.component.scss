@@ -113,8 +113,10 @@ body, html {
 .apppicture {
   @media (min-width: $screen-md) {
     position: relative;
-    top: 145px;
+    top: 210px;
     z-index: 1;
+    
+  z-index: -9999;
   }
 
   @media (max-width: $screen-md) {
@@ -154,8 +156,4 @@ p.text-big {
 .calltoaction:hover {
   background-color: white;
   color: black;
-}
-
-.apppicture{
-  z-index: -9999;
 }
