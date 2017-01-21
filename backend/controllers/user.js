@@ -44,7 +44,7 @@ router.get('/user/:follower/follows/:followed', (req, res, next) => {
 });
 
 router.put('/user/:follower/follows/:followed', (req, res, next) => {
-    dbService.update(req.params.followed, req.params.follower, req.params.follows ? Date.now() : null, callback(res, next));
+    dbService.updateFollower(req.params.followed, req.params.follower, req.body.follows ? Date.now() : null, callback(res, next));
 });
 
 router.get('user/:id/achievements', (req, res, next) => {

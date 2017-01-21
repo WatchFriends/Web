@@ -9,7 +9,8 @@
             <h1><span class="bold">{{user.name.givenName}}</span> {{user.name.middleName}} {{user.name.familyName}}</h1>
             <p class="h4">Followed by {{user.followers.length}} people</p>
             <p class="h4">Follows {{user.follows.length}} people</p>
-            <a *ngIf="!myProfile" class="btn btn-lg" [class.btn-success]="!isFollowing" [class.btn-warning]="isFollowing" (click)="updateFollowing(!isFollowing)"><span class="glyphicon glyphicon-user"></span> Follow</a>
+            <a *ngIf="!myProfile" class="btn btn-lg" [class.btn-success]="!isFollowing" [class.btn-warning]="isFollowing" 
+            (click)="updateFollowing(!isFollowing)"><span class="glyphicon glyphicon-user"></span> {{ isFollowing ? 'Unfollow' : 'Follow' }}</a>
             <a *ngIf="myProfile" routerLink="/settings">Settings</a>
         </div>
     </div>
@@ -18,7 +19,7 @@
         <div class="container">
             <nav class="submenu">
                 <div class="col-md-6">
-                    <a data-hover="My Watchlist" class="submenu-item active" (click)="changeContent(0)">My Watchlist <span class="shadow-submenu_counter">{{user.watchlist.length}}</span></a>
+                    <a data-hover="Watchlist" class="submenu-item active" (click)="changeContent(0)">Watchlist <span class="shadow-submenu_counter">{{user.watchlist.length}}</span></a>
                 </div>
                 <div class="col-md-6">
                     <a data-hover="Achievements" class="submenu-item" (click)="changeContent(1)">Achievements <span class="shadow-submenu_counter">{{achievements.length}}</span></a>
