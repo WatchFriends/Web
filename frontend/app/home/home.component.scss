@@ -157,3 +157,37 @@ p.text-big {
   background-color: white;
   color: black;
 }
+
+.carousel {
+  .item.carousel-item.active {
+    width: 525px;
+    height: 700px;
+    display: block;
+
+    img {
+      width: 525px;
+      height: 700px;
+    }
+  }
+
+  .carousel-indicators li.active {
+    background-color: #fff;
+  }
+
+  .carousel-caption {
+    background-color: $imagecontainer_content-backgroundcolor;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+    padding-bottom: 60px;
+
+    h4 a {
+      color: white;
+    }
+  }
+  
+  .carousel-control {
+    cursor: pointer;
+  }
+}
