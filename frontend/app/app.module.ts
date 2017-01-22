@@ -1,6 +1,6 @@
 // packages
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, LOCALE_ID} from '@angular/core';
 import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
@@ -72,6 +72,7 @@ import {WfShadow} from './components/shadow/shadow.component';
         ])
     ],
     providers: [
+        { provide: LOCALE_ID, useValue: navigator.language || 'en-US' }, // voor datetime pipe
         UserService,
         AuthGuard,
         UnAuthGuard,

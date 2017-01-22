@@ -143,7 +143,7 @@ module.exports = {
         follower.find({ followerId: userId }).exec(cb),
 
     getFollower: (userId, followerId, cb) =>
-        follower.findOne({ userId, followerId }, { since }).exec((err, data) => {
+        follower.findOne({ userId, followerId }, {since: 1}).exec((err, data) => {
             if (err) return cb(err);
             cb(null, data ? data.since : null);
         }),
@@ -151,10 +151,10 @@ module.exports = {
     updateFollower: (userId, followerId, since, cb) => {
         if (since) {
             // update or create
-            return follower.update({ userId, followerId }, { since }, { upsert: true, setDefaultsOnInsert: true }).exec(cb);
+            return follower.update({ userId, followerId }, { since:1 }, { upsert: true, setDefaultsOnInsert: true }).exec(cb);
         }
         // remove
-        follower.find({ userId: followsId, followedId: userId }).remove().exec(cb);
+        follower.remove({ userId, followerId }, cb);
     },
 
     /* FEED */
@@ -162,7 +162,7 @@ module.exports = {
         let username = user.name.givenName + ' ' + user.name.familyName;
         let friendname;
         if (body.friend !== undefined) {
-            friendname = body.friend.name.givenName + ' ' + body.friend.name.familyName;
+            friendname = body.friend.givenName + ' ' + body.friend.familyName;
         }
         let newEvent = new wfevent({
             userId: user._id,
@@ -172,21 +172,22 @@ module.exports = {
         });
         let err = new Error('Provided parameters do not form a correct event!');
 
-        if (body.friendId !== undefined && body.friend !== undefined) {
-            if (body.following !== undefined) {
-                switch (body.following.toString()) {
-                    case 'true' || true:
-                        newEvent.message = ' is now following ' + friendname + '.';
-                        break;
-                    case 'false' || false:
-                        newEvent.message = ' is no longer following ' + friendname + '.';
-                        break;
-                }
-                newEvent.url = '/profile/' + body.friend.id;
-                newEvent.save(cb);
-            } else {
-                cb(err);
+        if (body.friend !== undefined && body.friend.id !== undefined) {
+            if (body.following === undefined) return cb(err);        
+
+            switch (body.following.toString()) {
+                case 'true' || true:
+                    newEvent.message = ' is now following ' + friendname + '.';
+                    break;
+                case 'false' || false:
+                    newEvent.message = ' is no longer following ' + friendname + '.';
+                    break;
+                default:
+                    return cb(err);
             }
+            newEvent.url = '/profile/' + body.friend.id;
+            newEvent.save(cb);
+
         } else if (body.seriesId !== undefined && body.seriesName) {
             if (body.seasonId !== undefined && body.watched !== undefined) {
                 if (body.episodeId !== undefined) {

@@ -12,7 +12,6 @@ import {UserData, Series, Follower} from '../models';
 export class ProfileComponent implements OnInit {
     user: UserData;
     series = new Array<Series>();
-    following: boolean;
     isFollowing: boolean; // is logged-in user following this user?
     myProfile: boolean; // is this the profile of logged-in user?
 
@@ -65,21 +64,24 @@ export class ProfileComponent implements OnInit {
     loadData(id: string) {
         this.api.getUser(id).subscribe(user => this.user = user, console.warn);
         if (!this.myProfile) {
-            this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
+            this.userService.authenticated$.subscribe(
+               value => {
+                   if(value) this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
+               }
+            );
         }
     }
 
     updateFollowing(following: boolean) {
-        this.isFollowing = following;
         this.api.addEvent({
             friend: {
-                friendId: this.user.id,
+                id: this.user.id,
                 familyName: this.user.name.familyName,
                 givenName: this.user.name.givenName
-            }, following: this.following
+            }, following
         }).subscribe();
         this.socketsvc.sendEventSocket();
-        this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
+        this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe(value => this.isFollowing = following);
     }
 
     transformHtml(html: string) {
