@@ -1,0 +1,16 @@
+<div *ngIf="seasons.length === 0">
+    <p class="h4">No seasons found</p>
+</div>
+<div *ngIf="seasons.length !== 0">
+    <section *ngFor="let item of seasons; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
+        <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
+            <img [src]="item.poster_path | seriesImage" [alt]="'season' + item.season_number" class="image-responsive" />
+        </a>
+        <div class="seriescontainer_content">
+            <h3>Season {{item.season_number}}</h3>
+            <p>
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </p>
+        </div>
+    </section>
+</div>

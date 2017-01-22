@@ -26,7 +26,7 @@ import { SettingsComponent } from './settings/settings.component';
 //selectors
 import { Wfseries } from './components/series/series.component';
 import { WfShadow } from './components/shadow/shadow.component';
-
+import { WfSeasons } from './components/seasons/seasons.component';
 
 @NgModule({
     declarations: [
@@ -46,7 +46,8 @@ import { WfShadow } from './components/shadow/shadow.component';
         UserImagePipe,
         Wfseries,
         SettingsComponent,
-        WfShadow
+        WfShadow,
+        WfSeasons
     ],
     imports: [
         BrowserModule,
