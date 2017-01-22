@@ -10,8 +10,8 @@
             <h3>{{item.name}}</h3>
             <p>
                 <span class="glyphicon glyphicon-eye-open"></span>
-                <span class="glyphicon" [class.glyphicon-plus]="!item.following" [class.glyphicon-ok]="item.following" 
-                 (click)="changeFollowed(item)" [tooltip]="(item.following ? 'unfollow' : 'follow') + ' this series'"></span>
+                <span class="glyphicon" [class.glyphicon-plus]="!item.following" [class.glyphicon-ok]="item.following" (click)="changeFollowed(item)"
+                    [tooltip]="(item.following ? 'unfollow' : 'follow') + ' this series'"></span>
             </p>
         </div>
     </section>

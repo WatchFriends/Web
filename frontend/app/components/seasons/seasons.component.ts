@@ -4,7 +4,7 @@ import { Page, Season } from '../../models';
 
 @Component({
     templateUrl: './seasons.component.html',
-    styleUrls: ['./seasons.component.scss'],
+    styleUrls: ['../sheared.component.scss'],
     selector: 'wfseasons'
 })
 export class WfSeasons implements OnInit {

@@ -2,7 +2,7 @@
     <p class="h4">No seasons found</p>
 </div>
 <div *ngIf="seasons.length !== 0">
-    <section *ngFor="let item of seasons; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
+    <section *ngFor="let item of seasons; let i=index" class="seriescontainer">
         <a [routerLink]="['/series', item.id]" class="seriescontainer_wrapper">
             <img [src]="item.poster_path | seriesImage" [alt]="'season' + item.season_number" class="image-responsive" />
         </a>
