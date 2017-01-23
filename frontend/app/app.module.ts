@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { DropdownModule, CollapseModule, TooltipModule, CarouselModule } from 'ng2-bootstrap';
 // services
 import { ApiService, AuthGuard, UnAuthGuard, UserService, SocketService } from './services';
-import { SeriesImagePipe, UserImagePipe } from './pipes';
+import { SeriesImagePipe, UserImagePipe, PosterImagePipe } from './pipes';
 // components
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -44,6 +44,7 @@ import { WfSeasons } from './components/seasons/seasons.component';
         FeedComponent,
         SeriesImagePipe,
         UserImagePipe,
+        PosterImagePipe,
         Wfseries,
         SettingsComponent,
         WfShadow,

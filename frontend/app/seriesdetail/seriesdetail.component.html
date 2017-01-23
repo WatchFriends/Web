@@ -1,32 +1,25 @@
 <div class="series" *ngIf="series">
 
     <div class="container">
-        <div class="detail">
-            <div class="row">
-                <div class="col-md-5">
-                    <img class="poster" [src]="series.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series.poster_path :''" />
-                </div>
-                <div class="col-md-7">
-                    <div class="row">
-                        <div class="series-details">
-                            <h1>{{series.name}}</h1>
-                            <p>Released on: {{series.first_air_date}}</p>
-                            <p ng-show="!series.last_air_date"> Ended on: {{series.last_air_date}}</p>
-                            <button type="button" class="btn btn-info" (click)="changeFollowed()">
-                                <span class="glyphicon" [class.glyphicon-plus]="!series.following" [class.glyphicon-ok]="series.following" (click)="changeFollowed(series)" [tooltip]="(series.following ? 'unfollow' : 'follow') + ' this series'"></span> 
-                                &nbsp;<span *ngIf="!series.following">Follow</span><span *ngIf="series.following">Unfollow</span> {{series.name}}
+        <div class="row detail">
+            <div class="col-md-5">
+                <img class="poster" [src]="series.poster_path | posterImage" />
+            </div>
+            <div class="col-md-7">
+                <div class="row series-margin">
+                    <div class="series-details">
+                        <h1>{{series.name}}</h1>
+                        <p>Released on: {{series.first_air_date}}</p>
+                        <p ng-show="!series.last_air_date">Ended on: {{series.last_air_date}}</p>
+                        <button type="button" class="btn btn-info" (click)="changeFollowed()">
+                            <span class="glyphicon" [class.glyphicon-plus]="!series.following" [class.glyphicon-ok]="series.following" (click)="changeFollowed(series)" [tooltip]="(series.following ? 'unfollow' : 'follow') + ' this series'"></span> &nbsp;
+                            <span *ngIf="!series.following">Follow</span><span *ngIf="series.following">Unfollow</span> {{series.name}}
                         </button>
-                        </div>
-                        <p>{{series.overview}}</p>
-
-                        <p>Genres
-                        </p>
-                        <ul class="list-inline">
-                            <li *ngFor="let genres of series.genres"><span class="label label-primary">{{genres.name}}</span>
-                            </li>
-                        </ul>
                     </div>
+                    <p>{{series.overview}}</p>
 
+                    <p>Genres:&nbsp;&nbsp;<span *ngFor="let genres of series.genres"><span class="label label-primary">{{genres.name}}</span>&nbsp;&nbsp;</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -34,7 +27,7 @@
 
     <div class="container-fluid">
         <div class="row">
-            <wfseasons [seasons]="series.seasons"></wfseasons>
+            <wfseasons [seasons]="series.seasons" [seriesId]="series.id"></wfseasons>
         </div>
     </div>
 </div>

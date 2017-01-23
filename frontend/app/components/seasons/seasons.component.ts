@@ -9,6 +9,7 @@ import { Page, Season } from '../../models';
 })
 export class WfSeasons implements OnInit {
     @Input() seasons: Season[];
+    @Input() seriesId: number;
 
     constructor(private user: UserService, private socketsvc: SocketService) {
     }

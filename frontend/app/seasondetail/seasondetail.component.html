@@ -1,0 +1,17 @@
+<div class="series" *ngIf="season">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <img [src]="season.poster_path | posterImage" [alt]="'poster of season ' + season.number" class="poster" />
+            </div>
+            <div class="col-md-7">
+                <h1 *ngIf="series" class="text-center"><a [href]="'/series/' + series.id">{{ series.name }}</a></h1>
+                <h2 class="text-center">{{ season.name }}</h2>
+                <p *ngIf="season.overview !== ''">{{ season.overview }}</p>
+                <p *ngIf="season.overview === ''">No description available for this season.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
