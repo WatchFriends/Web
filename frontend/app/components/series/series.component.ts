@@ -1,13 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ApiService, UserService, SocketService} from '../../services';
-import {Page, Series} from '../../models';
+import { Component, Input, OnInit } from '@angular/core';
+import { ApiService, UserService, SocketService } from '../../services';
+import { Page, Series } from '../../models';
 
 @Component({
     templateUrl: './series.component.html',
-    styleUrls: ['./series.component.scss'],
+    styleUrls: ['../sheared.component.scss'],
     selector: 'wfseries'
 })
-export class Wfseries implements OnInit{
+export class Wfseries implements OnInit {
     @Input() series: Series[];
     @Input() page: number;
     @Input() totalPages: number;
@@ -16,16 +16,16 @@ export class Wfseries implements OnInit{
     constructor(private api: ApiService, private user: UserService, private socketsvc: SocketService) {
     }
 
-    ngOnInit(){
+    ngOnInit() {
     }
 
     changeFollowed(series) {
         if (!series.following_change_active) {
             series.following = !series.following;
             series.following_change_active = 1;
-            this.api.addEvent({seriesId: series.id, seriesName: series.name, following: series.following}).subscribe();
+            this.api.addEvent({ seriesId: series.id, seriesName: series.name, following: series.following }).subscribe();
             this.socketsvc.sendEventSocket();
-            this.api.updateFollowedSeries(series.id, {following: series.following}).subscribe(ok => series.following_change_active = undefined);
+            this.api.updateFollowedSeries(series.id, { following: series.following }).subscribe(ok => series.following_change_active = undefined);
         }
     }
 

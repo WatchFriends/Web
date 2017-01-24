@@ -11,5 +11,4 @@ export class WfShadow implements OnInit {
 
   ngOnInit() {
   }
-
 }

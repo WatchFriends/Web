@@ -114,9 +114,7 @@ body, html {
   @media (min-width: $screen-md) {
     position: relative;
     top: 210px;
-    z-index: 1;
-    
-  z-index: -9999;
+    z-index: -9999;
   }
 
   @media (max-width: $screen-md) {
