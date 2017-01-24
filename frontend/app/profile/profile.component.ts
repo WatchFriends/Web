@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
     watchlistDisplay: String = 'block';
     achievementDisplay: String = 'none';
-    socket: any = null;
 
     achievements = [
         {
@@ -94,7 +93,7 @@ export class ProfileComponent implements OnInit {
 
     changeContent(menu: Number) {
 
-        let actievementsMenu = document.querySelector('a[data-hover="My Watchlist"]'),
+        let achievementsMenu = document.querySelector('a[data-hover="My Watchlist"]'),
             watchlistMenu = document.querySelector('a[data-hover="Achievements"]');
 
         switch (menu) {
@@ -102,21 +101,21 @@ export class ProfileComponent implements OnInit {
                 this.watchlistDisplay = 'block';
                 this.achievementDisplay = 'none';
 
-                actievementsMenu.classList.add('active');
+                achievementsMenu.classList.add('active');
                 watchlistMenu.classList.remove('active');
                 break;
             case 1:
                 this.watchlistDisplay = 'none';
                 this.achievementDisplay = 'block';
 
-                actievementsMenu.classList.remove('active');
+                achievementsMenu.classList.remove('active');
                 watchlistMenu.classList.add('active');
                 break;
             default:
                 this.watchlistDisplay = 'block';
                 this.achievementDisplay = 'none';
 
-                actievementsMenu.classList.add('active');
+                achievementsMenu.classList.add('active');
                 watchlistMenu.classList.remove('active');
                 break;
         }

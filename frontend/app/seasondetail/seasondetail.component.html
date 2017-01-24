@@ -1,0 +1,29 @@
+<div class="container" *ngIf="series && season">
+    <div class="detail">
+        <div class="row">
+            <div class="col-md-5">
+                <img class="poster"
+                     [src]="series.poster_path ? 'http://image.tmdb.org/t/p/w342'+ series.poster_path :''"/>
+            </div>
+            <div class="col-md-7">
+                <h1><a routerLink="/series/{{series.id}}">{{series.name}}</a> - Season {{season.season_number}}</h1>
+                <p>Released on: {{season.air_date}}</p>
+                <p>{{season.overview}}</p>
+            </div>
+        </div>
+        <div class="row row-accordion">
+            <accordion>
+                <accordion-group *ngFor="let episode of season.episodes">
+                    <div accordion-heading>
+                        Episode {{episode.episode_number}} - {{episode.name}}
+                        <!--
+                        <span class="pull-right float-right glyphicon" [class.glyphicon-eye-open]="!episode.watched" [class.glyphicon-eye-closed]="episode.watched"
+                              (click)="changeWatched(item)" [tooltip]="(item.watched ? 'unwatch' : 'watch') + ' this episode'"></span>
+                    -->
+                    </div>
+                    <p>{{episode.overview}}</p>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

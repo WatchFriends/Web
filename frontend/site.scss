@@ -47,6 +47,10 @@ header {
   margin-bottom: $footer-header-margin;
 }
 
-.poster {
-  margin-bottom: $footer-header-margin / 2;
+.panel-body.card-block p{
+  color: #000;
+}
+
+.row-accordion {
+  margin: 30px 0 90px 0;
 }

@@ -5,10 +5,12 @@ import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { DropdownModule, CollapseModule, TooltipModule, CarouselModule } from 'ng2-bootstrap';
+
 // services
 import { ApiService, AuthGuard, UnAuthGuard, UserService, SocketService } from './services';
 import { SeriesImagePipe, UserImagePipe } from './pipes';
 // components
+
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { SearchComponent } from './search/search.component';
@@ -56,6 +58,7 @@ import { WfShadow } from './components/shadow/shadow.component';
         DropdownModule.forRoot(),
         CollapseModule.forRoot(),
         TooltipModule.forRoot(),
+        AccordionModule.forRoot(),
         RouterModule.forRoot([
             { path: 'home', component: HomeComponent },
             { path: 'login', component: LoginComponent, canActivate: [UnAuthGuard] },

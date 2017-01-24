@@ -6,6 +6,7 @@ export class Episode {
         public name: string,
         public overview: string,
         public still_path: string,
-        public season_number: number
+        public season_number: number,
+        public watched: boolean
     ) { }
 }
