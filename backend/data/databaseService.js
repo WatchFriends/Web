@@ -4,6 +4,7 @@ const config = require('./config.json'),
     async = require('async'),
     achievement = require('../models/achievement'),
     user = require('../models/user'),
+    accessToken = require('../models/accessToken'),
     follower = require('../models/follower'),
     followedSeries = require('../models/followedSeries'),
     watchedEpisode = require('../models/watchedEpisode'),
@@ -12,19 +13,18 @@ const config = require('./config.json'),
 module.exports = {
     /* ACHIEVEMENTS */
     getAchievements: (cb) => achievement.find({}).exec(cb),
+    getAchievementsByName: (name, cb) => achievement.find({ name }, { _id: 0, achievement: 0 }).exec(cb),
 
     /* FOLLOWEDSERIES */
-    getFollowedSeries: (userId, cb) =>
-        followedSeries.find({userId, following: true}, {_id: 0, user: 0}).exec(cb),
-
+    getFollowedSeries: (userId, cb) => followedSeries.find({ userId, following: true }, { _id: 0, user: 0 }).exec(cb),
     updateFollowedSeries: (userId, seriesId, data, cb) =>
-        followedSeries.update({userId, seriesId}, data, {upsert: true, setDefaultsOnInsert: true}).exec(cb),
+        followedSeries.update({ userId, seriesId }, data, { upsert: true, setDefaultsOnInsert: true }).exec(cb),
 
     findFollowedSeries: (userId, seriesId, cb) =>
-        followedSeries.findOne({userId, seriesId}, {_id: 0, user: 0, seriesId: 0}).exec(cb),
+        followedSeries.findOne({ userId, seriesId }, { _id: 0, user: 0, seriesId: 0 }).exec(cb),
 
     addFollowedSeries: (userId, series, cb) => {
-        followedSeries.findOne({userId, seriesId: series.id}, {following: 1, rating: 1})
+        followedSeries.findOne({ userId, seriesId: series.id }, { following: 1, rating: 1 })
             .exec((err, followed) => {
 
                 if (err) return cb(err);
@@ -44,9 +44,9 @@ module.exports = {
                 results.push(series);
                 cb();
             }), err => {
-            if (err) return cb(err);
-            cb(null, results);
-        });
+                if (err) return cb(err);
+                cb(null, results);
+            });
     },
 
     /* EPISODE */
@@ -64,12 +64,12 @@ module.exports = {
         module.exports.existsWatchedEpisode(body, (err, count) => {
             if (count > 0) {
                 watchedEpisode.update({
-                        userId: body.userId,
-                        seriesId: body.seriesId,
-                        seasonId: body.seasonId,
-                        episodeId: body.episodeId
+                    userId: body.userId,
+                    seriesId: body.seriesId,
+                    seasonId: body.seasonId,
+                    episodeId: body.episodeId
 
-                    }, {
+                }, {
                         "$set": {
                             watched: body.watched
                         }
@@ -93,46 +93,68 @@ module.exports = {
             seriesId: params.series,
             seasonId: params.season
         }, {
-            userId: 0,
-            watched: 0,
-            __v: 0,
-        }).exec(cb);
+                userId: 0,
+                watched: 0,
+                __v: 0,
+            }).exec(cb);
+    },
+    
+    /* TOKEN */
+    getTokenbyUser: (user, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 6);
+        accessToken.findOne({ user, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
+    },
+    getToken: (token, osname, browsername, cb) => {
+        let cutoff = new Date();
+        cutoff.setMonth(cutoff.getMonth() - 7);
+        accessToken.findOne({token, 'device.osname': osname, 'device.browsername': browsername, blocked: false, created: { $gte: cutoff } }, cb);
     },
 
     /* USER */
     getUser: (id, cb) =>
-        user.findById(id, {name: 1, email: 1, _id: 1}).exec(cb),
+        user.findById(id, {password:0, providers:0}).exec(cb),
+
+    updateUser: (id, data, cb) => {
+        var update = {};
+        if(data.name)update.name = data.name;
+        if(data.email)update.email = data.email;
+        if(data.password)update.name = data.password;
+        if(data.picture)update.picture = data.picture;        
+        user.findByIdAndUpdate(id, update, cb);
+    },
 
     searchUsers: (query, cb) => {
         let regexStr = query.split(/ /).join('|');
         user.find({
             '$or': [
-                {'name.givenName': {'$regex': regexStr, '$options': 'i'}},
-                {'name.familyName': {'$regex': regexStr, '$options': 'i'}}
+                { 'name.givenName': { '$regex': regexStr, '$options': 'i' } },
+                { 'name.familyName': { '$regex': regexStr, '$options': 'i' } }
             ]
-        }).exec(cb);
+        }, {password:0, providers:0}).exec(cb);
     },
 
     /* FOLLOWER */
-    getFollowers: (userId, cb) =>
-        follower.find({userId}).exec(cb),
+    getFollowers: (userId, cb) => {
+        follower.find({ userId }).exec(cb);
+    },
 
     getFollows: (userId, cb) =>
-        follower.find({followerId: userId}).exec(cb),
+        follower.find({ followerId: userId }).exec(cb),
 
     getFollower: (userId, followerId, cb) =>
-        follower.findOne({userId: userId, followerId: followerId}, {_id: 0, userId: 0, followerId: 0}).exec((err, data) => {
-            if (err) cb(err, null);
-            cb(null, data? data.since : null);
+        follower.findOne({ userId, followerId }, {since: 1}).exec((err, data) => {
+            if (err) return cb(err);
+            cb(null, data ? data.since : null);
         }),
 
     updateFollower: (userId, followerId, since, cb) => {
         if (since) {
             // update or create
-            return follower.update({userId, followerId}, {since}, {upsert: true, setDefaultsOnInsert: true}).exec(cb);
+            return follower.update({ userId, followerId }, { since:1 }, { upsert: true, setDefaultsOnInsert: true }).exec(cb);
         }
         // remove
-        follower.find({userId: followsId, followedId: userId}).remove().exec(cb);
+        follower.remove({ userId, followerId }, cb);
     },
 
     /* FEED */
@@ -140,7 +162,7 @@ module.exports = {
         let username = user.name.givenName + ' ' + user.name.familyName;
         let friendname;
         if (body.friend !== undefined) {
-            friendname = body.friend.name.givenName + ' ' + body.friend.name.familyName;
+            friendname = body.friend.givenName + ' ' + body.friend.familyName;
         }
         let newEvent = new wfevent({
             userId: user._id,
@@ -150,21 +172,22 @@ module.exports = {
         });
         let err = new Error('Provided parameters do not form a correct event!');
 
-        if (body.friendId !== undefined && body.friend !== undefined) {
-            if (body.following !== undefined) {
-                switch (body.following.toString()) {
-                    case 'true' || true:
-                        newEvent.message = ' is now following ' + friendname + '.';
-                        break;
-                    case 'false' || false:
-                        newEvent.message = ' is no longer following ' + friendname + '.';
-                        break;
-                }
-                newEvent.url = '/profile/' + body.friend.id;
-                newEvent.save(cb);
-            } else {
-                cb(err);
+        if (body.friend !== undefined && body.friend.id !== undefined) {
+            if (body.following === undefined) return cb(err);        
+
+            switch (body.following.toString()) {
+                case 'true' || true:
+                    newEvent.message = ' is now following ' + friendname + '.';
+                    break;
+                case 'false' || false:
+                    newEvent.message = ' is no longer following ' + friendname + '.';
+                    break;
+                default:
+                    return cb(err);
             }
+            newEvent.url = '/profile/' + body.friend.id;
+            newEvent.save(cb);
+
         } else if (body.seriesId !== undefined && body.seriesName) {
             if (body.seasonId !== undefined && body.watched !== undefined) {
                 if (body.episodeId !== undefined) {
@@ -210,11 +233,11 @@ module.exports = {
     },
     getWFEventsByUserIds: (userIds, page, cb) => {
         let options = {
-            sort: {time: -1},
+            sort: { time: -1 },
             page: page,
             limit: 25
         };
-        wfevent.paginate({userId: {$in: userIds}}, options, function (err, data) {
+        wfevent.paginate({ userId: { $in: userIds } }, options, function (err, data) {
             cb(err, data);
         });
     }

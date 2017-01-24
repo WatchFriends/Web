@@ -2,7 +2,7 @@ import {Component, ViewEncapsulation, OnInit} from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 import {ActivatedRoute, Params} from '@angular/router';
 import {ApiService, UserService, SocketService} from '../services';
-import {User, Series, Follower} from '../models';
+import {UserData, Series, Follower} from '../models';
 
 @Component({
     templateUrl: './profile.component.html',
@@ -10,15 +10,11 @@ import {User, Series, Follower} from '../models';
     encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
-    user: User;
+    user: UserData;
     series = new Array<Series>();
-    followers: Follower[];
-    following: boolean;
-    id: string;
-    watchlist: Series[];
-    follows: Follower[]; // this user follows 'follows'
     isFollowing: boolean; // is logged-in user following this user?
     myProfile: boolean; // is this the profile of logged-in user?
+
     backgroundProfile: string = 'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
     profilePicture: string = 'https://scontent-frt3-1.xx.fbcdn.net/v/t1.0-9/14051786_1146069705449340_95700626649935794_n.jpg?oh=04be87d50b50a66ce9b42022df8b2fe5&oe=58E04019';
     watchlistDisplay: String = 'block';
@@ -54,11 +50,8 @@ export class ProfileComponent implements OnInit {
 
     constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService, private socketsvc: SocketService) {
         route.params.subscribe((params: Params) => {
-            this.watchlist = [];
-            this.followers = [];
-            this.follows = [];
             let id = params['id'];
-            if (!id) id = userService.id; // user's own profile
+            if (!id) id = userService.id; // user's own profile            
             this.myProfile = id === userService.id;
             this.loadData(id);
         });
@@ -68,29 +61,26 @@ export class ProfileComponent implements OnInit {
     }
 
     loadData(id: string) {
-        if (this.myProfile) {
-            this.user = this.userService;
+        this.api.getUser(id).subscribe(user => this.user = user, console.warn);
+        if (!this.myProfile) {
+            this.userService.authenticated$.subscribe(
+               value => {
+                   if(value) this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
+               }
+            );
         }
-        else {
-            this.api.getUser(id).subscribe(user => this.user = user, console.warn);
-            this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
-        }
-        this.api.getFollowedUsers(id).subscribe(values => this.followers = values);
-        this.api.getFollowsUsers(id).subscribe(values => this.follows = values);
-        this.api.getFollowedSeries(id).subscribe(values => this.watchlist = values);
     }
 
     updateFollowing(following: boolean) {
-        this.isFollowing = following;
         this.api.addEvent({
             friend: {
-                friendId: this.user.id,
+                id: this.user.id,
                 familyName: this.user.name.familyName,
                 givenName: this.user.name.givenName
-            }, following: this.following
+            }, following
         }).subscribe();
         this.socketsvc.sendEventSocket();
-        this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe();
+        this.api.updateFollowing(this.user.id, this.userService.id, following).subscribe(value => this.isFollowing = following);
     }
 
     transformHtml(html: string) {

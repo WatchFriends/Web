@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services';
+import { Router } from '@angular/router';
+import { UserService, AuthGuard } from '../services';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   error: { message: string, status: number };
 
-  constructor(private user: UserService) { }
+  constructor(private user: UserService, private router: Router, private authGuard: AuthGuard) { }
 
   ngOnInit() { }
 
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
       res => {//no error
         this.error = null;
         this.submitted = false;
+        this.router.navigateByUrl(this.authGuard.redirectUrl || 'home');
       },
       err => {//error      
         this.error = err;

@@ -31,11 +31,9 @@ export class Wfseries implements OnInit{
 
     loadmore() {
         if (this.page < this.totalPages) {
-            this.api.get(`api/${this.apiUrl}/${++this.page}`).subscribe((value: Page) => {
-                console.log(`${this.apiUrl}/${this.page}`);
+            this.api.get(`api/${this.apiUrl}/${++this.page}`).subscribe((value: Page<Series>) => {
                 this.series = this.series.concat(value.results);
-                this.totalPages = value.total_pages;
-                // this.totalResults = value.total_results;
+                this.totalPages = value.totalPages;
             });
         }
     }
