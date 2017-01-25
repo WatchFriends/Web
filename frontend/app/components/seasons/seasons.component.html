@@ -4,7 +4,7 @@
 <div *ngIf="seasons.length !== 0">
     <section *ngFor="let item of seasons; let i=index" class="seasoncontainer">
         <div class="seasoncontainer_wrapper">
-            <a [href]="'/series/' + seriesId + '/season/' + item.season_number">
+            <a [routerLink]="'/series/' + seriesId + '/season/' + item.season_number">
                 <img [src]="item.poster_path | posterImage" [alt]="'season' + item.season_number" class="image-responsive" />
             </a>
         </div>
