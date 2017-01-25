@@ -117,13 +117,8 @@ module.exports = {
 
     updateUser: (id, data, cb) => {
         var update = {};
-        if(data.name){
-            update.name = {
-                givenName: data.name.givenName,
-                middleName: data.name.middleName,
-                familyName: data.name.familyName,
-            }
-        }
+        if(data.name)update.name = data.name;
+        if(data.email)update.email = data.email;
         if(data.password)update.name = data.password;
         if(data.picture)update.picture = data.picture;        
         user.findByIdAndUpdate(id, update, cb);
@@ -141,11 +136,11 @@ module.exports = {
 
     /* FOLLOWER */
     getFollowers: (userId, cb) => {
-        follower.find({ userId }).exec(cb);
+        follower.find({ followerId: userId }).exec(cb);
     },
 
     getFollows: (userId, cb) =>
-        follower.find({ followerId: userId }).exec(cb),
+        follower.find({  userId }).exec(cb),
 
     getFollower: (userId, followerId, cb) =>
         follower.findOne({ userId, followerId }, {since: 1}).exec((err, data) => {
