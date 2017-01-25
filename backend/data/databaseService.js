@@ -136,11 +136,11 @@ module.exports = {
 
     /* FOLLOWER */
     getFollowers: (userId, cb) => {
-        follower.find({ userId }).exec(cb);
+        follower.find({ followerId: userId }).exec(cb);
     },
 
     getFollows: (userId, cb) =>
-        follower.find({ followerId: userId }).exec(cb),
+        follower.find({  userId }).exec(cb),
 
     getFollower: (userId, followerId, cb) =>
         follower.findOne({ userId, followerId }, {since: 1}).exec((err, data) => {

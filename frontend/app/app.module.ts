@@ -25,7 +25,6 @@ import { SettingsComponent } from './settings/settings.component';
 
 //selectors
 import { Wfseries } from './components/series/series.component';
-import { WfShadow } from './components/shadow/shadow.component';
 import { WfSeasons } from './components/seasons/seasons.component';
 
 @NgModule({
@@ -47,7 +46,6 @@ import { WfSeasons } from './components/seasons/seasons.component';
         PosterImagePipe,
         Wfseries,
         SettingsComponent,
-        WfShadow,
         WfSeasons
     ],
     imports: [
@@ -70,7 +68,7 @@ import { WfSeasons } from './components/seasons/seasons.component';
             { path: 'profile/:id', component: ProfileComponent }, // friend profile
             { path: 'series/:id', component: SeriesDetailComponent },
             { path: 'series/:id/season/:seasonId', component: SeasonDetailComponent },
-            { path: 'feed', component: FeedComponent },
+            { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
             { path: '**', redirectTo: 'home' },
         ])
     ],
