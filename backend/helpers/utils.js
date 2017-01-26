@@ -21,19 +21,17 @@ Array.prototype.random = function (max, repeat) {
 };
 
 Array.prototype.addUniqueValues = function(other, selector) {
-    var i = other.length;
+    let i = other.length;
     while(i--) {
-        var item = other[i];
-        var add = true;
-
-        var l = this.length;
+        const item = other[i];
+        let add = true;
+        let l = this.length;
         while(l--){
             if(selector && selector(item) === selector(this[l]) || !selector && item == this[l]){
                 add = false;
                 break;
             }
         }
-
         if(add) this.push(item);
     }
 }
