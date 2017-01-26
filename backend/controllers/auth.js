@@ -103,7 +103,7 @@ router.get('/logout', (req, res) => {
     req.logout();
     res.json({ message: 'logged out successfully' });
 });
-router.get('/logoffonall', logOffOnAll);
+router.get('/logoffonall', authenticate('bearer'), logOffOnAll);
 
 //facebook
 router.get('/facebook', passport.authenticate('facebook', { scope: 'email' }));
