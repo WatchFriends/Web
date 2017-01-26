@@ -23,12 +23,4 @@ export class ExploreComponent  {
             this.activeList = this.lists[0].name;
         });
     }
-
-    changeTab(tabName: string) {
-
-        document.getElementById(this.activeList).style.display = "none";
-        document.getElementById(tabName).style.display = "block";
-        
-        this.activeList = tabName;
-    }
 }

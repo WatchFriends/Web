@@ -47,7 +47,7 @@ router.get('/series/recommended', (req, res, next) => {
     let getsimilarseries = (followed, cb) => {
         apiService.request(`tv/${followed.seriesId}/similar`, (err, data) => {
             if (err) return cb(err);
-            series = Array.prototype.push.apply(series, data.results);
+            series.addUniqueValues(data.results, (series) => series.id);
             cb();
         });
     };
@@ -55,6 +55,8 @@ router.get('/series/recommended', (req, res, next) => {
     dbService.getFollowedSeries(user, (err, data) => {
         if (err) return cb(err);
         if (data === null || !data.length) return cb();
+        if (data.length > 5)
+            data = data.random(4);
         async.each(data, getsimilarseries, err => {
             if (err) return cb(err);
             dbService.addFollowedSeriesList(user, series, (err, data) => {
@@ -99,7 +101,7 @@ router.get('/followed', (req, res, next) => {
 });
 
 router.put('/followed/:series', (req, res, next) => {
-    dbService.updateFollowedSeries(req.body.user || req.user._id, req.params.series, req.body, callback(res, next));
+    dbService.updateFollowedSeries(req.params.user || req.user._id, req.params.series, req.body, callback(res, next));
 });
 
 
@@ -117,17 +119,7 @@ router.get('/series/user/watched/:series/season/:season', function (req, res) {
 
 
 router.get("/series/search/:query/:page", (req, res, next) => {
-
-    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, (err, data) => {
-
-    if (err) {
-        next(err);
-    }
-    else {
-        res.send(data);
-
-        }
-    });
+    apiService.request(`search/tv?query=${req.params.query}&page=${req.params.page}`, callback(res, next));
 });
 router.get('/series/:id', (req, res, next) => {
     apiService.request(`tv/${req.params.id}?append_to_response=images,similar`, (err, series) => {
