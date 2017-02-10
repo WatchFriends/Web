@@ -10,7 +10,7 @@ import { UserService, ApiService } from '../services';
 export class NavComponent {
 
   public loading = false;
-  public isCollapsed: boolean;
+  public isCollapsed = false;
 
   constructor(public router: Router, public user: UserService, public api: ApiService) {
     router.events.subscribe(this.routerEvent);

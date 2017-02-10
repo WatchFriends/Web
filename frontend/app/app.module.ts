@@ -23,7 +23,7 @@ import { ErrorComponent } from './error/error.component';
 import { FeedComponent } from './feed/feed.component';
 import { SettingsComponent } from './settings/settings.component';
 
-//selectors
+// selectors
 import { SeriesComponent } from './components/series/series.component';
 import { SeasonsComponent } from './components/seasons/seasons.component';
 

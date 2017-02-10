@@ -27,21 +27,23 @@ export class UserService implements User {
     this.useStorage = typeof (Storage) !== 'undefined';
     this._token = this.savedToken;
 
-    // else TODO cookie
     if (this._token) {
       // request for user data (checks token validity)
       http.get('/api/auth/login', { headers: new Headers({ 'Authorization': `Bearer ${this._token}` }) })
-        .subscribe(res => { 
-            this.handleResponse(res.json());
-            this.subject.next(true);
-          }, err => {
-          if (err.status === 401) // authentication failed -> token is invalid
+        .subscribe(res => {
+          this.handleResponse(res.json());
+          this.subject.next(true);
+        }, err => {
+          if (err.status === 401) { // authentication failed -> token is invalid
             this.clearSavedToken();
-          else console.error(err);
+          } else {
+            console.error(err);
+          }
           this.subject.next(this._authenticated = false);
         });
+    } else {
+      this._authenticated = false;
     }
-    else this._authenticated = false;
   }
 
   get name() { return this._name; };
@@ -51,8 +53,10 @@ export class UserService implements User {
   get authenticated() { return this._authenticated; };
   get picture() { return this._picture; };
 
-  get authenticated$(): Observable<boolean>{
-    if(this._authenticated !== undefined) return Observable.of(this._authenticated);
+  get authenticated$(): Observable<boolean> {
+    if (this._authenticated !== undefined) {
+      return Observable.of(this._authenticated);
+    }
     return this.subject.asObservable();
   }
 
@@ -67,7 +71,6 @@ export class UserService implements User {
 
     this._token = authResult.token;
     this.savedToken = this._token;
-    // else TODO cookie
   }
 
   post(url: string, data: any): Observable<AuthResult> {
@@ -98,20 +101,26 @@ export class UserService implements User {
   }
 
   clearSavedToken() {
-    if (this.useStorage)
+    if (this.useStorage) {
       localStorage.removeItem(tokenKey);
-    else Cookie.delete(tokenKey)
+    } else {
+      Cookie.delete(tokenKey);
+    }
   }
 
   get savedToken() {
-    if (this.useStorage)
+    if (this.useStorage) {
       return localStorage.getItem(tokenKey);
-    else return Cookie.get(tokenKey)
-  }
-  set savedToken(token: string) {
-    if (this.useStorage)
-      localStorage.setItem(tokenKey, this._token);
-    else Cookie.set(tokenKey, token);
+    } else {
+      return Cookie.get(tokenKey);
+    }
   }
 
+  set savedToken(token: string) {
+    if (this.useStorage) {
+      localStorage.setItem(tokenKey, this._token);
+    } else {
+      Cookie.set(tokenKey, token);
+    }
+  }
 }
