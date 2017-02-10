@@ -1,15 +1,20 @@
-import {Component, ViewEncapsulation, OnInit} from '@angular/core';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {ActivatedRoute, Params} from '@angular/router';
-import {ApiService, UserService, SocketService} from '../services';
-import {UserData, Series, Follower} from '../models';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { ActivatedRoute, Params } from '@angular/router';
+import { ApiService, UserService, SocketService } from '../services';
+import { UserData, Series, Follower } from '../models';
 
+enum Menus {
+    Watchlist = 0,
+    Achievements = 1
+}
 @Component({
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
 export class ProfileComponent implements OnInit {
+
     user: UserData;
     series = new Array<Series>();
     isFollowing: boolean; // is logged-in user following this user?
@@ -49,10 +54,13 @@ export class ProfileComponent implements OnInit {
         }
     ];
 
-    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService, private socketsvc: SocketService) {
+    constructor(private sanitizer: DomSanitizer, private route: ActivatedRoute, private api: ApiService, private userService: UserService,
+        private socketsvc: SocketService) {
         route.params.subscribe((params: Params) => {
             let id = params['id'];
-            if (!id) id = userService.id; // user's own profile            
+            if (!id) {
+                 id = userService.id; // user's own profile
+            }
             this.myProfile = id === userService.id;
             this.loadData(id);
         });
@@ -65,9 +73,11 @@ export class ProfileComponent implements OnInit {
         this.api.getUser(id).subscribe(user => this.user = user, console.warn);
         if (!this.myProfile) {
             this.userService.authenticated$.subscribe(
-               value => {
-                   if(value) this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
-               }
+                value => {
+                    if (value) {
+                        this.api.getFollower(id, this.userService.id).subscribe(value => this.isFollowing = value !== null);
+                    }
+                }
             );
         }
     }

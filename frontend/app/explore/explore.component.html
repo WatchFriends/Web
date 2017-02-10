@@ -1,15 +1,7 @@
 <div class="container-fluid">
-    <div class="container">
-        <nav class="submenu">
-            <div class="col-md-4" *ngFor="let list of lists; let i=index"> 
-                <a routerlink="list.name" data-hover="list.name" [class.active]="list.name === activeList" (click)="changeTab(list.name)">{{list.name}}</a>
-            </div>
-        </nav>
-    </div>
-
-    <div *ngFor="let list of lists; let i=index" > 
-        <div class="row" [style.display]="list.name !== activeList ? 'none' : 'block'" [id]="list.name">
-            <wfseries [(series)]="list.series" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wfseries>
-        </div>
-    </div>
+    <tabset *ngIf="lists">
+        <tab *ngFor="let list of lists; let i = index" [heading]="list.name" [active]="!i">
+            <wfseries [(series)]="list.results" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wfseries>
+        </tab>
+    </tabset>
 </div>

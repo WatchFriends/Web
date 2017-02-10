@@ -3,7 +3,7 @@ import {Http, Headers, RequestOptions, Response} from '@angular/http';
 import {Observable} from 'rxjs';
 import {ServerError} from './server-error';
 import {UserService} from './user.service';
-import {Follower, Season, Series, User, UserData, Page, WFEvent, WFEventsPage} from '../models';
+import {Follower, Season, Series, User, UserData, Page, WFEvent, WFEventsPage, List} from '../models';
 
 
 @Injectable()
@@ -88,7 +88,7 @@ export class ApiService {
     }
 
     getLists() {
-        return this.get(`api/list`);
+        return this.get<List[]>(`api/list`);
     }
 
     getPopularSeries(page: number) {

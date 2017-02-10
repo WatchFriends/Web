@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services';
 import { Page, List, Series } from '../models';
 
@@ -6,29 +6,15 @@ import { Page, List, Series } from '../models';
     templateUrl: './explore.component.html',
     styleUrls: ['./explore.component.scss']
 })
-export class ExploreComponent  {
+export class ExploreComponent implements OnInit {
 
     lists: List[];
-    activeList: string;
 
-    constructor(private api: ApiService) { } 
+    constructor(private api: ApiService) { }
 
     ngOnInit() {
-        this.loadLists();
-    }
-
-    loadLists() {
-        this.api.getLists().subscribe((lists: List[]) => {
-            this.lists = lists.sort((a,b) => a.name.localeCompare(b.name));
-            this.activeList = this.lists[0].name;
-        });
-    }
-
-    changeTab(tabName: string) {
-
-        document.getElementById(this.activeList).style.display = "none";
-        document.getElementById(tabName).style.display = "block";
-        
-        this.activeList = tabName;
+        this.api.getLists().subscribe(lists => 
+            console.log(this.lists = lists.sort((a, b) => a.name.localeCompare(b.name)))
+        );
     }
 }

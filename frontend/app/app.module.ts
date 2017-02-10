@@ -4,7 +4,7 @@ import {NgModule, LOCALE_ID} from '@angular/core';
 import {FormsModule, FormBuilder, NgControl} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from '@angular/router';
-import {DropdownModule, CollapseModule, TooltipModule} from 'ng2-bootstrap';
+import {DropdownModule, CollapseModule, TooltipModule, TabsModule} from 'ng2-bootstrap';
 // services
 import {ApiService, AuthGuard, UnAuthGuard, UserService, SocketService} from './services';
 import {SeriesImagePipe, UserImagePipe} from './pipes';
@@ -53,6 +53,7 @@ import {Wfseries} from './components/series/series.component';
         DropdownModule.forRoot(),
         CollapseModule.forRoot(),
         TooltipModule.forRoot(),
+        TabsModule.forRoot(),
         RouterModule.forRoot([
             {path: 'home', component: HomeComponent},
             {path: 'login', component: LoginComponent, canActivate: [UnAuthGuard]},

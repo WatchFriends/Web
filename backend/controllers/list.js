@@ -7,16 +7,16 @@ const apiService = require("./../data/apiService"),
 
 let getLists = (req, res, next) => {
     const user = req.user._id;
-    let results = [];
+    let result = [];
 
     let functions = [
         //popular
         cb => {
             apiService.request("tv/popular", (err, data) => {
                 if (err) return cb(err);
-                dbService.addFollowedSeriesList(user, data.results, (err, series) => {
+                dbService.addFollowedSeriesList(user, data.results, (err, results) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular', totalResults: data.total_results});
+                    result.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular', totalResults: data.total_results});
                     cb();
                 });
             });
@@ -39,9 +39,9 @@ let getLists = (req, res, next) => {
                 if (data === null || !data.length) return cb();
                 async.each(data, getsimilarseries, err => {
                     if (err) return cb(err);
-                    dbService.addFollowedSeriesList(user, series, (err, data) => {
+                    dbService.addFollowedSeriesList(user, series, (err, results) => {
                         if (err) return cb(err);
-                        results.push({ series: data, page: 1, totalPages: 1, name: 'recommended', totalResults: data.length });
+                        result.push({ results, page: 1, totalPages: 1, name: 'recommended', totalResults: data.length });
                         cb();
                     });
                 });
@@ -53,9 +53,9 @@ let getLists = (req, res, next) => {
         cb => {
             apiService.request("tv/airing_today", (err, data) => {
                 if (err) return cb(err);
-                dbService.addFollowedSeriesList(user, data.results, (err, series) => {
+                dbService.addFollowedSeriesList(user, data.results, (err, results) => {
                     if (err) return cb(err);
-                    results.push({ series, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today', totalResults: data.total_results });
+                    result.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today', totalResults: data.total_results });
                     cb();
                 });
             });
@@ -64,7 +64,7 @@ let getLists = (req, res, next) => {
 
     async.each(functions, (f, cb) => f(cb), err => {
         if (err) return next(err);
-        res.json(results);
+        res.json(result);
     })
 };
 
