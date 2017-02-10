@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { UserService } from '../services';
+import { UserService, ApiService } from '../services';
+import { CarouselModule } from 'ng2-bootstrap/carousel';
+import { Page, Series } from '../models';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -17,13 +19,17 @@ export class HomeComponent {
     public playStoreButton = 'assets/google_play_store_btn.png';
 
     public innerHeight: Number;
+    public series: Series[];
 
-    constructor(public user: UserService) {
+    constructor(public user: UserService, private api: ApiService) {
         const getHeight = () => window.innerHeight;
 
          Observable.fromEvent(window, 'resize')
             .map(getHeight)
             .startWith(getHeight())
             .subscribe(height => this.innerHeight = height);
+
+        api.getPopularSeries(1).subscribe(page => this.series = page.results);
     }
 }
+

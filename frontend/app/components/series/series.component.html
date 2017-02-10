@@ -1,5 +1,5 @@
 <div *ngIf="series.length === 0">
-    <p class="h4">No series found</p>
+    <p class="h4 text-center">No series found</p>
 </div>
 <div *ngIf="series.length !== 0">
     <section *ngFor="let item of series; let i=index" class="seriescontainer" [class.seriescontainer-big]="i<2">
@@ -10,15 +10,15 @@
             <h3>{{item.name}}</h3>
             <p>
                 <span class="glyphicon glyphicon-eye-open"></span>
-                <span class="glyphicon" [class.glyphicon-plus]="!item.following" [class.glyphicon-ok]="item.following" 
-                 (click)="changeFollowed(item)" [tooltip]="(item.following ? 'unfollow' : 'follow') + ' this series'"></span>
+                <span class="glyphicon" [class.glyphicon-plus]="!item.following" [class.glyphicon-ok]="item.following" (click)="changeFollowed(item)"
+                    [tooltip]="(item.following ? 'unfollow' : 'follow') + ' this series'"></span>
             </p>
         </div>
     </section>
 
     <div *ngIf="page !== totalPages">
         <section class="seriescontainer">
-            <a class="seriescontainer_wrapper" (click)="loadmore()">
+            <a class="seasoncontainer_wrapper" (click)="loadmore()">
                 <img src="/assets/images/imageloadmore.png" alt="load more" class="image-responsive" />
             </a>
             <div class="seriescontainer_content">

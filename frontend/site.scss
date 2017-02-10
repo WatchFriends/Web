@@ -29,7 +29,7 @@ header {
     to { transform: rotate(360deg); }
 }
 
-.loading{
+.loading {
   display: inline-block;
   position: fixed;
   top:0;
@@ -48,5 +48,7 @@ header {
 }
 
 .poster {
-  margin-bottom: $footer-header-margin / 2;
+  margin-bottom: $footer-header-margin;
+  width: 100%;
+  height: 100%;
 }

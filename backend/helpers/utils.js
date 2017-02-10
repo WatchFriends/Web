@@ -20,6 +20,22 @@ Array.prototype.random = function (max, repeat) {
     return this[Math.floor(Math.random() * this.length)];
 };
 
+Array.prototype.addUniqueValues = function(other, selector) {
+    let i = other.length;
+    while(i--) {
+        const item = other[i];
+        let add = true;
+        let l = this.length;
+        while(l--){
+            if(selector && selector(item) === selector(this[l]) || !selector && item == this[l]){
+                add = false;
+                break;
+            }
+        }
+        if(add) this.push(item);
+    }
+}
+
 module.exports = {
     uid: number => Array.from("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").random(number, true).join("")
 };

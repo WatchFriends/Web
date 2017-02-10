@@ -113,8 +113,8 @@ body, html {
 .apppicture {
   @media (min-width: $screen-md) {
     position: relative;
-    top: 145px;
-    z-index: 1;
+    top: 210px;
+    z-index: -9999;
   }
 
   @media (max-width: $screen-md) {
@@ -136,3 +136,56 @@ p.text-big {
 
 }
 
+.wfregister {
+    width: 75%;
+    margin: auto;
+}
+
+.calltoaction {
+  border: 3px solid white;
+  width: 250px;
+  margin: 100px auto 0 auto;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.75s, color 0.75s; 
+  padding-top: 10px;
+}
+
+.calltoaction:hover {
+  background-color: white;
+  color: black;
+}
+
+.carousel {
+  .item.carousel-item.active {
+    width: 525px;
+    height: 700px;
+    display: block;
+
+    img {
+      width: 525px;
+      height: 700px;
+    }
+  }
+
+  .carousel-indicators li.active {
+    background-color: #fff;
+  }
+
+  .carousel-caption {
+    background-color: $imagecontainer_content-backgroundcolor;
+    width: 100%;
+    margin: 0;
+    left: 0;
+    bottom: 0;
+    padding-bottom: 60px;
+
+    h4 a {
+      color: white;
+    }
+  }
+  
+  .carousel-control {
+    cursor: pointer;
+  }
+}

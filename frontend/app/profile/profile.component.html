@@ -11,7 +11,7 @@
             <p class="h4">Follows {{user.follows.length}} people</p>
             <a *ngIf="!myProfile" class="btn btn-lg" [class.btn-success]="!isFollowing" [class.btn-warning]="isFollowing" 
             (click)="updateFollowing(!isFollowing)"><span class="glyphicon glyphicon-user"></span> {{ isFollowing ? 'Unfollow' : 'Follow' }}</a>
-            <a *ngIf="myProfile" routerLink="/settings">Settings</a>
+            <a class="btn btn-success" *ngIf="myProfile" routerLink="/settings"><span class="glyphicon glyphicon-cog"></span>  Settings</a>
         </div>
     </div>
 

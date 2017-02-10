@@ -7,7 +7,7 @@ const apiService = require("./../data/apiService"),
 
 let getLists = (req, res, next) => {
     const user = req.user._id;
-    let result = [];
+    let lists = [];
 
     let functions = [
         //popular
@@ -16,7 +16,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, results) => {
                     if (err) return cb(err);
-                    result.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular', totalResults: data.total_results});
+                    lists.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/popular', name: 'popular', totalResults: data.total_results});
                     cb();
                 });
             });
@@ -28,8 +28,7 @@ let getLists = (req, res, next) => {
             let getsimilarseries = (followed, cb) => {
                 apiService.request(`tv/${followed.seriesId}/similar`, (err, data) => {
                     if (err) return cb(err);
-                    Array.prototype.push.apply(series, data.results);
-
+                    series.addUniqueValues(data.results, (series) => series.id);
                     cb();
                 });
             };
@@ -37,11 +36,13 @@ let getLists = (req, res, next) => {
             dbService.getFollowedSeries(user, (err, data) => {
                 if (err) return cb(err);
                 if (data === null || !data.length) return cb();
+                if(data.length > 5)
+                    data = data.random(4);
                 async.each(data, getsimilarseries, err => {
                     if (err) return cb(err);
                     dbService.addFollowedSeriesList(user, series, (err, results) => {
                         if (err) return cb(err);
-                        result.push({ results, page: 1, totalPages: 1, name: 'recommended', totalResults: data.length });
+                        lists.push({ results, page: 1, totalPages: 1, name: 'recommended', totalResults: data.length });
                         cb();
                     });
                 });
@@ -55,7 +56,7 @@ let getLists = (req, res, next) => {
                 if (err) return cb(err);
                 dbService.addFollowedSeriesList(user, data.results, (err, results) => {
                     if (err) return cb(err);
-                    result.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today', totalResults: data.total_results });
+                    lists.push({ results, page: 1, totalPages: data.total_pages, apiRequest: '/series/today', name: 'today', totalResults: data.total_results });
                     cb();
                 });
             });
@@ -64,7 +65,7 @@ let getLists = (req, res, next) => {
 
     async.each(functions, (f, cb) => f(cb), err => {
         if (err) return next(err);
-        res.json(result);
+        res.json(lists);
     })
 };
 
