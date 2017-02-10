@@ -8,22 +8,11 @@ import { Page, Season } from '../../models';
     selector: 'wf-seasons'
 })
 export class SeasonsComponent implements OnInit {
-    @Input() seasons: Season[];
-    @Input() seriesId: number;
+    @Input() public seasons: Season[];
+    @Input() public seriesId: number;
 
     constructor(private user: UserService, private socketsvc: SocketService) {
     }
 
-    ngOnInit() {
-    }
-
-    // changeFollowed(series) {
-    //     if (!series.following_change_active) {
-    //         series.following = !series.following;
-    //         series.following_change_active = 1;
-    //         this.api.addEvent({seriesId: series.id, seriesName: series.name, following: series.following}).subscribe();
-    //         this.socketsvc.sendEventSocket();
-    //         this.api.updateFollowedSeries(series.id, {following: series.following}).subscribe(ok => series.following_change_active = undefined);
-    //     }
-    // }
+    ngOnInit() {}
 }

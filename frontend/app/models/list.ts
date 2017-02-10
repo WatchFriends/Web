@@ -9,6 +9,6 @@ export class List extends Page<Series> {
         public name: string,
         public apiRequest: string
     ) {
-        super(page, results, totalResults, totalPages)
+        super(page, results, totalResults, totalPages);
     }
 }

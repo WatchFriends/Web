@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
 })
 export class ErrorComponent {
 
-  public bgImage: string = "http://ihdwallpapers.com/download/banshee_tv_series-1920x1080.jpg";
+  public bgImage: string = 'http://ihdwallpapers.com/download/banshee_tv_series-1920x1080.jpg';
 }

@@ -1,19 +1,17 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ApiService } from '../services';
 import { Series } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SocketService } from '../services';
+import { SocketService, ApiService } from '../services';
 
 @Component({
     templateUrl: './seriesdetail.component.html',
     styleUrls: ['./seriesdetail.component.scss']
 })
-
 export class SeriesDetailComponent implements OnInit {
-    series: Series;
-    id: number;
-    following_change_active: number;
 
+    public series: Series;
+    public id: number;
+    public following_change_active: number;
 
     constructor(private api: ApiService, private router: Router, private route: ActivatedRoute, private socketsvc: SocketService) {
         route.params.subscribe(params => {

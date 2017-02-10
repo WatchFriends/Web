@@ -13,7 +13,7 @@ export class ExploreComponent implements OnInit {
     constructor(private api: ApiService) { }
 
     ngOnInit() {
-        this.api.getLists().subscribe(lists => 
+        this.api.getLists().subscribe(lists =>
             console.log(this.lists = lists.sort((a, b) => a.name.localeCompare(b.name)))
         );
     }

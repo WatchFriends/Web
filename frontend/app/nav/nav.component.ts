@@ -25,6 +25,6 @@ export class NavComponent {
   }
 
   goToSearch(query: string) {
-    this.router.navigate(['./search', query])
+    this.router.navigate(['./search', query]);
   }
 }

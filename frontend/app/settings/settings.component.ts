@@ -10,7 +10,7 @@ import { User } from '../models';
 export class SettingsComponent implements OnInit {
 
   public model;
-  backgroundProfile =
+  public backgroundProfile =
   'http://wallpaperpawn.us/wp-content/uploads/2016/07/royal-wall-paper-minimalistic-pink-patterns-damask-royal-simple-wallpapers.jpg';
 
   constructor(public user: UserService, private api: ApiService) { }

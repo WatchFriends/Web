@@ -4,7 +4,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, FormBuilder, NgControl } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { DropdownModule, CollapseModule, TooltipModule,  TabsModule, CarouselModule } from 'ng2-bootstrap';
+import { CollapseModule, TooltipModule,  TabsModule, CarouselModule } from 'ng2-bootstrap';
 // services
 import { ApiService, AuthGuard, UnAuthGuard, UserService, SocketService } from './services';
 import { SeriesImagePipe, UserImagePipe, PosterImagePipe } from './pipes';
@@ -53,7 +53,6 @@ import { SeasonsComponent } from './components/seasons/seasons.component';
         FormsModule,
         HttpModule,
         CarouselModule.forRoot(),
-        DropdownModule.forRoot(),
         CollapseModule.forRoot(),
         TooltipModule.forRoot(),
         TabsModule.forRoot(),

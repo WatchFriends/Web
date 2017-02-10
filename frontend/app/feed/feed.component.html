@@ -1,7 +1,7 @@
 <div class="container">
     <div class="detail">
         <div *ngIf="events">
-            <div class="alert alert-info" role="alert" [style.display]="alertDisplay">
+            <div class="alert alert-info" role="alert" *ngIf="alertDisplay">
                 <a (click)="updateFeed()" class="alert-link"></a>
             </div>
             <div *ngFor="let event of events.docs; let i=index">

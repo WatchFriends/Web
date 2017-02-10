@@ -8,10 +8,10 @@ import { Page, Series } from '../../models';
     selector: 'wf-series'
 })
 export class SeriesComponent implements OnInit {
-    @Input() series: Series[];
-    @Input() page: number;
-    @Input() totalPages: number;
-    @Input() apiUrl: string;
+    @Input() public series: Series[];
+    @Input() public page: number;
+    @Input() public totalPages: number;
+    @Input() public apiUrl: string;
 
     constructor(private api: ApiService, private user: UserService, private socketsvc: SocketService) {
     }

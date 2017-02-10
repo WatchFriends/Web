@@ -8,7 +8,7 @@ import { WFEventsPage } from '../models';
 
 export class FeedComponent implements OnInit {
     public events: WFEventsPage;
-    public alertDisplay = 'none';
+    public alertDisplay = false;
     public count = 0;
     public page = 1;
 
@@ -16,16 +16,15 @@ export class FeedComponent implements OnInit {
 
     ngOnInit() {
         this.loadFeed();
-        this.socketsvc.socket.on('message', function (data) {
-            this.api.getFollower(data.userId, this.usersvc.id)
-                .subscribe(
-                since => {
+        this.socketsvc.message$
+            .subscribe(data => {
+                this.api.getFollower(data.userId, this.usersvc.id)
+                .subscribe( since => {
                     if (since !== null) {
                         this.updateNotification();
                     }
-                },
-                console.error);
-        }.bind(this));
+                });
+            });
     }
 
     private loadFeed() {
@@ -52,14 +51,14 @@ export class FeedComponent implements OnInit {
     }
 
     private updateNotification() {
-        this.alertDisplay = 'block';
+        this.alertDisplay = true;
         this.count++;
         let alert = document.querySelector('a[class="alert-link"]');
         alert.innerHTML = 'You have ' + this.count + ' new notification' + (this.count > 1 ? 's.' : '.');
     }
 
     public updateFeed() {
-        this.alertDisplay = 'none';
+        this.alertDisplay = false;
         this.count = 0;
         this.page = 1;
         this.loadFeed();
