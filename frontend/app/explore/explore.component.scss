@@ -1,10 +1,6 @@
 @import "../../_variables";
 @import "../shared/submenu";
 
-.tab-pane.active {
-   display: inline;
-}
-
 ul.nav.nav-tabs{
   display: flex;
   flex-direction: row;

@@ -8,7 +8,7 @@ import { Page, List, Series } from '../models';
 })
 export class ExploreComponent implements OnInit {
 
-    lists: List[];
+    public lists: List[];
 
     constructor(private api: ApiService) { }
 

@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="container-profile">
-            <img [src]="profilePicture" alt="Profile" />
+            <img [src]="user.picture | userImage" alt="Profile" />
             <h1><span class="bold">{{user.name.givenName}}</span> {{user.name.middleName}} {{user.name.familyName}}</h1>
             <p class="h4">Followed by {{user.followers.length}} people</p>
             <p class="h4">Follows {{user.follows.length}} people</p>
@@ -15,38 +15,32 @@
         </div>
     </div>
 
-    <div class="shadow">
-        <div class="container">
-            <nav class="submenu">
-                <div class="col-md-6">
-                    <a data-hover="Watchlist" class="submenu-item active" (click)="changeContent(0)">Watchlist <span class="shadow-submenu_counter">{{user.watchlist.length}}</span></a>
+    <tabset>
+        <tab>
+            <template tabHeading>
+                Watchlist <span class="shadow-submenu_counter">{{user.watchlist.length}}</span>
+            </template>
+            <wf-series [series]="user.watchlist"></wf-series>
+        </tab>
+        <tab>
+            <template tabHeading>
+                Achievements <span class="shadow-submenu_counter">{{user.achievements.length}}</span>
+            </template>
+            <div *ngIf="user.achievements.length != 0">
+                <div *ngFor="let item of user.achievements; let i = index" class="achievementscontainer">
+                    <h3>{{item.name}} ({{item.status}})</h3>
+                    <p class="h4">{{transformDescription(item.description, item.collected)}}</p>
+                    <div [innerHTML]="transformHtml(item.image)" [class]="item.status"></div>
+                    <div *ngIf="item.status != 'gold'">
+                        <p class="bold h4">Progress till next achievement:</p>
+                    </div>
+                    <div *ngIf="item.status == 'gold'">
+                        <p class="bold h4">Completed!</p>
+                    </div>
+                    <p class="h4">{{item.progress}}/{{item.next}}</p>
                 </div>
-                <div class="col-md-6">
-                    <a data-hover="Achievements" class="submenu-item" (click)="changeContent(1)">Achievements <span class="shadow-submenu_counter">{{achievements.length}}</span></a>
-                </div>
-            </nav>
-        </div>
-    </div>
-
-    <wfseries [series]="user.watchlist"></wfseries>
-</div>
-
-<div class="row bodybackground" [style.display]="achievementDisplay">
-    <div *ngIf="achievements.length == 0">
-        <p class="h4">Track or follow your series to collect achievements.</p>
-    </div>
-    <div *ngIf="achievements.length != 0">
-        <div *ngFor="let item of achievements; let i = index" class="achievementscontainer">
-            <h3>{{item.name}} ({{item.status}})</h3>
-            <p class="h4">{{transformDescription(item.description, item.collected)}}</p>
-            <div [innerHTML]="transformHtml(item.image)" [class]="item.status"></div>
-            <div *ngIf="item.status != 'gold'">
-                <p class="bold h4">Progress till next achievement:</p>
             </div>
-            <div *ngIf="item.status == 'gold'">
-                <p class="bold h4">Completed!</p>
-            </div>
-            <p class="h4">{{item.progress}}/{{item.next}}</p>
-        </div>
-    </div>
+        </tab>
+    </tabset>
+
 </div>

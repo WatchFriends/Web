@@ -5,9 +5,9 @@ import { Page, Season } from '../../models';
 @Component({
     templateUrl: './seasons.component.html',
     styleUrls: ['../sheared.component.scss'],
-    selector: 'wfseasons'
+    selector: 'wf-seasons'
 })
-export class WfSeasons implements OnInit {
+export class SeasonsComponent implements OnInit {
     @Input() seasons: Season[];
     @Input() seriesId: number;
 

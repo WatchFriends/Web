@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <tabset *ngIf="lists">
-        <tab *ngFor="let list of lists; let i = index" [heading]="list.name" [active]="!i">
-            <wfseries [(series)]="list.results" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wfseries>
+        <tab *ngFor="let list of lists" [heading]="list.name">
+            <wf-series [(series)]="list.results" [apiUrl]="list.apiRequest" [(page)]="list.page" [(totalPages)]="list.totalPages"></wf-series>
         </tab>
     </tabset>
 </div>

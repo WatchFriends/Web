@@ -4,7 +4,7 @@ import { UserService, AuthGuard } from '../services';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'wfregister',
+  selector: 'wf-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })

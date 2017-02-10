@@ -9,9 +9,9 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  model = { email: '', password: '' };
-  submitted = false;
-  error: { message: string, status: number };
+  public model = { email: '', password: '' };
+  public submitted = false;
+  public error: { message: string, status: number };
 
   constructor(private user: UserService, private router: Router, private authGuard: AuthGuard) { }
 
@@ -21,12 +21,12 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.submitted = true;
     this.user.login(this.model).subscribe(
-      res => {//no error
+      res => {// no error
         this.error = null;
         this.submitted = false;
         this.router.navigateByUrl(this.authGuard.redirectUrl || 'home');
       },
-      err => {//error      
+      err => {// error
         this.error = err;
         this.submitted = false;
       });

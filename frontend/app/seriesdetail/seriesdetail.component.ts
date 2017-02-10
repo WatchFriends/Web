@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../services';
 import { Series } from '../models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SocketService } from "../services/socket.service";
+import { SocketService } from '../services';
 
 @Component({
     templateUrl: './seriesdetail.component.html',
@@ -43,7 +43,8 @@ export class SeriesDetailComponent implements OnInit {
                 following: this.series.following
             }).subscribe();
             this.socketsvc.sendEventSocket();
-            this.api.updateFollowedSeries(this.series.id, { following: this.series.following }).subscribe(ok => this.following_change_active = undefined);
+            this.api.updateFollowedSeries(this.series.id, { following: this.series.following })
+                .subscribe(ok => this.following_change_active = undefined);
         }
     }
 }

@@ -24,8 +24,8 @@ import { FeedComponent } from './feed/feed.component';
 import { SettingsComponent } from './settings/settings.component';
 
 //selectors
-import { Wfseries } from './components/series/series.component';
-import { WfSeasons } from './components/seasons/seasons.component';
+import { SeriesComponent } from './components/series/series.component';
+import { SeasonsComponent } from './components/seasons/seasons.component';
 
 @NgModule({
     declarations: [
@@ -44,9 +44,9 @@ import { WfSeasons } from './components/seasons/seasons.component';
         SeriesImagePipe,
         UserImagePipe,
         PosterImagePipe,
-        Wfseries,
+        SeriesComponent,
         SettingsComponent,
-        WfSeasons
+        SeasonsComponent
     ],
     imports: [
         BrowserModule,

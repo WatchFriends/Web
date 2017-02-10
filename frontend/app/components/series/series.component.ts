@@ -5,9 +5,9 @@ import { Page, Series } from '../../models';
 @Component({
     templateUrl: './series.component.html',
     styleUrls: ['../sheared.component.scss'],
-    selector: 'wfseries'
+    selector: 'wf-series'
 })
-export class Wfseries implements OnInit {
+export class SeriesComponent implements OnInit {
     @Input() series: Series[];
     @Input() page: number;
     @Input() totalPages: number;
@@ -25,7 +25,8 @@ export class Wfseries implements OnInit {
             series.following_change_active = 1;
             this.api.addEvent({ seriesId: series.id, seriesName: series.name, following: series.following }).subscribe();
             this.socketsvc.sendEventSocket();
-            this.api.updateFollowedSeries(series.id, { following: series.following }).subscribe(ok => series.following_change_active = undefined);
+            this.api.updateFollowedSeries(series.id, { following: series.following })
+                .subscribe(ok => series.following_change_active = undefined);
         }
     }
 
